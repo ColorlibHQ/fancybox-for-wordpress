@@ -10,8 +10,8 @@
 							<td>
 								<fieldset>
 
-									<label for="mfbfw_uninstall">
-										<input type="checkbox" name="mfbfw_uninstall" id="mfbfw_uninstall"<?php if ($settings['uninstall']) echo ' checked="yes"';?> />
+									<label for="uninstall">
+										<input type="checkbox" name="mfbfw[uninstall]" id="uninstall"<?php if ( isset($settings['uninstall']) && $settings['uninstall'] ) echo ' checked="yes"';?> />
 										<?php _e('Remove Settings when plugin is deactivated from the "Manage Plugins" page. (default: off)', 'mfbfw'); ?>
 									</label><br /><br />
 

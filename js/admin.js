@@ -12,37 +12,96 @@ jQuery(function(){
 	jQuery("#show-mfbfwd").click(function(){
 		jQuery("#mfbfwd").show();
   });
+	
+	
+	// Hide form fields when not needed (swithed by checkbox)
+	function switchBlock(block,button) {
+		var buttonValue = jQuery(button + "#:checked").val();
+		if (buttonValue == "on") { jQuery(block).css("display", "inline"); }
+		else { jQuery(block).css("display", "none"); }
+		
+		jQuery(button).click(function(){
+			jQuery(block).animate({opacity: "toggle", height: "toggle"}, 500);
+		});
+	}
+	
+	switchBlock("#borderColorBlock","#border");
+	switchBlock("#closeButtonBlock","#showCloseButton");
+	switchBlock("#overlayBlock","#overlayShow");
+	switchBlock("#titleBlock","#titleShow");
+	switchBlock("#callbackBlock","#callbackEnable");
+	switchBlock("#extraCallsBlock","#extraCallsEnable");
+	switchBlock("#easingBlock","#easing");
+	
+	
+	// Hide Title Color if not needed
+  var titlePosition = jQuery("input:radio[class=titlePosition]:checked").val();
 
-  // Advanced Settings Switcher
-  jQuery("#advOpsSwitch").click(function(){
-		jQuery(".advOpts").toggle("slow");
-  });
-
-  // Troubleshooting & Settings Switcher
-  jQuery("#troOpsSwitch").click(function(){
-		jQuery(".troOpts").toggle("slow");
-  });
-
-  // Hide Custom Expresion textarea if not needed
-  var galleryType = jQuery("input:radio[name=mfbfw_galleryType]:checked").val();
-
-  switch (galleryType) {
-	case "all":
-	case "none":
-	case "post":
-	  jQuery("#customExpressionBlock").css("display", "none");
+  switch (titlePosition) {
+	case "float":
+	case "outside":
+	case "over":
+	  jQuery("#titleColorBlock").css("display", "none");
   }
 
-  jQuery("#mfbfw_galleryTypeAll").click(function () {
-	jQuery("#customExpressionBlock").hide("slow");
+  jQuery("#titlePositionFloat, #titlePositionOutside, #titlePositionOver").click(function () {
+		jQuery("#titleColorBlock").hide("slow");
   });
 
-  jQuery("#mfbfw_galleryTypePost").click(function () {
-	jQuery("#customExpressionBlock").hide("slow");
+  jQuery("#titlePositionInside").click(function () {
+		jQuery("#titleColorBlock").show("slow");
   });
+	
+	
+	// Gallery Type
+	var galleryType = jQuery("input:radio[class=galleryType]:checked").val();
 
-  jQuery("#mfbfw_galleryTypeCustom").click(function () {
-	jQuery("#customExpressionBlock").show("slow");
-  });
+	switch (galleryType) {
+		case "all":
+		case "none":
+		case "post":
+			jQuery("#customExpressionBlock").css("display", "none");
+	}
+
+	jQuery("#galleryTypeAll, #galleryTypeNone, #galleryTypePost").click(function () {
+		jQuery("#customExpressionBlock").hide("slow");
+	});
+
+	jQuery("#galleryTypeCustom").click(function () {
+		jQuery("#customExpressionBlock").show("slow");
+	});
+	
+	/*
+	function checkTransitionIn() {
+		var easingIn = jQuery("#transitionIn").val();
+		if ( easingIn == "elastic" ) {
+			jQuery("#easingIn").removeAttr('disabled');
+		} else {
+			jQuery("#easingIn").attr('disabled', 'disabled');
+		}
+	}
+	jQuery("#transitionIn").change(checkTransitionIn);
+	checkTransitionIn();
+	
+	function checkTransitionOut() {
+		var easingOut = jQuery("#transitionOut").val();
+		if ( easingOut == "elastic" ) {
+			jQuery("#easingOut").removeAttr('disabled');
+		} else {
+			jQuery("#easingOut").attr('disabled', 'disabled');
+		}
+	}
+	jQuery("#transitionOut").change(checkTransitionOut);
+	checkTransitionOut();
+	*/
 
 })
+
+function confirmDefaults() {
+	if (confirm(defaults_prompt) == true)
+return true;
+	else
+return false;
+}
+
+var defaults_prompt = "Are you sure you want to restore FancyBox for WordPress to default settings?";

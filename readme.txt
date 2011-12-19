@@ -1,10 +1,10 @@
 === FancyBox for WordPress ===
 Contributors: moskis
-Donate link: https://www.asmallorange.com/extras/donate/?id=10218
 Tags: fancybox, lightbox, jquery, gallery, image, images, photo, photos, picture, pictures
 Requires at least: 2.8
-Tested up to: 3.0.4
-Stable tag: 2.7.5
+Tested up to: 3.3
+Stable tag: 3.0.1
+License: GPL/MIT
 
 Seamlessly integrates FancyBox into your blog: Upload, activate, and you're done. No further configuration needed. However, you can customize it from the Options Page if you like... :)
 
@@ -19,11 +19,32 @@ By default, the plugin will use jQuery to apply [FancyBox](http://fancybox.net/)
 
 = Demo =
 
-You can see the plugin working on [my blog](http://blog.moskis.net/downloads/plugins/fancybox-for-wordpress/) although there's nothing amazing to see, just a FancyBox simple implementation, that's the point ;) You can take a look at the code if you're curious, though.
+You can see the plugin working on [this blog](http://plugins.josepardilla.com/fancybox-for-wordpress/) although there's nothing amazing to see, just a FancyBox simple implementation, that's the point ;) You can take a look at the code if you're curious, though.
 
 == Changelog ==
 
 This changelog is for the WordPress plugin. For the Fancybox main changelog go to its [home page](http://fancybox.net/changelog/).
+
+= 3.0.1 =
+* Updated: Localization catalog updated.
+* Updated: Spanish localization.
+* Fixed: Minor change in settings page that may fix options page being invisible in some cases.
+
+= 3.0.0 =
+* New: Fancybox v1.3.4 support This includes many new options, like title position.
+* New: Additional FancyBox Calls option that lets the user write their own additional code to use FancyBox on specific areas of the blog, like email subscription buttons, login, etc.
+* New: Revert settings button added to options page. When pressed, a confirmation dialog will appear.
+* New: Improvements in options page, irrelevant settings (settings that depend on a disabled setting) will hide on real time, meaning a cleaner look in the options page.
+* Updated: New cleaner code to select thumbnails on which to apply the fancbox script.
+* Updated: Many parts of plugins rewriten with many improvements in code.
+* Updated: Options are now serialized into a single row in the database.
+* Fixed: Plugin should be SSL friendly from now on.
+* Fixed: Do not call jQuery option in troubleshooting section didn't work if easing was enabled.
+* Fixed: Load at footer options should work better now.
+* Fixed: CSS external files now addded with wp_enqueue_style().
+* Fixed: has_cap error: User level value for options page removed, using role now instead. Thanks to [vonkanehoffen](http://wordpress.org/support/topic/plugin-fancybox-for-wordpress-has_cap-fix).
+* Removed: jQuery "noConflict" Mode option removed bacause jQuery bundled with WordPress always used noConflict.
+* Removed: Base64 data ("data:image/gif;base64,AAAA") in left and right fancybox link's backgrounds: It didn't seem to be working and it is usually regarded as suspicious code, so it has been removed.
 
 = 2.7.5 =
 * Fixed: Callback arguments are no longer added as "null" when they are not set in options page.
@@ -64,7 +85,7 @@ This changelog is for the WordPress plugin. For the Fancybox main changelog go t
 * Fixed: noClonflict preventing frames to work in Fancybox
 * Fixed: Custom frame width and height not being applied
 * Updated: Japanese translation
-* Updated: JS is now Minified instead of Packed (thanks to mentalfruition.com)
+* Updated: JS is now Minified instead of Packed
 
 = 2.6.0 =
 * Optimized the JavaScript code used to apply FancyBox
@@ -140,7 +161,7 @@ This changelog is for the WordPress plugin. For the Fancybox main changelog go t
 
 == Screenshots ==
 
-1. Simple example of fancybox on a post. [Live demo here](http://blog.moskis.net/downloads/plugins/fancybox-for-wordpress/)
+1. Simple example of fancybox on a post. [Live demo here](http://plugins.josepardilla.com/fancybox-for-wordpress/)
 2. Basic settings on Options Page in the Admin Panel. This makes it very easy to customize the plugin to your needs
 
 
