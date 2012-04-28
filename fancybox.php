@@ -175,7 +175,7 @@ jQuery.fn.getTitle = function() { // Copy the title of every IMG tag and add it 
 }
 
 // Supported file extensions
-var thumbnails = jQuery("a:has(img)").not(".nolightbox").filter( function() { return /(jpe?g|png|gif|bmp)$/i.test(jQuery(this).attr('href')) });
+var thumbnails = jQuery("a:has(img)").not(".nolightbox").filter( function() { return /\.(jpe?g|png|gif|bmp)$/i.test(jQuery(this).attr('href')) });
 
 <?php if ( $settings['galleryType'] == 'post' ) {
 
