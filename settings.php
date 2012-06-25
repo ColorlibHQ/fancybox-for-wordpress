@@ -8,67 +8,67 @@ function mfbfw_defaults() {
 	$defaults_array = array(
 
 		// Appearance
-		'border'						=> '',
-		'borderColor'				=> '#BBBBBB',
-		'showCloseButton'		=> 'on',
-		'closeHorPos'				=> 'right',
-		'closeVerPos'				=> 'top',
+		'border'                => '',
+		'borderColor'           => '#BBBBBB',
+		'showCloseButton'       => 'on',
+		'closeHorPos'           => 'right',
+		'closeVerPos'           => 'top',
 		'paddingColor'			=> '#FFFFFF',
-		'padding'						=> '10',
-		'overlayShow'				=> 'on',
-		'overlayColor'			=> '#666666',
-		'overlayOpacity'		=> '0.3',
-		'titleShow'					=> 'on',
-		'titlePosition'			=> 'inside',
-		'titleColor'				=> '#333333',
-		'showNavArrows'			=> 'on',
+		'padding'               => '10',
+		'overlayShow'           => 'on',
+		'overlayColor'          => '#666666',
+		'overlayOpacity'        => '0.3',
+		'titleShow'             => 'on',
+		'titlePosition'         => 'inside',
+		'titleColor'            => '#333333',
+		'showNavArrows'         => 'on',
 
 		// Animations
-		'zoomOpacity'				=> 'on',
-		'zoomSpeedIn'				=> '500',
-		'zoomSpeedOut'			=> '500',
-		'zoomSpeedChange'		=> '300',
-		'transitionIn'			=> 'fade',
-		'transitionOut'			=> 'fade',
-		'easing'						=> '',
-		'easingIn'					=> 'easeOutBack',
-		'easingOut'					=> 'easeInBack',
-		'easingChange'			=> 'easeInOutQuart',
+		'zoomOpacity'           => 'on',
+		'zoomSpeedIn'           => '500',
+		'zoomSpeedOut'          => '500',
+		'zoomSpeedChange'       => '300',
+		'transitionIn'          => 'fade',
+		'transitionOut'         => 'fade',
+		'easing'                => '',
+		'easingIn'              => 'easeOutBack',
+		'easingOut'             => 'easeInBack',
+		'easingChange'          => 'easeInOutQuart',
 
 		// Behaviour
-		'imageScale'					=> 'on',
-		'centerOnScroll'			=> 'on',
-		'hideOnContentClick'	=> '',
-		'hideOnOverlayClick'	=> 'on',
-		'enableEscapeButton'	=> 'on',
-		'cyclic'							=> '',
-		'mouseWheel'					=> '',
+		'imageScale'            => 'on',
+		'centerOnScroll'        => 'on',
+		'hideOnContentClick'    => '',
+		'hideOnOverlayClick'    => 'on',
+		'enableEscapeButton'    => 'on',
+		'cyclic'                => '',
+		'mouseWheel'            => '',
 
 		// Gallery Type
-		'galleryType'					=> 'all',
-		'customExpression'		=> 'jQuery(thumbnails).addClass("fancybox").attr("rel","fancybox").getTitle();',
+		'galleryType'           => 'all',
+		'customExpression'      => 'jQuery(thumbnails).addClass("fancybox").attr("rel","fancybox").getTitle();',
 
 		// Other
-		'autoDimensions'			=> 'on',//
-		'frameWidth'					=> '560',
-		'frameHeight'					=> '340',
-		'loadAtFooter'				=> '',
-		'callbackEnable'			=> '',
-		'callbackOnStart'			=> 'function() { alert("Start!"); }',
-		'callbackOnCancel'		=> 'function() { alert("Cancel!"); }',
-		'callbackOnComplete'	=> 'function() { alert("Complete!"); }',
-		'callbackOnCleanup'		=> 'function() { alert("CleanUp!"); }',
-		'callbackOnClose'			=> 'function() { alert("Close!"); }',
+		'autoDimensions'        => 'on',//
+		'frameWidth'            => '560',
+		'frameHeight'           => '340',
+		'loadAtFooter'          => '',
+		'callbackEnable'        => '',
+		'callbackOnStart'       => 'function() { alert("Start!"); }',
+		'callbackOnCancel'      => 'function() { alert("Cancel!"); }',
+		'callbackOnComplete'    => 'function() { alert("Complete!"); }',
+		'callbackOnCleanup'     => 'function() { alert("CleanUp!"); }',
+		'callbackOnClose'       => 'function() { alert("Close!"); }',
 
 		// Troubleshooting
-		'nojQuery'						=> '',
+		'nojQuery'              => '',
 
 		// Extra Calls
-		'extraCallsEnable'		=> '',
-		'extraCalls'					=> '',
+		'extraCallsEnable'      => '',
+		'extraCalls'            => '',
 
 		// Uninstall
-		'uninstall'						=> ''
+		'uninstall'             => ''
 
 	);
 	return $defaults_array;
@@ -111,67 +111,67 @@ if ( $db_version < $current_version ) {
 
 	$old_settings_array = array (
 
-		'titleShow'							=> get_option('mfbfw_showTitle'),
-		'border'								=> get_option('mfbfw_border'),
-		'borderColor'						=> get_option('mfbfw_borderColor'),
-		'closeHorPos'						=> get_option('mfbfw_closeHorPos'),
-		'closeVerPos'						=> get_option('mfbfw_closeVerPos'),
-		'paddingColor'					=> get_option('mfbfw_paddingColor'),
-		'padding'								=> get_option('mfbfw_padding'),
-		'overlayShow'						=> get_option('mfbfw_overlayShow'),
-		'overlayColor'					=> get_option('mfbfw_overlayColor'),
-		'overlayOpacity'				=> get_option('mfbfw_overlayOpacity'),
-		'zoomOpacity'						=> get_option('mfbfw_zoomOpacity'),
-		'zoomSpeedIn'						=> get_option('mfbfw_zoomSpeedIn'),
-		'zoomSpeedOut'					=> get_option('mfbfw_zoomSpeedOut'),
-		'zoomSpeedChange'				=> get_option('mfbfw_zoomSpeedChange'),
-		'easing'								=> get_option('mfbfw_easing'),
-		'easingIn'							=> get_option('mfbfw_easingIn'),
-		'easingOut'							=> get_option('mfbfw_easingOut'),
-		'easingChange'					=> get_option('mfbfw_easingChange'),
+		'titleShow'                => get_option('mfbfw_showTitle'),
+		'border'                   => get_option('mfbfw_border'),
+		'borderColor'              => get_option('mfbfw_borderColor'),
+		'closeHorPos'              => get_option('mfbfw_closeHorPos'),
+		'closeVerPos'              => get_option('mfbfw_closeVerPos'),
+		'paddingColor'             => get_option('mfbfw_paddingColor'),
+		'padding'                  => get_option('mfbfw_padding'),
+		'overlayShow'              => get_option('mfbfw_overlayShow'),
+		'overlayColor'             => get_option('mfbfw_overlayColor'),
+		'overlayOpacity'           => get_option('mfbfw_overlayOpacity'),
+		'zoomOpacity'              => get_option('mfbfw_zoomOpacity'),
+		'zoomSpeedIn'              => get_option('mfbfw_zoomSpeedIn'),
+		'zoomSpeedOut'             => get_option('mfbfw_zoomSpeedOut'),
+		'zoomSpeedChange'          => get_option('mfbfw_zoomSpeedChange'),
+		'easing'                   => get_option('mfbfw_easing'),
+		'easingIn'                 => get_option('mfbfw_easingIn'),
+		'easingOut'                => get_option('mfbfw_easingOut'),
+		'easingChange'             => get_option('mfbfw_easingChange'),
 
-		'imageScale'						=> get_option('mfbfw_imageScale'),
-		'enableEscapeButton'		=> get_option('mfbfw_enableEscapeButton'),
-		'showCloseButton'				=> get_option('mfbfw_showCloseButton'),
-		'centerOnScroll'				=> get_option('mfbfw_centerOnScroll'),
-		'hideOnOverlayClick'		=> get_option('mfbfw_hideOnOverlayClick'),
-		'hideOnContentClick'		=> get_option('mfbfw_hideOnContentClick'),
-		'loadAtFooter'					=> get_option('mfbfw_loadAtFooter'),
-		'frameWidth'						=> get_option('mfbfw_frameWidth'),
-		'frameHeight'						=> get_option('mfbfw_frameHeight'),
+		'imageScale'               => get_option('mfbfw_imageScale'),
+		'enableEscapeButton'       => get_option('mfbfw_enableEscapeButton'),
+		'showCloseButton'          => get_option('mfbfw_showCloseButton'),
+		'centerOnScroll'           => get_option('mfbfw_centerOnScroll'),
+		'hideOnOverlayClick'       => get_option('mfbfw_hideOnOverlayClick'),
+		'hideOnContentClick'       => get_option('mfbfw_hideOnContentClick'),
+		'loadAtFooter'             => get_option('mfbfw_loadAtFooter'),
+		'frameWidth'               => get_option('mfbfw_frameWidth'),
+		'frameHeight'              => get_option('mfbfw_frameHeight'),
 
-		'callbackOnStart'				=> get_option('mfbfw_callbackOnStart'),
-		'callbackOnComplete'		=> get_option('mfbfw_callbackOnShow'),
-		'callbackOnClose'				=> get_option('mfbfw_callbackOnClose'),
+		'callbackOnStart'          => get_option('mfbfw_callbackOnStart'),
+		'callbackOnComplete'       => get_option('mfbfw_callbackOnShow'),
+		'callbackOnClose'          => get_option('mfbfw_callbackOnClose'),
 
-		'galleryType'						=> get_option('mfbfw_galleryType'),
-		'customExpression'			=> get_option('mfbfw_customExpression'),
+		'galleryType'              => get_option('mfbfw_galleryType'),
+		'customExpression'         => get_option('mfbfw_customExpression'),
 
-		'nojQuery'							=> get_option('mfbfw_nojQuery'),
-		'jQnoConflict'					=> get_option('mfbfw_jQnoConflict'),
+		'nojQuery'                 => get_option('mfbfw_nojQuery'),
+		'jQnoConflict'             => get_option('mfbfw_jQnoConflict'),
 
-		'uninstall'							=> get_option('mfbfw_uninstall'),
+		'uninstall'                => get_option('mfbfw_uninstall'),
 
 
 		// New Settings since 3.0
-		'titlePosition'					=> 'inside',
-		'titleColor'						=> '#333333',
-		'showNavArrows'					=> 'on',
+		'titlePosition'            => 'inside',
+		'titleColor'               => '#333333',
+		'showNavArrows'            => 'on',
 
-		'transitionIn'					=> 'fade',
-		'transitionOut'					=> 'fade',
+		'transitionIn'             => 'fade',
+		'transitionOut'            => 'fade',
 
-		'cyclic'								=> '',
-		'mouseWheel'						=> '',
+		'cyclic'                   => '',
+		'mouseWheel'               => '',
 
-		'autoDimensions'				=> 'on',
+		'autoDimensions'           => 'on',
 
-		'callbackEnable'				=> '',
-		'callbackOnCancel'			=> 'function() { alert("Cancel!"); }',
-		'callbackOnCleanup'			=> 'function() { alert("CleanUp!"); }',
+		'callbackEnable'           => '',
+		'callbackOnCancel'         => 'function() { alert("Cancel!"); }',
+		'callbackOnCleanup'        => 'function() { alert("CleanUp!"); }',
 
-		'extraCallsEnable'			=> '',
-		'extraCalls'						=> ''
+		'extraCallsEnable'         => '',
+		'extraCalls'               => ''
 
 	);
 
