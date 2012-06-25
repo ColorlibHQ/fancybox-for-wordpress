@@ -54,7 +54,7 @@ function mfbfw_options_page() {
 			<div id="fbfw-other">
 				<?php require_once ( FBFW_PATH . '/lib/admin-tab-other.php' ); ?>
 			</div>
-			
+
 			<div id="fbfw-calls">
 				<?php require_once ( FBFW_PATH . '/lib/admin-tab-calls.php' ); ?>
 			</div>
@@ -62,7 +62,7 @@ function mfbfw_options_page() {
 			<div id="fbfw-troubleshooting">
 				<?php require_once ( FBFW_PATH . '/lib/admin-tab-troubleshooting.php' ); ?>
 			</div>
-			
+
 			<div id="fbfw-support">
 				<?php require_once ( FBFW_PATH . '/lib/admin-tab-support.php' ); ?>
 			</div>
@@ -78,16 +78,16 @@ function mfbfw_options_page() {
 		</p>
 
 	</form>
-	
+
 	<form method="post" action="">
 		<div style="text-align:center;padding:0 0 1.5em;margin:-15px 0 5px;">
 			<input type="submit" name="mfbfw_update" id="reset" onClick="return confirmDefaults();" class="button-secondary" value="<?php esc_attr_e( 'Revert to defaults', 'mfbfw' ); ?>" />
 			<input type="hidden" name="action" value="reset" />
 		</div>
 	</form>
-	
+
 	<div id="mfbfwd" style="border-top:1px dashed #DDDDDD;margin:20px auto 40px;overflow:hidden;padding-top:25px;width:735px">
-	
+
 		<div style="background-color:#FFFFE0;border:1px solid #E6DB55;padding:0 .6em;margin:5px 15px 2px;-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;height:90px;float:left;text-align:center;width:200px">
 			<p style="line-height:1.5em;"><?php _e( 'If you use FancyBox and like it, buy the author a beer!', 'mfbfw' ); ?></p>
 			<form id="donate_form" action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -119,7 +119,7 @@ function mfbfw_options_page() {
 			<p style="line-height:1.5em;"><a href="http://twitter.com/moskis/"><?php _e( 'Follow me on Twitter for more WordPress Plugins and Themes', 'mfbfw' ); ?></a></p>
 			<img height="16" width="16" border="0" alt="" src="<?php echo FBFW_URL ?>/css/img/extra_twitter.png" />
 		</div>
-	
+
 	</div>
 
 </div>

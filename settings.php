@@ -6,7 +6,7 @@
 
 function mfbfw_defaults() {
 	$defaults_array = array(
-		
+
 		// Appearance
 		'border'						=> '',
 		'borderColor'				=> '#BBBBBB',
@@ -22,7 +22,7 @@ function mfbfw_defaults() {
 		'titlePosition'			=> 'inside',
 		'titleColor'				=> '#333333',
 		'showNavArrows'			=> 'on',
-		
+
 		// Animations
 		'zoomOpacity'				=> 'on',
 		'zoomSpeedIn'				=> '500',
@@ -34,7 +34,7 @@ function mfbfw_defaults() {
 		'easingIn'					=> 'easeOutBack',
 		'easingOut'					=> 'easeInBack',
 		'easingChange'			=> 'easeInOutQuart',
-		
+
 		// Behaviour
 		'imageScale'					=> 'on',
 		'centerOnScroll'			=> 'on',
@@ -43,11 +43,11 @@ function mfbfw_defaults() {
 		'enableEscapeButton'	=> 'on',
 		'cyclic'							=> '',
 		'mouseWheel'					=> '',
-		
+
 		// Gallery Type
 		'galleryType'					=> 'all',
 		'customExpression'		=> 'jQuery(thumbnails).addClass("fancybox").attr("rel","fancybox").getTitle();',
-		
+
 		// Other
 		'autoDimensions'			=> 'on',//
 		'frameWidth'					=> '560',
@@ -59,17 +59,17 @@ function mfbfw_defaults() {
 		'callbackOnComplete'	=> 'function() { alert("Complete!"); }',
 		'callbackOnCleanup'		=> 'function() { alert("CleanUp!"); }',
 		'callbackOnClose'			=> 'function() { alert("Close!"); }',
-		
+
 		// Troubleshooting
 		'nojQuery'						=> '',
-		
+
 		// Extra Calls
 		'extraCallsEnable'		=> '',
 		'extraCalls'					=> '',
-		
+
 		// Uninstall
 		'uninstall'						=> ''
-		
+
 	);
 	return $defaults_array;
 }
@@ -86,10 +86,10 @@ function mfbfw_install() {
 	if ( get_option( 'mfbfw_active_version' ) == false ) {
 
 		$defaults_array = mfbfw_defaults();
-		
+
 		add_option( 'mfbfw', $defaults_array );
 		add_option( 'mfbfw_active_version', FBFW_VERSION );
-	
+
 	}
 
 }
@@ -108,7 +108,7 @@ $current_version =  intval( str_replace( ".", "", FBFW_VERSION ) );
 
 // If lower than current version we need to get old options, convert, and delete them
 if ( $db_version < $current_version ) {
-	
+
 	$old_settings_array = array (
 
 		'titleShow'							=> get_option('mfbfw_showTitle'),
@@ -139,7 +139,7 @@ if ( $db_version < $current_version ) {
 		'loadAtFooter'					=> get_option('mfbfw_loadAtFooter'),
 		'frameWidth'						=> get_option('mfbfw_frameWidth'),
 		'frameHeight'						=> get_option('mfbfw_frameHeight'),
-		
+
 		'callbackOnStart'				=> get_option('mfbfw_callbackOnStart'),
 		'callbackOnComplete'		=> get_option('mfbfw_callbackOnShow'),
 		'callbackOnClose'				=> get_option('mfbfw_callbackOnClose'),
@@ -151,33 +151,33 @@ if ( $db_version < $current_version ) {
 		'jQnoConflict'					=> get_option('mfbfw_jQnoConflict'),
 
 		'uninstall'							=> get_option('mfbfw_uninstall'),
-		
-		
+
+
 		// New Settings since 3.0
 		'titlePosition'					=> 'inside',
 		'titleColor'						=> '#333333',
 		'showNavArrows'					=> 'on',
-		
+
 		'transitionIn'					=> 'fade',
 		'transitionOut'					=> 'fade',
-		
+
 		'cyclic'								=> '',
 		'mouseWheel'						=> '',
-		
+
 		'autoDimensions'				=> 'on',
-		
+
 		'callbackEnable'				=> '',
 		'callbackOnCancel'			=> 'function() { alert("Cancel!"); }',
 		'callbackOnCleanup'			=> 'function() { alert("CleanUp!"); }',
-		
+
 		'extraCallsEnable'			=> '',
 		'extraCalls'						=> ''
 
 	);
-	
+
 	// save old settings to database in a single serialized option
 	add_option( 'mfbfw', $old_settings_array );
-	
+
 	// Get deprecated settings and delete them from database
 	$deprecated_array = array (
 		'mfbfw_version',
@@ -220,11 +220,11 @@ if ( $db_version < $current_version ) {
 		'mfbfw_noTextLinks',
 		'mfbfw_uninstall'
 	);
-	
+
 	foreach ( $deprecated_array as $key ) {
 		delete_option( $key );
 	}
-	
+
 	// Update Version
 	update_option( 'mfbfw_active_version', FBFW_VERSION );
 

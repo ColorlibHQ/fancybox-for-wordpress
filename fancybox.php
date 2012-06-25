@@ -79,14 +79,14 @@ register_deactivation_hook( __FILE__, 'mfbfw_uninstall' );
 function mfbfw_register_scripts() {
 
 	$settings = get_option( 'mfbfw' );
-	
+
 	// Check if script should be loaded in footer
 	if ( isset($settings['loadAtFooter']) && $settings['loadAtFooter'] ) {
 		$footer = true;
 	} else {
 		$footer = false;
 	}
-	
+
 	// Check if plugin should not call jQuery script (for troubleshooting only)
 	if ( isset($settings['nojQuery']) && $settings['nojQuery'] ) {
 		$jquery = false;
@@ -109,17 +109,17 @@ function mfbfw_scripts() {
 	$settings = get_option( 'mfbfw' );
 
 	if (!is_admin()) { // avoid the scripts from loading on admin panel
-	
+
 		wp_enqueue_script( 'fancybox' ); // Load fancybox
 
 		if ( isset($settings['easing']) && $settings['easing'] ) {
 			wp_enqueue_script( 'jqueryeasing' ); // Load easing javascript file if required
 		}
-		
+
 		if ( isset($settings['mouseWheel']) && $settings['mouseWheel'] ) {
 			wp_enqueue_script( 'jquerymousewheel' ); // Load mouse wheel javascript file if required
 		}
-		
+
 	}
 
 }
@@ -133,7 +133,7 @@ add_action( 'wp_enqueue_scripts', 'mfbfw_scripts' ); // Load Scripts
 function mfbfw_styles() {
 
 	$settings = get_option( 'mfbfw' );
-	
+
 	wp_enqueue_style( 'fancybox', FBFW_URL . '/fancybox/fancybox.css' );
 
 	?>
@@ -147,7 +147,7 @@ function mfbfw_styles() {
 	</style>
 
 	<?php
-	
+
 }
 add_action( 'wp_enqueue_scripts', 'mfbfw_styles' );
 
@@ -157,7 +157,7 @@ add_action( 'wp_enqueue_scripts', 'mfbfw_styles' );
 /*-----------------------------------------------------------------------------------*/
 
 function mfbfw_init() {
-	
+
 	$settings = get_option( 'mfbfw' );
 	$version = get_option( 'mfbfw_active_version' );
 
@@ -196,7 +196,7 @@ posts.each(function() {
 });';
 
 		}
-	
+
 	}
 
 	// Gallery type ALL
@@ -220,7 +220,8 @@ posts.each(function() {
 
 	}
 
-// Now we call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel ?>
+// Now we call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
+	?>
 
 
 jQuery("a.fancybox").fancybox({
@@ -257,7 +258,7 @@ jQuery("a.fancybox").fancybox({
 } ?>
 
 });
-		
+
 <?php if ( isset($settings['extraCallsEnable']) && $settings['extraCallsEnable'] ) { echo $settings['extraCalls'];  echo "\n"; } ?>
 
 })
@@ -293,7 +294,7 @@ function mfbfw_admin_options() {
 	if ( isset($_GET['page']) && $_GET['page'] == 'fancybox-for-wordpress' ) {
 
 		if ( isset($_REQUEST['action']) && 'update' == $_REQUEST['action'] ) {
-		
+
 			$settings = stripslashes_deep( $_POST['mfbfw'] );
 			$settings = array_map( 'convert_chars', $settings );
 
@@ -327,7 +328,7 @@ function mfbfw_admin_menu() {
 	require FBFW_PATH . '/admin.php';
 
 	$mfbfwadmin = add_submenu_page( 'options-general.php', 'Fancybox for WordPress Options', 'Fancybox for WP', 'manage_options', 'fancybox-for-wordpress', 'mfbfw_options_page' );
-	
+
 	add_action( 'admin_print_styles-' . $mfbfwadmin, 'mfbfw_admin_styles' );
 	add_action( 'admin_print_scripts-' . $mfbfwadmin, 'mfbfw_admin_scripts' );
 
