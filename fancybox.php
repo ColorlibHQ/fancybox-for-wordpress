@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package FancyBox_for_WordPress
+ */
 /*
 Plugin Name: FancyBox for WordPress
 Plugin URI: http://plugins.josepardilla.com/fancybox-for-wordpress/
@@ -14,11 +17,10 @@ Author URI: http://josepardilla.com/
 
 */
 
-
-/*-----------------------------------------------------------------------------------*/
-/* Define paths with SSL Support on WP3.0+
-/* (http://codex.wordpress.org/Determining_Plugin_and_Content_Directories)
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Define paths with SSL Support on WP3.0+
+ * (http://codex.wordpress.org/Determining_Plugin_and_Content_Directories)
+ */
 
 if ( ! function_exists( 'is_ssl' ) ) {
 	function is_ssl() {
@@ -39,6 +41,7 @@ if ( version_compare(get_bloginfo('version') , '3.0' , '<') && is_ssl() ) {
 } else {
 	$wp_content_url = get_option( 'siteurl' );
 }
+
 $wp_content_url .= '/wp-content';
 $wp_content_dir = ABSPATH . 'wp-content';
 $wp_plugin_url = $wp_content_url . '/plugins';
@@ -49,9 +52,9 @@ define( 'FBFW_URL', $wp_plugin_url . '/fancybox-for-wordpress' );
 
 
 
-/*-----------------------------------------------------------------------------------*/
-/* Main Settings
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Main Settings
+ */
 
 define( 'FBFW_VERSION', '3.0.1' );
 
@@ -59,9 +62,9 @@ require FBFW_PATH . '/settings.php';
 
 
 
-/*-----------------------------------------------------------------------------------*/
-/* If requested, when plugin is deactivated, remove settings
-/*-----------------------------------------------------------------------------------*/
+/**
+ * If requested, when plugin is deactivated, remove settings
+ */
 
 function mfbfw_uninstall() {
 	$settings = get_option( 'mfbfw' );
@@ -72,9 +75,10 @@ function mfbfw_uninstall() {
 register_deactivation_hook( __FILE__, 'mfbfw_uninstall' );
 
 
-/*-----------------------------------------------------------------------------------*/
-/* Here we load FancyBox JS with jQuery and jQuery.easing if necessary
-/*-----------------------------------------------------------------------------------*/
+
+/**
+ * Here we load FancyBox JS with jQuery and jQuery.easing if necessary
+ */
 
 function mfbfw_register_scripts() {
 
@@ -103,7 +107,6 @@ function mfbfw_register_scripts() {
 }
 add_action( 'init', 'mfbfw_register_scripts' );
 
-
 function mfbfw_scripts() {
 
 	$settings = get_option( 'mfbfw' );
@@ -126,14 +129,14 @@ function mfbfw_scripts() {
 add_action( 'wp_enqueue_scripts', 'mfbfw_scripts' ); // Load Scripts
 
 
-/*-----------------------------------------------------------------------------------*/
-/* Link to FancyBox stylesheet and apply some custom styles
-/*-----------------------------------------------------------------------------------*/
+
+/**
+ * Link to FancyBox stylesheet and apply some custom styles
+ */
 
 function mfbfw_styles() {
 
 	$settings = get_option( 'mfbfw' );
-
 	wp_enqueue_style( 'fancybox', FBFW_URL . '/fancybox/fancybox.css' );
 
 	?>
@@ -152,9 +155,9 @@ function mfbfw_styles() {
 add_action( 'wp_enqueue_scripts', 'mfbfw_styles' );
 
 
-/*-----------------------------------------------------------------------------------*/
-/* Load FancyBox with the settings set
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Load FancyBox with the settings set
+ */
 
 function mfbfw_init() {
 
@@ -181,48 +184,37 @@ var thumbnails = jQuery("a:has(img)").not(".nolightbox").filter( function() { re
 
 		// Gallery type BY POST and we are on post or page (so only one post or page is visible)
 		if ( is_single() | is_page() ) {
-
 			echo 'thumbnails.addClass("fancybox").attr("rel","fancybox").getTitle();';
-
 		}
 
 		// Gallery type BY POST, but we are neither on post or page, so we make a different rel attribute on each post
 		else {
-
 			echo 'var posts = jQuery(".post");
 
 posts.each(function() {
 	jQuery(this).find(thumbnails).addClass("fancybox").attr("rel","fancybox"+posts.index(this)).getTitle()
 });';
-
 		}
 
 	}
 
 	// Gallery type ALL
 	elseif ( $settings['galleryType'] == 'all' ) {
-
 		echo 'thumbnails.addClass("fancybox").attr("rel","fancybox").getTitle();';
-
 	}
 
 	// Gallery type NONE
 	elseif ( $settings['galleryType'] == 'none' ) {
-
 		echo 'thumbnails.addClass("fancybox").getTitle();';
-
 	}
 
 	// Else, gallery type is custom, so we just print the custom expression
 	else {
-
 		echo $settings['customExpression'];
-
 	}
 
-// Now we call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
+	// Now we call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
 	?>
-
 
 jQuery("a.fancybox").fancybox({
 	'cyclic': <?php if ( isset($settings['cyclic']) && $settings['cyclic'] ) { echo "true"; } else { echo "false"; } ?>,
@@ -268,9 +260,9 @@ jQuery("a.fancybox").fancybox({
 add_action( 'wp_head', 'mfbfw_init' );
 
 
-/*-----------------------------------------------------------------------------------*/
-/* Load text domain
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Load text domain
+ */
 
 function mfbfw_textdomain() {
 
@@ -283,9 +275,9 @@ add_action( 'init', 'mfbfw_textdomain' );
 
 
 
-/*-----------------------------------------------------------------------------------*/
-// Register Options
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Register Options
+ */
 
 function mfbfw_admin_options() {
 
@@ -319,9 +311,9 @@ add_action( 'admin_init', 'mfbfw_admin_options' );
 
 
 
-/*-----------------------------------------------------------------------------------*/
-/* Admin options page
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Admin options page
+ */
 
 function mfbfw_admin_menu() {
 
@@ -337,9 +329,9 @@ add_action('admin_menu', 'mfbfw_admin_menu');
 
 
 
-/*-----------------------------------------------------------------------------------*/
-/* Load Admin CSS & JS (called in mfbfw_admin_menu())
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Load Admin CSS & JS (called in mfbfw_admin_menu())
+ */
 
 function mfbfw_admin_styles() {
 	wp_enqueue_style( 'fancybox-admin', FBFW_URL . '/css/fancybox-admin.css' ); // Load custom CSS for Admin Page
@@ -353,9 +345,9 @@ function mfbfw_admin_scripts() {
 
 
 
-/*-----------------------------------------------------------------------------------*/
-/* Settings Button on Plugins Panel
-/*-----------------------------------------------------------------------------------*/
+/**
+ * Settings Button on Plugins Panel
+ */
 
 function mfbfw_plugin_action_links($links, $file) {
 
@@ -371,6 +363,3 @@ function mfbfw_plugin_action_links($links, $file) {
 
 }
 add_filter( 'plugin_action_links', 'mfbfw_plugin_action_links', 10, 2 );
-
-
-?>
