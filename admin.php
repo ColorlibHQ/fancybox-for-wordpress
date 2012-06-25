@@ -2,7 +2,7 @@
 
 function mfbfw_options_page() {
 
-	require_once( FBFW_PATH . '/lib/admin-head.php' );
+	require_once( FBFW_PATH . 'lib/admin-head.php' );
 
 	?>
 
@@ -32,43 +32,43 @@ function mfbfw_options_page() {
 			</ul>
 
 			<div id="fbfw-info">
-				<?php require_once ( FBFW_PATH . '/lib/admin-tab-info.php' ); ?>
+				<?php require_once ( FBFW_PATH . 'lib/admin-tab-info.php' ); ?>
 			</div>
 
 			<div id="fbfw-appearance">
-				<?php require_once ( FBFW_PATH . '/lib/admin-tab-appearance.php' ); ?>
+				<?php require_once ( FBFW_PATH . 'lib/admin-tab-appearance.php' ); ?>
 			</div>
 
 			<div id="fbfw-animations">
-				<?php require_once ( FBFW_PATH . '/lib/admin-tab-animations.php' ); ?>
+				<?php require_once ( FBFW_PATH . 'lib/admin-tab-animations.php' ); ?>
 			</div>
 
 			<div id="fbfw-behaviour">
-				<?php require_once ( FBFW_PATH . '/lib/admin-tab-behaviour.php' ); ?>
+				<?php require_once ( FBFW_PATH . 'lib/admin-tab-behaviour.php' ); ?>
 			</div>
 
 			<div id="fbfw-galleries">
-				<?php require_once ( FBFW_PATH . '/lib/admin-tab-galleries.php' ); ?>
+				<?php require_once ( FBFW_PATH . 'lib/admin-tab-galleries.php' ); ?>
 			</div>
 
 			<div id="fbfw-other">
-				<?php require_once ( FBFW_PATH . '/lib/admin-tab-other.php' ); ?>
+				<?php require_once ( FBFW_PATH . 'lib/admin-tab-other.php' ); ?>
 			</div>
 
 			<div id="fbfw-calls">
-				<?php require_once ( FBFW_PATH . '/lib/admin-tab-calls.php' ); ?>
+				<?php require_once ( FBFW_PATH . 'lib/admin-tab-calls.php' ); ?>
 			</div>
 
 			<div id="fbfw-troubleshooting">
-				<?php require_once ( FBFW_PATH . '/lib/admin-tab-troubleshooting.php' ); ?>
+				<?php require_once ( FBFW_PATH . 'lib/admin-tab-troubleshooting.php' ); ?>
 			</div>
 
 			<div id="fbfw-support">
-				<?php require_once ( FBFW_PATH . '/lib/admin-tab-support.php' ); ?>
+				<?php require_once ( FBFW_PATH . 'lib/admin-tab-support.php' ); ?>
 			</div>
 
 			<div id="fbfw-uninstall">
-				<?php require_once ( FBFW_PATH . '/lib/admin-tab-uninstall.php' ); ?>
+				<?php require_once ( FBFW_PATH . 'lib/admin-tab-uninstall.php' ); ?>
 			</div>
 
 		</div>
@@ -101,7 +101,7 @@ function mfbfw_options_page() {
 				<input name="tax" value="0" type="hidden">
 				<input name="lc" value="LV" type="hidden">
 				<input name="bn" value="PP-DonationsBF" type="hidden">
-				<input type="image" style="margin:0;padding:0" border="0" src="<?php echo FBFW_URL ?>/css/img/extra_donate.png" name="submit" alt="PayPal - The safer, easier way to pay online!"/>
+				<input type="image" style="margin:0;padding:0" border="0" src="<?php echo FBFW_URL ?>css/img/extra_donate.png" name="submit" alt="PayPal - The safer, easier way to pay online!"/>
 			</form>
 		</div>
 
@@ -110,14 +110,14 @@ function mfbfw_options_page() {
 			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 				<input type="hidden" name="cmd" value="_s-xclick"/>
 				<input type="hidden" name="hosted_button_id" value="3878319"/>
-				<input type="image" style="margin:0;padding:0" border="0" src="<?php echo FBFW_URL ?>/css/img/extra_donate.png" name="submit" alt="PayPal - The safer, easier way to pay online!"/>
+				<input type="image" style="margin:0;padding:0" border="0" src="<?php echo FBFW_URL ?>css/img/extra_donate.png" name="submit" alt="PayPal - The safer, easier way to pay online!"/>
 				<img height="1" width="1" border="0" alt="" src="https://www.paypal.com/es_ES/i/scr/pixel.gif" />
 			</form>
 		</div>
 
 		<div style="background-color:#9DD1F2;border:1px solid #419ED9;padding:0 .6em;margin:5px 15px 2px;-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;height:90px;float:left;margin-left:10px;text-align:center;width:200px">
 			<p style="line-height:1.5em;"><a href="http://twitter.com/moskis/"><?php _e( 'Follow me on Twitter for more WordPress Plugins and Themes', 'mfbfw' ); ?></a></p>
-			<img height="16" width="16" border="0" alt="" src="<?php echo FBFW_URL ?>/css/img/extra_twitter.png" />
+			<img height="16" width="16" border="0" alt="" src="<?php echo FBFW_URL ?>css/img/extra_twitter.png" />
 		</div>
 
 	</div>
