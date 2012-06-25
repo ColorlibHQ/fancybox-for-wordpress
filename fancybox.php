@@ -22,6 +22,8 @@ Author URI: http://josepardilla.com/
  * (http://codex.wordpress.org/Determining_Plugin_and_Content_Directories)
  */
 
+/*
+
 if ( ! function_exists( 'is_ssl' ) ) {
 	function is_ssl() {
 		if ( isset($_SERVER['HTTPS']) ) {
@@ -47,8 +49,10 @@ $wp_content_dir = ABSPATH . 'wp-content';
 $wp_plugin_url = $wp_content_url . '/plugins';
 $wp_plugin_dir = $wp_content_dir . '/plugins';
 
-define( 'FBFW_PATH', $wp_plugin_dir . '/fancybox-for-wordpress' );
-define( 'FBFW_URL', $wp_plugin_url . '/fancybox-for-wordpress' );
+*/
+
+define( 'FBFW_PATH', plugins_url( 'fancybox-for-wordpress' ) . '/fancybox-for-wordpress' );
+define( 'FBFW_URL', plugins_url( 'fancybox-for-wordpress' ) . '/fancybox-for-wordpress' );
 
 
 
