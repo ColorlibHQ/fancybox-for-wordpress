@@ -14,6 +14,8 @@ Author URI: http://josepardilla.com/
 
 */
 
+
+
 /**
  * Constants
  */
@@ -74,7 +76,7 @@ function mfbfw_scripts() {
 
 	$settings = get_option( 'mfbfw' );
 
-	if (!is_admin()) { // avoid the scripts from loading on admin panel
+	if ( !is_admin() ) { // avoid the scripts from loading on admin panel
 
 		wp_enqueue_script( 'fancybox' ); // Load fancybox
 
@@ -116,6 +118,7 @@ function mfbfw_styles() {
 
 }
 add_action( 'wp_enqueue_scripts', 'mfbfw_styles' );
+
 
 
 /**
@@ -221,6 +224,7 @@ jQuery("a.fancybox").fancybox({
 <?php echo "<!-- END Fancybox for WordPress -->\n";
 }
 add_action( 'wp_head', 'mfbfw_init' );
+
 
 
 /**
