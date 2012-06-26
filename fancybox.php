@@ -30,9 +30,10 @@ define( 'FBFW_URL', plugin_dir_url(__FILE__) );
 
 function mfbfw_uninstall() {
 	$settings = get_option( 'mfbfw' );
-	if ( isset($settings['uninstall']) && $settings['uninstall'] )
+	if ( isset($settings['uninstall']) && $settings['uninstall'] ) {
 		delete_option( 'mfbfw' );
 		delete_option( 'mfbfw_active_version' );
+	}
 }
 register_deactivation_hook( __FILE__, 'mfbfw_uninstall' );
 
