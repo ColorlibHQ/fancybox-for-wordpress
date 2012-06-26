@@ -15,10 +15,10 @@ Author URI: http://josepardilla.com/
 */
 
 /**
- * Define paths with SSL Support on WP3.0+
- * (http://codex.wordpress.org/Determining_Plugin_and_Content_Directories)
+ * Constants
  */
 
+define( 'FBFW_VERSION', '3.0.1' );
 define( 'FBFW_PATH', plugin_dir_path(__FILE__) );
 define( 'FBFW_URL', plugin_dir_url(__FILE__) );
 
@@ -28,7 +28,6 @@ define( 'FBFW_URL', plugin_dir_url(__FILE__) );
  * Main Settings
  */
 
-define( 'FBFW_VERSION', '3.0.1' );
 
 require FBFW_PATH . 'settings.php';
 
