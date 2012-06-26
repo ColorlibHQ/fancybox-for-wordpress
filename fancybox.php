@@ -1,7 +1,4 @@
 <?php
-/**
- * @package FancyBox_for_WordPress
- */
 /*
 Plugin Name: FancyBox for WordPress
 Plugin URI: http://plugins.josepardilla.com/fancybox-for-wordpress/
@@ -21,35 +18,6 @@ Author URI: http://josepardilla.com/
  * Define paths with SSL Support on WP3.0+
  * (http://codex.wordpress.org/Determining_Plugin_and_Content_Directories)
  */
-
-/*
-
-if ( ! function_exists( 'is_ssl' ) ) {
-	function is_ssl() {
-		if ( isset($_SERVER['HTTPS']) ) {
-			if ( 'on' == strtolower($_SERVER['HTTPS']) )
-				return true;
-			if ( '1' == $_SERVER['HTTPS'] )
-				return true;
-		} elseif ( isset($_SERVER['SERVER_PORT']) && ('443' == $_SERVER['SERVER_PORT']) ) {
-			return true;
-		}
-		return false;
-	}
-}
-
-if ( version_compare(get_bloginfo('version') , '3.0' , '<') && is_ssl() ) {
-	$wp_content_url = str_replace( 'http://' , 'https://' , get_option('siteurl') );
-} else {
-	$wp_content_url = get_option( 'siteurl' );
-}
-
-$wp_content_url .= '/wp-content';
-$wp_content_dir = ABSPATH . 'wp-content';
-$wp_plugin_url = $wp_content_url . '/plugins';
-$wp_plugin_dir = $wp_content_dir . '/plugins';
-
-*/
 
 define( 'FBFW_PATH', plugin_dir_path(__FILE__) );
 define( 'FBFW_URL', plugin_dir_url(__FILE__) );
