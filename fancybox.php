@@ -25,15 +25,6 @@ define( 'FBFW_URL', plugin_dir_url(__FILE__) );
 
 
 /**
- * Main Settings
- */
-
-
-require FBFW_PATH . 'settings.php';
-
-
-
-/**
  * If requested, when plugin is deactivated, remove settings
  */
 
