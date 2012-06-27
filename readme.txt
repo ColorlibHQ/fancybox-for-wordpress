@@ -1,9 +1,9 @@
 === FancyBox for WordPress ===
 Contributors: moskis
 Tags: fancybox, lightbox, jquery, gallery, image, images, photo, photos, picture, pictures
-Requires at least: 2.8
-Tested up to: 3.3
-Stable tag: 3.0.1
+Requires at least: 3.4
+Tested up to: 3.4
+Stable tag: 3.0.2
 License: GPL/MIT
 
 Seamlessly integrates FancyBox into your blog: Upload, activate, and you're done. No further configuration needed. However, you can customize it from the Options Page if you like... :)
@@ -24,6 +24,18 @@ You can see the plugin working on [this blog](http://plugins.josepardilla.com/fa
 == Changelog ==
 
 This changelog is for the WordPress plugin. For the Fancybox main changelog go to its [home page](http://fancybox.net/changelog/).
+
+= 3.0.2 =
+* Added support for disabling fancybox on individual hyperlinked images by adding class='nolightbox'. (Thanks to Artem Russakovskii)
+* Added a link to the github project page in the info tab in the settings page.
+* Fixed and cleaned the installation code, new installations of the plugin should work now without need to go to the settings page.
+* Fixed false positives in filenames. (Thanks to Artem Russakovskii)
+* Fixed incompatibility with wordpress installations where the wp-content directory had been renamed.
+* Fixed an issue that could cause the version of the plugin to be removed from settings when deactivating the plugin.
+* Improved HTTPS support by using better code to retrieve the plugin url and load files.
+* Removed legacy code to suport upgrading settings from 2.x versions of the plugin. This was done to avoid possible issues with clean installations of the plugin.
+* Updated some CSS rules in jQuery UI
+* Some minor reformatting and cleanup of code (PHP comments, empty lines, )
 
 = 3.0.1 =
 * Updated: Localization catalog updated.
