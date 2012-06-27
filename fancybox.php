@@ -27,6 +27,84 @@ define( 'FBFW_URL', plugin_dir_url(__FILE__) );
 
 
 /**
+ * Store default settings in an array
+ */
+
+function mfbfw_defaults() {
+
+	$defaults_array = array(
+
+		// Appearance
+		'border'                => '',
+		'borderColor'           => '#BBBBBB',
+		'showCloseButton'       => 'on',
+		'closeHorPos'           => 'right',
+		'closeVerPos'           => 'top',
+		'paddingColor'			=> '#FFFFFF',
+		'padding'               => '10',
+		'overlayShow'           => 'on',
+		'overlayColor'          => '#666666',
+		'overlayOpacity'        => '0.3',
+		'titleShow'             => 'on',
+		'titlePosition'         => 'inside',
+		'titleColor'            => '#333333',
+		'showNavArrows'         => 'on',
+
+		// Animations
+		'zoomOpacity'           => 'on',
+		'zoomSpeedIn'           => '500',
+		'zoomSpeedOut'          => '500',
+		'zoomSpeedChange'       => '300',
+		'transitionIn'          => 'fade',
+		'transitionOut'         => 'fade',
+		'easing'                => '',
+		'easingIn'              => 'easeOutBack',
+		'easingOut'             => 'easeInBack',
+		'easingChange'          => 'easeInOutQuart',
+
+		// Behaviour
+		'imageScale'            => 'on',
+		'centerOnScroll'        => 'on',
+		'hideOnContentClick'    => '',
+		'hideOnOverlayClick'    => 'on',
+		'enableEscapeButton'    => 'on',
+		'cyclic'                => '',
+		'mouseWheel'            => '',
+
+		// Gallery Type
+		'galleryType'           => 'all',
+		'customExpression'      => 'jQuery(thumbnails).addClass("fancybox").attr("rel","fancybox").getTitle();',
+
+		// Other
+		'autoDimensions'        => 'on',
+		'frameWidth'            => '560',
+		'frameHeight'           => '340',
+		'loadAtFooter'          => '',
+		'callbackEnable'        => '',
+		'callbackOnStart'       => 'function() { alert("Start!"); }',
+		'callbackOnCancel'      => 'function() { alert("Cancel!"); }',
+		'callbackOnComplete'    => 'function() { alert("Complete!"); }',
+		'callbackOnCleanup'     => 'function() { alert("CleanUp!"); }',
+		'callbackOnClose'       => 'function() { alert("Close!"); }',
+
+		// Troubleshooting
+		'nojQuery'              => '',
+
+		// Extra Calls
+		'extraCallsEnable'      => '',
+		'extraCalls'            => '',
+
+		// Uninstall
+		'uninstall'             => ''
+
+	);
+
+	return $defaults_array;
+}
+
+
+
+/**
  * When plugin is installed, write default settings and update version
  */
 
@@ -35,72 +113,7 @@ function mfbfw_install() {
 	// If new install, write default settings to database
 	if ( get_option( 'mfbfw_active_version' ) == false ) {
 
-		$defaults_array = array(
-
-			// Appearance
-			'border'                => '',
-			'borderColor'           => '#BBBBBB',
-			'showCloseButton'       => 'on',
-			'closeHorPos'           => 'right',
-			'closeVerPos'           => 'top',
-			'paddingColor'			=> '#FFFFFF',
-			'padding'               => '10',
-			'overlayShow'           => 'on',
-			'overlayColor'          => '#666666',
-			'overlayOpacity'        => '0.3',
-			'titleShow'             => 'on',
-			'titlePosition'         => 'inside',
-			'titleColor'            => '#333333',
-			'showNavArrows'         => 'on',
-
-			// Animations
-			'zoomOpacity'           => 'on',
-			'zoomSpeedIn'           => '500',
-			'zoomSpeedOut'          => '500',
-			'zoomSpeedChange'       => '300',
-			'transitionIn'          => 'fade',
-			'transitionOut'         => 'fade',
-			'easing'                => '',
-			'easingIn'              => 'easeOutBack',
-			'easingOut'             => 'easeInBack',
-			'easingChange'          => 'easeInOutQuart',
-
-			// Behaviour
-			'imageScale'            => 'on',
-			'centerOnScroll'        => 'on',
-			'hideOnContentClick'    => '',
-			'hideOnOverlayClick'    => 'on',
-			'enableEscapeButton'    => 'on',
-			'cyclic'                => '',
-			'mouseWheel'            => '',
-
-			// Gallery Type
-			'galleryType'           => 'all',
-			'customExpression'      => 'jQuery(thumbnails).addClass("fancybox").attr("rel","fancybox").getTitle();',
-
-			// Other
-			'autoDimensions'        => 'on',
-			'frameWidth'            => '560',
-			'frameHeight'           => '340',
-			'loadAtFooter'          => '',
-			'callbackEnable'        => '',
-			'callbackOnStart'       => 'function() { alert("Start!"); }',
-			'callbackOnCancel'      => 'function() { alert("Cancel!"); }',
-			'callbackOnComplete'    => 'function() { alert("Complete!"); }',
-			'callbackOnCleanup'     => 'function() { alert("CleanUp!"); }',
-			'callbackOnClose'       => 'function() { alert("Close!"); }',
-
-			// Troubleshooting
-			'nojQuery'              => '',
-
-			// Extra Calls
-			'extraCallsEnable'      => '',
-			'extraCalls'            => '',
-
-			// Uninstall
-			'uninstall'             => ''
-
-		);
+		$defaults_array = mfbfw_defaults();
 
 		add_option( 'mfbfw', $defaults_array );
 		add_option( 'mfbfw_active_version', FBFW_VERSION );
