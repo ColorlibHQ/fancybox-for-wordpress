@@ -48,7 +48,7 @@
 								</fieldset>
 							</td>
 						</tr>
-						
+
 						<tr valign="top">
 							<th scope="row"><?php _e('Close on Overlay Click', 'mfbfw'); ?></th>
 							<td>
@@ -62,7 +62,7 @@
 								</fieldset>
 							</td>
 						</tr>
-						
+
 						<tr valign="top">
 							<th scope="row"><?php _e('Close with &quot;Esc&quot;', 'mfbfw'); ?></th>
 							<td>
@@ -76,7 +76,7 @@
 								</fieldset>
 							</td>
 						</tr>
-						
+
 						<tr valign="top">
 							<th scope="row"><?php _e('Cyclic Galleries', 'mfbfw'); ?></th>
 							<td>
@@ -90,7 +90,7 @@
 								</fieldset>
 							</td>
 						</tr>
-						
+
 						<tr valign="top">
 							<th scope="row"><?php _e('Mouse Wheel Navigation', 'mfbfw'); ?></th>
 							<td>
@@ -100,7 +100,7 @@
 										<input type="checkbox" name="mfbfw[mouseWheel]" id="mouseWheel"<?php if ( isset($settings['mouseWheel']) && $settings['mouseWheel'] ) echo ' checked="yes"';?> />
 										<?php _e('Lets visitors navigate galleries with the mouse wheel  (default: off)', 'mfbfw'); ?>
 									</label><br />
-									
+
 									<small><em><?php _e('(Will load one additional javascript file, 3KB)', 'mfbfw'); ?></em></small><br /><br />
 
 								</fieldset>

@@ -38,7 +38,7 @@
 										</select>
 										<?php _e('Speed in miliseconds of the zooming-out animation (default: 500)', 'mfbfw'); ?>
 									</label><br /><br />
-									
+
 									<label for="zoomSpeedChange">
 										<select name="mfbfw[zoomSpeedChange]" id="zoomSpeedChange">
 											<?php
@@ -54,7 +54,7 @@
 								</fieldset>
 							</td>
 						</tr>
-						
+
 						<tr valign="top">
 							<th scope="row"><?php _e('Transition Type', 'mfbfw'); ?></th>
 							<td>
@@ -99,9 +99,9 @@
 										<input type="checkbox" name="mfbfw[easing]" id="easing"<?php if ( isset($settings['easing']) && $settings['easing'] ) echo ' checked="yes"';?> />
 										<?php _e('Activate easing (default: off)', 'mfbfw'); ?>
 									</label><br />
-									
+
 									<small><em><?php _e('(Will load one additional javascript file, 8KB)', 'mfbfw'); ?></em></small><br /><br />
-									
+
 									<div id="easingBlock">
 
 										<label for="easingIn">
@@ -116,7 +116,7 @@
 											</select>
 											<?php _e('Easing method when opening FancyBox. (default: easeOutBack)', 'mfbfw'); ?>
 										</label><br />
-										
+
 										<small><em><?php _e('(Requires opening transition type to be set to elastic)', 'mfbfw'); ?></em></small><br /><br />
 
 										<label for="easingOut">
@@ -131,7 +131,7 @@
 											</select>
 											<?php _e('Easing method when closing FancyBox. (default: easeInBack)', 'mfbfw'); ?>
 										</label><br />
-										
+
 										<small><em><?php _e('(Requires closing transition type to be set to elastic)', 'mfbfw'); ?></em></small><br /><br />
 
 										<label for="easingChange">
@@ -148,7 +148,7 @@
 										</label><br />
 
 										<small><em><?php _e('(There are 30 different easing methods, the first ones are the most boring. You can test them <a href="http://commadot.com/jquery/easing.php" target="_blank">here</a> or <a href="http://hosted.zeh.com.br/mctween/animationtypes.html" target="_blank">here</a>)', 'mfbfw'); ?></em></small><br /><br />
-										
+
 									</div>
 
 								</fieldset>
