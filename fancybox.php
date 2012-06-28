@@ -169,18 +169,14 @@ function mfbfw_scripts() {
 
 	$settings = get_option( 'mfbfw' );
 
-	if ( !is_admin() ) { // avoid the scripts from loading on admin panel
+	wp_enqueue_script( 'fancybox' ); // Load fancybox
 
-		wp_enqueue_script( 'fancybox' ); // Load fancybox
+	if ( isset($settings['easing']) && $settings['easing'] ) {
+		wp_enqueue_script( 'jqueryeasing' ); // Load easing javascript file if required
+	}
 
-		if ( isset($settings['easing']) && $settings['easing'] ) {
-			wp_enqueue_script( 'jqueryeasing' ); // Load easing javascript file if required
-		}
-
-		if ( isset($settings['mouseWheel']) && $settings['mouseWheel'] ) {
-			wp_enqueue_script( 'jquerymousewheel' ); // Load mouse wheel javascript file if required
-		}
-
+	if ( isset($settings['mouseWheel']) && $settings['mouseWheel'] ) {
+		wp_enqueue_script( 'jquerymousewheel' ); // Load mouse wheel javascript file if required
 	}
 
 }
