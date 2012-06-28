@@ -1,7 +1,7 @@
 <?php
 
-if ( isset($_REQUEST['update']) && $_REQUEST['update'] ) echo '<div id="message" class="updated fade"><p><strong>FancyBox for WordPress settings have been saved.</strong></p></div>';
-if ( isset($_REQUEST['reset']) && $_REQUEST['reset'] ) echo '<div id="message" class="updated fade"><p><strong>FancyBox for WordPress settings have been reset.</strong></p></div>';
+if ( isset($_REQUEST['reset']) && $_REQUEST['reset'] )
+	echo '<div id="message" class="updated fade"><p><strong>FancyBox for WordPress settings have been reset.</strong></p></div>';
 
 
 // Get array with all the options
@@ -18,5 +18,3 @@ $easingArray = array( 'easeInQuad', 'easeOutQuad', 'easeInOutQuad', 'easeInCubic
 	'easeInOutQuart', 'easeInQuint', 'easeOutQuint', 'easeInOutQuint', 'easeInSine', 'easeOutSine', 'easeInOutSine', 'easeInExpo',
 	'easeOutExpo', 'easeInOutExpo', 'easeInCirc', 'easeOutCirc', 'easeInOutCirc', 'easeInElastic', 'easeOutElastic', 'easeInOutElastic',
 	'easeInBack', 'easeOutBack', 'easeInOutBack', 'easeInBounce', 'easeOutBounce', 'easeInOutBounce' );
-
-?>
