@@ -196,7 +196,7 @@ function mfbfw_styles() {
 	?>
 
 	<style type="text/css">
-		div#fancybox-close{<?php echo $settings['closeHorPos']; ?>:-15px;<?php echo $settings['closeVerPos']; ?>:-12px}
+		#fancybox-close{<?php echo $settings['closeHorPos']; ?>:-15px;<?php echo $settings['closeVerPos']; ?>:-15px}
 		<?php if ( isset($settings['paddingColor']) && $settings['paddingColor'] ) { echo "div#fancybox-content{border-color:" . $settings['paddingColor'] . "}\n"; } ?>
 		<?php if ( isset($settings['paddingColor']) && $settings['paddingColor'] && $settings['titlePosition'] == "inside" ) { echo "div#fancybox-title{background-color:" . $settings['paddingColor'] . "}\n"; } ?>
 		div#fancybox-outer{background-color:<?php echo $settings['paddingColor']; if ( isset($settings['border']) && $settings['border'] ) { echo "; border:1px solid " . $settings['borderColor']; } echo "}\n"; ?>
