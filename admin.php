@@ -18,18 +18,20 @@ function mfbfw_options_page() {
 
 		<div id="fbfwTabs">
 
-			<ul>
-				<li><a href="#fbfw-info"><?php _e( 'Info', 'mfbfw' ); ?></a></li>
-				<li><a href="#fbfw-appearance"><?php _e( 'Appearance', 'mfbfw' ); ?></a></li>
-				<li><a href="#fbfw-animations"><?php _e( 'Animations', 'mfbfw' ); ?></a></li>
-				<li><a href="#fbfw-behaviour"><?php _e( 'Behaviour', 'mfbfw' ); ?></a></li>
-				<li><a href="#fbfw-galleries"><?php _e( 'Galleries', 'mfbfw' ); ?></a></li>
-				<li><a href="#fbfw-other"><?php _e( 'Miscellaneous', 'mfbfw' ); ?></a></li>
-				<li><a href="#fbfw-calls"><?php _e( 'Extra Calls', 'mfbfw' ); ?></a></li>
-				<li><a href="#fbfw-troubleshooting"><?php _e( 'Troubleshooting', 'mfbfw' ); ?></a></li>
-				<li><a href="#fbfw-support" style="color:green;"><?php _e( 'Support', 'mfbfw' ); ?></a></li>
-				<li><a href="#fbfw-uninstall" style="color:red;"><?php _e ('Uninstall', 'mfbfw' ); ?></a></li>
-			</ul>
+			<h2 class="nav-tab-wrapper">
+				<ul id="fbfw_tabs">
+					<li><a class="nav-tab selected" href="#fbfw-info"><?php _e( 'Info', 'mfbfw' ); ?></a></li>
+					<li><a class="nav-tab" href="#fbfw-appearance"><?php _e( 'Appearance', 'mfbfw' ); ?></a></li>
+					<li><a class="nav-tab" href="#fbfw-animations"><?php _e( 'Animations', 'mfbfw' ); ?></a></li>
+					<li><a class="nav-tab" href="#fbfw-behaviour"><?php _e( 'Behaviour', 'mfbfw' ); ?></a></li>
+					<li><a class="nav-tab" href="#fbfw-galleries"><?php _e( 'Galleries', 'mfbfw' ); ?></a></li>
+					<li><a class="nav-tab" href="#fbfw-other"><?php _e( 'Miscellaneous', 'mfbfw' ); ?></a></li>
+					<li><a class="nav-tab" href="#fbfw-calls"><?php _e( 'Extra Calls', 'mfbfw' ); ?></a></li>
+					<li><a class="nav-tab" href="#fbfw-troubleshooting"><?php _e( 'Troubleshooting', 'mfbfw' ); ?></a></li>
+					<li><a class="nav-tab" href="#fbfw-support" style="color:green;"><?php _e( 'Support', 'mfbfw' ); ?></a></li>
+					<li><a class="nav-tab" href="#fbfw-uninstall" style="color:red;"><?php _e ('Uninstall', 'mfbfw' ); ?></a></li>
+				</ul>
+			</h2>
 
 			<div id="fbfw-info">
 				<?php require_once ( FBFW_PATH . 'lib/admin-tab-info.php' ); ?>
