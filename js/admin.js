@@ -5,12 +5,12 @@ jQuery(function(){
 	jQuery("#fbfwTabs").tabs();
 
 	// Hide Donation and twitter stuff on tabs other than Info
-	jQuery("#fbfwTabs li a").click(function(){
-		jQuery("#mfbfwd").hide();
-	});
-
-	jQuery("#show-mfbfwd").click(function(){
-		jQuery("#mfbfwd").show();
+	jQuery("#fbfwTabs .nav-tab").click(function(){
+		if ( jQuery(this).attr("href") == "#fbfw-info" ) {
+			jQuery("#mfbfwd").show();
+		} else {
+			jQuery("#mfbfwd").hide();
+		}
 	});
 
 
