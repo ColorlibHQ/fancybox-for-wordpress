@@ -391,11 +391,9 @@ add_action('admin_menu', 'mfbfw_admin_menu');
 
 function mfbfw_admin_styles() {
 	wp_enqueue_style( 'fancybox-admin', FBFW_URL . 'css/fancybox-admin.css' ); // Load custom CSS for Admin Page
-	wp_enqueue_style( 'jquery-ui', FBFW_URL . 'css/jquery-ui.css' ); // Load jQuery UI Tabs CSS for Admin Page
 }
 
 function mfbfw_admin_scripts() {
-	wp_enqueue_script( 'jquery-ui-tabs', array('jquery-ui-core') ); // Load jQuery UI Tabs JS for Admin Page
 	wp_enqueue_script( 'fancybox-admin', FBFW_URL . 'js/admin.js', array('jquery') ); // Load specific JS for Admin Page
 }
 
