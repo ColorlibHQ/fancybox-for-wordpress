@@ -54,7 +54,7 @@
 
 									<small><em><code>jQuery(thumbnails).addClass(&quot;fancybox&quot;).attr(&quot;rel&quot;,&quot;fancybox&quot;).getTitle();</code></em></small><br />
 
-									<small><em><code>jQuery&quot;a:has(img)[href$='.jpg']&quot;).addClass&quot;fancybox&quot;).attr(&quot;rel&quot;,&quot;fancybox&quot;).getTitle();</code></em></small><br /><br />
+									<small><em><code>jQuery(&quot;a:has(img)[href$='.jpg']&quot;).addClass(&quot;fancybox&quot;).attr(&quot;rel&quot;,&quot;fancybox&quot;).getTitle();</code></em></small><br /><br />
 
 									</div>
 
