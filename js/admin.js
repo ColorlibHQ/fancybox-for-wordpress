@@ -16,7 +16,7 @@ jQuery(function(){
 
 	// Hide form fields when not needed (swithed by checkbox)
 	function switchBlock(block,button) {
-		var buttonValue = jQuery(button + "#:checked").val();
+		var buttonValue = jQuery(button + ":checked").val();
 		if (buttonValue == "on") { jQuery(block).css("display", "inline"); }
 		else { jQuery(block).css("display", "none"); }
 
