@@ -3,13 +3,6 @@
 if ( isset($_REQUEST['reset']) && $_REQUEST['reset'] )
 	echo '<div id="message" class="updated fade"><p><strong>FancyBox for WordPress settings have been reset.</strong></p></div>';
 
-
-// Get array with all the options
-$settings = get_option( 'mfbfw' );
-
-// Get Version
-$version = get_option('mfbfw_active_version');
-
 // Make selects data
 $transitionTypeArray = array( 'fade', 'elastic', 'none' );
 $overlayArray = array( 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 );

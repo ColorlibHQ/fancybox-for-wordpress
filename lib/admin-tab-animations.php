@@ -11,7 +11,7 @@
 								<fieldset>
 
 									<label for="zoomOpacity">
-										<input type="checkbox" name="mfbfw[zoomOpacity]" id="zoomOpacity"<?php if ( isset($settings['zoomOpacity']) && $settings['zoomOpacity'] ) echo ' checked="yes"';?> />
+										<input type="checkbox" name="mfbfw[zoomOpacity]" id="zoomOpacity"<?php if ( isset($mfbfw['zoomOpacity']) && $mfbfw['zoomOpacity'] ) echo ' checked="yes"';?> />
 										<?php _e('Change content transparency during zoom animations (default: on)', 'mfbfw'); ?>
 									</label><br /><br />
 
@@ -19,7 +19,7 @@
 										<select name="mfbfw[zoomSpeedIn]" id="zoomSpeedIn">
 											<?php
 											foreach($msArray as $key=> $ms) {
-												if($settings['zoomSpeedIn'] != $ms) $selected = '';
+												if($mfbfw['zoomSpeedIn'] != $ms) $selected = '';
 												else $selected = ' selected';
 												echo "<option value='$ms'$selected>$ms</option>\n";
 											} ?>
@@ -31,7 +31,7 @@
 										<select name="mfbfw[zoomSpeedOut]" id="zoomSpeedOut">
 											<?php
 											foreach($msArray as $key=> $ms) {
-												if($settings['zoomSpeedOut'] != $ms) $selected = '';
+												if($mfbfw['zoomSpeedOut'] != $ms) $selected = '';
 												else $selected = ' selected';
 												echo "<option value='$ms'$selected>$ms</option>\n";
 											} ?>
@@ -43,7 +43,7 @@
 										<select name="mfbfw[zoomSpeedChange]" id="zoomSpeedChange">
 											<?php
 											foreach($msArray as $key=> $ms) {
-												if($settings['zoomSpeedChange'] != $ms) $selected = '';
+												if($mfbfw['zoomSpeedChange'] != $ms) $selected = '';
 												else $selected = ' selected';
 												echo "<option value='$ms'$selected>$ms</option>\n";
 											} ?>
@@ -64,7 +64,7 @@
 										<select name="mfbfw[transitionIn]" id="transitionIn">
 											<?php
 											foreach($transitionTypeArray as $key=> $transitionIn) {
-												if($settings['transitionIn'] != $transitionIn) $selected = '';
+												if($mfbfw['transitionIn'] != $transitionIn) $selected = '';
 												else $selected = ' selected';
 												echo "<option value='$transitionIn'$selected>$transitionIn</option>\n";
 											}
@@ -77,7 +77,7 @@
 										<select name="mfbfw[transitionOut]" id="transitionOut">
 											<?php
 											foreach($transitionTypeArray as $key=> $transitionOut) {
-												if($settings['transitionOut'] != $transitionOut) $selected = '';
+												if($mfbfw['transitionOut'] != $transitionOut) $selected = '';
 												else $selected = ' selected';
 												echo "<option value='$transitionOut'$selected>$transitionOut</option>\n";
 											}
@@ -96,7 +96,7 @@
 								<fieldset>
 
 									<label for="easing">
-										<input type="checkbox" name="mfbfw[easing]" id="easing"<?php if ( isset($settings['easing']) && $settings['easing'] ) echo ' checked="yes"';?> />
+										<input type="checkbox" name="mfbfw[easing]" id="easing"<?php if ( isset($mfbfw['easing']) && $mfbfw['easing'] ) echo ' checked="yes"';?> />
 										<?php _e('Activate easing (default: off)', 'mfbfw'); ?>
 									</label><br />
 
@@ -108,7 +108,7 @@
 											<select name="mfbfw[easingIn]" id="easingIn">
 												<?php
 												foreach($easingArray as $key=> $easingIn) {
-													if( $settings['easingIn'] != $easingIn ) $selected = '';
+													if( $mfbfw['easingIn'] != $easingIn ) $selected = '';
 													else $selected = ' selected';
 													echo "<option value='$easingIn'$selected>$easingIn</option>\n";
 												}
@@ -123,7 +123,7 @@
 											<select name="mfbfw[easingOut]" id="easingOut">
 												<?php
 												foreach($easingArray as $key=> $easingOut) {
-													if( $settings['easingOut'] != $easingOut ) $selected = '';
+													if( $mfbfw['easingOut'] != $easingOut ) $selected = '';
 													else $selected = ' selected';
 													echo "<option value='$easingOut'$selected>$easingOut</option>\n";
 												}
@@ -138,7 +138,7 @@
 											<select name="mfbfw[easingChange]" id="easingChange">
 												<?php
 												foreach($easingArray as $key=> $easingChange) {
-													if( isset($settings['easingChange']) && $settings['easingChange'] != $easingChange ) $selected = '';
+													if( isset($mfbfw['easingChange']) && $mfbfw['easingChange'] != $easingChange ) $selected = '';
 													else $selected = ' selected';
 													echo "<option value='$easingChange'$selected>$easingChange</option>\n";
 												}

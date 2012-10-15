@@ -15,7 +15,7 @@
 								<fieldset>
 
 									<label for="nojQuery">
-										<input type="checkbox" name="mfbfw[nojQuery]" id="nojQuery"<?php if ( isset($settings['nojQuery']) && $settings['nojQuery'] ) echo ' checked="yes"';?> />
+										<input type="checkbox" name="mfbfw[nojQuery]" id="nojQuery"<?php if ( isset($mfbfw['nojQuery']) && $mfbfw['nojQuery'] ) echo ' checked="yes"';?> />
 										<?php _e('Skip jQuery call. Use this only if jQuery is being loaded twice (default: off)', 'mfbfw'); ?>
 									</label><br />
 

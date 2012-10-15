@@ -11,14 +11,14 @@
 								<fieldset>
 
 									<label for="border">
-										<input type="checkbox" name="mfbfw[border]" id="border"<?php if ( isset($settings['border']) && $settings['border'] ) echo ' checked="yes"';?> />
+										<input type="checkbox" name="mfbfw[border]" id="border"<?php if ( isset($mfbfw['border']) && $mfbfw['border'] ) echo ' checked="yes"';?> />
 										<?php _e('Show Border (default: off)', 'mfbfw'); ?>
 									</label><br /><br />
 
 									<div id="borderColorBlock">
 
 										<label for="borderColor">
-											<input type="text" name="mfbfw[borderColor]" id="borderColor" value="<?php echo $settings['borderColor'] ?>" size="7" maxlength="7" />
+											<input type="text" name="mfbfw[borderColor]" id="borderColor" value="<?php echo $mfbfw['borderColor'] ?>" size="7" maxlength="7" />
 											<?php _e('HTML color of the border (default: #BBBBBB)', 'mfbfw'); ?>
 										</label><br /><br />
 
@@ -34,29 +34,29 @@
 								<fieldset>
 
 									<label for="showCloseButton">
-										<input type="checkbox" name="mfbfw[showCloseButton]" id="showCloseButton"<?php if ( isset($settings['showCloseButton']) && $settings['showCloseButton'] ) echo ' checked="yes"';?> />
+										<input type="checkbox" name="mfbfw[showCloseButton]" id="showCloseButton"<?php if ( isset($mfbfw['showCloseButton']) && $mfbfw['showCloseButton'] ) echo ' checked="yes"';?> />
 										<?php _e('Show Close button (default: on)', 'mfbfw'); ?>
 									</label><br /><br />
 
 									<div id="closeButtonBlock">
 
 										<?php _e('Close button position:', 'mfbfw'); ?><br />
-										<input name="mfbfw[closeHorPos]" type="radio" value="left" id="closePosLeft"<?php if ( isset($settings['closeHorPos']) && $settings['closeHorPos'] == 'left' ) echo ' checked="yes"';?> />
+										<input name="mfbfw[closeHorPos]" type="radio" value="left" id="closePosLeft"<?php if ( isset($mfbfw['closeHorPos']) && $mfbfw['closeHorPos'] == 'left' ) echo ' checked="yes"';?> />
 										<label for="closePosLeft" style="padding-right:15px">
 											<?php _e('Left', 'mfbfw'); ?>
 										</label>
 
-										<input name="mfbfw[closeHorPos]" type="radio" value="right" id="closePosRight"<?php if ( isset($settings['closeHorPos']) && $settings['closeHorPos'] == 'right' ) echo ' checked="yes"';?> />
+										<input name="mfbfw[closeHorPos]" type="radio" value="right" id="closePosRight"<?php if ( isset($mfbfw['closeHorPos']) && $mfbfw['closeHorPos'] == 'right' ) echo ' checked="yes"';?> />
 										<label for="closePosRight">
 											<?php _e('Right (default)', 'mfbfw'); ?>
 										</label><br />
 
-										<input name="mfbfw[closeVerPos]" type="radio" value="bottom" id="closePosBottom"<?php if ( isset($settings['closeVerPos']) && $settings['closeVerPos'] == 'bottom' ) echo ' checked="yes"';?> />
+										<input name="mfbfw[closeVerPos]" type="radio" value="bottom" id="closePosBottom"<?php if ( isset($mfbfw['closeVerPos']) && $mfbfw['closeVerPos'] == 'bottom' ) echo ' checked="yes"';?> />
 										<label for="closePosBottom" style="padding-right:15px">
 											<?php _e('Bottom', 'mfbfw'); ?>
 										</label>
 
-										<input name="mfbfw[closeVerPos]" type="radio" value="top" id="closePosTop"<?php if ( isset($settings['closeVerPos']) && $settings['closeVerPos'] == 'top' ) echo ' checked="yes"';?> />
+										<input name="mfbfw[closeVerPos]" type="radio" value="top" id="closePosTop"<?php if ( isset($mfbfw['closeVerPos']) && $mfbfw['closeVerPos'] == 'top' ) echo ' checked="yes"';?> />
 										<label for="closePosTop">
 											<?php _e('Top (default)', 'mfbfw'); ?>
 										</label><br /><br />
@@ -73,14 +73,14 @@
 								<fieldset>
 
 									<label for="paddingColor">
-										<input type="text" name="mfbfw[paddingColor]" id="paddingColor" value="<?php echo $settings['paddingColor'] ?>" size="7" maxlength="7" />
+										<input type="text" name="mfbfw[paddingColor]" id="paddingColor" value="<?php echo $mfbfw['paddingColor'] ?>" size="7" maxlength="7" />
 										<?php _e('HTML color of the padding (default: #FFFFFF)', 'mfbfw'); ?>
 									</label><br />
 
 									<small><em><?php _e('(This should be left on #FFFFFF (white) if you want to display anything other than images, like inline or framed content)', 'mfbfw'); ?></em></small><br /><br />
 
 									<label for="padding">
-										<input type="text" name="mfbfw[padding]" id="padding" value="<?php echo $settings['padding']; ?>" size="7" maxlength="7" />
+										<input type="text" name="mfbfw[padding]" id="padding" value="<?php echo $mfbfw['padding']; ?>" size="7" maxlength="7" />
 										<?php _e('Padding size in pixels (default: 10)', 'mfbfw'); ?>
 									</label><br /><br />
 
@@ -94,14 +94,14 @@
 								<fieldset>
 
 									<label for="overlayShow">
-										<input type="checkbox" name="mfbfw[overlayShow]" id="overlayShow"<?php if ( isset($settings['overlayShow']) && $settings['overlayShow'] ) echo ' checked="yes"';?> />
+										<input type="checkbox" name="mfbfw[overlayShow]" id="overlayShow"<?php if ( isset($mfbfw['overlayShow']) && $mfbfw['overlayShow'] ) echo ' checked="yes"';?> />
 										<?php _e('Add overlay (default: on)', 'mfbfw'); ?>
 									</label><br /><br />
 
 									<div id="overlayBlock">
 
 										<label for="overlayColor">
-											<input type="text" name="mfbfw[overlayColor]" id="overlayColor" value="<?php echo $settings['overlayColor']; ?>" size="7" maxlength="7" />
+											<input type="text" name="mfbfw[overlayColor]" id="overlayColor" value="<?php echo $mfbfw['overlayColor']; ?>" size="7" maxlength="7" />
 											<?php _e('HTML color of the overlay (default: #666666)', 'mfbfw'); ?>
 										</label><br /><br />
 
@@ -109,7 +109,7 @@
 											<select name="mfbfw[overlayOpacity]" id="overlayOpacity">
 												<?php
 												foreach($overlayArray as $key=> $opacity) {
-													if($settings['overlayOpacity'] != $opacity) $selected = '';
+													if($mfbfw['overlayOpacity'] != $opacity) $selected = '';
 													else $selected = ' selected';
 													echo "<option value='$opacity'$selected>$opacity</option>\n";
 												}
@@ -130,23 +130,23 @@
 								<fieldset>
 
 									<label for="titleShow">
-										<input type="checkbox" name="mfbfw[titleShow]" id="titleShow"<?php if ( isset($settings['titleShow']) && $settings['titleShow'] ) echo ' checked="yes"';?> />
+										<input type="checkbox" name="mfbfw[titleShow]" id="titleShow"<?php if ( isset($mfbfw['titleShow']) && $mfbfw['titleShow'] ) echo ' checked="yes"';?> />
 										<?php _e('Show the title (default: on)', 'mfbfw'); ?>
 									</label><br /><br />
 
 									<div id="titleBlock">
 
-										<input id="titlePositionInside" class="titlePosition" type="radio" value="inside" name="mfbfw[titlePosition]"<?php if ($settings['titlePosition'] == 'inside') echo ' checked="yes"';?> />
+										<input id="titlePositionInside" class="titlePosition" type="radio" value="inside" name="mfbfw[titlePosition]"<?php if ($mfbfw['titlePosition'] == 'inside') echo ' checked="yes"';?> />
 										<label for="titlePositionInside">
 											<?php _e('Inside (default)', 'mfbfw'); ?>
 										</label><br />
 
-										<input id="titlePositionOutside" class="titlePosition" type="radio" value="float" name="mfbfw[titlePosition]"<?php if ($settings['titlePosition'] == 'float') echo ' checked="yes"';?> />
+										<input id="titlePositionOutside" class="titlePosition" type="radio" value="float" name="mfbfw[titlePosition]"<?php if ($mfbfw['titlePosition'] == 'float') echo ' checked="yes"';?> />
 										<label for="titlePositionOutside">
 											<?php _e('Outside', 'mfbfw'); ?>
 										</label><br />
 
-										<input id="titlePositionOver" class="titlePosition" type="radio" value="over" name="mfbfw[titlePosition]"<?php if ($settings['titlePosition'] == 'over') echo ' checked="yes"';?> />
+										<input id="titlePositionOver" class="titlePosition" type="radio" value="over" name="mfbfw[titlePosition]"<?php if ($mfbfw['titlePosition'] == 'over') echo ' checked="yes"';?> />
 										<label for="titlePositionOver">
 											<?php _e('Over', 'mfbfw'); ?>
 										</label><br /><br />
@@ -154,7 +154,7 @@
 										<div id="titleColorBlock">
 
 											<label for="titleColor">
-												<input type="text" name="mfbfw[titleColor]" id="titleColor" class="colorpick" value="<?php echo $settings['titleColor']; ?>" size="7" maxlength="7" />
+												<input type="text" name="mfbfw[titleColor]" id="titleColor" class="colorpick" value="<?php echo $mfbfw['titleColor']; ?>" size="7" maxlength="7" />
 												<?php _e('Title text color (default: #333333)', 'mfbfw'); ?>
 											</label><br />
 
@@ -174,7 +174,7 @@
 								<fieldset>
 
 									<label for="showNavArrows">
-										<input type="checkbox" name="mfbfw[showNavArrows]" id="showNavArrows"<?php if ( isset($settings['showNavArrows']) && $settings['showNavArrows'] ) echo ' checked="yes"';?> />
+										<input type="checkbox" name="mfbfw[showNavArrows]" id="showNavArrows"<?php if ( isset($mfbfw['showNavArrows']) && $mfbfw['showNavArrows'] ) echo ' checked="yes"';?> />
 										<?php _e('Show the navigation arrows (default: on)', 'mfbfw'); ?>
 									</label><br /><br />
 
