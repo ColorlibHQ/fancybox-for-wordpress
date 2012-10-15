@@ -318,7 +318,13 @@ jQuery("a.fancybox").fancybox({
 </script>
 <?php echo "<!-- END Fancybox for WordPress -->\n";
 }
-add_action( 'wp_head', 'mfbfw_init' );
+
+// Check if inline script should be loaded in footer
+if ( isset($mfbfw['loadAtFooter']) && $mfbfw['loadAtFooter'] ) {
+	add_action( 'wp_footer', 'mfbfw_init' );
+} else {
+	add_action( 'wp_head', 'mfbfw_init' );
+}
 
 
 
