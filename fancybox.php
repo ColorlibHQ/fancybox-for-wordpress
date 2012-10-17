@@ -140,7 +140,7 @@ register_deactivation_hook( __FILE__, 'mfbfw_uninstall' );
 
 
 /**
- * Here we load FancyBox JS with jQuery and jQuery.easing if necessary
+ * Load FancyBox JS with jQuery and jQuery.easing if necessary
  */
 
 function mfbfw_register_scripts() {
@@ -243,12 +243,12 @@ var thumbnails = jQuery("a:has(img)").not(".nolightbox").filter( function() { re
 
 <?php if ( $mfbfw['galleryType'] == 'post' ) {
 
-		// Gallery type BY POST and we are on post or page (so only one post or page is visible)
+		// Gallery type BY POST and on post or page (so only one post or page is visible)
 		if ( is_single() | is_page() ) {
 			echo 'thumbnails.addClass("fancybox").attr("rel","fancybox").getTitle();';
 		}
 
-		// Gallery type BY POST, but we are neither on post or page, so we make a different rel attribute on each post
+		// Gallery type BY POST, but neither on post or page, so make a different rel attribute on each post
 		else {
 			echo 'var posts = jQuery(".post");
 
@@ -269,12 +269,12 @@ posts.each(function() {
 		echo 'thumbnails.addClass("fancybox").getTitle();';
 	}
 
-	// Else, gallery type is custom, so we just print the custom expression
+	// Else, gallery type is custom, so just print the custom expression
 	else {
 		echo $mfbfw['customExpression'];
 	}
 
-	// Now we call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
+	// Call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
 	?>
 
 jQuery("a.fancybox").fancybox({
@@ -345,7 +345,7 @@ add_action( 'init', 'mfbfw_textdomain' );
 
 
 /**
- * Register Options
+ * Register options
  */
 
 function mfbfw_admin_options() {
