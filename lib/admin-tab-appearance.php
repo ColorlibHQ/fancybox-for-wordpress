@@ -68,20 +68,30 @@
 						</tr>
 
 						<tr valign="top">
-							<th scope="row"><?php _e('Padding', 'mfbfw'); ?></th>
+							<th scope="row"><?php _e('FancyBox Shape', 'mfbfw'); ?></th>
 							<td>
 								<fieldset>
 
 									<label for="paddingColor">
 										<input type="text" name="mfbfw[paddingColor]" id="paddingColor" value="<?php echo $mfbfw['paddingColor'] ?>" size="7" maxlength="7" />
-										<?php _e('HTML color of the padding (default: #FFFFFF)', 'mfbfw'); ?>
+										<?php _e('Padding HTML color (default: #FFFFFF)', 'mfbfw'); ?>
 									</label><br />
 
 									<small><em><?php _e('(This should be left on #FFFFFF (white) if you want to display anything other than images, like inline or framed content)', 'mfbfw'); ?></em></small><br /><br />
 
 									<label for="padding">
-										<input type="text" name="mfbfw[padding]" id="padding" value="<?php echo $mfbfw['padding']; ?>" size="7" maxlength="7" />
-										<?php _e('Padding size in pixels (default: 10)', 'mfbfw'); ?>
+										<input type="text" name="mfbfw[padding]" id="padding" value="<?php echo $mfbfw['padding']; ?>" size="3" maxlength="3" />
+										<?php _e('Padding cize in pixels (default: 15)', 'mfbfw'); ?>
+									</label><br /><br />
+
+									<label for="borderRadius">
+										<input type="text" name="mfbfw[borderRadius]" id="borderRadius" value="<?php echo $mfbfw['borderRadius']; ?>" size="2" maxlength="2" />
+										<?php _e('Rounded Corners radius (default: 5)', 'mfbfw'); ?>
+									</label><br /><br />
+
+									<label for="borderRadiusInner">
+										<input type="text" name="mfbfw[borderRadiusInner]" id="borderRadiusInner" value="<?php echo $mfbfw['borderRadiusInner']; ?>" size="2" maxlength="2" />
+										<?php _e('Rounded Corners inner radius (default: 0)', 'mfbfw'); ?>
 									</label><br /><br />
 
 								</fieldset>
@@ -102,7 +112,7 @@
 
 										<label for="overlayColor">
 											<input type="text" name="mfbfw[overlayColor]" id="overlayColor" value="<?php echo $mfbfw['overlayColor']; ?>" size="7" maxlength="7" />
-											<?php _e('HTML color of the overlay (default: #666666)', 'mfbfw'); ?>
+											<?php _e('Overlay HTML color (default: #666666)', 'mfbfw'); ?>
 										</label><br /><br />
 
 										<label for="overlayOpacity">
@@ -115,10 +125,42 @@
 												}
 												?>
 											</select>
-											<?php _e('Opacity of overlay. 0 is transparent, 1 is opaque (default: 0.3)', 'mfbfw'); ?>
+											<?php _e('Overlay opacity. 0 is transparent, 1 is opaque (default: 0.3)', 'mfbfw'); ?>
 										</label><br /><br />
 
 									</div>
+
+								</fieldset>
+							</td>
+						</tr>
+
+						<tr valign="top">
+							<th scope="row"><?php _e('Shadow', 'mfbfw'); ?></th>
+							<td>
+								<fieldset>
+
+									<label for="shadowSize">
+										<input type="text" name="mfbfw[shadowSize]" id="shadowSize" value="<?php echo $mfbfw['shadowSize'] ?>" size="3" maxlength="3" />
+										<?php _e('Shadow size (default: 25)', 'mfbfw'); ?>
+									</label><br /><br />
+
+									<label for="shadowOffset">
+										<input type="text" name="mfbfw[shadowOffset]" id="shadowOffset" value="<?php echo $mfbfw['shadowOffset'] ?>" size="2" maxlength="2" />
+										<?php _e('Shadow distance (default: 10)', 'mfbfw'); ?>
+									</label><br /><br />
+
+									<label for="shadowOpacity">
+										<select name="mfbfw[shadowOpacity]" id="shadowOpacity">
+											<?php
+											foreach($overlayArray as $key=> $opacity) {
+												if($mfbfw['shadowOpacity'] != $opacity) $selected = '';
+												else $selected = ' selected';
+												echo "<option value='$opacity'$selected>$opacity</option>\n";
+											}
+											?>
+										</select>
+										<?php _e('Shadow opacity. 0 is transparent, 1 is opaque (default: 0.5)', 'mfbfw'); ?>
+									</label><br /><br />
 
 								</fieldset>
 							</td>

@@ -39,6 +39,8 @@ function mfbfw_defaults() {
 		// Appearance
 		'border'                => '',
 		'borderColor'           => '#BBBBBB',
+		'borderRadius'          => '5',
+		'borderRadiusInner'     => '0',
 		'showCloseButton'       => 'on',
 		'closeHorPos'           => 'right',
 		'closeVerPos'           => 'top',
@@ -47,6 +49,9 @@ function mfbfw_defaults() {
 		'overlayShow'           => 'on',
 		'overlayColor'          => '#666666',
 		'overlayOpacity'        => '0.3',
+		'shadowOpacity'         => '0.5',
+		'shadowSize'            => '25',
+		'shadowOffset'          => '10',
 		'titleShow'             => 'on',
 		'titlePosition'         => 'inside',
 		'titleColor'            => '#333333',
