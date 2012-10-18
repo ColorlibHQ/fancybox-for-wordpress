@@ -150,7 +150,7 @@ register_deactivation_hook( __FILE__, 'mfbfw_uninstall' );
 
 function mfbfw_enqueue_scripts() {
 
-	global $mfbfw;
+	global $mfbfw, $wp_styles;
 
 	// Check if script should be loaded in footer
 	if ( isset($mfbfw['loadAtFooter']) && $mfbfw['loadAtFooter'] ) {
@@ -184,9 +184,14 @@ function mfbfw_enqueue_scripts() {
 
 	// Register Styles
 	wp_register_style( 'fancybox', FBFW_URL . 'fancybox/fancybox.css', false, '1.3.4' ); // Main Fancybox style
+	wp_register_style( 'fancybox-ie', FBFW_URL . 'fancybox/fancybox.ie.css', array('fancybox'), '1.3.4' ); // Main Fancybox style fixes for IE6-8
 
 	// Enqueue Styles
 	wp_enqueue_style( 'fancybox' );
+	wp_enqueue_style( 'fancybox-ie' );
+
+	// Make IE specific styles load only on IE6-8
+	$wp_styles -> add_data( 'fancybox-ie', 'conditional', 'lt IE 9' );
 
 }
 add_action( 'wp_enqueue_scripts', 'mfbfw_enqueue_scripts' );
@@ -209,6 +214,9 @@ function mfbfw_init() {
 	' . ( isset($mfbfw['paddingColor']) && $mfbfw['paddingColor'] && $mfbfw['titlePosition'] == 'inside' ? 'div#fancybox-title{background-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
 	div#fancybox-outer{background-color:' . $mfbfw['paddingColor'] . ( isset($mfbfw['border']) && $mfbfw['border'] ? ';border:1px solid ' . $mfbfw['borderColor'] : '' ) .  '}
 	' . ( isset($mfbfw['titleColor']) && $mfbfw['titleColor'] && $mfbfw['titlePosition'] == 'inside' ? 'div#fancybox-title-inside{color:' . $mfbfw['titleColor'] . '}' : '' ) . '
+	' . ( isset($mfbfw['borderRadius']) ? 'div#fancybox-outer,div#fancybox-content{border-radius:' . $mfbfw['borderRadius'] . 'px}' : '' ) . '
+	' . ( isset($mfbfw['borderRadiusInner']) ? 'img#fancybox-img{border-radius:' . $mfbfw['borderRadiusInner'] . 'px}' : '' ) . '
+	' . ( isset($mfbfw['shadowSize']) && $mfbfw['shadowOffset'] && $mfbfw['shadowOpacity'] ? 'div#fancybox-outer{box-shadow:0 ' . $mfbfw['shadowOffset'] . 'px ' . $mfbfw['shadowSize'] . 'px rgba(0,0,0,' . $mfbfw['shadowOpacity'] . ')}' : '' ) . '
 </style>';
 
 ?>
