@@ -34,7 +34,7 @@ $mfbfw = get_option( 'mfbfw' );
 
 function mfbfw_defaults() {
 
-	$defaults_array = array(
+	$default_settings = array(
 
 		// Appearance
 		'border'                => '',
@@ -106,7 +106,7 @@ function mfbfw_defaults() {
 
 	);
 
-	return $defaults_array;
+	return $default_settings;
 }
 
 
@@ -117,8 +117,8 @@ function mfbfw_defaults() {
 
 function mfbfw_install() {
 
-	$defaults_array = mfbfw_defaults();
-	add_option( 'mfbfw', $defaults_array );
+	$default_settings = mfbfw_defaults();
+	add_option( 'mfbfw', $default_settings );
 	update_option( 'mfbfw_active_version', FBFW_VERSION );
 
 }
@@ -357,8 +357,8 @@ function mfbfw_admin_options() {
 
 		} else if ( isset($_REQUEST['action']) && 'reset' == $_REQUEST['action'] ) {
 
-			$defaults_array = mfbfw_defaults(); // Store defaults in an array
-			update_option( 'mfbfw', $defaults_array ); // Write defaults to database
+			$default_settings = mfbfw_defaults(); // Store defaults in an array
+			update_option( 'mfbfw', $default_settings ); // Write defaults to database
 			wp_safe_redirect( add_query_arg('reset', 'true') );
 			die;
 
