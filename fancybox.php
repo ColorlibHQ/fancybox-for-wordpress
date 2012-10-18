@@ -161,7 +161,7 @@ function mfbfw_enqueue_scripts() {
 		$jquery = array('jquery');
 	}
 
-	// Register scripts
+	// Register Scripts
 	wp_register_script('fancybox', FBFW_URL . 'fancybox/jquery.fancybox.js', $jquery, '1.3.4', $footer ); // Main Fancybox script
 	wp_register_script('jqueryeasing', FBFW_URL . 'js/jquery.easing.1.3.min.js', $jquery, '1.3', $footer ); // Easing animations script
 	wp_register_script('jquerymousewheel', FBFW_URL . 'js/jquery.mousewheel.3.0.4.pack.js', $jquery, '3.0.4', $footer ); // Mouse wheel support script
@@ -177,20 +177,24 @@ function mfbfw_enqueue_scripts() {
 		wp_enqueue_script( 'jquerymousewheel' ); // Load mouse wheel javascript file if required
 	}
 
+	// Register Styles
+	wp_register_style( 'fancybox', FBFW_URL . 'fancybox/fancybox.css', false, '1.3.4' ); // Main Fancybox style
+
+	// Enqueue Styles
+	wp_enqueue_style( 'fancybox' );
+
 }
 add_action( 'wp_enqueue_scripts', 'mfbfw_enqueue_scripts' );
 
 
 
 /**
- * Link to FancyBox stylesheet and apply some custom styles
+ * Print inline styles and load FancyBox with the selected settings
  */
 
-function mfbfw_styles() {
+function mfbfw_init() {
 
 	global $mfbfw;
-
-	wp_enqueue_style( 'fancybox', FBFW_URL . 'fancybox/fancybox.css' );
 
 	echo '
 <!-- Fancybox for WordPress v' . get_option( 'mfbfw_active_version' ) . ' -->
@@ -201,19 +205,6 @@ function mfbfw_styles() {
 	div#fancybox-outer{background-color:' . $mfbfw['paddingColor'] . ( isset($mfbfw['border']) && $mfbfw['border'] ? ';border:1px solid ' . $mfbfw['borderColor'] : '' ) .  '}
 	' . ( isset($mfbfw['titleColor']) && $mfbfw['titleColor'] && $mfbfw['titlePosition'] == 'inside' ? 'div#fancybox-title-inside{color:' . $mfbfw['titleColor'] . '}' : '' ) . '
 </style>';
-
-}
-add_action( 'wp_head', 'mfbfw_styles' );
-
-
-
-/**
- * Load FancyBox with the settings set
- */
-
-function mfbfw_init() {
-
-	global $mfbfw;
 
 ?>
 
