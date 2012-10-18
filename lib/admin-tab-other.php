@@ -38,7 +38,7 @@
 
 									<label for="loadAtFooter">
 										<input type="checkbox" name="mfbfw[loadAtFooter]" id="loadAtFooter"<?php if ( isset($mfbfw['loadAtFooter']) && $mfbfw['loadAtFooter'] ) echo ' checked="yes"';?> />
-										<?php _e('Loads JavaScript at the end of the blog\'s HTML (experimental) (default: off)', 'mfbfw'); ?>
+										<?php _e('Loads JavaScript at the end of the blog\'s HTML (default: off)', 'mfbfw'); ?>
 									</label><br />
 
 									<small><em><?php _e('This option won\'t be recognized if you use <strong>Parallel Load</strong> plugin. In that case, you can do this from Parallel Load\'s options.', 'mfbfw'); ?></em></small><br /><br />
