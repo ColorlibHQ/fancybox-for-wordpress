@@ -192,20 +192,18 @@ function mfbfw_styles() {
 
 	wp_enqueue_style( 'fancybox', FBFW_URL . 'fancybox/fancybox.css' );
 
-	?>
-
-	<style type="text/css">
-		#fancybox-close{<?php echo $mfbfw['closeHorPos']; ?>:-15px;<?php echo $mfbfw['closeVerPos']; ?>:-15px}
-		<?php if ( isset($mfbfw['paddingColor']) && $mfbfw['paddingColor'] ) { echo "div#fancybox-content{border-color:" . $mfbfw['paddingColor'] . "}\n"; } ?>
-		<?php if ( isset($mfbfw['paddingColor']) && $mfbfw['paddingColor'] && $mfbfw['titlePosition'] == "inside" ) { echo "div#fancybox-title{background-color:" . $mfbfw['paddingColor'] . "}\n"; } ?>
-		div#fancybox-outer{background-color:<?php echo $mfbfw['paddingColor']; if ( isset($mfbfw['border']) && $mfbfw['border'] ) { echo "; border:1px solid " . $mfbfw['borderColor']; } echo "}\n"; ?>
-		<?php if ( isset($mfbfw['titleColor']) && $mfbfw['titleColor'] && $mfbfw['titlePosition'] == "inside" ) { echo "div#fancybox-title-inside{color:" . $mfbfw['titleColor'] . "}\n"; } ?>
-	</style>
-
-	<?php
+	echo '
+<!-- Fancybox for WordPress v' . get_option( 'mfbfw_active_version' ) . ' -->
+<style type="text/css">
+	#fancybox-close{' . $mfbfw['closeHorPos'] . ':-15px;' . $mfbfw['closeVerPos'] . ':-15px}
+	' . ( isset($mfbfw['paddingColor']) && $mfbfw['paddingColor'] ? 'div#fancybox-content{border-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
+	' . ( isset($mfbfw['paddingColor']) && $mfbfw['paddingColor'] && $mfbfw['titlePosition'] == 'inside' ? 'div#fancybox-title{background-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
+	div#fancybox-outer{background-color:' . $mfbfw['paddingColor'] . ( isset($mfbfw['border']) && $mfbfw['border'] ? ';border:1px solid ' . $mfbfw['borderColor'] : '' ) .  '}
+	' . ( isset($mfbfw['titleColor']) && $mfbfw['titleColor'] && $mfbfw['titlePosition'] == 'inside' ? 'div#fancybox-title-inside{color:' . $mfbfw['titleColor'] . '}' : '' ) . '
+</style>';
 
 }
-add_action( 'wp_enqueue_scripts', 'mfbfw_styles' );
+add_action( 'wp_head', 'mfbfw_styles' );
 
 
 
@@ -217,7 +215,7 @@ function mfbfw_init() {
 
 	global $mfbfw;
 
-	echo "\n<!-- Fancybox for WordPress v" . get_option( 'mfbfw_active_version' ) . ' -->'; ?>
+?>
 
 <script type="text/javascript">
 jQuery(function(){
@@ -226,12 +224,12 @@ jQuery.fn.getTitle = function() { // Copy the title of every IMG tag and add it 
 	var arr = jQuery("a.fancybox");
 	jQuery.each(arr, function() {
 		var title = jQuery(this).children("img").attr("title");
-		jQuery(this).attr('title',title);
+		jQuery(this).attr("title",title);
 	})
 }
 
 // Supported file extensions
-var thumbnails = jQuery("a:has(img)").not(".nolightbox").filter( function() { return /\.(jpe?g|png|gif|bmp)$/i.test(jQuery(this).attr('href')) });
+var thumbnails = jQuery("a:has(img)").not(".nolightbox").filter( function() { return /\.(jpe?g|png|gif|bmp)$/i.test(jQuery(this).attr("href")) });
 
 <?php if ( $mfbfw['galleryType'] == 'post' ) {
 
