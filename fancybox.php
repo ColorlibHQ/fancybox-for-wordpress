@@ -140,10 +140,10 @@ register_deactivation_hook( __FILE__, 'mfbfw_uninstall' );
 
 
 /**
- * Load FancyBox JS with jQuery and jQuery.easing if necessary
+ * Load FancyBox JS with jQuery and jQuery.easing & jquery.mousewheel if necessary
  */
 
-function mfbfw_register_scripts() {
+function mfbfw_enqueue_scripts() {
 
 	global $mfbfw;
 
@@ -163,18 +163,10 @@ function mfbfw_register_scripts() {
 
 	// Register scripts
 	wp_register_script('fancybox', FBFW_URL . 'fancybox/jquery.fancybox.js', $jquery, '1.3.4', $footer ); // Main Fancybox script
-	wp_register_script('jqueryeasing', FBFW_URL . 'js/jquery.easing.1.3.min.js', false, '1.3', $footer ); // Easing animations script
-	wp_register_script('jquerymousewheel', FBFW_URL . 'js/jquery.mousewheel.3.0.4.pack.js', false, '3.0.4', $footer ); // Mouse wheel support script
+	wp_register_script('jqueryeasing', FBFW_URL . 'js/jquery.easing.1.3.min.js', $jquery, '1.3', $footer ); // Easing animations script
+	wp_register_script('jquerymousewheel', FBFW_URL . 'js/jquery.mousewheel.3.0.4.pack.js', $jquery, '3.0.4', $footer ); // Mouse wheel support script
 
-
-}
-add_action( 'init', 'mfbfw_register_scripts' );
-
-
-function mfbfw_scripts() {
-
-	global $mfbfw;
-
+	// Enqueue Scripts
 	wp_enqueue_script( 'fancybox' ); // Load fancybox
 
 	if ( isset($mfbfw['easing']) && $mfbfw['easing'] ) {
@@ -186,7 +178,7 @@ function mfbfw_scripts() {
 	}
 
 }
-add_action( 'wp_enqueue_scripts', 'mfbfw_scripts' ); // Load Scripts
+add_action( 'wp_enqueue_scripts', 'mfbfw_enqueue_scripts' );
 
 
 
