@@ -43,7 +43,7 @@ function mfbfw_defaults() {
 		'closeHorPos'           => 'right',
 		'closeVerPos'           => 'top',
 		'paddingColor'          => '#FFFFFF',
-		'padding'               => '10',
+		'padding'               => '15',
 		'overlayShow'           => 'on',
 		'overlayColor'          => '#666666',
 		'overlayOpacity'        => '0.3',
