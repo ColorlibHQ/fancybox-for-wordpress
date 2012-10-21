@@ -6,6 +6,4 @@
 
 				<p><?php _e('If you are an advanced user you can <a target="_blank" href="https://github.com/moskis/fancybox-for-wordpress">follow the plugin in Github</a>, fork it or help submitting fixes!', 'mfbfw'); ?></p>
 
-				<small><em><?php _e('<strong>Note:</strong> Having a cache plugin may prevent changes from taking effect immidiately, if this happens clear cache after saving changes here or deactivate cache until you finish editing these options.', 'mfbfw'); ?></em></small><br />
-
-				<small style="color:red;"><em><?php _e('<strong>Note:</strong> If update to version 3.0.0 breaks fancybox on your blog you will probably have to reset your settings (with the white button below). I have tested this issue on several WordPress installations and it always worked, so it might depend on the server. Sorry for the inconvinience.', 'mfbfw'); ?></em></small><br /><br />
+				<small><em><?php _e('<strong>Note:</strong> Having a cache plugin may prevent changes from taking effect immidiately, if this happens clear cache after saving changes here or deactivate cache until you finish editing these options.', 'mfbfw'); ?></em></small><br /><br />
