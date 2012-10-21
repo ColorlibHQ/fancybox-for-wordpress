@@ -115,14 +115,32 @@ function mfbfw_defaults() {
  * When plugin is installed, write default settings and update version
  */
 
-function mfbfw_install() {
+function mfbfw_activate() {
 
-	$default_settings = mfbfw_defaults();
-	add_option( 'mfbfw', $default_settings );
-	update_option( 'mfbfw_active_version', FBFW_VERSION );
+	$current_settings = get_option( 'mfbfw' );
+	$current_version = get_option( 'mfbfw_active_version' );
+
+	// If previous version detected
+	if ( isset($current_version) && $current_version < FBFW_VERSION ) {
+
+		// get default settings and add any new ones to the database
+		$default_settings = mfbfw_defaults();
+		$new_settings = (array)$current_settings + (array)$default_settings;
+		update_option( 'mfbfw', $new_settings );
+
+		// update version number
+		update_option( 'mfbfw_active_version', FBFW_VERSION );
+
+	} else {
+
+		// update is not needed, add settings if first time activation
+		$default_settings = mfbfw_defaults();
+		add_option( 'mfbfw', $default_settings );
+
+	}
 
 }
-register_activation_hook( __FILE__, 'mfbfw_install' );
+register_activation_hook( __FILE__, 'mfbfw_activate' );
 
 
 
@@ -130,7 +148,7 @@ register_activation_hook( __FILE__, 'mfbfw_install' );
  * If requested, when plugin is deactivated, remove settings
  */
 
-function mfbfw_uninstall() {
+function mfbfw_deactivate() {
 
 	global $mfbfw;
 
@@ -140,7 +158,7 @@ function mfbfw_uninstall() {
 	}
 
 }
-register_deactivation_hook( __FILE__, 'mfbfw_uninstall' );
+register_deactivation_hook( __FILE__, 'mfbfw_deactivate' );
 
 
 
