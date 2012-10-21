@@ -48,7 +48,7 @@
 												echo "<option value='$ms'$selected>$ms</option>\n";
 											} ?>
 										</select>
-										<?php _e('Speed in miliseconds of the animation when navigating thorugh gallery items (default: 300)', 'mfbfw'); ?>
+										<?php _e('Speed in miliseconds of the animation when navigating thorugh gallery items (default: 500)', 'mfbfw'); ?>
 									</label><br /><br />
 
 								</fieldset>

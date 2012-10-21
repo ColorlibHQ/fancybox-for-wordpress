@@ -61,7 +61,7 @@ function mfbfw_defaults() {
 		'zoomOpacity'           => 'on',
 		'zoomSpeedIn'           => '500',
 		'zoomSpeedOut'          => '500',
-		'zoomSpeedChange'       => '300',
+		'zoomSpeedChange'       => '500',
 		'transitionIn'          => 'fade',
 		'transitionOut'         => 'fade',
 		'easing'                => '',
