@@ -2,7 +2,7 @@
 
 function mfbfw_options_page() {
 
-	global $mfbfw;
+	global $mfbfw, $mfbfw_version;
 
 	require_once( FBFW_PATH . 'lib/admin-head.php' );
 
@@ -10,7 +10,7 @@ function mfbfw_options_page() {
 
 	<div class="wrap">
 
-	<div id="icon-plugins" class="icon32"></div><h2><?php printf( __('Fancybox for WordPress (version %s)', 'mfbfw'), get_option( 'mfbfw_active_version' ) ); ?></h2>
+	<div id="icon-plugins" class="icon32"></div><h2><?php printf( __('Fancybox for WordPress (version %s)', 'mfbfw'), $mfbfw_version ); ?></h2>
 
 	<br />
 

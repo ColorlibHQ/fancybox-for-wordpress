@@ -17,15 +17,38 @@ Author URI: http://josepardilla.com/
 
 
 /**
- * Constants
+ * Plugin Init
  */
 
+// Constants
 define( 'FBFW_VERSION', '3.0.2' );
 define( 'FBFW_PATH', plugin_dir_path(__FILE__) );
 define( 'FBFW_URL', plugin_dir_url(__FILE__) );
 
 // Get Main Settings
 $mfbfw = get_option( 'mfbfw' );
+$mfbfw_version = get_option( 'mfbfw_active_version' );
+
+// If previous version detected
+if ( is_admin() && isset($mfbfw_version) && $mfbfw_version < FBFW_VERSION ) {
+
+	// get default settings and add any new ones to the database
+	$current_settings = get_option( 'mfbfw' );
+	$default_settings = mfbfw_defaults();
+	$new_settings = (array)$current_settings + (array)$default_settings;
+	update_option( 'mfbfw', $new_settings );
+
+	// update version number
+	update_option( 'mfbfw_active_version', FBFW_VERSION );
+
+} else {
+
+	// update is not needed, add settings if first time activation
+	$default_settings = mfbfw_defaults();
+	add_option( 'mfbfw', $default_settings );
+
+}
+
 
 
 /**
@@ -110,40 +133,6 @@ function mfbfw_defaults() {
 }
 
 
-
-/**
- * When plugin is installed, write default settings and update version
- */
-
-function mfbfw_activate() {
-
-	$current_settings = get_option( 'mfbfw' );
-	$current_version = get_option( 'mfbfw_active_version' );
-
-	// If previous version detected
-	if ( isset($current_version) && $current_version < FBFW_VERSION ) {
-
-		// get default settings and add any new ones to the database
-		$default_settings = mfbfw_defaults();
-		$new_settings = (array)$current_settings + (array)$default_settings;
-		update_option( 'mfbfw', $new_settings );
-
-		// update version number
-		update_option( 'mfbfw_active_version', FBFW_VERSION );
-
-	} else {
-
-		// update is not needed, add settings if first time activation
-		$default_settings = mfbfw_defaults();
-		add_option( 'mfbfw', $default_settings );
-
-	}
-
-}
-register_activation_hook( __FILE__, 'mfbfw_activate' );
-
-
-
 /**
  * If requested, when plugin is deactivated, remove settings
  */
@@ -222,10 +211,10 @@ add_action( 'wp_enqueue_scripts', 'mfbfw_enqueue_scripts' );
 
 function mfbfw_init() {
 
-	global $mfbfw;
+	global $mfbfw, $mfbfw_version;
 
 	echo '
-<!-- Fancybox for WordPress v' . get_option( 'mfbfw_active_version' ) . ' -->
+<!-- Fancybox for WordPress v' . $mfbfw_version . ' -->
 <style type="text/css">
 	#fancybox-close{' . $mfbfw['closeHorPos'] . ':-15px;' . $mfbfw['closeVerPos'] . ':-15px}
 	' . ( isset($mfbfw['paddingColor']) && $mfbfw['paddingColor'] ? 'div#fancybox-content{border-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
