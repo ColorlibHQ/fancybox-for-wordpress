@@ -81,7 +81,7 @@
 
 									<label for="padding">
 										<input type="text" name="mfbfw[padding]" id="padding" value="<?php echo $mfbfw['padding']; ?>" size="3" maxlength="3" />
-										<?php _e('Padding cize in pixels (default: 15)', 'mfbfw'); ?>
+										<?php _e('Padding size in pixels (default: 15)', 'mfbfw'); ?>
 									</label><br /><br />
 
 									<label for="borderRadius">
