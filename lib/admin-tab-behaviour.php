@@ -84,7 +84,7 @@
 
 									<label for="cyclic">
 										<input type="checkbox" name="mfbfw[cyclic]" id="cyclic"<?php if ( isset($mfbfw['cyclic']) && $mfbfw['cyclic'] ) echo ' checked="yes"';?> />
-										<?php _e('This will make galleries cyclic, allowing you to keep pressing next/back (default: off)', 'mfbfw'); ?>
+										<?php _e('This will make galleries cyclic, allowing you to keep pressing next/back (default: on)', 'mfbfw'); ?>
 									</label><br /><br />
 
 								</fieldset>

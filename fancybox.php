@@ -99,7 +99,7 @@ function mfbfw_defaults() {
 		'hideOnContentClick'    => '',
 		'hideOnOverlayClick'    => 'on',
 		'enableEscapeButton'    => 'on',
-		'cyclic'                => '',
+		'cyclic'                => 'on',
 		'mouseWheel'            => '',
 
 		// Gallery Type
