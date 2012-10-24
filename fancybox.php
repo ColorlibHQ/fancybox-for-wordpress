@@ -415,11 +415,12 @@ add_action('admin_menu', 'mfbfw_admin_menu');
  */
 
 function mfbfw_admin_styles() {
-	wp_enqueue_style( 'fancybox-admin', FBFW_URL . 'css/fancybox-admin.css' ); // Load custom CSS for Admin Page
+	wp_enqueue_style( 'fancybox-admin', FBFW_URL . 'css/fancybox-admin.css', false, FBFW_VERSION ); // Load custom CSS for Admin Page
+	wp_enqueue_style( 'farbtastic' );
 }
 
 function mfbfw_admin_scripts() {
-	wp_enqueue_script( 'fancybox-admin', FBFW_URL . 'js/admin.js', array('jquery') ); // Load specific JS for Admin Page
+	wp_enqueue_script( 'fancybox-admin', FBFW_URL . 'js/admin.js', array('jquery', 'farbtastic'), FBFW_VERSION ); // Load specific JS for Admin Page
 }
 
 

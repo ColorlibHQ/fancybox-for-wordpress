@@ -69,3 +69,9 @@ padding:0 .6em;
 text-align:center;
 width:200px;
 }
+
+
+/* Settings Form */
+input.mfbfw_colorpicker {
+border-width:0;
+}

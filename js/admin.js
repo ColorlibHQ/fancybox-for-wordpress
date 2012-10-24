@@ -85,6 +85,18 @@ jQuery(function (){
 		jQuery("#customExpressionBlock").show("slow");
 	});
 
+
+	// Color Picker
+	var $color_inputs = jQuery("input.mfbfw_colorpicker");
+	$color_inputs.each(function () {
+		var $input = jQuery(this);
+		var $pickerId = "#" + jQuery(this).attr("id") + "_picker";
+		jQuery($pickerId).farbtastic($input);
+		jQuery($input).click(function () {
+			jQuery($pickerId).animate({opacity: "toggle", height: "toggle"}, 500)
+		});
+	});
+
 })
 
 function confirmDefaults() {

@@ -18,8 +18,9 @@
 									<div id="borderColorBlock">
 
 										<label for="borderColor">
-											<input type="text" name="mfbfw[borderColor]" id="borderColor" value="<?php echo $mfbfw['borderColor'] ?>" size="7" maxlength="7" />
+											<input type="text" name="mfbfw[borderColor]" id="borderColor" class="mfbfw_colorpicker" value="<?php echo $mfbfw['borderColor'] ?>" size="7" maxlength="7" />
 											<?php _e('HTML color of the border (default: #BBBBBB)', 'mfbfw'); ?>
+											<div id="borderColor_picker" class="color-picker" style="display:none"></div>
 										</label><br /><br />
 
 									</div>
@@ -73,8 +74,9 @@
 								<fieldset>
 
 									<label for="paddingColor">
-										<input type="text" name="mfbfw[paddingColor]" id="paddingColor" value="<?php echo $mfbfw['paddingColor'] ?>" size="7" maxlength="7" />
+										<input type="text" name="mfbfw[paddingColor]" id="paddingColor" class="mfbfw_colorpicker" value="<?php echo $mfbfw['paddingColor'] ?>" size="7" maxlength="7" />
 										<?php _e('Padding HTML color (default: #FFFFFF)', 'mfbfw'); ?>
+										<div id="paddingColor_picker" class="color-picker" style="display:none"></div>
 									</label><br />
 
 									<small><em><?php _e('(This should be left on #FFFFFF (white) if you want to display anything other than images, like inline or framed content)', 'mfbfw'); ?></em></small><br /><br />
@@ -111,8 +113,9 @@
 									<div id="overlayBlock">
 
 										<label for="overlayColor">
-											<input type="text" name="mfbfw[overlayColor]" id="overlayColor" value="<?php echo $mfbfw['overlayColor']; ?>" size="7" maxlength="7" />
-											<?php _e('Overlay HTML color (default: #666666)', 'mfbfw'); ?>
+											<input type="text" name="mfbfw[overlayColor]" id="overlayColor" class="mfbfw_colorpicker" value="<?php echo $mfbfw['overlayColor']; ?>" size="7" maxlength="7" />
+											<?php _e('Overlay HTML color (default: #000000)', 'mfbfw'); ?>
+											<div id="overlayColor_picker" class="color-picker" style="display:none"></div>
 										</label><br /><br />
 
 										<label for="overlayOpacity">
@@ -125,7 +128,7 @@
 												}
 												?>
 											</select>
-											<?php _e('Overlay opacity. 0 is transparent, 1 is opaque (default: 0.3)', 'mfbfw'); ?>
+											<?php _e('Overlay opacity. 0 is transparent, 1 is opaque (default: 0.7)', 'mfbfw'); ?>
 										</label><br /><br />
 
 									</div>
@@ -196,8 +199,9 @@
 										<div id="titleColorBlock">
 
 											<label for="titleColor">
-												<input type="text" name="mfbfw[titleColor]" id="titleColor" class="colorpick" value="<?php echo $mfbfw['titleColor']; ?>" size="7" maxlength="7" />
+												<input type="text" name="mfbfw[titleColor]" id="titleColor" class="mfbfw_colorpicker" value="<?php echo $mfbfw['titleColor']; ?>" size="7" maxlength="7" />
 												<?php _e('Title text color (default: #333333)', 'mfbfw'); ?>
+												<div id="titleColor_picker" class="color-picker" style="display:none"></div>
 											</label><br />
 
 											<small><em><?php _e('(Should contrast with the padding color set above)', 'mfbfw'); ?></em></small><br /><br />

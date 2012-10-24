@@ -743,4 +743,4 @@ msgstr "Eliminar opciones cuando se desactive el plugin desde la página \"Gesti
 #~ "FancyBox galleries.)"
 #~ msgstr ""
 #~ "(Esto no afecta a los enlaces de Imagen Siguiente e Imagen Anterior en "
-#~ "galerias de varias imágenes)"
+#~ "galerías de varias imágenes)"
