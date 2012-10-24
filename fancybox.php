@@ -46,6 +46,7 @@ if ( is_admin() && isset($mfbfw_version) && $mfbfw_version < FBFW_VERSION ) {
 	// update is not needed, add settings if first time activation
 	$default_settings = mfbfw_defaults();
 	add_option( 'mfbfw', $default_settings );
+	add_option( 'mfbfw_active_version', FBFW_VERSION );
 
 }
 
