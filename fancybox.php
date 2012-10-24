@@ -288,23 +288,23 @@ if ( $mfbfw['galleryType'] == 'post' ) {
 // Call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
 echo '
 		jQuery("a.fancybox").fancybox({
-			"cyclic": ' . ( isset($mfbfw['cyclic']) && $mfbfw['cyclic'] ? '"true"' : '"false"' ) . ',
-			"autoScale": ' . ( isset($mfbfw['imageScale']) && $mfbfw['imageScale'] ? '"true"' : '"false"' ) . ',
+			"cyclic": ' . ( isset($mfbfw['cyclic']) && $mfbfw['cyclic'] ? 'true' : 'false' ) . ',
+			"autoScale": ' . ( isset($mfbfw['imageScale']) && $mfbfw['imageScale'] ? 'true' : 'false' ) . ',
 			"padding": ' . $mfbfw['padding'] . ',
-			"opacity": ' . ( isset($mfbfw['zoomOpacity']) && $mfbfw['zoomOpacity'] ? '"true"' : '"false"' ) . ',
+			"opacity": ' . ( isset($mfbfw['zoomOpacity']) && $mfbfw['zoomOpacity'] ? 'true' : 'false' ) . ',
 			"speedIn": ' . $mfbfw['zoomSpeedIn'] . ',
 			"speedOut": ' . $mfbfw['zoomSpeedOut'] . ',
 			"changeSpeed": ' . $mfbfw['zoomSpeedChange'] . ',
-			"overlayShow": ' . ( isset($mfbfw['overlayShow']) && $mfbfw['overlayShow'] ? '"true"' : '"false"' ) . ',
+			"overlayShow": ' . ( isset($mfbfw['overlayShow']) && $mfbfw['overlayShow'] ? 'true' : 'false' ) . ',
 			"overlayOpacity": "' . $mfbfw['overlayOpacity'] . '",
 			"overlayColor": "' . $mfbfw['overlayColor'] . '",
-			"titleShow": ' . ( isset($mfbfw['titleShow']) && $mfbfw['titleShow'] ? '"true"' : '"false"' ) . ',
+			"titleShow": ' . ( isset($mfbfw['titleShow']) && $mfbfw['titleShow'] ? 'true' : 'false' ) . ',
 			"titlePosition": "' . $mfbfw['titlePosition'] . '",
-			"enableEscapeButton": ' . ( isset($mfbfw['enableEscapeButton']) && $mfbfw['enableEscapeButton'] ? '"true"' : '"false"' ) . ',
-			"showCloseButton": ' . ( isset($mfbfw['showCloseButton']) && $mfbfw['showCloseButton'] ? '"true"' : '"false"' ) . ',
-			"showNavArrows": ' . ( isset($mfbfw['showNavArrows']) && $mfbfw['showNavArrows'] ? '"true"' : '"false"' ) . ',
-			"hideOnOverlayClick": ' . ( isset($mfbfw['hideOnOverlayClick']) && $mfbfw['hideOnOverlayClick'] ? '"true"' : '"false"' ) . ',
-			"hideOnContentClick": ' . ( isset($mfbfw['hideOnContentClick']) && $mfbfw['hideOnContentClick'] ? '"true"' : '"false"' ) . ',
+			"enableEscapeButton": ' . ( isset($mfbfw['enableEscapeButton']) && $mfbfw['enableEscapeButton'] ? 'true' : 'false' ) . ',
+			"showCloseButton": ' . ( isset($mfbfw['showCloseButton']) && $mfbfw['showCloseButton'] ? 'true' : 'false' ) . ',
+			"showNavArrows": ' . ( isset($mfbfw['showNavArrows']) && $mfbfw['showNavArrows'] ? 'true' : 'false' ) . ',
+			"hideOnOverlayClick": ' . ( isset($mfbfw['hideOnOverlayClick']) && $mfbfw['hideOnOverlayClick'] ? 'true' : 'false' ) . ',
+			"hideOnContentClick": ' . ( isset($mfbfw['hideOnContentClick']) && $mfbfw['hideOnContentClick'] ? 'true' : 'false' ) . ',
 			"width": ' . $mfbfw['frameWidth'] . ',
 			"height": ' . $mfbfw['frameHeight'] . ',
 			"transitionIn": "' . $mfbfw['transitionIn'] . '",
@@ -314,7 +314,7 @@ echo '
 			"onCleanup": ' . ( isset($mfbfw['callbackEnable'], $mfbfw['callbackOnCleanup']) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnCleanup'] ? $mfbfw['callbackOnCleanup'] . ',' : 'function() { },' ) . '
 			"onComplete": ' . ( isset($mfbfw['callbackEnable'], $mfbfw['callbackOnComplete']) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnComplete'] ? $mfbfw['callbackOnComplete'] . ',' : 'function() { },' ) . '
 			"onClosed": ' . ( isset($mfbfw['callbackEnable'], $mfbfw['callbackOnClose']) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnClose'] ? $mfbfw['callbackOnClose'] . ',' : 'function() { },' ) . '
-			"centerOnScroll": ' . ( isset($mfbfw['centerOnScroll']) && $mfbfw['centerOnScroll'] ? '"true"' : '"false" ' ) . ( isset($mfbfw['easing']) && $mfbfw['easing'] ? ',
+			"centerOnScroll": ' . ( isset($mfbfw['centerOnScroll']) && $mfbfw['centerOnScroll'] ? 'true' : 'false ' ) . ( isset($mfbfw['easing']) && $mfbfw['easing'] ? ',
 			"easingIn": "' . $mfbfw['easingIn'] . '",
 			"easingOut": "' . $mfbfw['easingOut'] . '",
 			"easingChange": "' . $mfbfw['easingChange'] . '"' : '' ) . '
