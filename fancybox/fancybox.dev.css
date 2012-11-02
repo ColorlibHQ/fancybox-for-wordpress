@@ -83,6 +83,10 @@
 	border: 0px solid #fff;
 }
 
+#fancybox-content > div {
+	overflow: hidden !important;
+}
+
 #fancybox-hide-sel-frame {
 	position: absolute;
 	top: 0;
