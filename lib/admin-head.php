@@ -1,7 +1,7 @@
 <?php
 
 if ( isset($_REQUEST['reset']) && $_REQUEST['reset'] )
-	echo '<div id="message" class="updated fade"><p><strong>FancyBox for WordPress settings have been reset.</strong></p></div>';
+	echo '<div id="message" class="updated fade"><p><strong>'.__('FancyBox for WordPress settings have been reset', 'mfbfw').'</strong></p></div>';
 
 // Make selects data
 $transitionTypeArray = array( 'fade', 'elastic', 'none' );
