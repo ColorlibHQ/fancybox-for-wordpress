@@ -48,6 +48,31 @@
 						</tr>
 
 						<tr valign="top">
+							<th scope="row"><?php _e('Image Title function', 'mfbfw'); ?></th>
+							<td>
+								<fieldset>
+
+									<label for="copyTitleFunction">
+										<?php _e('Function to customize image titles', 'mfbfw'); ?>
+										<textarea rows="10" cols="50" class="large-text code" name="mfbfw[copyTitleFunction]" wrap="physical" id="copyTitleFunction"><?php echo ($mfbfw['copyTitleFunction']); ?></textarea>
+									</label><br />
+
+									<small><em><?php _e('This option allows you to edit image titles with your own jQuery function.', 'mfbfw'); ?></em></small><br /><br />
+
+									<small><strong><em><?php _e('Example:', 'mfbfw'); ?></em></strong></small><br />
+									<small><em><code>
+										var arr = jQuery("a.fancybox");<br />
+										jQuery.each(arr, function() {<br />
+										&nbsp;&nbsp;var title = jQuery(this).children("img").attr("title");<br />
+										&nbsp;&nbsp;jQuery(this).attr("title",title);<br />
+										})
+									</code></em></small><br /><br />
+
+								</fieldset>
+							</td>
+						</tr>
+
+						<tr valign="top">
 							<th scope="row"><?php _e('Callbacks', 'mfbfw'); ?></th>
 							<td>
 								<fieldset>
@@ -85,15 +110,10 @@
 											<?php _e('Callback on <strong>Closed</strong> event: Will be called once FancyBox is closed', 'mfbfw'); ?>
 											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnClose]" wrap="physical" id="callbackOnClosed"><?php echo ($mfbfw['callbackOnClose']); ?></textarea>
 										</label><br /><br/>
-										
-										<label for="copyTitleFunction">
-											<?php _e('Function to copy title from different source then Fancybox default anchor title', 'mfbfw'); ?>
-											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[copyTitleFunction]" wrap="physical" id="copyTitleFunction"><?php echo ($settings['copyTitleFunction']); ?></textarea>
-										</label><br /><br/>
 
 										<small><strong><em><?php _e('Example:', 'mfbfw'); ?></em></strong></small><br />
 										<small><em><code>function() { alert('Hello world!'); }</code></em></small><br />
-										<small><em><?php _e('Leave empty any speciic callbacks you don\'t need to use.', 'mfbfw'); ?></em></small><br /><br />
+										<small><em><?php _e('Leave empty any specific callbacks you don\'t need to use.', 'mfbfw'); ?></em></small><br /><br />
 
 									</div>
 
