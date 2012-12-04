@@ -117,6 +117,11 @@ function mfbfw_defaults() {
 		'callbackOnComplete'    => 'function() { alert("Complete!"); }',
 		'callbackOnCleanup'     => 'function() { alert("CleanUp!"); }',
 		'callbackOnClose'       => 'function() { alert("Close!"); }',
+		'copyTitleFunction'			=> 'var arr = jQuery("a.fancybox");
+	jQuery.each(arr, function() {
+			var title = jQuery(this).children("img").attr("title");
+		jQuery(this).attr("title",title);
+	})',
 
 		// Troubleshooting
 		'nojQuery'              => '',
@@ -231,12 +236,9 @@ function mfbfw_init() {
 <script type="text/javascript">
 	jQuery(function(){
 
-		jQuery.fn.getTitle = function() { // Copy the title of every IMG tag and add it to its parent A so that fancybox can show titles
-			var arr = jQuery("a.fancybox");
-			jQuery.each(arr, function() {
-				var title = jQuery(this).children("img").attr("title");
-				jQuery(this).attr("title",title);
-			})
+		jQuery.fn.getTitle = function() { // Copy the title of every IMG tag and add it to its parent A so that fancybox can show titles';
+			<?php echo $settings['copyTitleFunction']; ?>
+	echo '
 		}
 
 		// Supported file extensions

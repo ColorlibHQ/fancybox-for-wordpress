@@ -85,6 +85,11 @@
 											<?php _e('Callback on <strong>Closed</strong> event: Will be called once FancyBox is closed', 'mfbfw'); ?>
 											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnClose]" wrap="physical" id="callbackOnClosed"><?php echo ($mfbfw['callbackOnClose']); ?></textarea>
 										</label><br /><br/>
+										
+										<label for="copyTitleFunction">
+											<?php _e('Function to copy title from different source then Fancybox default anchor title', 'mfbfw'); ?>
+											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[copyTitleFunction]" wrap="physical" id="copyTitleFunction"><?php echo ($settings['copyTitleFunction']); ?></textarea>
+										</label><br /><br/>
 
 										<small><strong><em><?php _e('Example:', 'mfbfw'); ?></em></strong></small><br />
 										<small><em><code>function() { alert('Hello world!'); }</code></em></small><br />
