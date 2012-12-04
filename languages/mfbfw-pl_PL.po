@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FancyBox for WordPress Polski\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/fancybox-for-wordpress\n"
-"POT-Creation-Date: 2012-12-03 21:19+0100\n"
+"POT-Creation-Date: 2012-12-04 18:51+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jose Pardilla <info@josepardilla.com>\n"
 "Language-Team: Pracownie Inżynierskie Socha <admin@socha-pi.pl>\n"
@@ -12,91 +12,79 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-KeywordsList: _e;__;esc_attr_e\n"
 "X-Poedit-Basepath: ./\n"
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPath-1: ../lib\n"
 
-#: ../admin.php:11
+#: ../admin.php:13
 #, php-format
 msgid "Fancybox for WordPress (version %s)"
 msgstr "Fancybox dla WordPress (wersja %s)"
 
-#: ../admin.php:22
+#: ../admin.php:25
 msgid "Info"
 msgstr "Informacje"
 
-#: ../admin.php:23
+#: ../admin.php:26
 msgid "Appearance"
 msgstr "Wygląd"
 
-#: ../admin.php:24
+#: ../admin.php:27
 msgid "Animations"
 msgstr "Animacje"
 
-#: ../admin.php:25
+#: ../admin.php:28
 msgid "Behaviour"
 msgstr "Zachowanie"
 
-#: ../admin.php:26
+#: ../admin.php:29
 msgid "Galleries"
 msgstr "Galerie"
 
-#: ../admin.php:27
+#: ../admin.php:30
 msgid "Miscellaneous"
 msgstr "Inne"
 
-#: ../admin.php:28
+#: ../admin.php:31
 msgid "Extra Calls"
 msgstr "Odwołania"
 
-#: ../admin.php:29
+#: ../admin.php:32
 msgid "Troubleshooting"
 msgstr "Problemy"
 
-#: ../admin.php:30 ../lib/admin-tab-support.php:1
+#: ../admin.php:33 ../lib/admin-tab-support.php:1
 msgid "Support"
 msgstr "Wsparcie"
 
-#: ../admin.php:31 ../lib/admin-tab-uninstall.php:1
+#: ../admin.php:34 ../lib/admin-tab-uninstall.php:1
 msgid "Uninstall"
 msgstr "Odinstalowanie"
 
-#: ../admin.php:77
+#: ../admin.php:81
 msgid "Save Changes"
 msgstr "Zapisz zmiany"
 
-#: ../admin.php:84
+#: ../admin.php:88
 msgid "Revert to defaults"
 msgstr "Przywróć do ustawień domyślnych"
 
-#: ../admin.php:92
+#: ../admin.php:96
 msgid "If you use FancyBox and like it, buy the author a beer!"
 msgstr "Jeśli używasz FancyBox i podoba ci się, postaw autorowi piwo!"
 
-#: ../admin.php:109
+#: ../admin.php:113
 msgid "The author of this WordPress Plugin also likes beer :P"
 msgstr "Autor tej wtyczki do Wordpressa także lubi piwo :P"
 
-#: ../admin.php:119
+#: ../admin.php:123
 msgid "Follow me on Twitter for more WordPress Plugins and Themes"
 msgstr "Śledź mnie na Twitterze dla innych wtyczek i motywów Wordpress"
 
-#: ../fancybox.php:379
-msgid "Fancybox for WordPress Options"
-msgstr "Opcje wtyczki Fancybox dla Wordpress"
-
-#: ../fancybox.php:379
-msgid "Fancybox for WP"
-msgstr "Fancybox dla WP"
-
-#: ../fancybox.php:415
+#: ../fancybox.php:439
 msgid "Settings"
 msgstr "Ustawienia"
-
-#: ../lib/admin-head.php:4
-msgid "FancyBox for WordPress settings have been reset"
-msgstr "Ustawienia wtyczki Fancybox dla Wordpress zostały zresetowane"
 
 #: ../lib/admin-tab-animations.php:1
 msgid "Animation Settings <span style=\"color:green\">(basic)</span>"
@@ -131,7 +119,7 @@ msgstr "Czas trwania w milisekundach animacji pomniejszania (domyślnie: 500)"
 #: ../lib/admin-tab-animations.php:51
 msgid ""
 "Speed in miliseconds of the animation when navigating thorugh gallery items "
-"(default: 300)"
+"(default: 500)"
 msgstr ""
 "Czas trwania w milisekundach animacji przejścia między elementami galerii "
 "(domyślnie: 500)"
@@ -219,43 +207,43 @@ msgstr "Pokaż obramowanie (domyślnie: wyłączone)"
 msgid "HTML color of the border (default: #BBBBBB)"
 msgstr "Kolor HTML obramowania (domyślnie: #bbbbbb)"
 
-#: ../lib/admin-tab-appearance.php:32
+#: ../lib/admin-tab-appearance.php:33
 msgid "Close Button"
 msgstr "Przycisk zamykania"
 
-#: ../lib/admin-tab-appearance.php:38
+#: ../lib/admin-tab-appearance.php:39
 msgid "Show Close button (default: on)"
 msgstr "Pokaż przycisk zamykania (domyślnie: włączone)"
 
-#: ../lib/admin-tab-appearance.php:43
+#: ../lib/admin-tab-appearance.php:44
 msgid "Close button position:"
 msgstr "Położenie przycisku zamykania:"
 
-#: ../lib/admin-tab-appearance.php:46
+#: ../lib/admin-tab-appearance.php:47
 msgid "Left"
 msgstr "Po lewej"
 
-#: ../lib/admin-tab-appearance.php:51
+#: ../lib/admin-tab-appearance.php:52
 msgid "Right (default)"
 msgstr "Po prawej (domyślnie)"
 
-#: ../lib/admin-tab-appearance.php:56
+#: ../lib/admin-tab-appearance.php:57
 msgid "Bottom"
 msgstr "Na dole"
 
-#: ../lib/admin-tab-appearance.php:61
+#: ../lib/admin-tab-appearance.php:62
 msgid "Top (default)"
 msgstr "U góry (domyślnie)"
 
-#: ../lib/admin-tab-appearance.php:71
-msgid "Padding"
-msgstr "Margines wewnętrzny"
+#: ../lib/admin-tab-appearance.php:72
+msgid "FancyBox Shape"
+msgstr ""
 
-#: ../lib/admin-tab-appearance.php:77
-msgid "HTML color of the padding (default: #FFFFFF)"
+#: ../lib/admin-tab-appearance.php:78
+msgid "Padding HTML color (default: #FFFFFF)"
 msgstr "Kolor HTML marginesu wewnętrznego (domyślnie: #ffffff)"
 
-#: ../lib/admin-tab-appearance.php:80
+#: ../lib/admin-tab-appearance.php:82
 msgid ""
 "(This should be left on #FFFFFF (white) if you want to display anything "
 "other than images, like inline or framed content)"
@@ -263,63 +251,89 @@ msgstr ""
 "(Powinno pozostać ustawione na #ffffff (biały) jeśli chcesz wyświetlać coś "
 "poza obrazami, jak zawartość inline albo z ramki)"
 
-#: ../lib/admin-tab-appearance.php:84
-msgid "Padding size in pixels (default: 10)"
+#: ../lib/admin-tab-appearance.php:86
+msgid "Padding size in pixels (default: 15)"
 msgstr "Rozmiar marginesu wewnętrznego (domyślnie: 10)"
 
-#: ../lib/admin-tab-appearance.php:92
+#: ../lib/admin-tab-appearance.php:91
+msgid "Rounded Corners radius (default: 5)"
+msgstr "Promień zaokrąglonych naróżników (domyślnie: 5)"
+
+#: ../lib/admin-tab-appearance.php:96
+msgid "Rounded Corners inner radius (default: 0)"
+msgstr ""
+
+#: ../lib/admin-tab-appearance.php:104
 msgid "Overlay Options"
 msgstr "Ustawienia nakładki"
 
-#: ../lib/admin-tab-appearance.php:98
+#: ../lib/admin-tab-appearance.php:110
 msgid "Add overlay (default: on)"
 msgstr "Dodaj nakładkę (domyślnie: włączone)"
 
-#: ../lib/admin-tab-appearance.php:105
-msgid "HTML color of the overlay (default: #666666)"
-msgstr "Kolor HTML nakładki (domyślnie: #666666)"
+#: ../lib/admin-tab-appearance.php:117
+msgid "Overlay HTML color (default: #000000)"
+msgstr "Kolor HTML nakładki (domyślnie: #000000)"
 
-#: ../lib/admin-tab-appearance.php:118
-msgid "Opacity of overlay. 0 is transparent, 1 is opaque (default: 0.3)"
+#: ../lib/admin-tab-appearance.php:131
+msgid "Overlay opacity. 0 is transparent, 1 is opaque (default: 0.7)"
 msgstr ""
 "Przezroczystość nakładki. 0 to całkowicie przezroczyste, 1 to całkowicie "
-"nieprzezroczyste (domyślnie: 0.3)"
+"nieprzezroczyste (domyślnie: 0.7)"
 
-#: ../lib/admin-tab-appearance.php:128
+#: ../lib/admin-tab-appearance.php:141
+msgid "Shadow"
+msgstr "Cień"
+
+#: ../lib/admin-tab-appearance.php:147
+msgid "Shadow size (default: 25)"
+msgstr "Rozmiar cienia (domyślnie: 25)"
+
+#: ../lib/admin-tab-appearance.php:152
+msgid "Shadow distance (default: 10)"
+msgstr "Odległość cienia (domyślnie: 10)"
+
+#: ../lib/admin-tab-appearance.php:165
+msgid "Shadow opacity. 0 is transparent, 1 is opaque (default: 0.5)"
+msgstr ""
+"Przezroczystość cienia. 0 to całkowicie przezroczyste, 1 to całkowicie "
+"nieprzezroczyste (domyślnie: 0.5)"
+
+#: ../lib/admin-tab-appearance.php:173
 msgid "Title"
 msgstr "Tytuł"
 
-#: ../lib/admin-tab-appearance.php:134
+#: ../lib/admin-tab-appearance.php:179
 msgid "Show the title (default: on)"
 msgstr "Pokaż tytuł (domyślnie: włączone)"
 
-#: ../lib/admin-tab-appearance.php:141
+#: ../lib/admin-tab-appearance.php:186
 msgid "Inside (default)"
 msgstr "Wewnątrz (domyślnie)"
 
-#: ../lib/admin-tab-appearance.php:146
+#: ../lib/admin-tab-appearance.php:191
 msgid "Outside"
 msgstr "Na zewnątrz"
 
-#: ../lib/admin-tab-appearance.php:151
+#: ../lib/admin-tab-appearance.php:196
 msgid "Over"
 msgstr "Nad zawartością"
 
-#: ../lib/admin-tab-appearance.php:158
+#: ../lib/admin-tab-appearance.php:203
 msgid "Title text color (default: #333333)"
 msgstr "Kolor tekstu tytułu (domyślnie: #333333)"
 
-#: ../lib/admin-tab-appearance.php:161
+#: ../lib/admin-tab-appearance.php:207
 msgid "(Should contrast with the padding color set above)"
 msgstr ""
 "(Powinien być kontrastowy w stosunku do koloru marginesu wewnętrznego "
 "ustawionego powyżej)"
 
-#: ../lib/admin-tab-appearance.php:172
+#: ../lib/admin-tab-appearance.php:218
 msgid "Navigation Arrows"
 msgstr "Strzałki nawigacyjne"
 
-#: ../lib/admin-tab-appearance.php:178
+#: ../lib/admin-tab-appearance.php:224
 msgid "Show the navigation arrows (default: on)"
 msgstr "Pokaż strzałki nawigacyjne (domyślnie: włączone)"
 
@@ -399,10 +413,10 @@ msgstr "Zapętl galerie"
 #: ../lib/admin-tab-behaviour.php:87
 msgid ""
 "This will make galleries cyclic, allowing you to keep pressing next/back "
-"(default: off)"
+"(default: on)"
 msgstr ""
-"To sprawi, że galerie będą zapętlone i będziesz mógł przechodzi od końca do "
-"początku klawiszami następny/poprzedni (domyślnie: wyłączone)"
+"To sprawi, że galerie będą zapętlone i będziesz mógł przechodzić od końca do "
+"początku odnośnikami następny/poprzedni (domyślnie: wyłączone)"
 
 #: ../lib/admin-tab-behaviour.php:95
 msgid "Mouse Wheel Navigation"
@@ -450,7 +464,7 @@ msgstr "Dodatkowe odwołania"
 msgid "Additional FancyBox Calls (default: off)"
 msgstr "Dodatkowe odwołania (domyślnie: wyłączone)"
 
-#: ../lib/admin-tab-calls.php:26 ../lib/admin-tab-other.php:94
+#: ../lib/admin-tab-calls.php:26 ../lib/admin-tab-other.php:89
 msgid "Example:"
 msgstr "Przykład:"
 
@@ -608,19 +622,6 @@ msgstr ""
 "stanie wyczyść pamięć podręczną po zapisaniu ustawień albo wyłącz pamięć "
 "podręczną na czas zmieniania ustawień."
 
-#: ../lib/admin-tab-info.php:11
-msgid ""
-"<strong>Note:</strong> If update to version 3.0.0 breaks fancybox on your "
-"blog you will probably have to reset your settings (with the white button "
-"below). I have tested this issue on several WordPress installations and it "
-"always worked, so it might depend on the server. Sorry for the inconvinience."
-msgstr ""
-"<strong>Notatka:</strong> Jeśli aktualizacja do wersji 3.0.0 psuje Fancybox "
-"na twoim blogu będziesz musiał prawdopodobnie zresetować ustawienia (białym "
-"przyciskiem poniżej). Testowałem ten problem na kilku instalacjach Wordpress "
-"i zawsze działało, więc może to zależeć od serwera. Przepraszam ze "
-"niedogodności."
-
 #: ../lib/admin-tab-other.php:1
 msgid "Other Settings <span style=\"color:red\">(advanced)</span>"
 msgstr "Inne ustawienia <span style=\"color:red\">(zaawansowane)</span>"
@@ -671,8 +672,7 @@ msgid "Load JavaScript in Footer"
 msgstr "Załaduj JavaScript w stopce"
 
 #: ../lib/admin-tab-other.php:41
-msgid ""
-"Loads JavaScript at the end of the blog's HTML (experimental) (default: off)"
+msgid "Loads JavaScript at the end of the blog's HTML (default: off)"
 msgstr ""
 "Załaduj JavaScript na końcu zawartości HTML (eksperymentalne, domyślnie: "
 "wyłączone)"
@@ -738,13 +738,7 @@ msgstr ""
 "Odwołanie podczas zdarzenia  <strong>Cerrado</strong>: zostanie wywołane po "
 "zamknięciu"
 
-#: ../lib/admin-tab-other.php:90
-msgid ""
-"Function to copy title from different source then Fancybox default anchor "
-"title"
-msgstr ""
-
-#: ../lib/admin-tab-other.php:96
+#: ../lib/admin-tab-other.php:91
 msgid "Leave empty any speciic callbacks you don't need to use."
 msgstr "Zostaw puste jeśli nie korzystasz z poszczególnych odwołań"
 
@@ -843,12 +837,11 @@ msgstr ""
 msgid ""
 "If the plugin doesn't seem to work, first you should check for other plugins "
 "that may be conflicting with this one, especially other Lightbox, Slimbox, "
-"etc. Make sure all your plugins and WordPress itself are up to date (this "
-"plugin has only been tested in WordPress 2.7 and above)."
+"etc. Make sure all your plugins and WordPress itself are up to date."
 msgstr ""
 "Jeśli wtyczka nie działa, po pierwsze sprawdź czy inny wtyczki nie "
 "konfliktują z tą, zwłaszcza Lightbox, Slimbox, itp. Upewnij się, że "
-"wszystkie wtyczki oraz sam Wordpress są w aktulanej wersji (ta wtyczka byłą "
+"wszystkie wtyczki oraz sam Wordpress są w aktulanej wersji (ta wtyczka była "
 "testowana tylko z Wordpress 2.7 i nowszych)."
 
 #: ../lib/admin-tab-troubleshooting.php:7
@@ -901,6 +894,34 @@ msgid ""
 msgstr ""
 "Usuń ustawienia kiedy wtyczka zostanie wyłączona z panelu \"Zarządzania "
 "wtyczkami\". (domyślnie: wyłączone)"
+
+#~ msgid "Fancybox for WordPress Options"
+#~ msgstr "Opcje wtyczki Fancybox dla Wordpress"
+
+#~ msgid "Fancybox for WP"
+#~ msgstr "Fancybox dla WP"
+
+#~ msgid "FancyBox for WordPress settings have been reset"
+#~ msgstr "Ustawienia wtyczki Fancybox dla Wordpress zostały zresetowane"
+
+#~ msgid "Padding"
+#~ msgstr "Margines wewnętrzny"
+
+#~ msgid "HTML color of the overlay (default: #666666)"
+#~ msgstr "Kolor HTML nakładki (domyślnie: #666666)"
+
+#~ msgid ""
+#~ "<strong>Note:</strong> If update to version 3.0.0 breaks fancybox on your "
+#~ "blog you will probably have to reset your settings (with the white button "
+#~ "below). I have tested this issue on several WordPress installations and "
+#~ "it always worked, so it might depend on the server. Sorry for the "
+#~ "inconvinience."
+#~ msgstr ""
+#~ "<strong>Notatka:</strong> Jeśli aktualizacja do wersji 3.0.0 psuje "
+#~ "Fancybox na twoim blogu będziesz musiał prawdopodobnie zresetować "
+#~ "ustawienia (białym przyciskiem poniżej). Testowałem ten problem na kilku "
+#~ "instalacjach Wordpress i zawsze działało, więc może to zależeć od "
+#~ "serwera. Przepraszam ze niedogodności."
 
 #~ msgid "Callback on Start event (default: empty)"
 #~ msgstr "Retrollamada en el evento de Inicio (por defecto: vacío)"
