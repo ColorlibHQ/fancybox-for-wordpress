@@ -222,7 +222,7 @@ function mfbfw_init() {
 	echo '
 <!-- Fancybox for WordPress v' . $mfbfw_version . ' -->
 <style type="text/css">
-	#fancybox-close{' . $mfbfw['closeHorPos'] . ':-15px;' . $mfbfw['closeVerPos'] . ':-15px}
+	#fancybox-close{' . $mfbfw['closeHorPos'] . ':-13px;' . $mfbfw['closeVerPos'] . ':-13px}
 	' . ( isset($mfbfw['paddingColor']) && $mfbfw['paddingColor'] ? 'div#fancybox-content{border-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
 	' . ( isset($mfbfw['paddingColor']) && $mfbfw['paddingColor'] && $mfbfw['titlePosition'] == 'inside' ? 'div#fancybox-title{background-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
 	div#fancybox-outer{background-color:' . $mfbfw['paddingColor'] . ( isset($mfbfw['border']) && $mfbfw['border'] ? ';border:1px solid ' . $mfbfw['borderColor'] : '' ) .  '}
