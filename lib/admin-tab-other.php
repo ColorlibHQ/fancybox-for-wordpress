@@ -30,6 +30,16 @@
 								</fieldset>
 							</td>
 						</tr>
+                        
+                        <tr valign="top">
+							<th scope="row"><?php _e('SVG Support', 'mfbfw'); ?></th>
+                            <td>
+                                <label for="svgEnable">
+                                    <input type="checkbox" name="mfbfw[svgEnable]" id="svgEnable"<?php if ( isset($mfbfw['svgEnable']) && $mfbfw['svgEnable'] ) echo ' checked="yes"';?> />
+                                    <?php _e('Look for image links inside SVG elements (default: off)', 'mfbfw'); ?>
+                                </label>
+                            </td>
+                        </tr>
 
 						<tr valign="top">
 							<th scope="row"><?php _e('Load JavaScript in Footer', 'mfbfw'); ?></th>

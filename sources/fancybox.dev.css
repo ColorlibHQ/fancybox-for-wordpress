@@ -193,7 +193,7 @@
 }
 
 .btn i {
-	background:url(http://localhost/wpdev/wp-content/plugins/fancybox-for-wordpress/fancybox/fancybox.png) -47px -5px;
+	background:url(fancybox.png) -47px -5px;
 	display:block;
 	height:16px;
 	left:4px;

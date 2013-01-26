@@ -129,6 +129,9 @@ jQuery.each(arr, function() {
 		// Extra Calls
 		'extraCallsEnable'      => '',
 		'extraCalls'            => '',
+        
+        // SVG Calls
+        'svgEnable'        => '',
 
 		// Uninstall
 		'uninstall'             => ''
@@ -242,8 +245,9 @@ function mfbfw_init() {
 
 		// Supported file extensions
 		var thumbnails = jQuery("a:has(img)").not(".nolightbox, .nofancybox, a:has(img.nolightbox, img.nofancybox)").filter( function() { return /\.(jpe?g|png|gif|bmp)$/i.test(jQuery(this).attr("href")) });
-';
 
+';
+    
 if ( $mfbfw['galleryType'] == 'post' ) {
 
 	// Gallery type BY POST and on post or page (so only one post or page is visible)
@@ -278,6 +282,16 @@ if ( $mfbfw['galleryType'] == 'post' ) {
 		thumbnails.addClass("fancybox").getTitle();
 ';
 
+}
+
+// SVG thumbnails
+if ( isset($mfbfw['svgEnable']) ) {
+    echo '
+        // links insige svg elements
+        var svg_thumbnails = jQuery("a:has(image)").filter( function() { jQuery(this).attr("href", jQuery(this).attr("xlink:href")); return /\.(jpe?g|png|gif|bmp)$/i.test(jQuery(this).attr("href")) });
+        svg_thumbnails.attr("rel", "fancybox");
+';
+
 // Else, gallery type is custom, so just print the custom expression
 } else {
 	echo '
@@ -288,7 +302,7 @@ if ( $mfbfw['galleryType'] == 'post' ) {
 
 // Call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
 echo '
-		jQuery("a.fancybox").fancybox({
+		jQuery("a.fancybox' . ( isset($mfbfw['svgEnable']) ? ',svg a[rel=fancybox]' : '' ) . '").fancybox({
 			"cyclic": ' . ( isset($mfbfw['cyclic']) && $mfbfw['cyclic'] ? 'true' : 'false' ) . ',
 			"autoScale": ' . ( isset($mfbfw['imageScale']) && $mfbfw['imageScale'] ? 'true' : 'false' ) . ',
 			"padding": ' . $mfbfw['padding'] . ',
