@@ -14,8 +14,6 @@ Author URI: http://josepardilla.com/
 
 */
 
-
-
 /**
  * Plugin Init
  */
@@ -49,8 +47,6 @@ if ( is_admin() && isset($mfbfw_version) && $mfbfw_version < FBFW_VERSION ) {
 	add_option( 'mfbfw_active_version', FBFW_VERSION );
 
 }
-
-
 
 /**
  * Store default settings in an array
@@ -180,7 +176,7 @@ function mfbfw_enqueue_scripts() {
 	}
 
 	// Register Scripts
-	wp_register_script('fancybox', FBFW_URL . 'fancybox/jquery.fancybox.js', $jquery, '1.3.4', $footer ); // Main Fancybox script
+	wp_register_script('fancybox', FBFW_URL . 'fancybox/jquery.fancybox.pack.js', $jquery, '1.3.4', $footer ); // Main Fancybox script
 	wp_register_script('jqueryeasing', FBFW_URL . 'js/jquery.easing.1.3.min.js', $jquery, '1.3', $footer ); // Easing animations script
 	wp_register_script('jquerymousewheel', FBFW_URL . 'js/jquery.mousewheel.3.0.4.pack.js', $jquery, '3.0.4', $footer ); // Mouse wheel support script
 
@@ -196,20 +192,13 @@ function mfbfw_enqueue_scripts() {
 	}
 
 	// Register Styles
-	wp_register_style( 'fancybox', FBFW_URL . 'fancybox/fancybox.css', false, '1.3.4' ); // Main Fancybox style
-	wp_register_style( 'fancybox-ie', FBFW_URL . 'fancybox/fancybox.ie.css', array('fancybox'), '1.3.4' ); // Main Fancybox style fixes for IE6-8
+	wp_register_style('fancybox', FBFW_URL . 'fancybox/jquery.fancybox.css', false, '1.3.4');
 
 	// Enqueue Styles
-	wp_enqueue_style( 'fancybox' );
-	wp_enqueue_style( 'fancybox-ie' );
-
-	// Make IE specific styles load only on IE6-8
-	$wp_styles -> add_data( 'fancybox-ie', 'conditional', 'lt IE 9' );
-
+	wp_enqueue_style('fancybox');
 }
+
 add_action( 'wp_enqueue_scripts', 'mfbfw_enqueue_scripts' );
-
-
 
 /**
  * Print inline styles and load FancyBox with the selected settings
@@ -357,8 +346,6 @@ function mfbfw_textdomain() {
 
 }
 add_action( 'init', 'mfbfw_textdomain' );
-
-
 
 /**
  * Register options
