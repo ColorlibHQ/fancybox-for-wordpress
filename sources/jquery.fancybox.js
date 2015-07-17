@@ -71,7 +71,7 @@
 					g = e.type;
 					if(!c) c = e.content
 				} else if(e.content) g = "html";
-				else if(c) g = c.match(J) ? "image" : c.match(W) ? "swf" : b(a).hasClass("iframe") ? "iframe" : c.indexOf("#") === 0 ? "inline" : "ajax";
+				else if(c) g = c.toString().match(J) ? "image" : c.toString().match(W) ? "swf" : b(a).hasClass("iframe") ? "iframe" : c.indexOf("#") === 0 ? "inline" : "ajax";
 				if(g) {
 					if(g == "inline") {
 						a = c.substr(c.indexOf("#"));
@@ -364,14 +364,14 @@
 			var a, c;
 			if(l.length - 1 > p) {
 				a = l[p + 1].href;
-				if(typeof a !== "undefined" && a.match(J)) {
+				if(typeof a !== "undefined" && a.toString().match(J)) {
 					c = new Image;
 					c.src = a
 				}
 			}
 			if(p > 0) {
 				a = l[p - 1].href;
-				if(typeof a !== "undefined" && a.match(J)) {
+				if(typeof a !== "undefined" && a.toString().match(J)) {
 					c = new Image;
 					c.src = a
 				}
