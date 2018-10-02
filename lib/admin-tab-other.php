@@ -11,19 +11,19 @@
 								<fieldset>
 
 									<label for="autoDimensions">
-										<input type="checkbox" name="mfbfw[autoDimensions]" id="autoDimensions"<?php if ( isset($mfbfw['autoDimensions']) && $mfbfw['autoDimensions'] ) echo ' checked="yes"';?> />
+										<input type="checkbox" class="custom-switch" name="mfbfw[autoDimensions]" id="autoDimensions"<?php if ( isset($settings['autoDimensions']) && $settings['autoDimensions'] ) echo ' checked="yes"';?> />
 										<?php _e('Auto detect dimensions (default: on)', 'mfbfw'); ?>
 									</label><br />
 
 									<small><em><?php _e('Only works with <strong>Ajax</strong> and <strong>Inline</strong> content! Flash dimensions won\'t be autodetected so specify them below if necessary. If you want to insert several pieces of flash content with different dimensions you will have to use the <strong>Additional FancyBox Calls</strong> option.', 'mfbfw'); ?></em></small><br /><br />
 
 									<label for="frameWidth">
-										<input type="text" name="mfbfw[frameWidth]" id="frameWidth" value="<?php echo $mfbfw['frameWidth']; ?>" size="4" maxlength="4" />
+										<input type="text" name="mfbfw[frameWidth]" id="frameWidth" value="<?php echo $settings['frameWidth']; ?>" size="4" maxlength="4" />
 										<?php _e('Width for iframe and swf content. Also set for inline content if <em>autoDimensions</em> is disabled (default: 560)', 'mfbfw'); ?>
 									</label><br /><br />
 
 									<label for="frameHeight">
-										<input type="text" name="mfbfw[frameHeight]" id="frameHeight" value="<?php echo $mfbfw['frameHeight']; ?>" size="4" maxlength="4" />
+										<input type="text" name="mfbfw[frameHeight]" id="frameHeight" value="<?php echo $settings['frameHeight']; ?>" size="4" maxlength="4" />
 										<?php _e('Height for iframe and swf content. Also set for inline content if <em>autoDimensions</em> is disabled (default: 340)', 'mfbfw'); ?>
 									</label><br /><br />
 
@@ -37,36 +37,11 @@
 								<fieldset>
 
 									<label for="loadAtFooter">
-										<input type="checkbox" name="mfbfw[loadAtFooter]" id="loadAtFooter"<?php if ( isset($mfbfw['loadAtFooter']) && $mfbfw['loadAtFooter'] ) echo ' checked="yes"';?> />
-										<?php _e('Loads JavaScript at the end of the blog\'s HTML (default: off)', 'mfbfw'); ?>
+										<input type="checkbox" class="custom-switch" name="mfbfw[loadAtFooter]" id="loadAtFooter"<?php if ( isset($settings['loadAtFooter']) && $settings['loadAtFooter'] ) echo ' checked="yes"';?> />
+										<?php _e('Loads JavaScript at the end of the blog\'s HTML (experimental) (default: off)', 'mfbfw'); ?>
 									</label><br />
 
 									<small><em><?php _e('This option won\'t be recognized if you use <strong>Parallel Load</strong> plugin. In that case, you can do this from Parallel Load\'s options.', 'mfbfw'); ?></em></small><br /><br />
-
-								</fieldset>
-							</td>
-						</tr>
-
-						<tr valign="top">
-							<th scope="row"><?php _e('Image Title function', 'mfbfw'); ?></th>
-							<td>
-								<fieldset>
-
-									<label for="copyTitleFunction">
-										<?php _e('Function to customize image titles', 'mfbfw'); ?>
-										<textarea rows="10" cols="50" class="large-text code" name="mfbfw[copyTitleFunction]" wrap="physical" id="copyTitleFunction"><?php echo ($mfbfw['copyTitleFunction']); ?></textarea>
-									</label><br />
-
-									<small><em><?php _e('This option allows you to edit image titles with your own jQuery function.', 'mfbfw'); ?></em></small><br /><br />
-
-									<small><strong><em><?php _e('Example:', 'mfbfw'); ?></em></strong></small><br />
-									<small><em><code>
-										var arr = jQuery("a.fancybox");<br />
-										jQuery.each(arr, function() {<br />
-										&nbsp;&nbsp;var title = jQuery(this).children("img").attr("title");<br />
-										&nbsp;&nbsp;jQuery(this).attr("title",title);<br />
-										})
-									</code></em></small><br /><br />
 
 								</fieldset>
 							</td>
@@ -78,7 +53,7 @@
 								<fieldset>
 
 									<label for="callbackEnable">
-										<input type="checkbox" name="mfbfw[callbackEnable]" id="callbackEnable"<?php if ( isset($mfbfw['callbackEnable']) && $mfbfw['callbackEnable'] ) echo ' checked="yes"';?> />
+										<input type="checkbox" class="custom-switch" name="mfbfw[callbackEnable]" id="callbackEnable"<?php if ( isset($settings['callbackEnable']) && $settings['callbackEnable'] ) echo ' checked="yes"';?> />
 										<?php _e('Enable callbacks (default: off)', 'mfbfw'); ?>
 									</label><br />
 
@@ -88,32 +63,32 @@
 
 										<label for="callbackOnStart">
 											<?php _e('Callback on <strong>Start</strong> event: Will be called right before attempting to load the content', 'mfbfw'); ?>
-											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnStart]" wrap="physical" id="callbackOnStart"><?php echo ($mfbfw['callbackOnStart']); ?></textarea>
+											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnStart]" wrap="physical" id="callbackOnStart"><?php echo ($settings['callbackOnStart']); ?></textarea>
 										</label><br /><br />
 
 										<label for="callbackOnCancel">
 											<?php _e('Callback on <strong>Cancel</strong> event: Will be called after loading is canceled', 'mfbfw'); ?>
-											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnCancel]" wrap="physical" id="callbackOnCancel"><?php echo ($mfbfw['callbackOnCancel']); ?></textarea>
+											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnCancel]" wrap="physical" id="callbackOnCancel"><?php echo ($settings['callbackOnCancel']); ?></textarea>
 										</label><br /><br />
 
 										<label for="callbackOnComplete">
 											<?php _e('Callback on <strong>Complete</strong> event: Will be called once the content is displayed', 'mfbfw'); ?>
-											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnComplete]" wrap="physical" id="callbackOnComplete"><?php echo ($mfbfw['callbackOnComplete']); ?></textarea>
+											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnComplete]" wrap="physical" id="callbackOnComplete"><?php echo ($settings['callbackOnComplete']); ?></textarea>
 										</label><br /><br />
 
 										<label for="callbackOnCleanup">
 											<?php _e('Callback on <strong>CleanUp</strong> event: Will be called just before closing', 'mfbfw'); ?>
-											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnCleanup]" wrap="physical" id="callbackOnCleanup"><?php echo ($mfbfw['callbackOnCleanup']); ?></textarea>
+											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnCleanup]" wrap="physical" id="callbackOnCleanup"><?php echo ($settings['callbackOnCleanup']); ?></textarea>
 										</label><br /><br />
 
 										<label for="callbackOnClosed">
 											<?php _e('Callback on <strong>Closed</strong> event: Will be called once FancyBox is closed', 'mfbfw'); ?>
-											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnClose]" wrap="physical" id="callbackOnClosed"><?php echo ($mfbfw['callbackOnClose']); ?></textarea>
+											<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnClose]" wrap="physical" id="callbackOnClosed"><?php echo ($settings['callbackOnClose']); ?></textarea>
 										</label><br /><br/>
 
 										<small><strong><em><?php _e('Example:', 'mfbfw'); ?></em></strong></small><br />
 										<small><em><code>function() { alert('Hello world!'); }</code></em></small><br />
-										<small><em><?php _e('Leave empty any specific callbacks you don\'t need to use.', 'mfbfw'); ?></em></small><br /><br />
+										<small><em><?php _e('Leave empty any speciic callbacks you don\'t need to use.', 'mfbfw'); ?></em></small><br /><br />
 
 									</div>
 
