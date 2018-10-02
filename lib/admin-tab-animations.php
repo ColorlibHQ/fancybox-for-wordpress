@@ -11,7 +11,7 @@
 								<fieldset>
 
 									<label for="zoomOpacity">
-										<input type="checkbox" name="mfbfw[zoomOpacity]" id="zoomOpacity"<?php if ( isset($mfbfw['zoomOpacity']) && $mfbfw['zoomOpacity'] ) echo ' checked="yes"';?> />
+										<input type="checkbox" class="custom-switch" name="mfbfw[zoomOpacity]" id="zoomOpacity"<?php if ( isset($settings['zoomOpacity']) && $settings['zoomOpacity'] ) echo ' checked="yes"';?> />
 										<?php _e('Change content transparency during zoom animations (default: on)', 'mfbfw'); ?>
 									</label><br /><br />
 
@@ -19,7 +19,7 @@
 										<select name="mfbfw[zoomSpeedIn]" id="zoomSpeedIn">
 											<?php
 											foreach($msArray as $key=> $ms) {
-												if($mfbfw['zoomSpeedIn'] != $ms) $selected = '';
+												if($settings['zoomSpeedIn'] != $ms) $selected = '';
 												else $selected = ' selected';
 												echo "<option value='$ms'$selected>$ms</option>\n";
 											} ?>
@@ -31,7 +31,7 @@
 										<select name="mfbfw[zoomSpeedOut]" id="zoomSpeedOut">
 											<?php
 											foreach($msArray as $key=> $ms) {
-												if($mfbfw['zoomSpeedOut'] != $ms) $selected = '';
+												if($settings['zoomSpeedOut'] != $ms) $selected = '';
 												else $selected = ' selected';
 												echo "<option value='$ms'$selected>$ms</option>\n";
 											} ?>
@@ -43,17 +43,17 @@
 										<select name="mfbfw[zoomSpeedChange]" id="zoomSpeedChange">
 											<?php
 											foreach($msArray as $key=> $ms) {
-												if($mfbfw['zoomSpeedChange'] != $ms) $selected = '';
+												if($settings['zoomSpeedChange'] != $ms) $selected = '';
 												else $selected = ' selected';
 												echo "<option value='$ms'$selected>$ms</option>\n";
 											} ?>
 										</select>
-										<?php _e('Speed in miliseconds of the animation when navigating thorugh gallery items (default: 500)', 'mfbfw'); ?>
+										<?php _e('Speed in miliseconds of the animation when navigating thorugh gallery items (default: 300)', 'mfbfw'); ?>
 									</label><br /><br />
 
 								</fieldset>
 							</td>
-						</tr>
+							</tr>
 
 						<tr valign="top">
 							<th scope="row"><?php _e('Transition Type', 'mfbfw'); ?></th>
@@ -64,7 +64,7 @@
 										<select name="mfbfw[transitionIn]" id="transitionIn">
 											<?php
 											foreach($transitionTypeArray as $key=> $transitionIn) {
-												if($mfbfw['transitionIn'] != $transitionIn) $selected = '';
+												if($settings['transitionIn'] != $transitionIn) $selected = '';
 												else $selected = ' selected';
 												echo "<option value='$transitionIn'$selected>$transitionIn</option>\n";
 											}
@@ -77,7 +77,7 @@
 										<select name="mfbfw[transitionOut]" id="transitionOut">
 											<?php
 											foreach($transitionTypeArray as $key=> $transitionOut) {
-												if($mfbfw['transitionOut'] != $transitionOut) $selected = '';
+												if($settings['transitionOut'] != $transitionOut) $selected = '';
 												else $selected = ' selected';
 												echo "<option value='$transitionOut'$selected>$transitionOut</option>\n";
 											}
@@ -96,7 +96,7 @@
 								<fieldset>
 
 									<label for="easing">
-										<input type="checkbox" name="mfbfw[easing]" id="easing"<?php if ( isset($mfbfw['easing']) && $mfbfw['easing'] ) echo ' checked="yes"';?> />
+										<input type="checkbox"  class="custom-switch" name="mfbfw[easing]" id="easing"<?php if ( isset($settings['easing']) && $settings['easing'] ) echo ' checked="yes"';?> />
 										<?php _e('Activate easing (default: off)', 'mfbfw'); ?>
 									</label><br />
 
@@ -108,7 +108,7 @@
 											<select name="mfbfw[easingIn]" id="easingIn">
 												<?php
 												foreach($easingArray as $key=> $easingIn) {
-													if( $mfbfw['easingIn'] != $easingIn ) $selected = '';
+													if( $settings['easingIn'] != $easingIn ) $selected = '';
 													else $selected = ' selected';
 													echo "<option value='$easingIn'$selected>$easingIn</option>\n";
 												}
@@ -123,7 +123,7 @@
 											<select name="mfbfw[easingOut]" id="easingOut">
 												<?php
 												foreach($easingArray as $key=> $easingOut) {
-													if( $mfbfw['easingOut'] != $easingOut ) $selected = '';
+													if( $settings['easingOut'] != $easingOut ) $selected = '';
 													else $selected = ' selected';
 													echo "<option value='$easingOut'$selected>$easingOut</option>\n";
 												}
@@ -138,7 +138,7 @@
 											<select name="mfbfw[easingChange]" id="easingChange">
 												<?php
 												foreach($easingArray as $key=> $easingChange) {
-													if( isset($mfbfw['easingChange']) && $mfbfw['easingChange'] != $easingChange ) $selected = '';
+													if( isset($settings['easingChange']) && $settings['easingChange'] != $easingChange ) $selected = '';
 													else $selected = ' selected';
 													echo "<option value='$easingChange'$selected>$easingChange</option>\n";
 												}

@@ -2,15 +2,18 @@
 
 function mfbfw_options_page() {
 
-	global $mfbfw, $mfbfw_version;
-
 	require_once( FBFW_PATH . 'lib/admin-head.php' );
 
 	?>
 
 	<div class="wrap">
 
-	<div id="icon-plugins" class="icon32"></div><h2><?php printf( __('Fancybox for WordPress (version %s)', 'mfbfw'), $mfbfw_version ); ?></h2>
+	<div id="icon-plugins" class="icon32"></div>
+	<h2><?php printf( __('Fancybox for WordPress (version %s)', 'mfbfw'), FBFW_VERSION ); ?></h2>
+	<div class="inlined">
+		<div id="pluginDescription"><p>Seamlessly integrates FancyBox into your blog: Upload, activate, and you’re done. Additional configuration optional.</p></div>
+		<div id="pluginLogo"><img src="<?php echo FBFW_PATH . 'img/icon.jpg'; ?>"></div>
+	</div>
 
 	<br />
 
@@ -20,20 +23,18 @@ function mfbfw_options_page() {
 
 		<div id="fbfwTabs">
 
-			<h2 class="nav-tab-wrapper">
-				<ul id="fbfw_tabs">
-					<li><a class="nav-tab selected" href="#fbfw-info"><?php _e( 'Info', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-appearance"><?php _e( 'Appearance', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-animations"><?php _e( 'Animations', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-behaviour"><?php _e( 'Behaviour', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-galleries"><?php _e( 'Galleries', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-other"><?php _e( 'Miscellaneous', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-calls"><?php _e( 'Extra Calls', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-troubleshooting"><?php _e( 'Troubleshooting', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-support" style="color:green;"><?php _e( 'Support', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-uninstall" style="color:red;"><?php _e ('Uninstall', 'mfbfw' ); ?></a></li>
-				</ul>
-			</h2>
+			<ul>
+				<li><a href="#fbfw-info"><?php _e( 'Info', 'mfbfw' ); ?></a></li>
+				<li><a href="#fbfw-appearance"><?php _e( 'Appearance', 'mfbfw' ); ?></a></li>
+				<li><a href="#fbfw-animations"><?php _e( 'Animations', 'mfbfw' ); ?></a></li>
+				<li><a href="#fbfw-behaviour"><?php _e( 'Behaviour', 'mfbfw' ); ?></a></li>
+				<li><a href="#fbfw-galleries"><?php _e( 'Galleries', 'mfbfw' ); ?></a></li>
+				<li><a href="#fbfw-other"><?php _e( 'Miscellaneous', 'mfbfw' ); ?></a></li>
+				<li><a href="#fbfw-calls"><?php _e( 'Extra Calls', 'mfbfw' ); ?></a></li>
+				<li><a href="#fbfw-troubleshooting"><?php _e( 'Troubleshooting', 'mfbfw' ); ?></a></li>
+				<li><a href="#fbfw-support" style="color:green;"><?php _e( 'Support', 'mfbfw' ); ?></a></li>
+				<li><a href="#fbfw-uninstall" style="color:red;"><?php _e ('Uninstall', 'mfbfw' ); ?></a></li>
+			</ul>
 
 			<div id="fbfw-info">
 				<?php require_once ( FBFW_PATH . 'lib/admin-tab-info.php' ); ?>
@@ -91,39 +92,9 @@ function mfbfw_options_page() {
 		</div>
 	</form>
 
-	<div id="mfbfwd">
+	<div id="mfbfwd" style="border-top:1px dashed #DDDDDD;margin:20px 0 40px;overflow:hidden;padding-top:25px;width:100%;float:left">
 
-		<div class="mfbfw_box_yellow">
-			<p style="line-height:1.5em;"><?php _e( 'If you use FancyBox and like it, buy the author a beer!', 'mfbfw' ); ?></p>
-			<form id="donate_form" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-				<input name="cmd" value="_donations" type="hidden">
-				<input name="business" value="janis.skarnelis@gmail.com" type="hidden">
-				<input name="item_name" value="FancyBox" type="hidden">
-				<input name="amount" value="10.00" type="hidden">
-				<input name="no_shipping" value="0" type="hidden">
-				<input name="no_note" value="1" type="hidden">
-				<input name="currency_code" value="EUR" type="hidden">
-				<input name="tax" value="0" type="hidden">
-				<input name="lc" value="LV" type="hidden">
-				<input name="bn" value="PP-DonationsBF" type="hidden">
-				<input type="image" style="margin:0;padding:0" border="0" src="<?php echo FBFW_URL ?>css/img/extra_donate.png" name="submit" alt="PayPal - The safer, easier way to pay online!"/>
-			</form>
-		</div>
-
-		<div class="mfbfw_box_yellow">
-			<p style="line-height:1.5em;"><?php _e( 'The author of this WordPress Plugin also likes beer :P', 'mfbfw' ); ?></p>
-			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-				<input type="hidden" name="cmd" value="_s-xclick"/>
-				<input type="hidden" name="hosted_button_id" value="3878319"/>
-				<input type="image" style="margin:0;padding:0" border="0" src="<?php echo FBFW_URL ?>css/img/extra_donate.png" name="submit" alt="PayPal - The safer, easier way to pay online!"/>
-				<img height="1" width="1" border="0" alt="" src="https://www.paypal.com/es_ES/i/scr/pixel.gif" />
-			</form>
-		</div>
-
-		<div class="mfbfw_box_blue">
-			<p style="line-height:1.5em;"><a href="http://twitter.com/moskis/"><?php _e( 'Follow me on Twitter for more WordPress Plugins and Themes', 'mfbfw' ); ?></a></p>
-			<img height="16" width="16" border="0" alt="" src="<?php echo FBFW_URL ?>css/img/extra_twitter.png" />
-		</div>
+		Plugin developer and supported by <a href="https://colorlib.com">Colorlib</a>
 
 	</div>
 
