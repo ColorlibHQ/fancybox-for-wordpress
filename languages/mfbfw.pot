@@ -1,14 +1,15 @@
-# Copyright (C) 2012 
-# This file is distributed under the same license as the  package.
+# Copyright (C) 2015 FancyBox for WordPress
+# This file is distributed under the same license as the FancyBox for WordPress package.
 msgid ""
 msgstr ""
-"Project-Id-Version:  \n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/fancybox-for-wordpress\n"
-"POT-Creation-Date: 2012-07-03 15:24:31+00:00\n"
+"Project-Id-Version: FancyBox for WordPress 3.0.5\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/fancybox-for-"
+"wordpress\n"
+"POT-Creation-Date: 2015-02-07 01:56:01+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2012-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -60,23 +61,23 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: admin.php:84
+#: admin.php:85
 msgid "Revert to defaults"
 msgstr ""
 
-#: admin.php:92
+#: admin.php:93
 msgid "If you use FancyBox and like it, buy the author a beer!"
 msgstr ""
 
-#: admin.php:109
+#: admin.php:110
 msgid "The author of this WordPress Plugin also likes beer :P"
 msgstr ""
 
-#: admin.php:119
+#: admin.php:120
 msgid "Follow me on Twitter for more WordPress Plugins and Themes"
 msgstr ""
 
-#: fancybox.php:414
+#: fancybox.php:404
 msgid "Settings"
 msgstr ""
 
@@ -486,7 +487,7 @@ msgstr ""
 msgid ""
 "<a target=\"_blank\" href=\"http://fancybox.net\">FancyBox</a> developed by "
 "<a target=\"_blank\" href=\"http://fancybox.net\">Janis Skarnelis</a>, "
-"ported to WordPress by <a target=\"_blank\" href=\"http://josepardilla.com/"
+"ported to WordPress by <a target=\"_blank\" href=\"http://twitter.com/moskis"
 "\">Jos&eacute; Pardilla</a>. Licensed under the <a target=\"_blank\" href="
 "\"http://en.wikipedia.org/wiki/MIT_License\">MIT License</a>."
 msgstr ""
@@ -510,14 +511,6 @@ msgid ""
 "<strong>Note:</strong> Having a cache plugin may prevent changes from taking "
 "effect immidiately, if this happens clear cache after saving changes here or "
 "deactivate cache until you finish editing these options."
-msgstr ""
-
-#: lib/admin-tab-info.php:11
-msgid ""
-"<strong>Note:</strong> If update to version 3.0.0 breaks fancybox on your "
-"blog you will probably have to reset your settings (with the white button "
-"below). I have tested this issue on several WordPress installations and it "
-"always worked, so it might depend on the server. Sorry for the inconvinience."
 msgstr ""
 
 #: lib/admin-tab-other.php:1
@@ -639,25 +632,17 @@ msgstr ""
 
 #: lib/admin-tab-support.php:10
 msgid ""
-"If you are having trouble with this plugin take a look at this <a target="
-"\"_blank\" href=\"http://plugins.josepardilla.com/fancybox-for-wordpress/faq"
-"\">FAQ</a> where i will try to cover the most common problems and their "
-"solutions."
-msgstr ""
-
-#: lib/admin-tab-support.php:11
-msgid ""
 "Try to localize the problem (switch your theme and deactivate plugins until "
 "you find the source of the problem). You can also try the Troubleshooting "
 "settings of this plugin if necesary."
 msgstr ""
 
-#: lib/admin-tab-support.php:12
+#: lib/admin-tab-support.php:11
 msgid ""
 "Try reverting the plugin's settings to their defaults with the button below."
 msgstr ""
 
-#: lib/admin-tab-support.php:13
+#: lib/admin-tab-support.php:12
 msgid ""
 "If you still can not get the plugin to work, <a target=\"_blank\" href="
 "\"http://wordpress.org/support/plugin/fancybox-for-wordpress#postform"
@@ -666,11 +651,11 @@ msgid ""
 "support/plugin/fancybox-for-wordpress\">already posted messages</a>."
 msgstr ""
 
-#: lib/admin-tab-support.php:16
+#: lib/admin-tab-support.php:15
 msgid "IMPORTANT:"
 msgstr ""
 
-#: lib/admin-tab-support.php:16
+#: lib/admin-tab-support.php:15
 msgid ""
 "When posting your problem please provide a link to your blog and the page "
 "where the error is found, and all relevant information you can, especially "
@@ -731,4 +716,26 @@ msgstr ""
 msgid ""
 "Remove Settings when plugin is deactivated from the \"Manage Plugins\" page. "
 "(default: off)"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "FancyBox for WordPress"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/fancybox-for-wordpress/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Integrates <a href=\"http://fancybox.net/\">FancyBox</a> by <a href=\"http://"
+"klade.lv/\">Janis Skarnelis</a> into WordPress."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Jos&eacute; Pardilla"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://twitter.com/moskis"
 msgstr ""
