@@ -13,11 +13,11 @@
 					<label for="zoomOpacity" class="onoffswitch-label"></label>
 					<?php _e( 'Change content transparency during zoom animations (default: on)', 'mfbfw' ); ?><br /><br />
 
-					<label for="zoomSpeedIn">
-						<select name="mfbfw[zoomSpeedIn]" id="zoomSpeedIn">
+					<label for="animationDuration">
+						<select name="mfbfw[animationDuration]" id="animationDuration">
 							<?php
 							foreach ( $msArray as $key => $ms ) {
-								if ( $settings[ 'zoomSpeedIn' ] != $ms )
+								if ( $settings[ 'animationDuration' ] != $ms )
 									$selected	 = '';
 								else
 									$selected	 = ' selected';
@@ -28,11 +28,76 @@
 						<?php _e( 'Speed in miliseconds of the zooming-in animation (default: 500)', 'mfbfw' ); ?>
 					</label><br /><br />
 
-					<label for="zoomSpeedOut">
-						<select name="mfbfw[zoomSpeedOut]" id="zoomSpeedOut">
+					<!--					<label for="zoomSpeedOut">
+											<select name="mfbfw[zoomSpeedOut]" id="zoomSpeedOut">
+					<?php
+					foreach ( $msArray as $key => $ms ) {
+						if ( $settings[ 'zoomSpeedOut' ] != $ms )
+							$selected	 = '';
+						else
+							$selected	 = ' selected';
+						echo "<option value='$ms'$selected>$ms</option>\n";
+					}
+					?>
+											</select>
+					<?php _e( 'Speed in miliseconds of the zooming-out animation (default: 500)', 'mfbfw' ); ?>
+										</label><br /><br />-->
+				</fieldset>
+			</td>
+		</tr>
+		<tr valign="top">
+			<th scope="row"><?php _e( 'Animation Type', 'mfbfw' ); ?></th>
+			<td>
+				<fieldset>
+
+					<label for="animationEffect">
+						<select name="mfbfw[animationEffect]" id="transitionIn">
 							<?php
-							foreach ( $msArray as $key => $ms ) {
-								if ( $settings[ 'zoomSpeedOut' ] != $ms )
+							foreach ( $transitionTypeArray as $key => $transitionIn ) {
+								if ( $settings[ 'animationEffect' ] != $transitionIn )
+									$selected	 = '';
+								else
+									$selected	 = ' selected';
+								echo "<option value='$transitionIn'$selected>$transitionIn</option>\n";
+							}
+							?>
+						</select>
+						<?php _e( 'Animation type when opening FancyBox. (default: fade)', 'mfbfw' ); ?>
+					</label><br /><br />
+
+					<!--					<label for="transitionOut">
+											<select name="mfbfw[transitionOut]" id="transitionOut">
+					<?php
+					foreach ( $transitionTypeArray as $key => $transitionOut ) {
+						if ( $settings[ 'transitionOut' ] != $transitionOut )
+							$selected	 = '';
+						else
+							$selected	 = ' selected';
+						echo "<option value='$transitionOut'$selected>$transitionOut</option>\n";
+					}
+					?>
+											</select>
+					<?php _e( 'Transition type when closing FancyBox. (default: fade)', 'mfbfw' ); ?>
+										</label><br /><br />-->
+
+				</fieldset>
+			</td>
+		</tr>
+
+
+		<!--Razvan.Added new animations--> 
+
+
+
+		<tr valign="top">
+			<th scope="row"><?php _e( 'Animation between slides Options', 'mfbfw' ); ?></th>
+			<td>
+				<fieldset>
+					<label for="transitionEffect">
+						<select name="mfbfw[transitionEffect]" id="animationDuration">
+							<?php
+							foreach ( $slideEffectArray as $key => $ms ) {
+								if ( $settings[ 'transitionEffect' ] != $ms )
 									$selected	 = '';
 								else
 									$selected	 = ' selected';
@@ -40,14 +105,14 @@
 							}
 							?>
 						</select>
-						<?php _e( 'Speed in miliseconds of the zooming-out animation (default: 500)', 'mfbfw' ); ?>
+						<?php _e( 'Select Animation type for the slides(default: fade)', 'mfbfw' ); ?>
 					</label><br /><br />
 
-					<label for="zoomSpeedChange">
-						<select name="mfbfw[zoomSpeedChange]" id="zoomSpeedChange">
+					<label for="transitionDuration">
+						<select name="mfbfw[transitionDuration]" id="transitionDuration">
 							<?php
 							foreach ( $msArray as $key => $ms ) {
-								if ( $settings[ 'zoomSpeedChange' ] != $ms )
+								if ( $settings[ 'transitionDuration' ] != $ms )
 									$selected	 = '';
 								else
 									$selected	 = ' selected';
@@ -61,47 +126,9 @@
 				</fieldset>
 			</td>
 		</tr>
-
-		<tr valign="top">
-			<th scope="row"><?php _e( 'Transition Type', 'mfbfw' ); ?></th>
-			<td>
-				<fieldset>
-
-					<label for="transitionIn">
-						<select name="mfbfw[transitionIn]" id="transitionIn">
-							<?php
-							foreach ( $transitionTypeArray as $key => $transitionIn ) {
-								if ( $settings[ 'transitionIn' ] != $transitionIn )
-									$selected	 = '';
-								else
-									$selected	 = ' selected';
-								echo "<option value='$transitionIn'$selected>$transitionIn</option>\n";
-							}
-							?>
-						</select>
-						<?php _e( 'Transition type when opening FancyBox. (default: fade)', 'mfbfw' ); ?>
-					</label><br /><br />
-
-					<label for="transitionOut">
-						<select name="mfbfw[transitionOut]" id="transitionOut">
-							<?php
-							foreach ( $transitionTypeArray as $key => $transitionOut ) {
-								if ( $settings[ 'transitionOut' ] != $transitionOut )
-									$selected	 = '';
-								else
-									$selected	 = ' selected';
-								echo "<option value='$transitionOut'$selected>$transitionOut</option>\n";
-							}
-							?>
-						</select>
-						<?php _e( 'Transition type when closing FancyBox. (default: fade)', 'mfbfw' ); ?>
-					</label><br /><br />
-
-				</fieldset>
-			</td>
-		</tr>
-
-		<tr valign="top">
+		
+		<!-- Razvan.Removed -- no extra js -->
+<!--		<tr valign="top">
 			<th scope="row"><?php _e( 'Easing', 'mfbfw' ); ?></th>
 			<td>
 				<fieldset>
@@ -168,7 +195,7 @@
 
 				</fieldset>
 			</td>
-		</tr>
+		</tr>-->
 
 	</tbody>
 </table>

@@ -12,7 +12,7 @@ function mfbfw_options_page() {
 			<div id="pluginDescription">
 				<h2><?php printf( __( 'Fancybox for WordPress (version %s)', 'mfbfw' ), FBFW_VERSION ); ?></h2>
 				<p>Seamlessly integrates FancyBox into your blog: Upload, activate, and you’re done. Additional configuration optional.</p></div>
-			<div id="pluginLogo"><img src="<?php echo FBFW_URL . 'img/icon.jpg'; ?>"></div>
+			<div id="pluginLogo"><img src="<?php echo FBFW_URL . 'assets/images/icon.jpg'; ?>"></div>
 		</div>
 
 		<br />
@@ -94,7 +94,7 @@ function mfbfw_options_page() {
 
 		<div id="mfbfwd" style="border-top:1px dashed #DDDDDD;margin:20px 0 40px;overflow:hidden;padding-top:25px;width:100%;float:left">
 
-			Plugin developer and supported by <a href="https://colorlib.com">Colorlib</a>
+			Plugin developed and supported by <a href="https://colorlib.com">Colorlib</a>
 
 		</div>
 

@@ -346,12 +346,12 @@ msgid "Close FancyBox when &quot;Escape&quot; key is pressed (default: on)"
 msgstr ""
 
 #: lib/admin-tab-behaviour.php:81
-msgid "Cyclic Galleries"
+msgid "Loop Galleries"
 msgstr ""
 
 #: lib/admin-tab-behaviour.php:87
 msgid ""
-"This will make galleries cyclic, allowing you to keep pressing next/back "
+"This will make galleries loop, allowing you to keep pressing next/back "
 "(default: off)"
 msgstr ""
 

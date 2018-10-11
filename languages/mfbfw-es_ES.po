@@ -372,12 +372,12 @@ msgstr ""
 "activado)"
 
 #: lib/admin-tab-behaviour.php:81
-msgid "Cyclic Galleries"
+msgid "Loop Galleries"
 msgstr "Galerías Cíclicas"
 
 #: lib/admin-tab-behaviour.php:87
 msgid ""
-"This will make galleries cyclic, allowing you to keep pressing next/back "
+"This will make galleries loop, allowing you to keep pressing next/back "
 "(default: off)"
 msgstr ""
 "Esta oción generará galerías cíclicas, permitíendote pulsar los botones de "

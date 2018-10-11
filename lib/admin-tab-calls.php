@@ -19,13 +19,13 @@
 
 						<label for="extraCalls">
 							<textarea rows="20" cols="50" class="large-text code" name="mfbfw[extraCallsData]" wrap="physical" id="extraCalls"><?php echo ($settings[ 'extraCallsData' ]); ?></textarea>
+							<?php var_dump($settings); ?>
 						</label><br /><br />
 
 						<small><strong><em><?php _e( 'Example:', 'mfbfw' ); ?></em></strong></small><br />
 						<small><em><code>
 									jQuery("#login a").fancybox({<br />
 									&nbsp;&nbsp;'transitionIn': 'elastic',<br />
-									&nbsp;&nbsp;'transitionOut': 'elastic',<br />
 									&nbsp;&nbsp;'speedIn': 600,<br />
 									&nbsp;&nbsp;'speedOut': 200,<br />
 									&nbsp;&nbsp;'type': 'iframe'<br />

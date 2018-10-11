@@ -63,6 +63,7 @@
     border-radius: 0px;
     margin: 0px 5px;
     background: #e5e5e5;
+    top:2px;
 }
 
 #fbfwTabs .ui-tabs-nav li a {

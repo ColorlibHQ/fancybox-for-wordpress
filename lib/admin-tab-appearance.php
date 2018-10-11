@@ -26,8 +26,8 @@
 				</fieldset>
 			</td>
 		</tr>
-
-		<tr valign="top">
+<!--Razvan. We don't need the close button positioning anymore-->
+<!--		<tr valign="top">
 			<th scope="row"><?php _e( 'Close Button', 'mfbfw' ); ?></th>
 			<td>
 				<fieldset>
@@ -62,7 +62,7 @@
 
 				</fieldset>
 			</td>
-		</tr>
+		</tr>-->
 
 		<tr valign="top">
 			<th scope="row"><?php _e( 'Padding', 'mfbfw' ); ?></th>
@@ -177,8 +177,8 @@
 			<th scope="row"><?php _e( 'Navigation Arrows', 'mfbfw' ); ?></th>
 			<td>
 				<fieldset>
-					<input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[showNavArrows]" id="showNavArrows"<?php if ( isset( $settings[ 'showNavArrows' ] ) && $settings[ 'showNavArrows' ] ) echo ' checked="yes"'; ?> />
-					<label for="showNavArrows"class="onoffswitch-label"></label>
+					<input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[arrows]" id="arrows"<?php if ( isset( $settings[ 'arrows' ] ) && $settings[ 'arrows' ] ) echo ' checked="yes"'; ?> />
+					<label for="arrows"class="onoffswitch-label"></label>
 					<?php _e( 'Show the navigation arrows (default: on)', 'mfbfw' ); ?><br /><br />
 
 				</fieldset>
