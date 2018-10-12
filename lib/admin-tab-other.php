@@ -7,14 +7,6 @@
 
 		<tr valign="top">
 			<th scope="row"><?php _e( 'Dimensions', 'mfbfw' ); ?></th>
-			<td>
-				<fieldset>
-					<input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[autoDimensions]" id="autoDimensions"<?php if ( isset( $settings[ 'autoDimensions' ] ) && $settings[ 'autoDimensions' ] ) echo ' checked="yes"'; ?> />
-					<label for="autoDimensions" class="onoffswitch-label"></label>
-					<?php _e( 'Auto detect dimensions (default: on)', 'mfbfw' ); ?><br />
-
-					<small><em><?php _e( 'Only works with <strong>Ajax</strong> and <strong>Inline</strong> content! Flash dimensions won\'t be autodetected so specify them below if necessary. If you want to insert several pieces of flash content with different dimensions you will have to use the <strong>Additional FancyBox Calls</strong> option.', 'mfbfw' ); ?></em></small><br /><br />
-
 					<label for="frameWidth">
 						<input type="text" name="mfbfw[frameWidth]" id="frameWidth" value="<?php echo $settings[ 'frameWidth' ]; ?>" size="4" maxlength="4" />
 						<?php _e( 'Width for iframe and swf content. Also set for inline content if <em>autoDimensions</em> is disabled (default: 560)', 'mfbfw' ); ?>

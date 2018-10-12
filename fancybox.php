@@ -83,10 +83,6 @@ function mfbfw_defaults() {
 		'animationEffect'	 => 'fade',
 		'transitionEffect'	 => 'fade',
 		'transitionOut'		 => 'fade',
-//		'easing'			 => '',
-//		'easingIn'			 => 'easeOutBack',
-//		'easingOut'			 => 'easeInBack',
-//		'easingChange'		 => 'easeInOutQuart',
 		// Behaviour
 		'imageScale'		 => 'on',
 		'centerOnScroll'	 => 'on',
@@ -101,7 +97,6 @@ function mfbfw_defaults() {
 		'galleryType'		 => 'all',
 		'customExpression'	 => 'jQuery(thumbnails).addClass("fancybox").attr("rel","fancybox").getTitle();',
 		// Other
-		'autoDimensions'	 => 'on',
 		'frameWidth'		 => '560',
 		'frameHeight'		 => '340',
 		'loadAtFooter'		 => '',
@@ -212,12 +207,36 @@ function mfbfw_init() {
     "</div>"+
     "</div>';
 
+	//caption function to display image title 
+	$caption = 'function( instance, item ) {' .
+	'var testing = jQuery(this).context.title;' .
+	'var caption = jQuery(this).data(\'caption\') || \'\';' .
+	'if ( item.type === \'image\' ) {' .
+	'caption = (caption.length ? caption + \'<br />\' : \'\') + \'<p class="caption-title">\'+testing+\'</p>\' ;' .
+	'}' .
+	'return caption;' .
+	'}';
+
+
 	// fix undefined index copyTitleFunction. $mfbfw array misses this index.
 	$mfbfw[ 'copyTitleFunction' ] = 'var arr = jQuery("a[data-fancybox]");
 jQuery.each(arr, function() {
 	var title = jQuery(this).children("img").attr("title");
 	jQuery(this).attr("title",title);
 });	';
+
+
+	//title position settings
+	if ( isset( $mfbfw[ 'titlePosition' ] ) ) {
+		if ( $mfbfw[ 'titlePosition' ] == 'inside' ) {
+			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff; width:auto;display:inline-block;padding:10px 30px;}';
+		} elseif ( $mfbfw[ 'titlePosition' ] == 'float' ) {
+			$captionPosition = 'div.fancybox-caption p.caption-title {background:transparent;}';
+		} else {
+			$captionPosition = 'div.fancybox-caption {position:static;}div.fancybox-caption p.caption-title{position:absolute;left:0;right:0;margin:0 auto;top:30px;color:#fff;}';
+		}
+	}
+
 
 	echo '
 <!-- Fancybox for WordPress v' . $mfbfw_version . ' -->
@@ -229,6 +248,10 @@ jQuery.each(arr, function() {
 	' . ( isset( $mfbfw[ 'borderRadius' ] ) ? 'div.fancybox-content{border-radius:' . $mfbfw[ 'borderRadius' ] . 'px}' : '' ) . '
 	' . ( isset( $mfbfw[ 'borderRadiusInner' ] ) ? 'img#fancybox-img{border-radius:' . $mfbfw[ 'borderRadiusInner' ] . 'px}' : '' ) . '
 	' . ( isset( $mfbfw[ 'shadowSize' ] ) && $mfbfw[ 'shadowOffset' ] && $mfbfw[ 'shadowOpacity' ] ? 'div.fancybox-content{box-shadow:0 ' . $mfbfw[ 'shadowOffset' ] . 'px ' . $mfbfw[ 'shadowSize' ] . 'px rgba(0,0,0,' . $mfbfw[ 'shadowOpacity' ] . ')}' : '' ) . '
+	' . ( isset( $mfbfw[ 'titleShow' ] ) ? 'div.fancybox-caption p.caption-title{display:block}' : 'div.fancybox-caption p.caption-title{display:none}' ) . '
+	' . ( isset( $mfbfw[ 'titleSize' ] ) ? 'div.fancybox-caption p.caption-title{font-size:' . $mfbfw[ 'titleSize' ] . 'px}' : 'div.fancybox-caption p.caption-title{font-size:14px}' ) . '
+	' . ( isset( $mfbfw[ 'titleColor' ] ) ? 'div.fancybox-caption p.caption-title{color:' . $mfbfw[ 'titleColor' ] . '}' : 'div.fancybox-caption p.caption-title{color:#333333}' ) . '
+	' . ( isset( $mfbfw[ 'titlePosition' ] ) ? 'div.fancybox-caption {color:' . $mfbfw[ 'titleColor' ] . '}' : 'div.fancybox-caption p.caption-title{color:#333333}' ) . $captionPosition.'
 </style>';
 
 	echo '
@@ -248,7 +271,6 @@ jQuery.each(arr, function() {
 		if ( is_singular() ) {
 			echo '
 		// Gallery by post
-		//humbnails.addClass("fancybox").attr("rel","fancybox").getTitle();
 		thumbnails.attr("data-fancybox","gallery").getTitle();
 ';
 
@@ -257,9 +279,7 @@ jQuery.each(arr, function() {
 			echo '
 		// Gallery by post
 		var posts = jQuery(".post");
-		posts.each(function() {
-			//jQuery(this).find(thumbnails).addClass("fancybox").attr("rel","fancybox"+posts.index(this)).getTitle()
-			//razvan modification. here we need to make sure the attribut for each gallery is different
+		posts.each(function() {			
 			jQuery(this).find(thumbnails).attr("data-fancybox","gallery"+posts.index(this)).attr("rel","fancybox"+posts.index(this)).getTitle()
 		});
 ';
@@ -269,9 +289,6 @@ jQuery.each(arr, function() {
 	} elseif ( $mfbfw[ 'galleryType' ] == 'all' ) {
 		echo '
 		// Gallery All
-		//thumbnails.addClass("fancybox").attr("rel","fancybox").getTitle();
-		
-		//razvan modification. New fancybox script uses data-fancybox attribute, so we don\'t need the class. 
 		thumbnails.attr("data-fancybox","gallery").getTitle();
 ';
 
@@ -279,9 +296,12 @@ jQuery.each(arr, function() {
 	} elseif ( $mfbfw[ 'galleryType' ] == 'none' ) {
 		echo '
 		// No Galleries
-		//thumbnails.addClass("fancybox").getTitle();
-		//razvan modification
-		thumbnails.attr("data-fancybox").getTitle();
+		thumbnails.each(function(){
+			var rel = jQuery(this).attr("rel");
+			var imgTitle = jQuery(this).children("img").attr("title");
+			jQuery(this).attr("data-fancybox",rel);
+			jQuery(this).attr("title",imgTitle);
+		})
 ';
 
 // Else, gallery type is custom, so just print the custom expression
@@ -293,14 +313,6 @@ jQuery.each(arr, function() {
 	}
 
 // Call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
-//removed lines : 
-	//"enableEscapeButton": ' . ( isset( $mfbfw[ 'enableEscapeButton' ] ) && $mfbfw[ 'enableEscapeButton' ] ? 'true' : 'false' ) . ',
-	//
-	//"transitionOut": "' . $mfbfw[ 'transitionOut' ] . '",
-	//"autoScale": ' . ( isset( $mfbfw[ 'imageScale' ] ) && $mfbfw[ 'imageScale' ] ? 'true' : 'false' ) . ',
-	//"speedIn": ' . $mfbfw[ 'zoomSpeedIn' ] . ',
-	//"speedOut": ' . $mfbfw[ 'zoomSpeedOut' ] . ',
-	//"overlayColor": "' . $mfbfw[ 'overlayColor' ] . '",
 	echo '
 		jQuery("a[data-fancybox]").fancybox({
 			"loop": ' . ( isset( $mfbfw[ 'loop' ] ) && $mfbfw[ 'loop' ] ? 'true' : 'false' ) . ',
@@ -333,7 +345,10 @@ jQuery.each(arr, function() {
 			"easingIn": "' . $mfbfw[ 'easingIn' ] . '",
 			"easingOut": "' . $mfbfw[ 'easingOut' ] . '",
 			"easingChange": "' . $mfbfw[ 'easingChange' ] . '"' : '' ) . ',
-			"baseTpl": "' . $baseTpl . '"
+			"infobar"  : true,
+			"toolbar":true,
+			"preventCaptionOverlap": true,
+			"caption" : ' . $caption . ',
 		});
 ';
 

@@ -5,13 +5,12 @@ function mfbfw_options_page() {
 	require_once( FBFW_PATH . 'lib/admin-head.php' );
 	?>
 
-	<div class="wrap">
-
+	<div class="wrap about-wrap full-width-layout">
 		<div id="icon-plugins" class="icon32"></div>
 		<div class="inlined">
 			<div id="pluginDescription">
-				<h2><?php printf( __( 'Fancybox for WordPress (version %s)', 'mfbfw' ), FBFW_VERSION ); ?></h2>
-				<p>Seamlessly integrates FancyBox into your blog: Upload, activate, and you’re done. Additional configuration optional.</p></div>
+				<h1><?php printf( __( 'Fancybox for WordPress (version %s)', 'mfbfw' ), FBFW_VERSION ); ?></h1>
+				<p class="about-text">Seamlessly integrates FancyBox into your blog: Upload, activate, and you’re done. Additional configuration optional.</p></div>
 			<div id="pluginLogo"><img src="<?php echo FBFW_URL . 'assets/images/icon.jpg'; ?>"></div>
 		</div>
 
@@ -22,7 +21,6 @@ function mfbfw_options_page() {
 			<?php settings_fields( 'mfbfw-options' ); ?>
 
 			<div id="fbfwTabs">
-
 				<ul class="nav-tab-wrapper wp-clearfix">
 					<li><a href="#fbfw-info"><?php _e( 'Info', 'mfbfw' ); ?></a></li>
 					<li><a href="#fbfw-appearance"><?php _e( 'Appearance', 'mfbfw' ); ?></a></li>
