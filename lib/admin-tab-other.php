@@ -1,4 +1,4 @@
-<h2><?php _e( 'Other Settings <span style="color:red">(advanced)</span>', 'mfbfw' ); ?></h2>
+<h3><?php _e( 'Other Settings <span style="color:red">(advanced)</span>', 'mfbfw' ); ?></h3>
 
 <p><?php _e( 'These are additional settings for advanced users.', 'mfbfw' ); ?></p>
 
@@ -7,6 +7,8 @@
 
 		<tr valign="top">
 			<th scope="row"><?php _e( 'Dimensions', 'mfbfw' ); ?></th>
+			<td>
+				<fieldset>
 					<label for="frameWidth">
 						<input type="text" name="mfbfw[frameWidth]" id="frameWidth" value="<?php echo $settings[ 'frameWidth' ]; ?>" size="4" maxlength="4" />
 						<?php _e( 'Width for iframe and swf content. Also set for inline content if <em>autoDimensions</em> is disabled (default: 560)', 'mfbfw' ); ?>
@@ -16,7 +18,6 @@
 						<input type="text" name="mfbfw[frameHeight]" id="frameHeight" value="<?php echo $settings[ 'frameHeight' ]; ?>" size="4" maxlength="4" />
 						<?php _e( 'Height for iframe and swf content. Also set for inline content if <em>autoDimensions</em> is disabled (default: 340)', 'mfbfw' ); ?>
 					</label><br /><br />
-
 				</fieldset>
 			</td>
 		</tr>
@@ -27,7 +28,7 @@
 				<fieldset>
 					<input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[loadAtFooter]" id="loadAtFooter"<?php if ( isset( $settings[ 'loadAtFooter' ] ) && $settings[ 'loadAtFooter' ] ) echo ' checked="yes"'; ?> />
 					<label for="loadAtFooter" class="onoffswitch-label"></label>
-					<?php _e( 'Loads JavaScript at the end of the blog\'s HTML (experimental) (default: off)', 'mfbfw' ); ?><br />
+					<span class="switch-text"><?php _e( 'Loads JavaScript at the end of the blog\'s HTML (experimental) (default: off)', 'mfbfw' ); ?></span><div class="cf"></div><br />
 
 					<small><em><?php _e( 'This option won\'t be recognized if you use <strong>Parallel Load</strong> plugin. In that case, you can do this from Parallel Load\'s options.', 'mfbfw' ); ?></em></small><br /><br />
 
@@ -41,7 +42,7 @@
 				<fieldset>
 					<input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[callbackEnable]" id="callbackEnable"<?php if ( isset( $settings[ 'callbackEnable' ] ) && $settings[ 'callbackEnable' ] ) echo ' checked="yes"'; ?> />
 					<label for="callbackEnable" class="onoffswitch-label"></label>
-					<?php _e( 'Enable callbacks (default: off)', 'mfbfw' ); ?><br />
+					<span class="switch-text"><?php _e( 'Enable callbacks (default: off)', 'mfbfw' ); ?></span><div class="cf"></div><br />
 
 					<small><em><?php _e( 'Enabling this will show additional settings.', 'mfbfw' ); ?></em></small><br /><br />
 

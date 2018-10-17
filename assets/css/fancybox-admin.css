@@ -95,7 +95,7 @@
     display: block;
 }
 
-#fbfwTabs .inlined>div {
+#fbfwTabs .inlined>div:not(.cf) {
     display: inline-block;
     width: 50%;
     vertical-align: middle;
@@ -265,7 +265,14 @@ input[type="checkbox"]:checked + .onoffswitch-label:before {
     font-size: 11px;
     font-family: 'Arial';
 }
-
+label.onoffswitch-label, span.switch-text {
+  float:left;
+  display:inline-block;
+}
+span.switch-text {
+    margin-left:25px;
+    padding:5px;
+}
 
 /*End checkbox onf offswitch design*/
 
@@ -282,4 +289,42 @@ input[type="checkbox"]:checked + .onoffswitch-label:before {
 .CodeMirror-gutters {
     left:0 !important;
 }
-/*End extra calls block*/
+/*End extra calls block*
+
+/* Tabs design */
+#fbfwTabs .ui-tabs-panel h3 {
+    margin-top:0px;
+}
+#fbfwTabs.ui-tabs .ui-tabs-panel {
+    padding-left:0px !important;
+    padding-right:0px !important;
+}
+/* End Tabs design */
+
+/* Callbacks design */
+#callbackBlock label {
+    width:100%;
+}
+#callbackBlock .CodeMirror-wrap pre {
+    margin-left:15px;
+}
+
+/*Clearfix Hack*/
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+    width:100%;
+}

@@ -3,8 +3,8 @@
 /*
   Plugin Name: FancyBox for WordPress
   Plugin URI: http://plugins.josepardilla.com/fancybox-for-wordpress/
-  Description: Integrates <a href="http://fancybox.net/">FancyBox</a> by <a href="http://klade.lv/">Janis Skarnelis</a> into WordPress.
-  Version: 3.0.2
+  Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox</a> by <a href="http://klade.lv/">Janis Skarnelis</a> into WordPress.
+  Version: 3.0.14
   Author: Jos&eacute; Pardilla
   Author URI: http://josepardilla.com/
 
@@ -21,7 +21,7 @@
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.0.2' );
+define( 'FBFW_VERSION', '3.0.14' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 
@@ -57,42 +57,32 @@ function mfbfw_defaults() {
 		// Appearance
 		'border'			 => '',
 		'borderColor'		 => '#BBBBBB',
-		'borderRadius'		 => '5',
-		'borderRadiusInner'	 => '0',
 		'showCloseButton'	 => 'on',
-		'closeHorPos'		 => 'right',
-		'closeVerPos'		 => 'top',
 		'paddingColor'		 => '#FFFFFF',
 		'padding'			 => '15',
 		'overlayShow'		 => 'on',
 		'overlayColor'		 => '#000000',
 		'overlayOpacity'	 => '0.7',
-		'shadowOpacity'		 => '0.5',
-		'shadowSize'		 => '25',
-		'shadowOffset'		 => '10',
 		'titleShow'			 => 'on',
 		'titlePosition'		 => 'inside',
 		'titleColor'		 => '#333333',
-		'arrows'			 => 'on',
+		'showNavArrows'		 => 'on',
+		'titleSize'			 => '14',
+		'showCloseButton'	 => 'true',
 		// Animations
 		'zoomOpacity'		 => 'on',
 		'zoomSpeedIn'		 => '500',
-		'zoomSpeedOut'		 => '500',
-		'animationDuration'	 => '500',
-		'transitionDuration' => '500',
-		'animationEffect'	 => 'fade',
+		'zoomSpeedChange'	 => '300',
+		'transitionIn'		 => 'fade',
 		'transitionEffect'	 => 'fade',
-		'transitionOut'		 => 'fade',
 		// Behaviour
-		'imageScale'		 => 'on',
-		'centerOnScroll'	 => 'on',
-		'clickContent'		 => 'function(current, event) {
-    return current.type === "image" ? "close" : false;
-  },',
-		'clickSlide'		 => 'on',
-		'keyboard'			 => 'on',
-		'loop'				 => 'on',
-		'wheel'				 => 'off',
+		'hideOnOverlayClick' => 'function(current, event) {
+									return current.type === "image" ? "close" : false;
+								  },',
+		'hideOnContentClick' => 'on',
+		'enableEscapeButton' => 'on',
+		'cyclic'			 => 'on',
+		'mouseWheel'		 => 'off',
 		// Gallery Type
 		'galleryType'		 => 'all',
 		'customExpression'	 => 'jQuery(thumbnails).addClass("fancybox").attr("rel","fancybox").getTitle();',
@@ -139,7 +129,7 @@ function mfbfw_deactivate() {
 register_deactivation_hook( __FILE__, 'mfbfw_deactivate' );
 
 /**
- * Load FancyBox JS with jQuery and jQuery.easing & jquery.mousewheel if necessary
+ * Load FancyBox JS with jQuery and 
  */
 function mfbfw_enqueue_scripts() {
 
@@ -161,8 +151,6 @@ function mfbfw_enqueue_scripts() {
 
 	// Register Scripts
 	wp_register_script( 'fancybox', FBFW_URL . 'assets/js/jquery.fancybox.js', $jquery, '1.3.4', $footer ); // Main Fancybox script
-	wp_register_script( 'jqueryeasing', FBFW_URL . 'assets/js/jquery.easing.1.3.min.js', $jquery, '1.3', $footer ); // Easing animations script
-	wp_register_script( 'jquerymousewheel', FBFW_URL . 'assets/js/jquery.mousewheel.3.0.4.pack.js', $jquery, '3.0.4', $footer ); // Mouse wheel support script
 	// Enqueue Scripts
 	wp_enqueue_script( 'fancybox' ); // Load fancybox
 
@@ -193,19 +181,6 @@ add_action( 'wp_enqueue_scripts', 'mfbfw_enqueue_scripts' );
 function mfbfw_init() {
 
 	global $mfbfw, $mfbfw_version;
-
-	//baseTpl testing for title
-	$baseTpl = '<div class=\'fancybox-container\' role=\'dialog\' tabindex=\'-1\'> " +
-    "<div class=\'fancybox-bg\'></div>"+
-    "<div class=\'fancybox-inner\'>"+
-    "<div class=\'fancybox-infobar\'><span data-fancybox-index></span>&nbsp;/&nbsp;<span data-fancybox-count></span></div>"+
-    "<div class=\'fancybox-toolbar\'>{{buttons}}</div>"+
-    "<div class=\'fancybox-navigation\'>{{arrows}}</div>"+
-    "<div class=\'fancybox-stage\'></div>"+
-	"<div class=\'fancybox-title\'></div>"+
-    "<div class=\'fancybox-caption\'></div>"+
-    "</div>"+
-    "</div>';
 
 	//caption function to display image title 
 	$caption = 'function( instance, item ) {' .
@@ -251,7 +226,7 @@ jQuery.each(arr, function() {
 	' . ( isset( $mfbfw[ 'titleShow' ] ) ? 'div.fancybox-caption p.caption-title{display:block}' : 'div.fancybox-caption p.caption-title{display:none}' ) . '
 	' . ( isset( $mfbfw[ 'titleSize' ] ) ? 'div.fancybox-caption p.caption-title{font-size:' . $mfbfw[ 'titleSize' ] . 'px}' : 'div.fancybox-caption p.caption-title{font-size:14px}' ) . '
 	' . ( isset( $mfbfw[ 'titleColor' ] ) ? 'div.fancybox-caption p.caption-title{color:' . $mfbfw[ 'titleColor' ] . '}' : 'div.fancybox-caption p.caption-title{color:#333333}' ) . '
-	' . ( isset( $mfbfw[ 'titlePosition' ] ) ? 'div.fancybox-caption {color:' . $mfbfw[ 'titleColor' ] . '}' : 'div.fancybox-caption p.caption-title{color:#333333}' ) . $captionPosition.'
+	' . ( isset( $mfbfw[ 'titlePosition' ] ) ? 'div.fancybox-caption {color:' . $mfbfw[ 'titleColor' ] . '}' : 'div.fancybox-caption p.caption-title{color:#333333}' ) . $captionPosition . '
 </style>';
 
 	echo '
@@ -264,6 +239,7 @@ jQuery.each(arr, function() {
 
 		// Supported file extensions
 		var thumbnails = jQuery("a:has(img)").not(".nolightbox, .nofancybox, a:has(img.nolightbox, img.nofancybox)").filter( function() { return /\.(jpe?g|png|gif|bmp)$/i.test(jQuery(this).attr("href")) });
+		console.log(thumbnails);
 ';
 	if ( $mfbfw[ 'galleryType' ] == 'post' ) {
 
@@ -315,36 +291,32 @@ jQuery.each(arr, function() {
 // Call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
 	echo '
 		jQuery("a[data-fancybox]").fancybox({
-			"loop": ' . ( isset( $mfbfw[ 'loop' ] ) && $mfbfw[ 'loop' ] ? 'true' : 'false' ) . ',
-			"animationEffect": "zoom",
+			"loop": ' . ( isset( $mfbfw[ 'cyclic' ] ) && $mfbfw[ 'cyclic' ] ? 'true' : 'false' ) . ',
+			"smallBtn": ' . ( isset( $mfbfw[ 'showCloseButton' ] ) && $mfbfw[ 'showCloseButton' ] ? 'true' : 'false' ) . ', 
 			"padding": ' . $mfbfw[ 'padding' ] . ',
 			"opacity": ' . ( isset( $mfbfw[ 'zoomOpacity' ] ) && $mfbfw[ 'zoomOpacity' ] ? 'true' : 'false' ) . ',
-			"animationEffect": "' . $mfbfw[ 'animationEffect' ] . '",
-			"animationDuration": ' . $mfbfw[ 'animationDuration' ] . ',
+			"animationEffect": "' . $mfbfw[ 'transitionIn' ] . '",
+			"animationDuration": ' . $mfbfw[ 'zoomSpeedChange' ] . ',
 			"transitionEffect": "' . $mfbfw[ 'transitionEffect' ] . '",
 			"overlayShow": ' . ( isset( $mfbfw[ 'overlayShow' ] ) && $mfbfw[ 'overlayShow' ] ? 'true' : 'false' ) . ',
 			"overlayOpacity": "' . $mfbfw[ 'overlayOpacity' ] . '",
 			"titleShow": ' . ( isset( $mfbfw[ 'titleShow' ] ) && $mfbfw[ 'titleShow' ] ? 'true' : 'false' ) . ',
 			"titlePosition": "' . $mfbfw[ 'titlePosition' ] . '",
-			"keyboard": ' . ( isset( $mfbfw[ 'keyboard' ] ) && $mfbfw[ 'keyboard' ] ? 'true' : 'false' ) . ',
+			"keyboard": ' . ( isset( $mfbfw[ 'enableEscapeButton' ] ) && $mfbfw[ 'enableEscapeButton' ] ? 'true' : 'false' ) . ',
 			"showCloseButton": ' . ( isset( $mfbfw[ 'showCloseButton' ] ) && $mfbfw[ 'showCloseButton' ] ? 'true' : 'false' ) . ',
-			"arrows": ' . ( isset( $mfbfw[ 'arrows' ] ) && $mfbfw[ 'arrows' ] ? 'true' : 'false' ) . ',
-			"clickSlide": ' . ( isset( $mfbfw[ 'clickSlide' ] ) && $mfbfw[ 'clickSlide' ] ? '"close"' : 'false' ) . ',
-			"clickContent": ' . ( isset( $mfbfw[ 'clickContent' ] ) && $mfbfw[ 'clickContent' ] ? 'function(current, event) {
+			"arrows": ' . ( isset( $mfbfw[ 'showNavArrows' ] ) && $mfbfw[ 'showNavArrows' ] ? 'true' : 'false' ) . ',
+			"clickSlide": ' . ( isset( $mfbfw[ 'hideOnContentClick' ] ) && $mfbfw[ 'hideOnContentClick' ] ? '"close"' : 'false' ) . ',
+			"clickContent": ' . ( isset( $mfbfw[ 'hideOnOverlayClick' ] ) && $mfbfw[ 'hideOnOverlayClick' ] ? 'function(current, event) {
     return current.type === "image" ? "close" : false;
   }' : 'false' ) . ',			
-			"wheel": ' . ( isset( $mfbfw[ 'wheel' ] ) && $mfbfw[ 'wheel' ] ? 'true' : 'false' ) . ',
+			"wheel": ' . ( isset( $mfbfw[ 'mouseWheel' ] ) && $mfbfw[ 'mouseWheel' ] ? 'true' : 'false' ) . ',
 			"width": ' . $mfbfw[ 'frameWidth' ] . ',
 			"height": ' . $mfbfw[ 'frameHeight' ] . ',
 			"onStart": ' . ( isset( $mfbfw[ 'callbackEnable' ], $mfbfw[ 'callbackOnStart' ] ) && $mfbfw[ 'callbackEnable' ] && $mfbfw[ 'callbackOnStart' ] ? $mfbfw[ 'callbackOnStart' ] . ',' : 'function() { },' ) . '
 			"onCancel": ' . ( isset( $mfbfw[ 'callbackEnable' ], $mfbfw[ 'callbackOnCancel' ] ) && $mfbfw[ 'callbackEnable' ] && $mfbfw[ 'callbackOnCancel' ] ? $mfbfw[ 'callbackOnCancel' ] . ',' : 'function() { },' ) . '
 			"onCleanup": ' . ( isset( $mfbfw[ 'callbackEnable' ], $mfbfw[ 'callbackOnCleanup' ] ) && $mfbfw[ 'callbackEnable' ] && $mfbfw[ 'callbackOnCleanup' ] ? $mfbfw[ 'callbackOnCleanup' ] . ',' : 'function() { },' ) . '
 			"onComplete": ' . ( isset( $mfbfw[ 'callbackEnable' ], $mfbfw[ 'callbackOnComplete' ] ) && $mfbfw[ 'callbackEnable' ] && $mfbfw[ 'callbackOnComplete' ] ? $mfbfw[ 'callbackOnComplete' ] . ',' : 'function() { },' ) . '
-			"onClosed": ' . ( isset( $mfbfw[ 'callbackEnable' ], $mfbfw[ 'callbackOnClose' ] ) && $mfbfw[ 'callbackEnable' ] && $mfbfw[ 'callbackOnClose' ] ? $mfbfw[ 'callbackOnClose' ] . ',' : 'function() { },' ) . '
-			"centerOnScroll": ' . ( isset( $mfbfw[ 'centerOnScroll' ] ) && $mfbfw[ 'centerOnScroll' ] ? 'true' : 'false ' ) . ( isset( $mfbfw[ 'easing' ] ) && $mfbfw[ 'easing' ] ? ',
-			"easingIn": "' . $mfbfw[ 'easingIn' ] . '",
-			"easingOut": "' . $mfbfw[ 'easingOut' ] . '",
-			"easingChange": "' . $mfbfw[ 'easingChange' ] . '"' : '' ) . ',
+			"onClosed": ' . ( isset( $mfbfw[ 'callbackEnable' ], $mfbfw[ 'callbackOnClose' ] ) && $mfbfw[ 'callbackEnable' ] && $mfbfw[ 'callbackOnClose' ] ? $mfbfw[ 'callbackOnClose' ] . ',' : 'function() { }' ) . ',
 			"infobar"  : true,
 			"toolbar":true,
 			"preventCaptionOverlap": true,
@@ -465,14 +437,12 @@ add_filter( 'plugin_action_links', 'mfbfw_plugin_action_links', 10, 2 );
  * Transform from Hex to rgb or rgba
  */
 
-function hexTorgba( $hexColor,
-					$opacity ) {
+function hexTorgba( $hexColor,$opacity ) {
 	list($r, $g, $b) = sscanf( $hexColor, "#%02x%02x%02x" );
 	if ( $opacity ) {
 		$rgb = 'rgba(' . $r . ',' . $g . ',' . $b . ',' . $opacity . ')';
 	} else {
 		$rgb = 'rgba(' . $r . ',' . $g . ',' . $b . ')';
 	}
-
 	return $rgb;
 }

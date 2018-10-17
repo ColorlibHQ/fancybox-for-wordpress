@@ -1,4 +1,4 @@
-<h2><?php _e( 'Troubleshooting Settings', 'mfbfw' ); ?></h2>
+<h3><?php _e( 'Troubleshooting Settings', 'mfbfw' ); ?></h3>
 
 <p><span style="font-weight:bold;color:red;"><?php _e( 'Settings in this section should only be changed if you are having problems with the plugin!', 'mfbfw' ); ?></span></p>
 
@@ -15,7 +15,7 @@
 				<fieldset>
 					<input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[nojQuery]" id="nojQuery"<?php if ( isset( $settings[ 'nojQuery' ] ) && $settings[ 'nojQuery' ] ) echo ' checked="yes"'; ?> />
 					<label for="nojQuery" class="onoffswitch-label"></label>
-					<?php _e( 'Skip jQuery call. Use this only if jQuery is being loaded twice (default: off)', 'mfbfw' ); ?><br />
+					<span class="switch-text"><?php _e( 'Skip jQuery call. Use this only if jQuery is being loaded twice (default: off)', 'mfbfw' ); ?></span><div class="cf"></div><br />
 
 				</fieldset>
 			</td>

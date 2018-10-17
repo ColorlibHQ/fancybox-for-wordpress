@@ -38,33 +38,23 @@ jQuery( function () {
     switchBlock( "#extraCallsBlock", "#extraCallsEnable" );
     switchBlock( "#easingBlock", "#easing" );
 
-
-    //Modified
-    //Razvan Test Function enable codemirror on FancyBox Extra Calls
     jQuery( document ).ready( function () {
-
         jQuery( ".slider-horizontal" ).each( function () {
             var mySl = jQuery( this );
             var defaultState = mySl.prev( 'input' ).val();
             mySl.attr( 'defSl', defaultState );
         } );
 
-        //modified by Razvan
-        var textArea = document.getElementById( 'extraCalls' );
-        wp.codeEditor.initialize(textArea);
-//        if ( jQuery( '.CodeMirror' ).length ) {
-//
-//        } else {
-//            CodeMirror.fromTextArea( textArea );
-//
-//        }
-        //jQuery( 'input[type="color"]' ).wpColorPicker();
+        //Function enable codemirror on FancyBox Extra Calls
+        jQuery( 'textarea' ).each(function(){
+             wp.codeEditor.initialize(jQuery(this));
+        });
+        
+        //add color picker to buttons
         jQuery('.color-btn').wpColorPicker();
     } );
 
     jQuery( window ).load( function () {
-        //jQuery( '.CodeMirror' ).addClass( 'CodeMirror-focused' );
-        //
         //function to initiate horizontal slider from jQuery UI
         jQuery( ".slider-horizontal" ).each( function () {
             var mySl = jQuery( this );
