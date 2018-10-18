@@ -38,9 +38,9 @@
 
 						<small><strong><em><?php _e( 'Custom expression guidelines:', 'mfbfw' ); ?></em></strong></small><br />
 
-						<small><em><?php _e( '&middot; The custom expression has to apply <code>class="fancybox"</code> to the links where you want to use FancyBox. Do not call the <code>fancybox()</code> function here, the plugin does this for you.', 'mfbfw' ); ?></em></small><br />
+						<small><em><?php _e( '&middot; The custom expression has to apply <code>data-fancybox</code> attribute to the links where you want to use FancyBox. Do not call the <code>fancybox()</code> function here, the plugin does this for you.', 'mfbfw' ); ?></em></small><br />
 
-						<small><em><?php _e( '&middot; The jQuery <code>addClass()</code> function is a good way to add the class to the desired links conserving any existing class.', 'mfbfw' ); ?></em></small><br />
+						<small><em><?php _e( '&middot; The jQuery <code>attr()</code> function is a good way to add attributes to the desired links conserving any existing attribute.', 'mfbfw' ); ?></em></small><br />
 
 						<small><em><?php _e( '&middot; You can use <code>getTitle()</code> in your expression to copy the title attribute from the <code>IMG</code> tag to the <code>A</code> tag, so that FancyBox can show captions.', 'mfbfw' ); ?></em></small><br />
 
@@ -52,9 +52,9 @@
 
 						<small><strong><em><?php _e( 'Examples:', 'mfbfw' ); ?></em></strong></small><br />
 
-						<small><em><code>jQuery(thumbnails).addClass(&quot;fancybox&quot;).attr(&quot;rel&quot;,&quot;fancybox&quot;).getTitle();</code></em></small><br />
+						<small><em><code>jQuery(thumbnails).attr(&quot;data-fancybox&quot;).getTitle();</code></em></small><br />
 
-						<small><em><code>jQuery&quot;a:has(img)[href$='.jpg']&quot;).addClass&quot;fancybox&quot;).attr(&quot;rel&quot;,&quot;fancybox&quot;).getTitle();</code></em></small><br /><br />
+						<small><em><code>jQuery&quot;a:has(img)[href$='.jpg']&quot;).attr(&quot;data-fancybox&quot;).getTitle();</code></em></small><br /><br />
 
 					</div>
 
