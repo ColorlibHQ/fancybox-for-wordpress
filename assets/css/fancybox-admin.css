@@ -280,14 +280,17 @@ span.switch-text {
 #extraCallsBlock {
     width:80%;
 }
-.CodeMirror-code {
+/*.CodeMirror-code {
     margin-left:30px;
-}
-.CodeMirror-linenumber {
+}*/
+/*.CodeMirror-linenumber {
     left:-30px !important;
-}
-.CodeMirror-gutters {
+}*/
+/*.CodeMirror-gutters {
     left:0 !important;
+}*/
+#customExpressionBlock label {
+    width:100%;
 }
 /*End extra calls block*
 

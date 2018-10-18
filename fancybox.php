@@ -85,7 +85,7 @@ function mfbfw_defaults() {
 		'mouseWheel'		 => 'off',
 		// Gallery Type
 		'galleryType'		 => 'all',
-		'customExpression'	 => 'jQuery(thumbnails).addClass("fancybox").attr("rel","fancybox").getTitle();',
+		'customExpression'	 => 'jQuery(thumbnails).attr("data-fancybox","gallery").getTitle();',
 		// Other
 		'frameWidth'		 => '560',
 		'frameHeight'		 => '340',
@@ -316,7 +316,7 @@ jQuery.each(arr, function() {
 			"onCancel": ' . ( isset( $mfbfw[ 'callbackEnable' ], $mfbfw[ 'callbackOnCancel' ] ) && $mfbfw[ 'callbackEnable' ] && $mfbfw[ 'callbackOnCancel' ] ? $mfbfw[ 'callbackOnCancel' ] . ',' : 'function() { },' ) . '
 			"onCleanup": ' . ( isset( $mfbfw[ 'callbackEnable' ], $mfbfw[ 'callbackOnCleanup' ] ) && $mfbfw[ 'callbackEnable' ] && $mfbfw[ 'callbackOnCleanup' ] ? $mfbfw[ 'callbackOnCleanup' ] . ',' : 'function() { },' ) . '
 			"onComplete": ' . ( isset( $mfbfw[ 'callbackEnable' ], $mfbfw[ 'callbackOnComplete' ] ) && $mfbfw[ 'callbackEnable' ] && $mfbfw[ 'callbackOnComplete' ] ? $mfbfw[ 'callbackOnComplete' ] . ',' : 'function() { },' ) . '
-			"onClosed": ' . ( isset( $mfbfw[ 'callbackEnable' ], $mfbfw[ 'callbackOnClose' ] ) && $mfbfw[ 'callbackEnable' ] && $mfbfw[ 'callbackOnClose' ] ? $mfbfw[ 'callbackOnClose' ] . ',' : 'function() { }' ) . ',
+			"onClosed": ' . ( isset( $mfbfw[ 'callbackEnable' ], $mfbfw[ 'callbackOnClose' ] ) && $mfbfw[ 'callbackEnable' ] && $mfbfw[ 'callbackOnClose' ] ? $mfbfw[ 'callbackOnClose' ] . ',' : 'function() { }' ) . '
 			"infobar"  : true,
 			"toolbar":true,
 			"preventCaptionOverlap": true,
@@ -408,7 +408,6 @@ function mfbfw_admin_scripts() {
 	wp_enqueue_script( 'fancybox-admin', FBFW_URL . 'assets/js/admin.js', array( 'jquery', 'wp-color-picker' ), FBFW_VERSION ); // Load specific JS for Admin Page
 
 	/* Load codemirror editor */
-	// Enqueue code editor and settings for manipulating Javascript.
 	$settings = wp_enqueue_code_editor( array( 'type' => 'text/javascript' ) );
 }
 

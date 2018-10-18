@@ -46,12 +46,31 @@ jQuery( function () {
         } );
 
         //Function enable codemirror on FancyBox Extra Calls
-        jQuery( 'textarea' ).each(function(){
-             wp.codeEditor.initialize(jQuery(this));
-        });
-        
+        jQuery( '.nav-tab-wrapper > li' ).click( function () {
+            var ariaControls = jQuery( this ).attr( 'aria-controls' );
+            console.log( jQuery( '#' + ariaControls + ' textarea' ) );
+
+            jQuery( '#' + ariaControls + ' textarea' ).each( function () {
+                var tArea = jQuery( this );
+                console.log( tArea.parents( 'fieldset' ).children( 'input[type="checkbox"]:checked' ) );
+                if ( tArea.parents( 'fieldset' ).children( 'input[type="checkbox"]:checked' ) ) {
+                    wp.codeEditor.initialize( tArea );
+                }
+            } );
+        } );
+
+        jQuery( 'input[type="checkbox"]' ).click( function () {
+            if ( jQuery( this ).is( ':checked' ) ) {
+                var tArea = jQuery( this ).parent().find( 'textarea' );
+                tArea.each( function () {
+                    wp.codeEditor.initialize( jQuery( this ) );
+                } );
+            }
+        } );
+
+
         //add color picker to buttons
-        jQuery('.color-btn').wpColorPicker();
+        jQuery( '.color-btn' ).wpColorPicker();
     } );
 
     jQuery( window ).load( function () {

@@ -27,11 +27,11 @@ function mfbfw_options_page() {
 					<li><a href="#fbfw-animations"><?php _e( 'Animations', 'mfbfw' ); ?></a></li>
 					<li><a href="#fbfw-behaviour"><?php _e( 'Behaviour', 'mfbfw' ); ?></a></li>
 					<li><a href="#fbfw-galleries"><?php _e( 'Galleries', 'mfbfw' ); ?></a></li>
-					<li><a href="#fbfw-other"><?php _e( 'Miscellaneous', 'mfbfw' ); ?></a></li>
-					<li><a href="#fbfw-calls"><?php _e( 'Extra Calls', 'mfbfw' ); ?></a></li>
-					<li><a href="#fbfw-troubleshooting"><?php _e( 'Troubleshooting', 'mfbfw' ); ?></a></li>
+					<li><a href="#fbfw-other"><?php _e( 'Misc.', 'mfbfw' ); ?></a></li>
+					<!--<li><a href="#fbfw-calls"><?php _e( 'Extra Calls', 'mfbfw' ); ?></a></li>-->
+					<!--<li><a href="#fbfw-troubleshooting"><?php _e( 'Troubleshooting', 'mfbfw' ); ?></a></li>-->
 					<li><a href="#fbfw-support" style="color:green;"><?php _e( 'Support', 'mfbfw' ); ?></a></li>
-					<li><a href="#fbfw-uninstall" style="color:red;"><?php _e( 'Uninstall', 'mfbfw' ); ?></a></li>
+					<!--<li><a href="#fbfw-uninstall" style="color:red;"><?php _e( 'Uninstall', 'mfbfw' ); ?></a></li>-->
 				</ul>
 
 				<div id="fbfw-info">
@@ -58,22 +58,22 @@ function mfbfw_options_page() {
 					<?php require_once ( FBFW_PATH . 'lib/admin-tab-other.php' ); ?>
 				</div>
 
-				<div id="fbfw-calls">
+				<!--<div id="fbfw-calls">
 					<?php require_once ( FBFW_PATH . 'lib/admin-tab-calls.php' ); ?>
 				</div>
 
 				<div id="fbfw-troubleshooting">
 					<?php require_once ( FBFW_PATH . 'lib/admin-tab-troubleshooting.php' ); ?>
-				</div>
+				</div>-->
 
 				<div id="fbfw-support">
 					<?php require_once ( FBFW_PATH . 'lib/admin-tab-support.php' ); ?>
 				</div>
-
+<!--
 				<div id="fbfw-uninstall">
 					<?php require_once ( FBFW_PATH . 'lib/admin-tab-uninstall.php' ); ?>
 				</div>
-
+-->
 			</div>
 
 			<p class="submit" style="text-align:center;">

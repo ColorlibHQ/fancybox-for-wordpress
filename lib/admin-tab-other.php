@@ -85,3 +85,89 @@
 
 	</tbody>
 </table>
+
+<h3><?php _e( 'Extra FancyBox Calls <span style="color:red">(advanced)</span>', 'mfbfw' ); ?></h3>
+
+<p><?php _e( 'Here you can add as many additional calls to fancybox as you want, with different settings. For example, if you want to use fancybox with iframes or ajax on any specific link, you can configure those calls here without affecting the settings for images.', 'mfbfw' ); ?></p>
+
+<p><?php _e( 'For information on the options available you can use here see <a href="http://fancyapps.com/fancybox/3/">FancyBox\'s API & Options page</a>.', 'mfbfw' ); ?></p>
+
+<table class="form-table fancy-table" style="clear:none;">
+	<tbody>
+
+		<tr valign="top">
+			<th scope="row"><?php _e( 'Additional FancyBox Calls', 'mfbfw' ); ?></th>
+			<td>
+				<fieldset>
+					<input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[extraCallsEnable]" id="extraCallsEnable"<?php if ( isset( $settings[ 'extraCallsEnable' ] ) && $settings[ 'extraCallsEnable' ] ) echo ' checked="yes"'; ?> />
+					<label for="extraCallsEnable" class="onoffswitch-label"></label>
+					<span class="switch-text"><?php _e( 'Additional FancyBox Calls (default: off)', 'mfbfw' ); ?></span><div class="cf"></div><br /><br />
+
+					<div id="extraCallsBlock">
+
+						<label for="extraCalls">
+							<textarea rows="20" cols="50" class="large-text code" name="mfbfw[extraCallsData]" wrap="physical" id="extraCalls"><?php echo ($settings[ 'extraCallsData' ]); ?></textarea>
+						</label><br /><br />
+
+						<small><strong><em><?php _e( 'Example:', 'mfbfw' ); ?></em></strong></small><br />
+						<small><em><code>
+									jQuery("#login a").fancybox({<br />
+									&nbsp;&nbsp;'transitionIn': 'elastic',<br />
+									&nbsp;&nbsp;'speedIn': 600,<br />
+									&nbsp;&nbsp;'speedOut': 200,<br />
+									&nbsp;&nbsp;'type': 'iframe'<br />
+									});
+								</code></em></small><br /><br />
+					</div>
+
+				</fieldset>
+			</td>
+		</tr>
+
+	</tbody>
+</table>
+
+<h3><?php _e( 'Troubleshooting Settings', 'mfbfw' ); ?></h3>
+
+<p><span style="font-weight:bold;color:red;"><?php _e( 'Settings in this section should only be changed if you are having problems with the plugin!', 'mfbfw' ); ?></span></p>
+
+<p><?php _e( 'If the plugin doesn\'t seem to work, first you should check for other plugins that may be conflicting with this one, especially other Lightbox, Slimbox, etc. Make sure all your plugins and WordPress itself are up to date (this plugin has only been tested in WordPress 2.7 and above).', 'mfbfw' ); ?></p>
+
+<p><?php _e( 'Change them one at a time and test to see if they help. Remember that having a cache plugin may prevent changes from taking effect immidiately, so clear cache after saving changes here or deactivate cache until you finish editing these options.', 'mfbfw' ); ?></p><br />
+
+<table class="form-table fancy-table" style="clear:none;">
+	<tbody>
+
+		<tr valign="top">
+			<th scope="row"><?php _e( 'Do not call jQuery', 'mfbfw' ); ?></th>
+			<td>
+				<fieldset>
+					<input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[nojQuery]" id="nojQuery"<?php if ( isset( $settings[ 'nojQuery' ] ) && $settings[ 'nojQuery' ] ) echo ' checked="yes"'; ?> />
+					<label for="nojQuery" class="onoffswitch-label"></label>
+					<span class="switch-text"><?php _e( 'Skip jQuery call. Use this only if jQuery is being loaded twice (default: off)', 'mfbfw' ); ?></span><div class="cf"></div><br />
+
+				</fieldset>
+			</td>
+		</tr>
+
+	</tbody>
+</table>
+
+<h3><?php _e( 'Uninstall', 'mfbfw' ); ?></h3>
+
+<p><?php _e( 'Like many other plugins, FancyBox for WordPress stores its settings on your WordPress\' options database table. Actually, these settings are not using more than a couple of kilobytes of space, but if you want to completely uninstall this plugin, check the option below, then save changes, and <strong>when you deactivate the plugin</strong>, all its settings will be removed from the database.', 'mfbfw' ); ?></p>
+
+<table class="form-table fancy-table" style="clear:none;">
+	<tbody>
+		<tr valign="top">
+			<th scope="row"><?php _e( 'Remove settings', 'mfbfw' ); ?></th>
+			<td>
+				<fieldset>
+					<input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[uninstall]" id="uninstall"<?php if ( isset( $settings[ 'uninstall' ] ) && $settings[ 'uninstall' ] ) echo ' checked="yes"'; ?> />
+					<label for="uninstall" class="onoffswitch-label"></label>
+					<span class="switch-text"><?php _e( 'Remove Settings when plugin is deactivated from the "Manage Plugins" page. (default: off)', 'mfbfw' ); ?></span><div class="cf"></div><br /><br />
+				</fieldset>
+			</td>
+		</tr>
+	</tbody>
+</table>
