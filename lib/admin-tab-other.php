@@ -48,28 +48,33 @@
 
 					<div id="callbackBlock">
 
+                        <?php _e( 'Callback on <strong>Start</strong> event: Will be called right before attempting to load the content', 'mfbfw' ); ?>
 						<label for="callbackOnStart">
-							<?php _e( 'Callback on <strong>Start</strong> event: Will be called right before attempting to load the content', 'mfbfw' ); ?>
+                            <div class="start-editing"><p><?php _e( 'Click to start editing', 'mfbfw' ); ?></p></div>
 							<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnStart]" wrap="physical" id="callbackOnStart"><?php echo ($settings[ 'callbackOnStart' ]); ?></textarea>
 						</label><br /><br />
 
+						<?php _e( 'Callback on <strong>Cancel</strong> event: Will be called after loading is canceled', 'mfbfw' ); ?>
 						<label for="callbackOnCancel">
-							<?php _e( 'Callback on <strong>Cancel</strong> event: Will be called after loading is canceled', 'mfbfw' ); ?>
+                            <div class="start-editing"><p><?php _e( 'Click to start editing', 'mfbfw' ); ?></p></div>
 							<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnCancel]" wrap="physical" id="callbackOnCancel"><?php echo ($settings[ 'callbackOnCancel' ]); ?></textarea>
 						</label><br /><br />
 
+						<?php _e( 'Callback on <strong>Complete</strong> event: Will be called once the content is displayed', 'mfbfw' ); ?>
 						<label for="callbackOnComplete">
-							<?php _e( 'Callback on <strong>Complete</strong> event: Will be called once the content is displayed', 'mfbfw' ); ?>
+                            <div class="start-editing"><p><?php _e( 'Click to start editing', 'mfbfw' ); ?></p></div>
 							<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnComplete]" wrap="physical" id="callbackOnComplete"><?php echo ($settings[ 'callbackOnComplete' ]); ?></textarea>
 						</label><br /><br />
 
+						<?php _e( 'Callback on <strong>CleanUp</strong> event: Will be called just before closing', 'mfbfw' ); ?>
 						<label for="callbackOnCleanup">
-							<?php _e( 'Callback on <strong>CleanUp</strong> event: Will be called just before closing', 'mfbfw' ); ?>
+                            <div class="start-editing"><p><?php _e( 'Click to start editing', 'mfbfw' ); ?></p></div>
 							<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnCleanup]" wrap="physical" id="callbackOnCleanup"><?php echo ($settings[ 'callbackOnCleanup' ]); ?></textarea>
 						</label><br /><br />
 
+						<?php _e( 'Callback on <strong>Closed</strong> event: Will be called once FancyBox is closed', 'mfbfw' ); ?>
 						<label for="callbackOnClosed">
-							<?php _e( 'Callback on <strong>Closed</strong> event: Will be called once FancyBox is closed', 'mfbfw' ); ?>
+                            <div class="start-editing"><p><?php _e( 'Click to start editing', 'mfbfw' ); ?></p></div>
 							<textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnClose]" wrap="physical" id="callbackOnClosed"><?php echo ($settings[ 'callbackOnClose' ]); ?></textarea>
 						</label><br /><br/>
 
