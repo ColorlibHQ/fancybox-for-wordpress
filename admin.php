@@ -61,7 +61,6 @@ function mfbfw_options_page()
                     <?php require_once(FBFW_PATH . 'lib/admin-tab-support.php'); ?>
                 </div>
 
--->
             </div>
 
             <p class="submit" style="text-align:center;">
