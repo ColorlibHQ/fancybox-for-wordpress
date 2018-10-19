@@ -59,9 +59,6 @@
 					<input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[mouseWheel]" id="mouseWheel"<?php if ( isset( $settings[ 'mouseWheel' ] ) && $settings[ 'mouseWheel' ] ) echo ' checked="yes"'; ?> />
 					<label for="mouseWheel" class="onoffswitch-label"></label>
 					<span class="switch-text"><?php _e( 'Lets visitors navigate galleries with the mouse wheel  (default: off)', 'mfbfw' ); ?></span><div class="cf"></div><br />
-
-					<small><em><?php _e( '(Will load one additional javascript file, 3KB)', 'mfbfw' ); ?></em></small><br /><br />
-
 				</fieldset>
 			</td>
 		</tr>
