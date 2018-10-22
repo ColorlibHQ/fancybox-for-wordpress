@@ -22,6 +22,11 @@ Author URI: http://josepardilla.com/
 define('FBFW_VERSION', '3.0.14');
 define('FBFW_PATH', plugin_dir_path(__FILE__));
 define('FBFW_URL', plugin_dir_url(__FILE__));
+define('FBFW_PLUGIN_BASE', plugin_basename(__FILE__));
+define('FBFW_PREVIOUS_PLUGIN_VERSION', '3.0.10');
+define('FBFW_FILE_', __FILE__);
+define('PLUGIN_NAME', 'fancybox-for-wordpress');
+
 
 // Get Main Settings
 $mfbfw = get_option('mfbfw');
@@ -202,9 +207,9 @@ function mfbfw_init()
 									});	';
 
 
-    $mfbfw['customExpression'] = str_replace('"rel"','"data-fancybox"',$mfbfw['customExpression']);
+    $mfbfw['customExpression'] = str_replace('"rel"', '"data-fancybox"', $mfbfw['customExpression']);
 
-	//title position settings
+    //title position settings
     if (isset($mfbfw['titlePosition'])) {
         if ($mfbfw['titlePosition'] == 'inside') {
             $captionPosition = 'div.fancybox-caption p.caption-title {background:#fff; width:auto;display:inline-block;padding:10px 30px;}';
@@ -358,6 +363,24 @@ function mfbfw_textdomain()
 
 add_action('init', 'mfbfw_textdomain');
 
+
+/**
+ * Insert Rollback link for plugin in plugins page
+ */
+
+function extra_settings_links($links)
+{
+
+    if (apply_filters('fbfw_show_rollback_link', true)) {
+        $links['rollback'] = sprintf('<a href="%s" class="fbfw-rollback-button">%s</a>', wp_nonce_url(admin_url('admin-post.php?action=fbfw_rollback'), 'fbfw_rollback'), __('Rollback version', 'mfbfw'));
+    }
+
+    return $links;
+}
+
+add_action('plugin_action_links_' . plugin_basename(__FILE__), 'extra_settings_links');
+
+
 /**
  * Register options
  */
@@ -421,6 +444,10 @@ function mfbfw_admin_scripts()
 /**
  * Settings Button on Plugins Panel
  */
+
+
+require FBFW_PATH . '/lib/class-fbfw-plugin-rollback.php';
+require FBFW_PATH . '/lib/class-fbfw-rollback.php';
 function mfbfw_plugin_action_links($links,
                                    $file)
 {
@@ -454,3 +481,4 @@ function hexTorgba($hexColor, $opacity)
     }
     return $rgb;
 }
+

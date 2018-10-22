@@ -2,8 +2,8 @@
 
 function mfbfw_options_page()
 {
-
     require_once(FBFW_PATH . 'lib/admin-head.php');
+
     ?>
 
     <div class="wrap about-wrap full-width-layout">
@@ -77,7 +77,6 @@ function mfbfw_options_page()
                        class="button-secondary" value="<?php esc_attr_e('Revert to defaults', 'mfbfw'); ?>"/>
                 <input type="hidden" name="action" value="reset"/>
             </div>
-        </form>
 
         <div id="mfbfwd"
              style="border-top:1px dashed #DDDDDD;margin:20px 0 40px;overflow:hidden;padding-top:25px;width:100%;float:left">
