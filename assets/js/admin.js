@@ -17,7 +17,7 @@ jQuery(function () {
     function switchBlock(block, button) {
         var buttonValue = jQuery(button + ":checked").val();
         if (buttonValue == "on") {
-            jQuery(block).css("display", "inline");
+            jQuery(block).css("display", "inline-block");
         } else {
             jQuery(block).css("display", "none");
         }

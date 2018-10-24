@@ -36,25 +36,25 @@ $settings['customExpression'] = str_replace('"rel"','"data-fancybox"',$settings[
 							<textarea rows="10" cols="50" class="large-text code" name="mfbfw[customExpression]" wrap="physical" id="customExpression"><?php echo ($settings[ 'customExpression' ]); ?></textarea>
 						</label><br />
 
-						<small><strong><em><?php _e( 'Custom expression guidelines:', 'mfbfw' ); ?></em></strong></small><br />
+						<p class="description"><strong><em><?php _e( 'Custom expression guidelines:', 'mfbfw' ); ?></em></strong></p><br />
 
-                        <small><em><?php _e('&middot; The custom expression has to apply <code>class="fancybox"</code> to the links where you want to use FancyBox. Do not call the <code>fancybox()</code> function here, the plugin does this for you.', 'mfbfw'); ?></em></small><br />
+                        <p class="description"><em><?php _e('&middot; The custom expression has to apply <code>class="fancybox"</code> to the links where you want to use FancyBox. Do not call the <code>fancybox()</code> function here, the plugin does this for you.', 'mfbfw'); ?></em></p><br />
 
-                        <small><em><?php _e('&middot; The jQuery <code>addClass()</code> function is a good way to add the class to the desired links conserving any existing class.', 'mfbfw'); ?></em></small><br />
+                        <p class="description"><em><?php _e('&middot; The jQuery <code>addClass()</code> function is a good way to add the class to the desired links conserving any existing class.', 'mfbfw'); ?></em></p><br />
 
-                        <small><em><?php _e('&middot; You can use <code>getTitle()</code> in your expression to copy the title attribute from the <code>IMG</code> tag to the <code>A</code> tag, so that FancyBox can show captions.', 'mfbfw'); ?></em></small><br />
+                        <p class="description"><em><?php _e('&middot; You can use <code>getTitle()</code> in your expression to copy the title attribute from the <code>IMG</code> tag to the <code>A</code> tag, so that FancyBox can show captions.', 'mfbfw'); ?></em></p><br />
 
-                        <small><em><?php _e('&middot; You can use <code>jQuery(thumbnails)</code> like in the example expression to apply FancyBox to thumbnails that link to these extensions: BMP, GIF, JPG, JPEG, PNG (both lowercase and uppercase).', 'mfbfw'); ?></em></small><br />
+                        <p class="description"><em><?php _e('&middot; You can use <code>jQuery(thumbnails)</code> like in the example expression to apply FancyBox to thumbnails that link to these extensions: BMP, GIF, JPG, JPEG, PNG (both lowercase and uppercase).', 'mfbfw'); ?></em></p><br />
 
-                        <small><em><?php _e('&middot; If you want to do it manually you can use something like <code>jQuery("a:has(img)[href$=\'.jpg\']")</code> or whatever works for you.', 'mfbfw'); ?></em></small><br />
+                        <p class="description"><em><?php _e('&middot; If you want to do it manually you can use something like <code>jQuery("a:has(img)[href$=\'.jpg\']")</code> or whatever works for you.', 'mfbfw'); ?></em></p><br />
 
-                        <small><em><?php _e('See the <a href="http://docs.jquery.com/" target="_blank">jQuery Documentation</a> for more help.', 'mfbfw'); ?></em></small><br /><br />
+                        <p class="description"><em><?php _e('See the <a href="http://docs.jquery.com/" target="_blank">jQuery Documentation</a> for more help.', 'mfbfw'); ?></em></p><br /><br />
 
-                        <small><strong><em><?php _e('Examples:', 'mfbfw'); ?></em></strong></small><br />
+                        <p class="description"><strong><em><?php _e('Examples:', 'mfbfw'); ?></em></strong></p><br />
 
-                        <small><em><code>jQuery(thumbnails).addClass(&quot;fancybox&quot;).attr(&quot;rel&quot;,&quot;fancybox&quot;).getTitle();</code></em></small><br />
+                        <p class="description"><em><code>jQuery(thumbnails).addClass(&quot;fancybox&quot;).attr(&quot;rel&quot;,&quot;fancybox&quot;).getTitle();</code></em></p><br />
 
-                        <small><em><code>jQuery&quot;a:has(img)[href$='.jpg']&quot;).addClass&quot;fancybox&quot;).attr(&quot;rel&quot;,&quot;fancybox&quot;).getTitle();</code></em></small><br /><br />
+                        <p class="description"><em><code>jQuery&quot;a:has(img)[href$='.jpg']&quot;).addClass&quot;fancybox&quot;).attr(&quot;rel&quot;,&quot;fancybox&quot;).getTitle();</code></em></p><br /><br />
 
 
                     </div>

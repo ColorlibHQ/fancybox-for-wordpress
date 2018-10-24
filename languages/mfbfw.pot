@@ -189,6 +189,10 @@ msgstr ""
 msgid "HTML color of the border (default: #BBBBBB)"
 msgstr ""
 
+#: lib/admin-tab-appearance.php:24
+msgid "Toolbar"
+msgstr ""
+
 #: lib/admin-tab-appearance.php:32
 msgid "Close Button"
 msgstr ""
