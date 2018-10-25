@@ -220,7 +220,7 @@ function mfbfw_init() {
 		} elseif ( $mfbfw['titlePosition'] == 'float' ) {
 			$captionPosition = 'div.fancybox-caption p.caption-title {background:transparent;}';
 		} else {
-			$captionPosition = 'div.fancybox-caption {position:static;}div.fancybox-caption p.caption-title{position:absolute;left:0;right:0;margin:0 auto;top:10px;color:#fff;}';
+			$captionPosition = 'div.fancybox-caption {position:relative;max-width:50%;margin:0 auto;min-width:480px;padding:15px;}div.fancybox-caption p.caption-title{position:relative;left:0;right:0;margin:0 auto;top:0px;color:#fff;}';
 		}
 	}
 
@@ -233,6 +233,7 @@ function mfbfw_init() {
 <!-- Fancybox for WordPress v' . $mfbfw_version . ' -->
 <style type="text/css">
 	' . ( isset( $mfbfw['overlayShow'] ) ? '' : 'div.fancybox-bg{background:transparent !important;}' ) . '
+	' .'img.fancybox-image{border-width:'.$mfbfw['padding'].'px;border-color:'.$mfbfw['paddingColor'].';border-style:solid;}' . '
 	' . ( isset( $mfbfw['overlayColor'] ) && $mfbfw['overlayColor'] ? 'div.fancybox-bg{background-color:' . hexTorgba( $mfbfw['overlayColor'], $mfbfw['overlayOpacity'] ) . ';opacity:1 !important;}' : '' ) . ( isset( $mfbfw['paddingColor'] ) && $mfbfw['paddingColor'] ? 'div.fancybox-content{border-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
 	' . ( isset( $mfbfw['paddingColor'] ) && $mfbfw['paddingColor'] && $mfbfw['titlePosition'] == 'inside' ? 'div#fancybox-title{background-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
 	div.fancybox-content{background-color:' . $mfbfw['paddingColor'] . ( isset( $mfbfw['border'] ) && $mfbfw['border'] ? ';border:1px solid ' . $mfbfw['borderColor'] : '' ) . '}
@@ -242,7 +243,7 @@ function mfbfw_init() {
 	' . ( isset( $mfbfw['shadowSize'] ) && $mfbfw['shadowOffset'] && $mfbfw['shadowOpacity'] ? 'div.fancybox-content{box-shadow:0 ' . $mfbfw['shadowOffset'] . 'px ' . $mfbfw['shadowSize'] . 'px rgba(0,0,0,' . $mfbfw['shadowOpacity'] . ')}' : '' ) . '
 	' . ( isset( $mfbfw['titleShow'] ) ? 'div.fancybox-caption p.caption-title{display:inline-block}' : 'div.fancybox-caption p.caption-title{display:none}div.fancybox-caption{display:none;}' ) . '
 	' . ( isset( $mfbfw['titleSize'] ) ? 'div.fancybox-caption p.caption-title{font-size:' . $mfbfw['titleSize'] . 'px}' : 'div.fancybox-caption p.caption-title{font-size:14px}' ) . '
-	' . ( isset( $mfbfw['titleColor'] ) ? 'div.fancybox-caption p.caption-title{color:' . $mfbfw['titleColor'] . '}' : 'div.fancybox-caption p.caption-title{color:#333333}' ) . '
+	' . ( isset( $mfbfw['titleColor'] ) && $mfbfw['titlePosition'] == 'inside'  ? 'div.fancybox-caption p.caption-title{color:' . $mfbfw['titleColor'] . '}' : 'div.fancybox-caption p.caption-title{color:#fff}' ) . '
 	' . ( isset( $mfbfw['titlePosition'] ) ? 'div.fancybox-caption {color:' . $mfbfw['titleColor'] . '}' : 'div.fancybox-caption p.caption-title{color:#333333}' ) . $captionPosition . '
 </style>';
 
@@ -255,7 +256,7 @@ function mfbfw_init() {
 		}
 
 		// Supported file extensions
-		var thumbnails = jQuery("a:has(img)").not(".nolightbox, .nofancybox, a:has(img.nolightbox, img.nofancybox)").filter( function() { return /\.(jpe?g|png|gif|bmp)$/i.test(jQuery(this).attr("href")) });';
+		var thumbnails = jQuery("a:has(img)").not(".nolightbox, .nofancybox, a:has(img.nolightbox, img.nofancybox)").filter( function() { return /\.(jpe?g|png|gif|bmp|mp4)?.+$/i.test(jQuery(this).attr("href")) });';
 		if ( $mfbfw['galleryType'] == 'post' ) {
 
 			// Gallery type BY POST and on post or page (so only one post or page is visible)
