@@ -14,7 +14,7 @@
 				} ?> />
                 <label for="showCloseButton" class="onoffswitch-label">
                 </label>
-                <span class="switch-text"><?php _e( 'Show Close button (default: on)', 'mfbfw' ); ?></span>
+                <span class="switch-text"><?php _e( 'Show Close button (default: off)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
             </fieldset>
         </td>

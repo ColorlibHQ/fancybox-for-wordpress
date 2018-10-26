@@ -3,16 +3,6 @@ jQuery(function () {
     // Tabs
     jQuery("#fbfwTabs").tabs();
 
-    // Hide Donation and twitter stuff on tabs other than Info
-    jQuery("#fbfwTabs li a").click(function () {
-        if (jQuery(this).is("#ui-id-1")) {
-            jQuery("#mfbfwd").show();
-        } else {
-            jQuery("#mfbfwd").hide();
-        }
-    });
-
-
     // Hide form fields when not needed (switched by checkbox)
     function switchBlock(block, button) {
         var buttonValue = jQuery(button + ":checked").val();

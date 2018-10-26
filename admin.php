@@ -5,7 +5,7 @@ function mfbfw_options_page() {
 
 	?>
 
-    <div class="wrap about-wrap full-width-layout">
+    <div class="wrap about-wrap full-width-layout fbfw-wrap">
         <div id="icon-plugins" class="icon32"></div>
         <div class="inlined">
             <div id="pluginDescription">
@@ -73,13 +73,22 @@ function mfbfw_options_page() {
             </div>
 
             <div id="mfbfwd"
-                 style="border-top:1px dashed #DDDDDD;margin:20px 0 40px;overflow:hidden;padding-top:25px;width:100%;float:left">
+                 style="border-top:1px dashed #DDDDDD;margin:20px 0 40px;overflow:hidden;padding-top:25px;width:100%;float:left;display:block !important;">
 
                 Plugin developed and supported by <a href="https://colorlib.com">Colorlib</a>
 
             </div>
 
     </div>
+    <a href="https://wp-modula.com" class="modula-link">
+        <div class="modula-wrap">
+        <img src="<?php echo FBFW_URL; ?>assets/images/modula-300x300.jpg"/>
+        <h1>Easy Image Gallery for WP</h1>
+        <p>Modula is creative! Modula is dynamic! Modula doesn’t always look the same. Just have fun with it! Modula
+            uses a new concept to build its internal grid. The result is a dynamic, creative, interesting and attractive
+            gallery.</p>
+        </div>
+    </a>
 
 	<?php
 }

@@ -60,19 +60,18 @@ function mfbfw_defaults() {
 		// Appearance
 		'border'                     => '',
 		'borderColor'                => '#BBBBBB',
-		'showCloseButton'            => 'on',
 		'paddingColor'               => '#FFFFFF',
-		'padding'                    => '15',
+		'padding'                    => '10',
 		'overlayShow'                => 'on',
 		'overlayColor'               => '#000000',
-		'overlayOpacity'             => '0.7',
+		'overlayOpacity'             => '0.3',
 		'titleShow'                  => 'on',
 		'titlePosition'              => 'inside',
 		'titleColor'                 => '#333333',
 		'showNavArrows'              => 'on',
 		'titleSize'                  => '14',
-		'showCloseButton'            => 'true',
-		'showToolbar'                => 'true',
+		'showCloseButton'            => '',
+		'showToolbar'                => 'on',
 		// Animations
 		'zoomOpacity'                => 'on',
 		'zoomSpeedIn'                => '500',
@@ -83,12 +82,12 @@ function mfbfw_defaults() {
 		'hideOnOverlayClick'         => 'function(current, event) {
 									return current.type === "image" ? "close" : false;
 								  },',
-		'hideOnContentClick'         => 'on',
+		'hideOnContentClick'         => '',
 		'enableEscapeButton'         => 'on',
-		'cyclic'                     => 'on',
-		'mouseWheel'                 => 'off',
-		'disableWoocommercePages'    => 'off',
-		'disableWoocommerceProducts' => 'off',
+		'cyclic'                     => '',
+		'mouseWheel'                 => '',
+		'disableWoocommercePages'    => '',
+		'disableWoocommerceProducts' => '',
 		// Gallery Type
 		'galleryType'                => 'all',
 		'customExpression'           => 'jQuery(thumbnails).attr("data-fancybox","gallery").getTitle();',
@@ -106,11 +105,12 @@ function mfbfw_defaults() {
 		'copyTitleFunction'          => 'var arr = jQuery("a[data-fancybox]");
                                 jQuery.each(arr, function() {
                                     var title = jQuery(this).children("img").attr("title");
-                                    jQuery(this).attr("title",title);
+                                    var caption = jQuery(this).next("figcaption").html();
+                                    if(caption.length){jQuery(this).attr("title",title+" " + caption)}else{ jQuery(this).attr("title",title);}console.log(caption);
                                 });	',
 		'nojQuery'                   => '',
 		'extraCallsEnable'           => '',
-		'extraCalls'                 => '',
+		'extraCallsData'             => '',
 		'uninstall'                  => '',
 	);
 
@@ -197,11 +197,30 @@ function mfbfw_init() {
 	           '}';
 
 	// fix undefined index copyTitleFunction. $mfbfw array misses this index.
+
 	$mfbfw['copyTitleFunction'] = 'var arr = jQuery("a[data-fancybox]");
 									jQuery.each(arr, function() {
 										var title = jQuery(this).children("img").attr("title");
-										jQuery(this).attr("title",title);
+										 var caption = jQuery(this).next("figcaption").html();
+                                        if(caption && title){jQuery(this).attr("title",title+" " + caption)}else if(title){ jQuery(this).attr("title",title);}else if(caption){jQuery(this).attr("title",caption);}
 									});	';
+
+
+	if ( $mfbfw['titlePosition'] == 'inside' ) {
+		$afterLoad = 'function( instance, current ) {';
+		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:-50px;background:#fff;margin:0 auto;text-align:center; \">\' + current.opts.caption + \'</div>\');';
+		$afterLoad .= '}';
+		$hideCaption = 'div.fancybox-caption{display:none !important;}';
+	} else if ( $mfbfw['titlePosition'] == 'over' ) {
+		$afterLoad = 'function( instance, current ) {';
+		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:0;background:#fff;margin:0 auto;text-align:center; \">\' + current.opts.caption + \'</div>\');';
+		$afterLoad .= '}';
+		$hideCaption = 'div.fancybox-caption{display:none !important;}';
+	} else {
+		$afterLoad .= '""';
+		$hideCaption = '';
+	}
+
 
 	if ( isset( $mfbfw['autoDimensions'] ) && $mfbfw['autoDimensions'] == true ) {
 		$frameSize = '';
@@ -218,7 +237,7 @@ function mfbfw_init() {
 		if ( $mfbfw['titlePosition'] == 'inside' ) {
 			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff; width:auto;padding:10px 30px;}';
 		} elseif ( $mfbfw['titlePosition'] == 'float' ) {
-			$captionPosition = 'div.fancybox-caption p.caption-title {background:transparent;}';
+			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff;color:#000;padding:10px 30px;width:auto;}';
 		} else {
 			$captionPosition = 'div.fancybox-caption {position:relative;max-width:50%;margin:0 auto;min-width:480px;padding:15px;}div.fancybox-caption p.caption-title{position:relative;left:0;right:0;margin:0 auto;top:0px;color:#fff;}';
 		}
@@ -232,8 +251,9 @@ function mfbfw_init() {
 		echo '
 <!-- Fancybox for WordPress v' . $mfbfw_version . ' -->
 <style type="text/css">
+	'.$hideCaption.'
 	' . ( isset( $mfbfw['overlayShow'] ) ? '' : 'div.fancybox-bg{background:transparent !important;}' ) . '
-	' .'img.fancybox-image{border-width:'.$mfbfw['padding'].'px;border-color:'.$mfbfw['paddingColor'].';border-style:solid;}' . '
+	' . 'img.fancybox-image{border-width:' . $mfbfw['padding'] . 'px;border-color:' . $mfbfw['paddingColor'] . ';border-style:solid;}' . '
 	' . ( isset( $mfbfw['overlayColor'] ) && $mfbfw['overlayColor'] ? 'div.fancybox-bg{background-color:' . hexTorgba( $mfbfw['overlayColor'], $mfbfw['overlayOpacity'] ) . ';opacity:1 !important;}' : '' ) . ( isset( $mfbfw['paddingColor'] ) && $mfbfw['paddingColor'] ? 'div.fancybox-content{border-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
 	' . ( isset( $mfbfw['paddingColor'] ) && $mfbfw['paddingColor'] && $mfbfw['titlePosition'] == 'inside' ? 'div#fancybox-title{background-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
 	div.fancybox-content{background-color:' . $mfbfw['paddingColor'] . ( isset( $mfbfw['border'] ) && $mfbfw['border'] ? ';border:1px solid ' . $mfbfw['borderColor'] : '' ) . '}
@@ -243,7 +263,7 @@ function mfbfw_init() {
 	' . ( isset( $mfbfw['shadowSize'] ) && $mfbfw['shadowOffset'] && $mfbfw['shadowOpacity'] ? 'div.fancybox-content{box-shadow:0 ' . $mfbfw['shadowOffset'] . 'px ' . $mfbfw['shadowSize'] . 'px rgba(0,0,0,' . $mfbfw['shadowOpacity'] . ')}' : '' ) . '
 	' . ( isset( $mfbfw['titleShow'] ) ? 'div.fancybox-caption p.caption-title{display:inline-block}' : 'div.fancybox-caption p.caption-title{display:none}div.fancybox-caption{display:none;}' ) . '
 	' . ( isset( $mfbfw['titleSize'] ) ? 'div.fancybox-caption p.caption-title{font-size:' . $mfbfw['titleSize'] . 'px}' : 'div.fancybox-caption p.caption-title{font-size:14px}' ) . '
-	' . ( isset( $mfbfw['titleColor'] ) && $mfbfw['titlePosition'] == 'inside'  ? 'div.fancybox-caption p.caption-title{color:' . $mfbfw['titleColor'] . '}' : 'div.fancybox-caption p.caption-title{color:#fff}' ) . '
+	' . ( isset( $mfbfw['titleColor'] ) && $mfbfw['titlePosition'] == 'inside' ? 'div.fancybox-caption p.caption-title{color:' . $mfbfw['titleColor'] . '}' : 'div.fancybox-caption p.caption-title{color:#fff}' ) . '
 	' . ( isset( $mfbfw['titlePosition'] ) ? 'div.fancybox-caption {color:' . $mfbfw['titleColor'] . '}' : 'div.fancybox-caption p.caption-title{color:#333333}' ) . $captionPosition . '
 </style>';
 
@@ -313,7 +333,7 @@ function mfbfw_init() {
 			"animationEffect": "' . $mfbfw['transitionIn'] . '",
 			"animationDuration": ' . $mfbfw['zoomSpeedIn'] . ',
 			"transitionEffect": "' . $mfbfw['transitionEffect'] . '",
-			"transitionDuration" : "'.$mfbfw['zoomSpeedChange'].'",
+			"transitionDuration" : "' . $mfbfw['zoomSpeedChange'] . '",
 			"overlayShow": ' . ( isset( $mfbfw['overlayShow'] ) && $mfbfw['overlayShow'] ? 'true' : 'false' ) . ',
 			"overlayOpacity": "' . $mfbfw['overlayOpacity'] . '",
 			"titleShow": ' . ( isset( $mfbfw['titleShow'] ) && $mfbfw['titleShow'] ? 'true' : 'false' ) . ',
@@ -321,8 +341,8 @@ function mfbfw_init() {
 			"keyboard": ' . ( isset( $mfbfw['enableEscapeButton'] ) && $mfbfw['enableEscapeButton'] ? 'true' : 'false' ) . ',
 			"showCloseButton": ' . ( isset( $mfbfw['showCloseButton'] ) && $mfbfw['showCloseButton'] ? 'true' : 'false' ) . ',
 			"arrows": ' . ( isset( $mfbfw['showNavArrows'] ) && $mfbfw['showNavArrows'] ? 'true' : 'false' ) . ',
-			"clickSlide": ' . ( isset( $mfbfw['hideOnContentClick'] ) && $mfbfw['hideOnContentClick'] ? '"close"' : 'false' ) . ',
-			"clickContent": ' . ( isset( $mfbfw['hideOnOverlayClick'] ) && $mfbfw['hideOnOverlayClick'] ? 'function(current, event) {
+			"clickContent": ' . ( isset( $mfbfw['hideOnContentClick'] ) && $mfbfw['hideOnContentClick'] ? '"close"' : 'false' ) . ',
+			"clickSlide": ' . ( isset( $mfbfw['hideOnOverlayClick'] ) && $mfbfw['hideOnOverlayClick'] ? 'function(current, event) {
     return current.type === "image" ? "close" : false;
   }' : 'false' ) . ',
 			"wheel": ' . ( isset( $mfbfw['mouseWheel'] ) && $mfbfw['mouseWheel'] ? 'true' : 'false' ) . ',
@@ -330,11 +350,12 @@ function mfbfw_init() {
 			"onInit": ' . ( isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnStart'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnStart'] ? $mfbfw['callbackOnStart'] . ',' : 'function() { },' ) . '
 			"onDeactivate": ' . ( isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnCancel'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnCancel'] ? $mfbfw['callbackOnCancel'] . ',' : 'function() { },' ) . '
 			"beforeClose": ' . ( isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnCleanup'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnCleanup'] ? $mfbfw['callbackOnCleanup'] . ',' : 'function() { },' ) . '
-			"afterLoad": ' . ( isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnComplete'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnComplete'] ? $mfbfw['callbackOnComplete'] . ',' : 'function() { },' ) . '
+			"afterShow": ' . ( isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnComplete'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnComplete'] ? $mfbfw['callbackOnComplete'] . ',' : 'function() { },' ) . '
 			"afterClose": ' . ( isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnClose'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnClose'] ? $mfbfw['callbackOnClose'] . ',' : 'function() { },' ) . '
 			"toolbar":' . ( isset( $mfbfw['showToolbar'] ) && $mfbfw['showToolbar'] ? 'true' : 'false' ) . ',
 			"preventCaptionOverlap": true,
 			"caption" : ' . $caption . ',
+			"afterLoad" : ' . $afterLoad . ',
 		});
 ';
 
@@ -498,11 +519,15 @@ function hexTorgba( $hexColor, $opacity ) {
  */
 
 function fancy_check_if_woocommerce() {
-	if ( get_post_type( get_the_id() ) == 'product' ) {
-		return 'product';
-	} else if ( is_shop() ) {
-		return 'shop_page';
+	if ( class_exists( 'WooCommerce' ) ) {
+		if ( is_shop() ) {
+			return 'shop_page';
+		} else if ( get_post_type( get_the_id() ) == 'product' ) {
+			return 'product';
+		} else {
+			return 'true';
+		}
 	} else {
-		return true;
+		return 'true';
 	}
 }

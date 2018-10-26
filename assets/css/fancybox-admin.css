@@ -286,7 +286,7 @@ span.switch-text {
     right: 0;
     left: 0;
     bottom: 0;
-    height: 100%;
+    height: calc(100% - 5px);
     z-index: 2;
     background: rgba(0, 0, 0, .6);
     display: flex;
@@ -298,8 +298,8 @@ span.switch-text {
 }
 
 .start-editing p {
-    dispaly: block;
-    font-size: 20px;
+    display: block;
+    font-size: 20px !important;
 }
 
 #callbackBlock label,
@@ -334,11 +334,26 @@ tr.spacer {
 }
 
 .line-spacer {
-    height:15px;
+    height: 15px;
 }
 
 .hidden-block {
     margin-top: 15px;
+}
+
+.fbfw-wrap {
+    max-width:80%;
+    float:left;
+}
+
+.modula-wrap {
+    float: left;
+    max-width: 20%;
+    padding-top: 32px;
+}
+
+a.modula-link {
+    color:#000;
 }
 
 .cf:after,
