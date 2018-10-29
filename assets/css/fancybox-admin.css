@@ -1,0 +1,376 @@
+.settings_page_fancybox-for-wordpress #wpcontent {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif
+}
+
+#mfbfwd {
+    border-top: 1px dashed #DDD;
+    margin: 20px auto 40px;
+    overflow: hidden;
+    padding-top: 25px;
+    width: 726px
+}
+
+.mfbfw_box {
+    border-radius: 3px;
+    float: left;
+    font-weight: 700;
+    height: 90px;
+    margin: 5px 5px 3px;
+    opacity: .7;
+    padding: 0 5px;
+    text-align: center;
+    width: 220px
+}
+
+.mfbfw_box:hover {
+    opacity: .9
+}
+
+.mfbfw_blue,
+.mfbfw_yellow {
+    background: #fdca57;
+    border: 1px solid #d7922d;
+    color: #975c25;
+    -webkit-box-shadow: inset 0 0 20px 5px #fb9822, inset 0 1px 0 #fff, 0 0 0 2px rgba(0, 0, 0, .05), 0 0 2px rgba(0, 0, 0, .5);
+    -moz-box-shadow: inset 0 0 20px 5px #fb9822, inset 0 1px 0 #fff, 0 0 0 2px rgba(0, 0, 0, .05), 0 0 2px rgba(0, 0, 0, .5);
+    box-shadow: inset 0 0 20px 5px #fb9822, inset 0 1px 0 #fff, 0 0 0 2px rgba(0, 0, 0, .05), 0 0 2px rgba(0, 0, 0, .5);
+    text-shadow: 0 1px 0 #fee27d;
+    filter: dropshadow(color=#ffd21f, offx=0, offy=1)
+}
+
+#fbfwTabs {
+    background: 0 0;
+    border: none
+}
+
+#fbfwTabs .ui-tabs-nav {
+    background: 0 0;
+    border: 0;
+    border-bottom: 1px solid #aaa
+}
+
+#fbfwTabs .ui-tabs-nav li {
+    border-radius: 0;
+    margin: 0 5px;
+    background: #e5e5e5;
+    top: 2px
+}
+
+#fbfwTabs .ui-tabs-nav li a {
+    font-size: 15px;
+    font-weight: 600;
+    outline: 0;
+    box-shadow: none
+}
+
+#fbfwTabs .ui-tabs-nav .ui-tabs-active {
+    background: #f1f1f1;
+    position: relative;
+    color: #000;
+    border: 1px solid #aaa
+}
+
+#fbfwTabs .ui-tabs-nav .ui-tabs-active a {
+    color: #000
+}
+
+#fbfwTabs .ui-tabs-nav .ui-tabs-active:after {
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    bottom: -2px;
+    background: #f1f1f1;
+    content: "";
+    display: block
+}
+
+#fbfwTabs .inlined > div:not(.cf) {
+    display: inline-block;
+    width: 50%;
+    vertical-align: middle
+}
+
+#fbfwTabs .CodeMirror,
+#fbfwTabs label[for=extraCalls],
+.inlined {
+    width: 100%
+}
+
+.inlined {
+    display: block
+}
+
+.inlined .slider-horizontal {
+    dispaly: inline-block;
+    width: 80%;
+    max-width: 200px;
+    height: 3px !important;
+    border: 0 !important;
+    background: #d6d6d6 !important;
+    border-radius: 3px !important;
+    margin-right: 25px
+}
+
+.slider-horizontal .ui-slider-range {
+    background: #d6d6d6 !important;
+    border-radius: 3px !important
+}
+
+.slider-horizontal .ui-slider-handle {
+    border-radius: 50%;
+    height: 18px !important;
+    width: 18px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important
+}
+
+.slider-horizontal .ui-slider-handle.ui-state-active {
+    background: #fff !important;
+    border-color: #d6d6d6 !important
+}
+
+.inlined input {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20%;
+    max-width: 40px
+}
+
+.inlined .slider-text {
+    font-size: 12px;
+    color: #333;
+    border-radius: 10px;
+    background-color: #f8f8f8;
+    -webkit-box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, .1);
+    -moz-box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, .1);
+    box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, .1);
+    width: 42px;
+    height: 22px;
+    text-align: center
+}
+
+#pluginLogo img {
+    max-height: 150px;
+    width: auto
+}
+
+.inlined > div {
+    display: inline-block;
+    vertical-align: top
+}
+
+.inlined #pluginLogo {
+    width: 19%;
+    text-align: right;
+    min-width: 100px
+}
+
+.inlined #pluginDescription {
+    width: 80%;
+    text-align: left;
+    min-width: 100px
+}
+
+#pluginDescription h2 {
+    font-size: 2.8em;
+    font-weight: 400;
+    line-height: 1.2em
+}
+
+#pluginDescription p {
+    font-size: 19px
+}
+
+.fancy-table .onoffswitch-checkbox {
+    display: none
+}
+
+.fancy-table .onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    height: 22px;
+    padding: 0;
+    width: 50px;
+    position: relative;
+    line-height: 19px;
+    transition: background-color .2s ease-in;
+    -webkit-border-radius: 11px;
+    -moz-border-radius: 11px;
+    border-radius: 30px;
+    background-color: #c4c4c4;
+    -webkit-box-shadow: inset 0 2px 1px rgba(0, 0, 0, .11);
+    -moz-box-shadow: inset 0 2px 1px rgba(0, 0, 0, .11);
+    box-shadow: inset 0 2px 1px rgba(0, 0, 0, .11)
+}
+
+.fancy-table .onoffswitch-label:before {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    position: absolute;
+    top: 2px;
+    bottom: 0;
+    right: 32px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    transition: all .2s ease-in 0s
+}
+
+.fancy-table .onoffswitch-checkbox:checked + .onoffswitch-label:after,
+.fancy-table .onoffswitch-label:after {
+    display: block;
+    color: #fff;
+    top: 2px;
+    bottom: 2px;
+    font-size: 11px;
+    font-family: Arial;
+    position: absolute
+}
+
+.fancy-table .onoffswitch-label:after {
+    content: "OFF";
+    right: 6px
+}
+
+.fancy-table .onoffswitch-checkbox:checked + .onoffswitch-label {
+    background-color: #3caf0e
+}
+
+.fancy-table .onoffswitch-checkbox:checked + .onoffswitch-label,
+input[type=checkbox]:checked + .onoffswitch-label:before {
+    border-color: #3caf0e
+}
+
+.fancy-table .onoffswitch-checkbox:checked + .onoffswitch-label:before {
+    right: 2px
+}
+
+.fancy-table .onoffswitch-checkbox:checked + .onoffswitch-label:after {
+    content: "ON";
+    right: 27px
+}
+
+label.onoffswitch-label,
+span.switch-text {
+    float: left;
+    display: inline-block
+}
+
+span.switch-text {
+    margin-left: 25px;
+    padding: 5px
+}
+
+#extraCallsBlock {
+    width: 80%
+}
+
+#callbackBlock label,
+.cf,
+.start-editing,
+.start-editing p {
+    width: 100%
+}
+
+.start-editing {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: calc(100% - 5px);
+    z-index: 2;
+    background: rgba(0, 0, 0, .6);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+}
+
+.start-editing p {
+    display: block;
+    font-size: 20px !important;
+}
+
+#callbackBlock label,
+#customExpressionBlock label,
+label[for="extraCalls"] {
+    width: 100%;
+    position: relative
+}
+
+#callbackBlock label textarea,
+#customExpressionBlock label textarea,
+label[for="extraCalls"] textarea {
+    width: 100%;
+    height: 100%;
+}
+
+#fbfwTabs .ui-tabs-panel h3 {
+    margin-top: 0
+}
+
+#fbfwTabs.ui-tabs .ui-tabs-panel {
+    padding-left: 0 !important;
+    padding-right: 0 !important
+}
+
+#callbackBlock .CodeMirror-wrap pre {
+    margin-left: 15px
+}
+
+tr.spacer {
+    height: 25px;
+}
+
+.line-spacer {
+    height: 15px;
+}
+
+.hidden-block {
+    margin-top: 15px;
+}
+
+.about-wrap.fbfw-wrap {
+    max-width:70%;
+    float:left;
+}
+
+.modula-wrap {
+    float: left;
+    max-width: 20%;
+    padding-top: 32px;
+}
+
+a.modula-link {
+    color:#000;
+    text-decoration: none;
+}
+a.modula-link:hover {
+    text-decoration: none;
+}
+
+.cf:after,
+.cf:before {
+    content: " ";
+    display: table
+}
+
+.cf:after {
+    clear: both
+}
+
+.about-wrap.fbfw-wrap .about-text,
+.about-wrap.fbfw-wrap h1 {
+    margin-right: 0;
+}

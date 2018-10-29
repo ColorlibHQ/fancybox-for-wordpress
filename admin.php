@@ -1,136 +1,150 @@
 <?php
 
 function mfbfw_options_page() {
-
-	global $mfbfw, $mfbfw_version;
-
 	require_once( FBFW_PATH . 'lib/admin-head.php' );
 
 	?>
 
-	<div class="wrap">
+    <div class="wrap about-wrap fbfw-wrap">
+        <div id="icon-plugins" class="icon32"></div>
+        <div class="inlined">
+            <div id="pluginDescription">
+                <h1><?php printf( __( 'Fancybox for WordPress (version %s)', 'mfbfw' ), FBFW_VERSION ); ?></h1>
+                <p class="about-text">Seamlessly integrates FancyBox into your blog: Upload, activate, and you’re done. Additional configuration optional.</p>
+            </div>
+        </div>
 
-	<div id="icon-plugins" class="icon32"></div><h2><?php printf( __('Fancybox for WordPress (version %s)', 'mfbfw'), $mfbfw_version ); ?></h2>
+        <br/>
 
-	<br />
+        <form method="post" action="options.php" id="options">
 
-	<form method="post" action="options.php" id="options">
+			<?php settings_fields( 'mfbfw-options' ); ?>
 
-		<?php settings_fields( 'mfbfw-options' ); ?>
+            <div id="fbfwTabs">
+                <ul class="nav-tab-wrapper wp-clearfix">
+                    <li><a href="#fbfw-appearance"><?php _e( 'Appearance', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-animations"><?php _e( 'Animations', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-behaviour"><?php _e( 'Behaviour', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-galleries"><?php _e( 'Galleries', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-other"><?php _e( 'Misc.', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-support" style="color:green;"><?php _e( 'Support', 'mfbfw' ); ?></a></li>
+                </ul>
 
-		<div id="fbfwTabs">
+                <div id="fbfw-appearance">
+					<?php require_once( FBFW_PATH . 'lib/admin-tab-appearance.php' ); ?>
+                </div>
 
-			<h2 class="nav-tab-wrapper">
-				<ul id="fbfw_tabs">
-					<li><a class="nav-tab selected" href="#fbfw-info"><?php _e( 'Info', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-appearance"><?php _e( 'Appearance', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-animations"><?php _e( 'Animations', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-behaviour"><?php _e( 'Behaviour', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-galleries"><?php _e( 'Galleries', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-other"><?php _e( 'Miscellaneous', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-calls"><?php _e( 'Extra Calls', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-troubleshooting"><?php _e( 'Troubleshooting', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-support" style="color:green;"><?php _e( 'Support', 'mfbfw' ); ?></a></li>
-					<li><a class="nav-tab" href="#fbfw-uninstall" style="color:red;"><?php _e ('Uninstall', 'mfbfw' ); ?></a></li>
-				</ul>
-			</h2>
+                <div id="fbfw-animations">
+					<?php require_once( FBFW_PATH . 'lib/admin-tab-animations.php' ); ?>
+                </div>
 
-			<div id="fbfw-info">
-				<?php require_once ( FBFW_PATH . 'lib/admin-tab-info.php' ); ?>
-			</div>
+                <div id="fbfw-behaviour">
+					<?php require_once( FBFW_PATH . 'lib/admin-tab-behaviour.php' ); ?>
+                </div>
 
-			<div id="fbfw-appearance">
-				<?php require_once ( FBFW_PATH . 'lib/admin-tab-appearance.php' ); ?>
-			</div>
+                <div id="fbfw-galleries">
+					<?php require_once( FBFW_PATH . 'lib/admin-tab-galleries.php' ); ?>
+                </div>
 
-			<div id="fbfw-animations">
-				<?php require_once ( FBFW_PATH . 'lib/admin-tab-animations.php' ); ?>
-			</div>
+                <div id="fbfw-other">
+					<?php require_once( FBFW_PATH . 'lib/admin-tab-other.php' ); ?>
+                </div>
 
-			<div id="fbfw-behaviour">
-				<?php require_once ( FBFW_PATH . 'lib/admin-tab-behaviour.php' ); ?>
-			</div>
+                <div id="fbfw-support">
+					<?php require_once( FBFW_PATH . 'lib/admin-tab-support.php' ); ?>
+                </div>
 
-			<div id="fbfw-galleries">
-				<?php require_once ( FBFW_PATH . 'lib/admin-tab-galleries.php' ); ?>
-			</div>
+            </div>
 
-			<div id="fbfw-other">
-				<?php require_once ( FBFW_PATH . 'lib/admin-tab-other.php' ); ?>
-			</div>
+            <p class="submit" style="text-align:center;">
+                <input type="submit" name="mfbfw_update" class="button-primary"
+                       value="<?php esc_attr_e( 'Save Changes', 'mfbfw' ); ?>"/>
+            </p>
 
-			<div id="fbfw-calls">
-				<?php require_once ( FBFW_PATH . 'lib/admin-tab-calls.php' ); ?>
-			</div>
+        </form>
 
-			<div id="fbfw-troubleshooting">
-				<?php require_once ( FBFW_PATH . 'lib/admin-tab-troubleshooting.php' ); ?>
-			</div>
+        <form method="post" action="">
+            <div style="text-align:center;padding:0 0 1.5em;margin:-15px 0 5px;">
+				<?php wp_nonce_field( 'mfbfw-options-reset' ); ?>
+                <input type="submit" name="mfbfw_update" id="reset" onClick="return confirmDefaults();"
+                       class="button-secondary" value="<?php esc_attr_e( 'Revert to defaults', 'mfbfw' ); ?>"/>
+                <input type="hidden" name="action" value="reset"/>
+            </div>
 
-			<div id="fbfw-support">
-				<?php require_once ( FBFW_PATH . 'lib/admin-tab-support.php' ); ?>
-			</div>
+            <div id="mfbfwd"
+                 style="border-top:1px dashed #DDDDDD;margin:20px 0 40px;overflow:hidden;padding-top:25px;width:100%;float:left;display:block !important;">
 
-			<div id="fbfw-uninstall">
-				<?php require_once ( FBFW_PATH . 'lib/admin-tab-uninstall.php' ); ?>
-			</div>
+                Plugin developed and supported by <a href="https://colorlib.com">Colorlib</a>
 
-		</div>
+            </div>
 
-		<p class="submit" style="text-align:center;">
-			<input type="submit" name="mfbfw_update" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'mfbfw' ); ?>" />
-		</p>
+    </div>
+    
+    <div class="modula-wrap">
+        <a target="_blank" href="http://wp-modula.com/?utm_source=fancybox-for-wp&utm_medium=options-page&utm_campaign=Modula%20Lite" class="modula-link">
+        <img src="<?php echo FBFW_URL; ?>assets/images/modula-300x300.jpg"/>
+        <h2>Easy Image Gallery for WP</h2>
+        <p>Modula is creative! Modula is dynamic! Modula doesn’t always look the same. Just have fun with it! Modula uses a new concept to build its internal grid. The result is a dynamic, creative, interesting and attractive gallery.</p>
 
-	</form>
+        <?php
 
-	<form method="post" action="">
-		<div style="text-align:center;padding:0 0 1.5em;margin:-15px 0 5px;">
-			<?php wp_nonce_field( 'mfbfw-options-reset' ); ?>
-			<input type="submit" name="mfbfw_update" id="reset" onClick="return confirmDefaults();" class="button-secondary" value="<?php esc_attr_e( 'Revert to defaults', 'mfbfw' ); ?>" />
-			<input type="hidden" name="action" value="reset" />
-		</div>
-	</form>
+        $plugin_slug = 'modula-best-grid-gallery';
+        $plugin_path = 'modula-best-grid-gallery/Modula.php';
 
-	<div id="mfbfwd">
+        $installed = false;
+        $activated = false;
+        if ( file_exists( ABSPATH . 'wp-content/plugins/' . $plugin_slug ) ) {
+            $installed = true;
+        }
 
-		<div class="mfbfw_box_yellow">
-			<p style="line-height:1.5em;"><?php _e( 'If you use FancyBox and like it, buy the author a beer!', 'mfbfw' ); ?></p>
-			<form id="donate_form" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-				<input name="cmd" value="_donations" type="hidden">
-				<input name="business" value="janis.skarnelis@gmail.com" type="hidden">
-				<input name="item_name" value="FancyBox" type="hidden">
-				<input name="amount" value="10.00" type="hidden">
-				<input name="no_shipping" value="0" type="hidden">
-				<input name="no_note" value="1" type="hidden">
-				<input name="currency_code" value="EUR" type="hidden">
-				<input name="tax" value="0" type="hidden">
-				<input name="lc" value="LV" type="hidden">
-				<input name="bn" value="PP-DonationsBF" type="hidden">
-				<input type="image" style="margin:0;padding:0" border="0" src="<?php echo FBFW_URL ?>css/img/extra_donate.png" name="submit" alt="PayPal - The safer, easier way to pay online!"/>
-			</form>
-		</div>
+        if ( file_exists( ABSPATH . 'wp-content/plugins/' . $plugin_path ) ) {
+            include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+            if ( is_plugin_active( $plugin_path ) ) {
+                $activated = true;
+            }
+        }
 
-		<div class="mfbfw_box_yellow">
-			<p style="line-height:1.5em;"><?php _e( 'The author of this WordPress Plugin also likes beer :P', 'mfbfw' ); ?></p>
-			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-				<input type="hidden" name="cmd" value="_s-xclick"/>
-				<input type="hidden" name="hosted_button_id" value="3878319"/>
-				<input type="image" style="margin:0;padding:0" border="0" src="<?php echo FBFW_URL ?>css/img/extra_donate.png" name="submit" alt="PayPal - The safer, easier way to pay online!"/>
-				<img height="1" width="1" border="0" alt="" src="https://www.paypal.com/es_ES/i/scr/pixel.gif" />
-			</form>
-		</div>
+        if ( ! $activated ) {
+           
+            if ( ! $installed ) {
+                $label = esc_html__( 'Install & Activate Modula', 'mfbfw' );
+                $link = wp_nonce_url(
+                    add_query_arg(
+                        array(
+                            'action' => 'install-plugin',
+                            'plugin' => $plugin_slug,
+                        ),
+                        network_admin_url( 'update.php' )
+                    ),
+                    'install-plugin_' . $plugin_slug
+                );
+                $action = 'install';
+            }else{
+                $label = esc_html__( 'Activate Modula', 'mfbfw' );
+                $link = add_query_arg(
+                    array(
+                        'action'        => 'activate',
+                        'plugin'        => rawurlencode( $plugin_path ),
+                        'plugin_status' => 'all',
+                        'paged'         => '1',
+                        '_wpnonce'      => wp_create_nonce( 'activate-plugin_' . $plugin_path ),
+                    ),
+                    admin_url( 'plugins.php' )
+                );
+                $action = 'activate';
+            }
 
-		<div class="mfbfw_box_blue">
-			<p style="line-height:1.5em;"><a href="http://twitter.com/moskis/"><?php _e( 'Follow me on Twitter for more WordPress Plugins and Themes', 'mfbfw' ); ?></a></p>
-			<img height="16" width="16" border="0" alt="" src="<?php echo FBFW_URL ?>css/img/extra_twitter.png" />
-		</div>
+            echo '<a href="' . esc_url( $link ) . '" class="mfbfw-modula-link button button-primary button-large" data-action="' . esc_attr( $action ) . '">' . esc_html( $label ) . '</a>';
 
-	</div>
+        }
 
-</div>
+        ?>
 
-<?php
+        </a>
+    </div>
+   
 
+	<?php
 }
 
 ?>
