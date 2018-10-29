@@ -4,7 +4,7 @@
 Plugin Name: FancyBox for WordPress
 Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-Version: 3.1.0
+Version: 3.1.1
 Author: Colorlib
 Author URI: https://colorlib.com/wp/
 
@@ -19,7 +19,7 @@ Author URI: https://colorlib.com/wp/
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.1.0' );
+define( 'FBFW_VERSION', '3.1.1' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
@@ -458,7 +458,6 @@ function mfbfw_admin_styles() {
 }
 
 function mfbfw_admin_scripts() {
-	print_r( $hook );
 	wp_enqueue_script( 'jquery-ui-tabs', array( 'jquery-ui-core' ), true ); // Load jQuery UI Tabs JS for Admin Page
 	wp_enqueue_script( 'fancybox-admin', FBFW_URL . 'assets/js/admin.js', array( 'jquery', 'wp-color-picker', 'updates' ), FBFW_VERSION, true ); // Load specific JS for Admin Page
 
