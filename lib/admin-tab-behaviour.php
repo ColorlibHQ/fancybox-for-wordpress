@@ -19,7 +19,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Close on Overlay Click', 'mfbfw' ); ?></th>
         <td>
@@ -34,7 +33,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Keyboard navigation;', 'mfbfw' ); ?></th>
         <td>
@@ -49,7 +47,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Loop Galleries', 'mfbfw' ); ?></th>
         <td>
@@ -64,7 +61,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Mouse Wheel Navigation', 'mfbfw' ); ?></th>
         <td>
@@ -79,7 +75,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Woocommerce:', 'mfbfw' ); ?></th>
         <td>

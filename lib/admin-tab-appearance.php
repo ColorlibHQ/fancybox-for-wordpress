@@ -19,7 +19,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Toolbar', 'mfbfw' ); ?></th>
         <td>
@@ -35,7 +34,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Border', 'mfbfw' ); ?></th>
         <td>
@@ -57,7 +55,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Padding', 'mfbfw' ); ?></th>
         <td>
@@ -80,7 +77,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Overlay Options', 'mfbfw' ); ?></th>
         <td>
@@ -111,7 +107,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Title', 'mfbfw' ); ?></th>
         <td>
@@ -166,7 +161,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Navigation Arrows', 'mfbfw' ); ?></th>
         <td>

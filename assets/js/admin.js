@@ -122,6 +122,52 @@ function confirmDefaults() {
 
 var defaults_prompt = "Are you sure you want to restore FancyBox for WordPress to default settings?";
 
-function revertVersion(){
-
+function activatePlugin( url ) {
+    jQuery.ajax( {
+        async: true,
+        type: 'GET',
+        dataType: 'html',
+        url: url,
+        success: function() {
+            location.reload();
+        }
+    } );
 }
+
+jQuery( '.mfbfw-modula-link' ).click(function(evt){
+    evt.preventDefault();
+
+    var action = jQuery( this ).data( 'action' ),
+        link = jQuery( this ).attr( 'href' );
+
+    jQuery(this).addClass( 'updating-message' );
+    jQuery(this).attr( 'disabled', 'disabled' );
+
+    if ( 'install' == action ) {
+        wp.updates.installPlugin( { slug: 'modula-best-grid-gallery' } );
+    }else{
+        activatePlugin( link );
+    }
+
+});
+
+jQuery( document ).on( 'wp-plugin-install-success', function( response, data ) {
+
+    if ( 'modula-best-grid-gallery' == data.slug ) {
+
+        jQuery.ajax( {
+            type: 'POST',
+            data: { action: 'mfbfw_activate_link' },
+            dataType: 'json',
+            url: ajaxurl,
+            success: function( json ) {
+                if ( json.status ) {
+                    activatePlugin( json.link );
+                }
+            }
+        });
+
+    }
+    console.log( response );
+    console.log( data );
+});

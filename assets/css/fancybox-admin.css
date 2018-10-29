@@ -341,8 +341,8 @@ tr.spacer {
     margin-top: 15px;
 }
 
-.fbfw-wrap {
-    max-width:80%;
+.about-wrap.fbfw-wrap {
+    max-width:70%;
     float:left;
 }
 
@@ -354,6 +354,10 @@ tr.spacer {
 
 a.modula-link {
     color:#000;
+    text-decoration: none;
+}
+a.modula-link:hover {
+    text-decoration: none;
 }
 
 .cf:after,
@@ -364,4 +368,9 @@ a.modula-link {
 
 .cf:after {
     clear: both
+}
+
+.about-wrap.fbfw-wrap .about-text,
+.about-wrap.fbfw-wrap h1 {
+    margin-right: 0;
 }

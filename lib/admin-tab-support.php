@@ -1,6 +1,6 @@
 <h3><?php _e( 'Help with Fancybox' ); ?></h3>
 <ul style="list-style-type:disc;padding-left:15px;">
-	<li><?php _e( 'If you have problems or questions about FancyBox itself (and not this WordPress plugin), please start with these links: <a target="_blank" href="http://fancyapps.com/fancybox/3/">How-To</a> & <a target="_blank" href="http://fancyapps.com/fancybox/3/docs/">Documentation</a>.<br />If that does not help, go to <a href="http://groups.google.com/group/fancybox">the FancyBox Google Group</a>, use the <strong>Search</strong> option, and if necesary, post your question.', 'mfbfw' ); ?></li>
+	<li><?php _e( 'If you have problems or questions about FancyBox itself (and not this WordPress plugin), please start with these links: <a target="_blank" href="http://fancyapps.com/fancybox/3/">How-To</a> & <a target="_blank" href="http://fancyapps.com/fancybox/3/docs/">Documentation</a>.<br />If that does not help, go to <a target="_blank" href="http://groups.google.com/group/fancybox">the FancyBox Google Group</a>, use the <strong>Search</strong> option, and if necesary, post your question.', 'mfbfw' ); ?></li>
 </ul>
 
 <h3><?php _e( 'Help with Fancybox for WordPress plugin' ); ?></h3>

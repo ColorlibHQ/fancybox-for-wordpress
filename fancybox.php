@@ -2,11 +2,11 @@
 
 /*
 Plugin Name: FancyBox for WordPress
-Plugin URI: http://plugins.josepardilla.com/fancybox-for-wordpress/
-Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox</a> by <a href="http://klade.lv/">Janis Skarnelis</a> into WordPress.
-Version: 3.0.14
-Author: Jos&eacute; Pardilla
-Author URI: http://josepardilla.com/
+Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
+Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
+Version: 3.1.0
+Author: Colorlib
+Author URI: https://colorlib.com/wp/
 
  * FancyBox is Copyright (c) 2008 - 2010 Janis Skarnelis
  * Dual licensed under the MIT and GPL licenses:
@@ -19,11 +19,11 @@ Author URI: http://josepardilla.com/
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.0.14' );
+define( 'FBFW_VERSION', '3.1.0' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
-define( 'FBFW_PREVIOUS_PLUGIN_VERSION', '3.0.10' );
+define( 'FBFW_PREVIOUS_PLUGIN_VERSION', '3.0.14' );
 define( 'FBFW_FILE_', __FILE__ );
 define( 'PLUGIN_NAME', 'fancybox-for-wordpress' );
 
@@ -63,7 +63,7 @@ function mfbfw_defaults() {
 		'paddingColor'               => '#FFFFFF',
 		'padding'                    => '10',
 		'overlayShow'                => 'on',
-		'overlayColor'               => '#000000',
+		'overlayColor'               => '#666666',
 		'overlayOpacity'             => '0.3',
 		'titleShow'                  => 'on',
 		'titlePosition'              => 'inside',
@@ -458,12 +458,9 @@ function mfbfw_admin_styles() {
 }
 
 function mfbfw_admin_scripts() {
-	wp_enqueue_script( 'jquery-ui-tabs', array( 'jquery-ui-core' ) ); // Load jQuery UI Tabs JS for Admin Page
-	wp_enqueue_script( 'wp-color-picker' );
-	wp_enqueue_script( 'fancybox-admin', FBFW_URL . 'assets/js/admin.js', array(
-		'jquery',
-		'wp-color-picker'
-	), FBFW_VERSION ); // Load specific JS for Admin Page
+	print_r( $hook );
+	wp_enqueue_script( 'jquery-ui-tabs', array( 'jquery-ui-core' ), true ); // Load jQuery UI Tabs JS for Admin Page
+	wp_enqueue_script( 'fancybox-admin', FBFW_URL . 'assets/js/admin.js', array( 'jquery', 'wp-color-picker', 'updates' ), FBFW_VERSION, true ); // Load specific JS for Admin Page
 
 	/* Load codemirror editor */
 	$settings = wp_enqueue_code_editor( array( 'type' => 'text/javascript' ) );
@@ -517,7 +514,6 @@ function hexTorgba( $hexColor, $opacity ) {
  * Check if WooCommerce Product post
  *
  */
-
 function fancy_check_if_woocommerce() {
 	if ( class_exists( 'WooCommerce' ) ) {
 		if ( is_shop() ) {
@@ -530,4 +526,31 @@ function fancy_check_if_woocommerce() {
 	} else {
 		return 'true';
 	}
+}
+
+// Ajax request for activate link
+add_action( 'wp_ajax_mfbfw_activate_link', 'mfbfw_get_activate_link' );
+function mfbfw_get_activate_link() {
+
+	$plugin_path = 'modula-best-grid-gallery/Modula.php';
+	$link = add_query_arg(
+        array(
+            'action'        => 'activate',
+            'plugin'        => rawurlencode( $plugin_path ),
+            'plugin_status' => 'all',
+            'paged'         => '1',
+            '_wpnonce'      => wp_create_nonce( 'activate-plugin_' . $plugin_path ),
+        ),
+        admin_url( 'plugins.php' )
+    );
+
+	wp_die(
+		wp_json_encode(
+			array(
+				'status' => 'succes',
+				'link'   => $link,
+			)
+		)
+	);
+
 }

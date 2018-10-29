@@ -17,7 +17,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Animation Type', 'mfbfw' ); ?></th>
         <td>
@@ -47,7 +46,6 @@
             </fieldset>
         </td>
     </tr>
-    <tr class="spacer"></tr>
     <tr valign="top">
         <th scope="row"><?php _e( 'Animation between slides Options', 'mfbfw' ); ?></th>
         <td>

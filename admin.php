@@ -5,14 +5,13 @@ function mfbfw_options_page() {
 
 	?>
 
-    <div class="wrap about-wrap full-width-layout fbfw-wrap">
+    <div class="wrap about-wrap fbfw-wrap">
         <div id="icon-plugins" class="icon32"></div>
         <div class="inlined">
             <div id="pluginDescription">
                 <h1><?php printf( __( 'Fancybox for WordPress (version %s)', 'mfbfw' ), FBFW_VERSION ); ?></h1>
-                <p class="about-text">Seamlessly integrates FancyBox into your blog: Upload, activate, and you’re done.
-                    Additional configuration optional.</p></div>
-            <div id="pluginLogo"><img src="<?php echo FBFW_URL . 'assets/images/icon.jpg'; ?>"></div>
+                <p class="about-text">Seamlessly integrates FancyBox into your blog: Upload, activate, and you’re done. Additional configuration optional.</p>
+            </div>
         </div>
 
         <br/>
@@ -80,15 +79,70 @@ function mfbfw_options_page() {
             </div>
 
     </div>
-    <a href="https://wp-modula.com" class="modula-link">
-        <div class="modula-wrap">
+    
+    <div class="modula-wrap">
+        <a target="_blank" href="http://wp-modula.com/?utm_source=fancybox-for-wp&utm_medium=options-page&utm_campaign=Modula%20Lite" class="modula-link">
         <img src="<?php echo FBFW_URL; ?>assets/images/modula-300x300.jpg"/>
-        <h1>Easy Image Gallery for WP</h1>
-        <p>Modula is creative! Modula is dynamic! Modula doesn’t always look the same. Just have fun with it! Modula
-            uses a new concept to build its internal grid. The result is a dynamic, creative, interesting and attractive
-            gallery.</p>
-        </div>
-    </a>
+        <h2>Easy Image Gallery for WP</h2>
+        <p>Modula is creative! Modula is dynamic! Modula doesn’t always look the same. Just have fun with it! Modula uses a new concept to build its internal grid. The result is a dynamic, creative, interesting and attractive gallery.</p>
+
+        <?php
+
+        $plugin_slug = 'modula-best-grid-gallery';
+        $plugin_path = 'modula-best-grid-gallery/Modula.php';
+
+        $installed = false;
+        $activated = false;
+        if ( file_exists( ABSPATH . 'wp-content/plugins/' . $plugin_slug ) ) {
+            $installed = true;
+        }
+
+        if ( file_exists( ABSPATH . 'wp-content/plugins/' . $plugin_path ) ) {
+            include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+            if ( is_plugin_active( $plugin_path ) ) {
+                $activated = true;
+            }
+        }
+
+        if ( ! $activated ) {
+           
+            if ( ! $installed ) {
+                $label = esc_html__( 'Install & Activate Modula', 'mfbfw' );
+                $link = wp_nonce_url(
+                    add_query_arg(
+                        array(
+                            'action' => 'install-plugin',
+                            'plugin' => $plugin_slug,
+                        ),
+                        network_admin_url( 'update.php' )
+                    ),
+                    'install-plugin_' . $plugin_slug
+                );
+                $action = 'install';
+            }else{
+                $label = esc_html__( 'Activate Modula', 'mfbfw' );
+                $link = add_query_arg(
+                    array(
+                        'action'        => 'activate',
+                        'plugin'        => rawurlencode( $plugin_path ),
+                        'plugin_status' => 'all',
+                        'paged'         => '1',
+                        '_wpnonce'      => wp_create_nonce( 'activate-plugin_' . $plugin_path ),
+                    ),
+                    admin_url( 'plugins.php' )
+                );
+                $action = 'activate';
+            }
+
+            echo '<a href="' . esc_url( $link ) . '" class="mfbfw-modula-link button button-primary button-large" data-action="' . esc_attr( $action ) . '">' . esc_html( $label ) . '</a>';
+
+        }
+
+        ?>
+
+        </a>
+    </div>
+   
 
 	<?php
 }
