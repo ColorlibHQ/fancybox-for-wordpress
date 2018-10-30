@@ -458,7 +458,6 @@ function mfbfw_admin_styles() {
 }
 
 function mfbfw_admin_scripts() {
-	print_r( $hook );
 	wp_enqueue_script( 'jquery-ui-tabs', array( 'jquery-ui-core' ), true ); // Load jQuery UI Tabs JS for Admin Page
 	wp_enqueue_script( 'fancybox-admin', FBFW_URL . 'assets/js/admin.js', array( 'jquery', 'wp-color-picker', 'updates' ), FBFW_VERSION, true ); // Load specific JS for Admin Page
 
