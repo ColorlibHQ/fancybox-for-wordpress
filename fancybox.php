@@ -208,12 +208,12 @@ function mfbfw_init() {
 
 	if ( $mfbfw['titlePosition'] == 'inside' ) {
 		$afterLoad = 'function( instance, current ) {';
-		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:-50px;background:#fff;margin:0 auto;text-align:center; \">\' + current.opts.caption + \'</div>\');';
+		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:-50px;margin:0 auto;text-align:center; \">\' + current.opts.caption + \'</div>\');';
 		$afterLoad .= '}';
 		$hideCaption = 'div.fancybox-caption{display:none !important;}';
 	} else if ( $mfbfw['titlePosition'] == 'over' ) {
 		$afterLoad = 'function( instance, current ) {';
-		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:0;background:#fff;margin:0 auto;text-align:center; \">\' + current.opts.caption + \'</div>\');';
+		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:0;margin:0 auto;text-align:center; \">\' + current.opts.caption + \'</div>\');';
 		$afterLoad .= '}';
 		$hideCaption = 'div.fancybox-caption{display:none !important;}';
 	} else {
@@ -253,7 +253,7 @@ function mfbfw_init() {
 <style type="text/css">
 	'.$hideCaption.'
 	' . ( isset( $mfbfw['overlayShow'] ) ? '' : 'div.fancybox-bg{background:transparent !important;}' ) . '
-	' . 'img.fancybox-image{border-width:' . $mfbfw['padding'] . 'px;border-color:' . $mfbfw['paddingColor'] . ';border-style:solid;}' . '
+	' . 'img.fancybox-image{border-width:' . $mfbfw['padding'] . 'px;border-color:' . $mfbfw['paddingColor'] . ';border-style:solid;height:auto;}' . '
 	' . ( isset( $mfbfw['overlayColor'] ) && $mfbfw['overlayColor'] ? 'div.fancybox-bg{background-color:' . hexTorgba( $mfbfw['overlayColor'], $mfbfw['overlayOpacity'] ) . ';opacity:1 !important;}' : '' ) . ( isset( $mfbfw['paddingColor'] ) && $mfbfw['paddingColor'] ? 'div.fancybox-content{border-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
 	' . ( isset( $mfbfw['paddingColor'] ) && $mfbfw['paddingColor'] && $mfbfw['titlePosition'] == 'inside' ? 'div#fancybox-title{background-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
 	div.fancybox-content{background-color:' . $mfbfw['paddingColor'] . ( isset( $mfbfw['border'] ) && $mfbfw['border'] ? ';border:1px solid ' . $mfbfw['borderColor'] : '' ) . '}
