@@ -275,7 +275,7 @@ function mfbfw_init() {
 		}
 
 		// Supported file extensions
-		var thumbnails = jQuery("a:has(img)").not(".nolightbox").filter( function() { return /\.(jpe?g|png|gif|bmp)$/i.test(jQuery(this).attr('href')) });
+		var thumbnails = jQuery("a:has(img)").not(".nolightbox").filter( function() { return /\.(jpe?g|png|gif|bmp|pdf)\?.+$/i.test(jQuery(this).attr('href')) });
 		<?php if ( $mfbfw['galleryType'] == 'post' ) { ?>
 
 			// Gallery type BY POST and on post or page (so only one post or page is visible)
