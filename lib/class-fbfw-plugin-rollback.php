@@ -44,27 +44,26 @@ class FBFW_Plugin_RollBack {
 
         if ( class_exists( 'FBFW_Rollback' ) ) {
             $rollback = new FBFW_Rollback(
-                [
+                array(
                     'version'     => FBFW_PREVIOUS_PLUGIN_VERSION,
                     'plugin_name' => FBFW_PLUGIN_BASE,
                     'plugin_slug' => $plugin_slug,
                     'package_url' => sprintf( 'https://downloads.wordpress.org/plugin/%s.%s.zip', PLUGIN_NAME, FBFW_PREVIOUS_PLUGIN_VERSION ),
-                ]
+                )
             );
             $rollback->run();
         }
 
         wp_die(
-            '', __( 'Rollback to Previous Version', 'mfbfw' ), [
+            '', __( 'Rollback to Previous Version', 'mfbfw' ), array(
                 'response' => 200,
-            ]
+            )
         );
     }
 
     public function rollback_scripts() {
         wp_enqueue_script('rollback-script', FBFW_URL . 'assets/js/rollback.js', FBFW_VERSION); // Load Rollback script
         wp_enqueue_script( 'rollback-script' );
-
     }
 
 }

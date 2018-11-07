@@ -72,7 +72,7 @@ class FBFW_Rollback {
      *
      * @param array $args Optional. Rollback arguments. Default is an empty array.
      */
-    public function __construct( $args = [] ) {
+    public function __construct( $args = array() ) {
         foreach ( $args as $key => $value ) {
             $this->{$key} = $value;
         }
@@ -150,12 +150,12 @@ class FBFW_Rollback {
 
         $logo_url = FBFW_URL . 'assets/images/icon.jpg';
 
-        $upgrader_args = [
+        $upgrader_args = array(
             'url'    => 'update.php?action=upgrade-plugin&plugin=' . rawurlencode( $this->plugin_name ),
             'plugin' => $this->plugin_name,
             'nonce'  => 'upgrade-plugin_' . $this->plugin_name,
             'title'  => '<img src="' . $logo_url . '" alt="FBFW logo">' . __( 'Rollback to Previous Version', 'epfw' ),
-        ];
+        );
 
         $this->print_inline_style();
 
