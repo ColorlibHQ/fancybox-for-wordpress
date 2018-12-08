@@ -4,7 +4,7 @@
 Plugin Name: FancyBox for WordPress
 Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-Version: 3.1.5
+Version: 3.1.6
 Author: Colorlib
 Author URI: https://colorlib.com/wp/
 
@@ -19,7 +19,7 @@ Author URI: https://colorlib.com/wp/
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.1.5' );
+define( 'FBFW_VERSION', '3.1.6' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
@@ -374,23 +374,6 @@ function mfbfw_textdomain() {
 
 add_action( 'init', 'mfbfw_textdomain' );
 
-
-/**
- * Insert Rollback link for plugin in plugins page
- */
-
-function extra_settings_links( $links ) {
-
-	if ( apply_filters( 'fbfw_show_rollback_link', true ) ) {
-		$links['rollback'] = sprintf( '<a href="%s" class="fbfw-rollback-button">%s</a>', wp_nonce_url( admin_url( 'admin-post.php?action=fbfw_rollback' ), 'fbfw_rollback' ), __( 'Rollback version', 'mfbfw' ) );
-	}
-
-	return $links;
-}
-
-add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'extra_settings_links' );
-
-
 /**
  * Register options
  */
@@ -449,11 +432,6 @@ function mfbfw_admin_scripts() {
 /**
  * Settings Button on Plugins Panel
  */
-
-
-require FBFW_PATH . '/lib/class-fbfw-plugin-rollback.php';
-require FBFW_PATH . '/lib/class-fbfw-rollback.php';
-
 function mfbfw_plugin_action_links(
 	$links,
 	$file
