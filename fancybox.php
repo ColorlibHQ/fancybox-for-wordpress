@@ -287,7 +287,7 @@ function mfbfw_init() {
 			// Gallery by post
 			var posts = jQuery(".post");
 			posts.each(function() {
-				jQuery(this).find(thumbnails).addClass("fancybox").attr("data-fancybox","gallery"+posts.index(this)).attr("rel","fancybox"+posts.index(this)).getTitle()
+				jQuery(this).find(thumbnails).addClass("fancyboxforwp").attr("data-fancybox","gallery"+posts.index(this)).attr("rel","fancybox"+posts.index(this)).getTitle()
 			});
 
 			<?php } ?>
@@ -295,7 +295,7 @@ function mfbfw_init() {
 // Gallery type ALL
 		<?php } elseif ( $mfbfw['galleryType'] == 'all' ) { ?>
 		// Gallery All
-		thumbnails.addClass("fancybox").attr("data-fancybox","gallery").getTitle();
+		thumbnails.addClass("fancyboxforwp").attr("data-fancybox","gallery").getTitle();
 
 // Gallery type NONE
 		<?php } elseif ( $mfbfw['galleryType'] == 'none' ) { ?>
@@ -303,7 +303,7 @@ function mfbfw_init() {
 		thumbnails.each(function(){
 			var rel = jQuery(this).attr("rel");
 			var imgTitle = jQuery(this).children("img").attr("title");
-			jQuery(this).addClass("fancybox").attr("data-fancybox",rel);
+			jQuery(this).addClass("fancyboxforwp").attr("data-fancybox",rel);
 			jQuery(this).attr("title",imgTitle);
 		});
 
