@@ -4,7 +4,7 @@
 Plugin Name: FancyBox for WordPress
 Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-Version: 3.1.5
+Version: 3.1.7
 Author: Colorlib
 Author URI: https://colorlib.com/wp/
 
@@ -19,7 +19,7 @@ Author URI: https://colorlib.com/wp/
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.1.5' );
+define( 'FBFW_VERSION', '3.1.7' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
@@ -275,13 +275,13 @@ function mfbfw_init() {
 		}
 
 		// Supported file extensions
-		var thumbnails = jQuery("a:has(img)").not(".nolightbox").filter( function() { return /\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href')) });
+		var thumbnails = jQuery("a:has(img)").not(".nolightbox").not('.envira-gallery-link').not('.ngg-simplelightbox').filter( function() { return /\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href')) });
 		<?php if ( $mfbfw['galleryType'] == 'post' ) { ?>
 
 			// Gallery type BY POST and on post or page (so only one post or page is visible)
 			<?php if ( is_singular() ) { ?>
 			// Gallery by post
-			thumbnails.addClass("fancybox").attr("data-fancybox","gallery").getTitle();
+			thumbnails.addClass("fancyboxforwp").attr("data-fancybox","gallery").getTitle();
 
 			<?php } else { ?>
 			// Gallery by post
@@ -314,7 +314,7 @@ function mfbfw_init() {
 		<?php } ?>
 
 		// Call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
-		jQuery("a.fancybox").fancybox({
+		jQuery("a.fancyboxforwp").fancyboxforwp({
 			loop: <?php echo ( isset( $mfbfw['cyclic'] ) && $mfbfw['cyclic'] ? 'true' : 'false' ) ?>,
 			smallBtn: <?php echo ( isset( $mfbfw['showCloseButton'] ) && $mfbfw['showCloseButton'] ? 'true' : 'false' ) ?>,
 			zoomOpacity: <?php echo ( isset( $mfbfw['zoomOpacity'] ) && $mfbfw['zoomOpacity'] ? '"auto"' : 'false' ) ?>,
@@ -374,23 +374,6 @@ function mfbfw_textdomain() {
 
 add_action( 'init', 'mfbfw_textdomain' );
 
-
-/**
- * Insert Rollback link for plugin in plugins page
- */
-
-function extra_settings_links( $links ) {
-
-	if ( apply_filters( 'fbfw_show_rollback_link', true ) ) {
-		$links['rollback'] = sprintf( '<a href="%s" class="fbfw-rollback-button">%s</a>', wp_nonce_url( admin_url( 'admin-post.php?action=fbfw_rollback' ), 'fbfw_rollback' ), __( 'Rollback version', 'mfbfw' ) );
-	}
-
-	return $links;
-}
-
-add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'extra_settings_links' );
-
-
 /**
  * Register options
  */
@@ -449,11 +432,6 @@ function mfbfw_admin_scripts() {
 /**
  * Settings Button on Plugins Panel
  */
-
-
-require FBFW_PATH . '/lib/class-fbfw-plugin-rollback.php';
-require FBFW_PATH . '/lib/class-fbfw-rollback.php';
-
 function mfbfw_plugin_action_links(
 	$links,
 	$file
