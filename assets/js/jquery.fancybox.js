@@ -25,7 +25,7 @@
   // Check if fancyBox is already initialized
   // ========================================
 
-  if ($.fn.fancybox) {
+  if ($.fn.fancyboxforwp) {
     console.info("fancyBox already initialized");
 
     return;
@@ -3337,7 +3337,7 @@
   // Create a jQuery plugin
   // ======================
 
-  $.fn.fancybox = function(options) {
+  $.fn.fancyboxforwp = function(options) {
     var selector;
 
     options = options || {};
