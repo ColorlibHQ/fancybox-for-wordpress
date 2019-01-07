@@ -3,7 +3,7 @@ Contributors: silkalns
 Tags: fancybox, lightbox, jquery, gallery, image, images, photo, photos, picture, pictures, zoom
 Requires at least: 3.4
 Tested up to: 5.0
-Stable tag: 3.1.7
+Stable tag: 3.1.8
 License: GPL/MIT
 
 Seamlessly integrates FancyBox lightbox into your WordPress blog: Upload, activate, and you're done. Additional configuration optional.
@@ -33,6 +33,7 @@ If you enjoy using FancyBox lightbox for WordPress please leave a [positive feed
 
 = 3.1.8 =
 * Fixed "Click to Hide on Overlay only works with Images"
+* Fixed "The requested content cannot be loaded" when trying to view page/post in fancybox
 
 = 3.1.7 =
 * Fixed incompatibilty with Envira Gallery
