@@ -31,6 +31,9 @@ If you enjoy using FancyBox lightbox for WordPress please leave a [positive feed
 
 == Changelog ==
 
+= 3.1.8 =
+* Fixed "Click to Hide on Overlay only works with Images"
+
 = 3.1.7 =
 * Fixed incompatibilty with Envira Gallery
 * Fixed incompatibilty with NextGen Gallery
