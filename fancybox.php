@@ -292,11 +292,11 @@ function mfbfw_init() {
 			// Gallery by post
 			thumbnails.addClass("fancyboxforwp").attr("data-fancybox","gallery").getTitle();
 
-            iframeThumbs.addClass("fancyboxforwp").attr({
+            iframeThumbs).attr({
                 "data-fancybox":"gallery",
                 "data-type" : "iframe"
             }).getTitle();
-            iframeTexts.addClass("fancyboxforwp").attr({
+            iframeTexts.attr({
                 "data-fancybox":"gallery",
                 "data-type" : "iframe"
             }).getTitle();
@@ -307,12 +307,12 @@ function mfbfw_init() {
 			posts.each(function() {
 				jQuery(this).find(thumbnails).addClass("fancyboxforwp").attr("data-fancybox","gallery"+posts.index(this)).attr("rel","fancybox"+posts.index(this)).getTitle();
 
-                jQuery(this).find(iframeThumbs).addClass("fancyboxforwp").attr({
+                jQuery(this).find(iframeThumbs).attr({
                     "data-fancybox":"gallery"+posts.index(this),
                     "fata-type" : "iframe"
                 }).attr("rel","fancybox"+posts.index(this)).getTitle();
 
-                jQuery(this).find(iframeTexts).addClass("fancyboxforwp").attr({
+                jQuery(this).find(iframeTexts).attr({
                     "data-fancybox":"gallery"+posts.index(this),
                     "fata-type" : "iframe"
                 }).attr("rel","fancybox"+posts.index(this)).getTitle();
@@ -326,12 +326,12 @@ function mfbfw_init() {
 		// Gallery All
 		thumbnails.addClass("fancyboxforwp").attr("data-fancybox","gallery").getTitle();
 
-        iframeThumbs.addClass("fancyboxforwp").attr({
+        iframeThumbs.attr({
             "data-fancybox":"gallery",
             "data-type" : "iframe"
         }).getTitle();
 
-        iframeTexts.addClass("fancyboxforwp").attr({
+        iframeTexts.attr({
             "data-fancybox":"gallery",
             "data-type" : "iframe"
         }).getTitle();
@@ -349,14 +349,14 @@ function mfbfw_init() {
         iframeThumbs.each(function(){
             var rel = jQuery(this).attr("rel");
             var imgTitle = jQuery(this).children("img").attr("title");
-            jQuery(this).addClass("fancyboxforwp").attr({"data-fancybox":rel,"data-type":"iframe"});
+            jQuery(this).attr({"data-fancybox":rel,"data-type":"iframe"});
             jQuery(this).attr("title",imgTitle);
         });
 
         iframeTexts.each(function(){
             var rel = jQuery(this).attr("rel");
             var title = jQuery(this).attr("title");
-            jQuery(this).addClass("fancyboxforwp").attr({"data-fancybox":rel,"data-type":"iframe"});
+            jQuery(this).attr({"data-fancybox":rel,"data-type":"iframe"});
         });
 
 // Else, gallery type is custom, so just print the custom expression
