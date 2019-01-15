@@ -4,7 +4,7 @@
 Plugin Name: FancyBox for WordPress
 Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-Version: 3.1.7
+Version: 3.1.8
 Author: Colorlib
 Author URI: https://colorlib.com/wp/
 
@@ -19,7 +19,7 @@ Author URI: https://colorlib.com/wp/
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.1.7' );
+define( 'FBFW_VERSION', '3.1.8' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
@@ -276,6 +276,15 @@ function mfbfw_init() {
 
 		// Supported file extensions
 		var thumbnails = jQuery("a:has(img)").not(".nolightbox").not('.envira-gallery-link').not('.ngg-simplelightbox').filter( function() { return /\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href')) });
+
+		// Fix for iframe / user added link to website page
+
+        // Fix for images
+        var iframeThumbs = jQuery('a.fancyboxforwp:has(img)').not(thumbnails);
+        // Fix for texts
+        var iframeTexts = jQuery('a.fancyboxforwp').not('a:has(img)');
+
+
 		<?php if ( $mfbfw['galleryType'] == 'post' ) { ?>
 
 			// Gallery type BY POST and on post or page (so only one post or page is visible)
@@ -283,11 +292,31 @@ function mfbfw_init() {
 			// Gallery by post
 			thumbnails.addClass("fancyboxforwp").attr("data-fancybox","gallery").getTitle();
 
-			<?php } else { ?>
+            iframeThumbs).attr({
+                "data-fancybox":"gallery",
+                "data-type" : "iframe"
+            }).getTitle();
+            iframeTexts.attr({
+                "data-fancybox":"gallery",
+                "data-type" : "iframe"
+            }).getTitle();
+
+    <?php } else { ?>
 			// Gallery by post
 			var posts = jQuery(".post");
 			posts.each(function() {
-				jQuery(this).find(thumbnails).addClass("fancyboxforwp").attr("data-fancybox","gallery"+posts.index(this)).attr("rel","fancybox"+posts.index(this)).getTitle()
+				jQuery(this).find(thumbnails).addClass("fancyboxforwp").attr("data-fancybox","gallery"+posts.index(this)).attr("rel","fancybox"+posts.index(this)).getTitle();
+
+                jQuery(this).find(iframeThumbs).attr({
+                    "data-fancybox":"gallery"+posts.index(this),
+                    "fata-type" : "iframe"
+                }).attr("rel","fancybox"+posts.index(this)).getTitle();
+
+                jQuery(this).find(iframeTexts).attr({
+                    "data-fancybox":"gallery"+posts.index(this),
+                    "fata-type" : "iframe"
+                }).attr("rel","fancybox"+posts.index(this)).getTitle();
+
 			});
 
 			<?php } ?>
@@ -296,6 +325,16 @@ function mfbfw_init() {
 		<?php } elseif ( $mfbfw['galleryType'] == 'all' ) { ?>
 		// Gallery All
 		thumbnails.addClass("fancyboxforwp").attr("data-fancybox","gallery").getTitle();
+
+        iframeThumbs.attr({
+            "data-fancybox":"gallery",
+            "data-type" : "iframe"
+        }).getTitle();
+
+        iframeTexts.attr({
+            "data-fancybox":"gallery",
+            "data-type" : "iframe"
+        }).getTitle();
 
 // Gallery type NONE
 		<?php } elseif ( $mfbfw['galleryType'] == 'none' ) { ?>
@@ -307,11 +346,26 @@ function mfbfw_init() {
 			jQuery(this).attr("title",imgTitle);
 		});
 
+        iframeThumbs.each(function(){
+            var rel = jQuery(this).attr("rel");
+            var imgTitle = jQuery(this).children("img").attr("title");
+            jQuery(this).attr({"data-fancybox":rel,"data-type":"iframe"});
+            jQuery(this).attr("title",imgTitle);
+        });
+
+        iframeTexts.each(function(){
+            var rel = jQuery(this).attr("rel");
+            var title = jQuery(this).attr("title");
+            jQuery(this).attr({"data-fancybox":rel,"data-type":"iframe"});
+        });
+
 // Else, gallery type is custom, so just print the custom expression
 		<?php } else { ?>
 			/* Custom Expression */
 			<?php echo $mfbfw['customExpression']; ?>
 		<?php } ?>
+
+
 
 		// Call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
 		jQuery("a.fancyboxforwp").fancyboxforwp({
@@ -330,7 +384,7 @@ function mfbfw_init() {
 			showCloseButton: <?php echo ( isset( $mfbfw['showCloseButton'] ) && $mfbfw['showCloseButton'] ? 'true' : 'false' ) ?>,
 			arrows: <?php echo ( isset( $mfbfw['showNavArrows'] ) && $mfbfw['showNavArrows'] ? 'true' : 'false' ) ?>,
 			clickContent: <?php echo ( isset( $mfbfw['hideOnContentClick'] ) && $mfbfw['hideOnContentClick'] ? '"close"' : 'false' ) ?>,
-			clickSlide: <?php echo ( isset( $mfbfw['hideOnOverlayClick'] ) && $mfbfw['hideOnOverlayClick'] ? 'function(current, event) {return current.type === "image" ? "close" : false;}' : 'false' ) ?>,
+            clickSlide: <?php echo ( isset( $mfbfw['hideOnOverlayClick'] ) && $mfbfw['hideOnOverlayClick'] ? '"close"' : 'false' ) ?>,
 			wheel: <?php echo ( isset( $mfbfw['mouseWheel'] ) && $mfbfw['mouseWheel'] ? 'true' : 'false' ) ?>,
 			toolbar: <?php echo ( isset( $mfbfw['showToolbar'] ) && $mfbfw['showToolbar'] ? 'true' : 'false' ) ?>,
 			preventCaptionOverlap: true,
