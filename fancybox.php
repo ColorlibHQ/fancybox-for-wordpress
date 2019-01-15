@@ -277,13 +277,9 @@ function mfbfw_init() {
 		// Supported file extensions
 		var thumbnails = jQuery("a:has(img)").not(".nolightbox").not('.envira-gallery-link').not('.ngg-simplelightbox').filter( function() { return /\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href')) });
 
-		// Fix for iframe / user added link to website page
-
-        // Fix for images
-        var iframeThumbs = jQuery('a.fancyboxforwp:has(img)').not(thumbnails);
-        // Fix for texts
-        var iframeTexts = jQuery('a.fancyboxforwp').not('a:has(img)');
-
+		// Add data-type iframe for links that are not images or videos.
+        var iframeLinks = jQuery('.fancyboxforwp').filter( function() { return ! /\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href')) }).filter( function() { return ! /vimeo|youtube/i.test(jQuery(this).attr('href')) });
+        iframeLinks.attr({ "data-type" : "iframe" }).getTitle();
 
 		<?php if ( $mfbfw['galleryType'] == 'post' ) { ?>
 
@@ -291,15 +287,7 @@ function mfbfw_init() {
 			<?php if ( is_singular() ) { ?>
 			// Gallery by post
 			thumbnails.addClass("fancyboxforwp").attr("data-fancybox","gallery").getTitle();
-
-            iframeThumbs).attr({
-                "data-fancybox":"gallery",
-                "data-type" : "iframe"
-            }).getTitle();
-            iframeTexts.attr({
-                "data-fancybox":"gallery",
-                "data-type" : "iframe"
-            }).getTitle();
+            iframeLinks.attr({ "data-fancybox":"gallery" }).getTitle();
 
     <?php } else { ?>
 			// Gallery by post
@@ -307,36 +295,19 @@ function mfbfw_init() {
 			posts.each(function() {
 				jQuery(this).find(thumbnails).addClass("fancyboxforwp").attr("data-fancybox","gallery"+posts.index(this)).attr("rel","fancybox"+posts.index(this)).getTitle();
 
-                jQuery(this).find(iframeThumbs).attr({
-                    "data-fancybox":"gallery"+posts.index(this),
-                    "fata-type" : "iframe"
-                }).attr("rel","fancybox"+posts.index(this)).getTitle();
-
-                jQuery(this).find(iframeTexts).attr({
-                    "data-fancybox":"gallery"+posts.index(this),
-                    "fata-type" : "iframe"
-                }).attr("rel","fancybox"+posts.index(this)).getTitle();
+                jQuery(this).find(iframeLinks).attr({ "data-fancybox":"gallery"+posts.index(this) }).attr("rel","fancybox"+posts.index(this)).getTitle();
 
 			});
 
 			<?php } ?>
 
-// Gallery type ALL
+		// Gallery type ALL
 		<?php } elseif ( $mfbfw['galleryType'] == 'all' ) { ?>
 		// Gallery All
 		thumbnails.addClass("fancyboxforwp").attr("data-fancybox","gallery").getTitle();
+        iframeLinks.attr({ "data-fancybox":"gallery" }).getTitle();
 
-        iframeThumbs.attr({
-            "data-fancybox":"gallery",
-            "data-type" : "iframe"
-        }).getTitle();
-
-        iframeTexts.attr({
-            "data-fancybox":"gallery",
-            "data-type" : "iframe"
-        }).getTitle();
-
-// Gallery type NONE
+		// Gallery type NONE
 		<?php } elseif ( $mfbfw['galleryType'] == 'none' ) { ?>
 		// No Galleries
 		thumbnails.each(function(){
@@ -346,20 +317,14 @@ function mfbfw_init() {
 			jQuery(this).attr("title",imgTitle);
 		});
 
-        iframeThumbs.each(function(){
+        iframeLinks.each(function(){
             var rel = jQuery(this).attr("rel");
             var imgTitle = jQuery(this).children("img").attr("title");
-            jQuery(this).attr({"data-fancybox":rel,"data-type":"iframe"});
+            jQuery(this).attr({"data-fancybox":rel});
             jQuery(this).attr("title",imgTitle);
         });
 
-        iframeTexts.each(function(){
-            var rel = jQuery(this).attr("rel");
-            var title = jQuery(this).attr("title");
-            jQuery(this).attr({"data-fancybox":rel,"data-type":"iframe"});
-        });
-
-// Else, gallery type is custom, so just print the custom expression
+		// Else, gallery type is custom, so just print the custom expression
 		<?php } else { ?>
 			/* Custom Expression */
 			<?php echo $mfbfw['customExpression']; ?>
