@@ -574,9 +574,6 @@
         $.fancyboxforwp.close(true);
       }
 
-      console.log( $.fancyboxforwp );
-      console.log( $.fancyboxforwpforwp );
-
       // Hide scrollbars
       // ===============
 
