@@ -5,7 +5,12 @@
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Close Button', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Close Button', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Show Close button (default: off)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[showCloseButton]"
@@ -14,13 +19,17 @@
 				} ?> />
                 <label for="showCloseButton" class="onoffswitch-label">
                 </label>
-                <span class="switch-text"><?php _e( 'Show Close button (default: off)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Toolbar', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Toolbar', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Show Toolbar  (default: on)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[showToolbar]"
@@ -29,13 +38,17 @@
 				} ?> />
                 <label for="showToolbar" class="onoffswitch-label">
                 </label>
-                <span class="switch-text"><?php _e( 'Show Toolbar  (default: on)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Border', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Border', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Show Border (default: off)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input class="onoffswitch-checkbox" type="checkbox" name="mfbfw[border]"
@@ -43,7 +56,6 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="border" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Show Border (default: off)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
                 <div id="borderColorBlock" class="hidden-block">
                     <label for="borderColor">
@@ -56,14 +68,18 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Padding', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Padding', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'HTML color of the padding (default: #FFFFFF)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <label for="paddingColor">
                     <input type="text" class="color-btn" name="mfbfw[paddingColor]" id="paddingColor"
                            value="<?php echo $settings['paddingColor'] ?>" size="7" maxlength="7"/>
                 </label>
-                <p class="description"><?php _e( 'HTML color of the padding (default: #FFFFFF)', 'mfbfw' ); ?></p>
                 <p class="description"><?php _e( '(This should be left on #FFFFFF (white) if you want to display anything other than images, like inline or framed content)', 'mfbfw' ); ?></p>
                 <div class="line-spacer"></div>
                 <label for="padding" class="inlined">
@@ -78,7 +94,12 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Overlay Options', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Overlay Options', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Add overlay (default: on)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[overlayShow]"
@@ -86,7 +107,6 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="overlayShow" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Add overlay (default: on)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
                 <div id="overlayBlock" class="hidden-block">
                     <label for="overlayColor">
@@ -108,7 +128,12 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Title', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Title', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Show the title (default: on)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[titleShow]"
@@ -116,7 +141,6 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="titleShow" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Show the title (default: on)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
                 <div id="titleBlock" class="hidden-block">
                     <label for="titleSize">
@@ -162,7 +186,12 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Navigation Arrows', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Navigation Arrows', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Show the navigation arrows (default: on)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[showNavArrows]"
@@ -170,7 +199,6 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="showNavArrows" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Show the navigation arrows (default: on)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
             </fieldset>
         </td>

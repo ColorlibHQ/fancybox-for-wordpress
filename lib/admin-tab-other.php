@@ -3,7 +3,12 @@
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Dimensions', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Dimensions', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Auto detect dimensions (default: on)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[autoDimensions]"
@@ -11,7 +16,6 @@
 		            echo ' checked="yes"';
 	            } ?> />
                 <label for="autoDimensions" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Auto detect dimensions (default: on)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
                 <p class="description">
                     <em><?php _e( 'Only works with <strong>Ajax</strong> and <strong>Inline</strong> content! Flash dimensions won\'t be autodetected so specify them below if necessary. If you want to insert several pieces of flash content with different dimensions you will have to use the <strong>Additional FancyBox Calls</strong> option.', 'mfbfw' ); ?></em>
@@ -31,7 +35,12 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Load JavaScript in Footer', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Load JavaScript in Footer', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Loads JavaScript at the end of the blog\'s HTML (experimental) (default: off)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[loadAtFooter]"
@@ -39,7 +48,6 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="loadAtFooter" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Loads JavaScript at the end of the blog\'s HTML (experimental) (default: off)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
                 <p class="description">
                     <em><?php _e( 'This option won\'t be recognized if you use <strong>Parallel Load</strong> plugin. In that case, you can do this from Parallel Load\'s options.', 'mfbfw' ); ?></em>
@@ -48,7 +56,12 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Callbacks', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Callbacks', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Enable callbacks (default: off)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[callbackEnable]"
@@ -56,7 +69,6 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="callbackEnable" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Enable callbacks (default: off)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
                 <p class="description"><em><?php _e( 'Enabling this will show additional settings.', 'mfbfw' ); ?></em>
                 </p>
@@ -119,7 +131,12 @@
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Additional FancyBox Calls', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Additional FancyBox Calls', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Additional FancyBox Calls (default: off)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[extraCallsEnable]"
@@ -127,7 +144,6 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="extraCallsEnable" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Additional FancyBox Calls (default: off)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
                 <div class="line-spacer"></div>
                 <div id="extraCallsBlock">

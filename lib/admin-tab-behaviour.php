@@ -3,7 +3,12 @@
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Close on Content Click', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Close on Content Click', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Close FancyBox by clicking on the image (default: off)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[hideOnContentClick]"
@@ -11,7 +16,6 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="hideOnContentClick" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Close FancyBox by clicking on the image (default: off)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
                 <p class="description">
                     <em><?php _e( '(You may want to leave this off if you display iframed or inline content that containts clickable elements - for example: play buttons for movies, links to other pages)', 'mfbfw' ); ?>
@@ -20,7 +24,12 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Close on Overlay Click', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Close on Overlay Click', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Close FancyBox by clicking on the overlay sorrounding it (default: on)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[hideOnOverlayClick]"
@@ -28,13 +37,17 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="hideOnOverlayClick" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Close FancyBox by clicking on the overlay sorrounding it (default: on)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Keyboard navigation;', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Keyboard navigation;', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Enable Keyboard Navigation (default: on)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[enableEscapeButton]"
@@ -42,13 +55,17 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="enableEscapeButton" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Enable Keyboard Navigation (default: on)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Loop Galleries', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Loop Galleries', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'This will make galleries loop, allowing you to keep pressing next/back (default: off)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[cyclic]"
@@ -56,13 +73,17 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="cyclic" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'This will make galleries loop, allowing you to keep pressing next/back (default: off)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Mouse Wheel Navigation', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Mouse Wheel Navigation', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Lets visitors navigate galleries with the mouse wheel  (default: off)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[mouseWheel]"
@@ -70,7 +91,6 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="mouseWheel" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Lets visitors navigate galleries with the mouse wheel  (default: off)', 'mfbfw' ); ?></span>
                 <div class="cf"></div>
             </fieldset>
         </td>

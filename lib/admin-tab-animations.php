@@ -5,7 +5,12 @@
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Zoom Options', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Zoom Options', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Change content transparency during zoom animations (default: on)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[zoomOpacity]"
@@ -13,7 +18,6 @@
 					echo ' checked="yes"';
 				} ?> />
                 <label for="zoomOpacity" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Change content transparency during zoom animations (default: on)', 'mfbfw' ); ?></span>
             </fieldset>
         </td>
     </tr>
