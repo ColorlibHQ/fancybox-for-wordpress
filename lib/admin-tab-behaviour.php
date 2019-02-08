@@ -34,7 +34,7 @@
     <tr valign="top">
         <th scope="row"><?php _e( 'Close on Overlay Click', 'mfbfw' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php _e( 'Close FancyBox by clicking on the overlay sorrounding it (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php _e( 'Close FancyBox by clicking on the overlay surrounding it (default: on)', 'mfbfw' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
