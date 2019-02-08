@@ -11,11 +11,20 @@
         </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[autoDimensions]"
-                       id="autoDimensions"<?php if ( isset( $settings['autoDimensions'] ) && $settings['autoDimensions'] ) {
-		            echo ' checked="yes"';
-	            } ?> />
-                <label for="autoDimensions" class="onoffswitch-label"></label>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="autoDimensions" name="mfbfw[autoDimensions]" <?php checked( 1, isset( $settings['autoDimensions'] ) && $settings['autoDimensions'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
                 <div class="cf"></div>
                 <p class="description">
                     <em><?php _e( 'Only works with <strong>Ajax</strong> and <strong>Inline</strong> content! Flash dimensions won\'t be autodetected so specify them below if necessary. If you want to insert several pieces of flash content with different dimensions you will have to use the <strong>Additional FancyBox Calls</strong> option.', 'mfbfw' ); ?></em>
@@ -43,11 +52,19 @@
         </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[loadAtFooter]"
-                       id="loadAtFooter"<?php if ( isset( $settings['loadAtFooter'] ) && $settings['loadAtFooter'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="loadAtFooter" class="onoffswitch-label"></label>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="loadAtFooter" name="mfbfw[loadAtFooter]" <?php checked( 1, isset( $settings['loadAtFooter'] ) && $settings['loadAtFooter'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
                 <div class="cf"></div>
                 <p class="description">
                     <em><?php _e( 'This option won\'t be recognized if you use <strong>Parallel Load</strong> plugin. In that case, you can do this from Parallel Load\'s options.', 'mfbfw' ); ?></em>
@@ -64,11 +81,19 @@
         </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[callbackEnable]"
-                       id="callbackEnable"<?php if ( isset( $settings['callbackEnable'] ) && $settings['callbackEnable'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="callbackEnable" class="onoffswitch-label"></label>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="callbackEnable" name="mfbfw[callbackEnable]" <?php checked( 1, isset( $settings['callbackEnable'] ) && $settings['callbackEnable'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
                 <div class="cf"></div>
                 <p class="description"><em><?php _e( 'Enabling this will show additional settings.', 'mfbfw' ); ?></em>
                 </p>
@@ -139,11 +164,19 @@
         </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[extraCallsEnable]"
-                       id="extraCallsEnable"<?php if ( isset( $settings['extraCallsEnable'] ) && $settings['extraCallsEnable'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="extraCallsEnable" class="onoffswitch-label"></label>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="extraCallsEnable" name="mfbfw[extraCallsEnable]" <?php checked( 1, isset( $settings['extraCallsEnable'] ) && $settings['extraCallsEnable'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
                 <div class="cf"></div>
                 <div class="line-spacer"></div>
                 <div id="extraCallsBlock">
@@ -178,15 +211,27 @@
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Do not call jQuery', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Do not call jQuery', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Skip jQuery call. Use this only if jQuery is being loaded twice (default: off)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[nojQuery]"
-                       id="nojQuery"<?php if ( isset( $settings['nojQuery'] ) && $settings['nojQuery'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="nojQuery" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Skip jQuery call. Use this only if jQuery is being loaded twice (default: off)', 'mfbfw' ); ?></span>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="nojQuery" name="mfbfw[nojQuery]" <?php checked( 1, isset( $settings['nojQuery'] ) && $settings['nojQuery'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
                 <div class="cf"></div>
             </fieldset>
         </td>
@@ -198,15 +243,27 @@
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Remove settings', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Remove settings', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Remove Settings when plugin is deactivated from the "Manage Plugins" page. (default: off)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[uninstall]"
-                       id="uninstall"<?php if ( isset( $settings['uninstall'] ) && $settings['uninstall'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="uninstall" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Remove Settings when plugin is deactivated from the "Manage Plugins" page. (default: off)', 'mfbfw' ); ?></span>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="uninstall" name="mfbfw[uninstall]" <?php checked( 1, isset( $settings['uninstall'] ) && $settings['uninstall'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
                 <div class="cf"></div>
             </fieldset>
         </td>
