@@ -13,12 +13,20 @@
         </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[showCloseButton]"
-                       id="showCloseButton"<?php if ( isset( $settings['showCloseButton'] ) && $settings['showCloseButton'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="showCloseButton" class="onoffswitch-label">
-                </label>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="showCloseButton" name="mfbfw[showCloseButton]" <?php checked( 1, isset( $settings['showCloseButton'] ) && $settings['showCloseButton'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
                 <div class="cf"></div>
             </fieldset>
         </td>
@@ -32,12 +40,19 @@
         </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[showToolbar]"
-                       id="showToolbar"<?php if ( isset( $settings['showToolbar'] ) && $settings['showToolbar'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="showToolbar" class="onoffswitch-label">
-                </label>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="showToolbar" name="mfbfw[showToolbar]" <?php checked( 1, isset( $settings['showToolbar'] ) && $settings['showToolbar'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
                 <div class="cf"></div>
             </fieldset>
         </td>
@@ -51,11 +66,19 @@
         </th>
         <td>
             <fieldset>
-                <input class="onoffswitch-checkbox" type="checkbox" name="mfbfw[border]"
-                       id="border"<?php if ( isset( $settings['border'] ) && $settings['border'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="border" class="onoffswitch-label"></label>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="border" name="mfbfw[border]" <?php checked( 1, isset( $settings['border'] ) && $settings['border'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
                 <div class="cf"></div>
                 <div id="borderColorBlock" class="hidden-block">
                     <label for="borderColor">
@@ -102,11 +125,20 @@
         </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[overlayShow]"
-                       id="overlayShow"<?php if ( isset( $settings['overlayShow'] ) && $settings['overlayShow'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="overlayShow" class="onoffswitch-label"></label>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="overlayShow" name="mfbfw[overlayShow]" <?php checked( 1, isset( $settings['overlayShow'] ) && $settings['overlayShow'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
                 <div class="cf"></div>
                 <div id="overlayBlock" class="hidden-block">
                     <label for="overlayColor">
@@ -136,11 +168,20 @@
         </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[titleShow]"
-                       id="titleShow"<?php if ( isset( $settings['titleShow'] ) && $settings['titleShow'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="titleShow" class="onoffswitch-label"></label>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="titleShow" name="mfbfw[titleShow]" <?php checked( 1, isset( $settings['titleShow'] ) && $settings['titleShow'] );?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
                 <div class="cf"></div>
                 <div id="titleBlock" class="hidden-block">
                     <label for="titleSize">
@@ -194,11 +235,20 @@
         </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[showNavArrows]"
-                       id="showNavArrows"<?php if ( isset( $settings['showNavArrows'] ) && $settings['showNavArrows'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="showNavArrows" class="onoffswitch-label"></label>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="showNavArrows" name="mfbfw[showNavArrows]" <?php checked( 1, isset( $settings['showNavArrows'] ) && $settings['showNavArrows'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
                 <div class="cf"></div>
             </fieldset>
         </td>
