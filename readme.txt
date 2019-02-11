@@ -33,6 +33,7 @@ If you enjoy using FancyBox lightbox for WordPress please leave a [positive feed
 
 = 3.2.0 =
 * Admin UI minor update
+* Removed unneeded ie css file
 
 = 3.1.9 =
 * Replace $.fancebox with $.fancyboxforwp.
