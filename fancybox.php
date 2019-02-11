@@ -168,10 +168,8 @@ function mfbfw_enqueue_scripts() {
 
 	// Register Styles
 	wp_register_style( 'fancybox', FBFW_URL . 'assets/css/fancybox.css', false, '1.3.4' ); // Main Fancybox style
-	wp_register_style( 'fancybox-ie', FBFW_URL . 'assets/css/fancybox.ie.css', array( 'fancybox' ), '1.3.4' ); // Main Fancybox style fixes for IE6-8
 	// Enqueue Styles
 	wp_enqueue_style( 'fancybox' );
-	wp_enqueue_style( 'fancybox-ie' );
 
 	// Make IE specific styles load only on IE6-8
 	$wp_styles->add_data( 'fancybox-ie', 'conditional', 'lt IE 9' );
