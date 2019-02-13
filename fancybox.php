@@ -15,7 +15,7 @@
 * Domain Path: /languages
 *
 * Copyright 2008-2016 	Janis Skarnelis 	http://twitter.com/moskis/
-* Copyright 2016-2019 	Colorlib 		office@colorlib.com
+* Copyright 2016-2019 	Colorlib 		support@colorlib.com
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License, version 3, as
@@ -30,7 +30,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
- */
+
 
 /**
  * Plugin Init
