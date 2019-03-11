@@ -172,6 +172,7 @@ function mfbfw_enqueue_scripts() {
 
 	// Register Scripts
 	wp_register_script( 'fancybox', FBFW_URL . 'assets/js/jquery.fancybox.js', $jquery, '1.3.4', $footer ); // Main Fancybox script
+
 	// Enqueue Scripts
 	wp_enqueue_script( 'fancybox' ); // Load fancybox
 
@@ -290,7 +291,23 @@ function mfbfw_init() {
 		}
 
 		// Supported file extensions
-		var thumbnails = jQuery("a:has(img)").not(".nolightbox").not('.envira-gallery-link').not('.ngg-simplelightbox').filter( function() { return /\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href')) });
+
+        <?php
+        if(isset($mfbfw['exclude_pdf']) && 'on' == $mfbfw['exclude_pdf']){
+        ?>
+        var thumbnails = jQuery("a:has(img)").not(".nolightbox").not('.envira-gallery-link').not('.ngg-simplelightbox').filter(function () {
+            return /\.(jpe?g|png|gif|mp4|webp|bmp)(\?[^/]*)*$/i.test(jQuery(this).attr('href'))
+        });
+        <?php
+        } else {
+        ?>
+        var thumbnails = jQuery("a:has(img)").not(".nolightbox").not('.envira-gallery-link').not('.ngg-simplelightbox').filter(function () {
+            return /\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href'))
+        });
+        <?php
+        }
+        ?>
+
 
 		// Add data-type iframe for links that are not images or videos.
         var iframeLinks = jQuery('.fancyboxforwp').filter( function() { return ! /\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href')) }).filter( function() { return ! /vimeo|youtube/i.test(jQuery(this).attr('href')) });

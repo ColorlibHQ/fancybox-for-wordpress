@@ -34,6 +34,7 @@ If you enjoy using FancyBox lightbox for WordPress please leave a [positive feed
 = 3.2.0 =
 * Admin UI minor update
 * Removed unneeded ie css file
+* Added option in Behaviour tab to exclude links that target .pdf files from being displayed in the lightbox
 
 = 3.1.9 =
 * Replace $.fancebox with $.fancyboxforwp.
