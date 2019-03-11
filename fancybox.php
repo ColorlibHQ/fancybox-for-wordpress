@@ -3,10 +3,10 @@
 * Plugin Name: FancyBox for WordPress
 * Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 * Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-* Version: 3.1.9
+* Version: 3.2.0
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
-* Tested up to: 5.0.3
+* Tested up to: 5.1
 * Requires: 4.6 or higher
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html

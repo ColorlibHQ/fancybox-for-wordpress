@@ -2,7 +2,7 @@
 Contributors: silkalns
 Tags: fancybox, lightbox, jquery, gallery, image, images, photo, photos, picture, pictures, zoom
 Requires at least: 3.4
-Tested up to: 5.0.3
+Tested up to: 5.1
 Stable tag: 3.2.0
 License: GPL/MIT
 
