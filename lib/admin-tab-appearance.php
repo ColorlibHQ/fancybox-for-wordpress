@@ -5,45 +5,80 @@
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Close Button', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Close Button', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Show Close button (default: off)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[showCloseButton]"
-                       id="showCloseButton"<?php if ( isset( $settings['showCloseButton'] ) && $settings['showCloseButton'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="showCloseButton" class="onoffswitch-label">
-                </label>
-                <span class="switch-text"><?php _e( 'Show Close button (default: off)', 'mfbfw' ); ?></span>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="showCloseButton" name="mfbfw[showCloseButton]" <?php checked( 1, isset( $settings['showCloseButton'] ) && $settings['showCloseButton'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
                 <div class="cf"></div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Toolbar', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Toolbar', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Show Toolbar  (default: on)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[showToolbar]"
-                       id="showToolbar"<?php if ( isset( $settings['showToolbar'] ) && $settings['showToolbar'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="showToolbar" class="onoffswitch-label">
-                </label>
-                <span class="switch-text"><?php _e( 'Show Toolbar  (default: on)', 'mfbfw' ); ?></span>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="showToolbar" name="mfbfw[showToolbar]" <?php checked( 1, isset( $settings['showToolbar'] ) && $settings['showToolbar'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
                 <div class="cf"></div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Border', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Border', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Show Border (default: off)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
-                <input class="onoffswitch-checkbox" type="checkbox" name="mfbfw[border]"
-                       id="border"<?php if ( isset( $settings['border'] ) && $settings['border'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="border" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Show Border (default: off)', 'mfbfw' ); ?></span>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="border" name="mfbfw[border]" <?php checked( 1, isset( $settings['border'] ) && $settings['border'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
                 <div class="cf"></div>
                 <div id="borderColorBlock" class="hidden-block">
                     <label for="borderColor">
@@ -56,14 +91,18 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Padding', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Padding', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'HTML color of the padding (default: #FFFFFF)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
                 <label for="paddingColor">
                     <input type="text" class="color-btn" name="mfbfw[paddingColor]" id="paddingColor"
                            value="<?php echo $settings['paddingColor'] ?>" size="7" maxlength="7"/>
                 </label>
-                <p class="description"><?php _e( 'HTML color of the padding (default: #FFFFFF)', 'mfbfw' ); ?></p>
                 <p class="description"><?php _e( '(This should be left on #FFFFFF (white) if you want to display anything other than images, like inline or framed content)', 'mfbfw' ); ?></p>
                 <div class="line-spacer"></div>
                 <label for="padding" class="inlined">
@@ -78,15 +117,28 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Overlay Options', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Overlay Options', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Add overlay (default: on)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[overlayShow]"
-                       id="overlayShow"<?php if ( isset( $settings['overlayShow'] ) && $settings['overlayShow'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="overlayShow" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Add overlay (default: on)', 'mfbfw' ); ?></span>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="overlayShow" name="mfbfw[overlayShow]" <?php checked( 1, isset( $settings['overlayShow'] ) && $settings['overlayShow'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
                 <div class="cf"></div>
                 <div id="overlayBlock" class="hidden-block">
                     <label for="overlayColor">
@@ -108,15 +160,28 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Title', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Title', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Show the title (default: on)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[titleShow]"
-                       id="titleShow"<?php if ( isset( $settings['titleShow'] ) && $settings['titleShow'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="titleShow" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Show the title (default: on)', 'mfbfw' ); ?></span>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="titleShow" name="mfbfw[titleShow]" <?php checked( 1, isset( $settings['titleShow'] ) && $settings['titleShow'] );?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
                 <div class="cf"></div>
                 <div id="titleBlock" class="hidden-block">
                     <label for="titleSize">
@@ -162,15 +227,28 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Navigation Arrows', 'mfbfw' ); ?></th>
+        <th scope="row"><?php _e( 'Navigation Arrows', 'mfbfw' ); ?>
+            <span class="tooltip-right"
+                  data-tooltip="<?php _e( 'Show the navigation arrows (default: on)', 'mfbfw' ); ?>">
+                  <i class="dashicons dashicons-editor-help"></i>
+             </span>
+        </th>
         <td>
             <fieldset>
-                <input type="checkbox" class="onoffswitch-checkbox" name="mfbfw[showNavArrows]"
-                       id="showNavArrows"<?php if ( isset( $settings['showNavArrows'] ) && $settings['showNavArrows'] ) {
-					echo ' checked="yes"';
-				} ?> />
-                <label for="showNavArrows" class="onoffswitch-label"></label>
-                <span class="switch-text"><?php _e( 'Show the navigation arrows (default: on)', 'mfbfw' ); ?></span>
+                <div class="epsilon-toggle">
+                    <input class="epsilon-toggle__input" type="checkbox" id="showNavArrows" name="mfbfw[showNavArrows]" <?php checked( 1, isset( $settings['showNavArrows'] ) && $settings['showNavArrows'] ); ?> >
+                    <div class="epsilon-toggle__items">
+                        <span class="epsilon-toggle__track"></span>
+                        <span class="epsilon-toggle__thumb"></span>
+                        <svg class="epsilon-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6">
+                            <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                        </svg>
+                        <svg class="epsilon-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6">
+                            <path d="M0 0h2v6H0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
                 <div class="cf"></div>
             </fieldset>
         </td>
