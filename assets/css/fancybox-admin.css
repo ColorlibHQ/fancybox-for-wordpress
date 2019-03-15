@@ -549,14 +549,13 @@ a.modula-link:hover {
 
 .epsilon-toggle__thumb {
     background-color: #6c7781;
-    border: 1px solid #6c7781;
     border-radius: 50%;
     display: block;
-    height: 5px;
-    width: 5px;
+    height: 10px;
+    width: 10px;
     position: absolute;
     left: 7px;
-    top: 7px;
+    top: 5px;
     transition: transform .2s ease;
 }
 
@@ -572,12 +571,12 @@ a.modula-link:hover {
 
 .epsilon-toggle__on {
     position: absolute;
-    top: 6px;
+    top: 7px;
     left: 8px;
-    border: 1px solid #fff;
     outline: 1px solid transparent;
     outline-offset: -1px;
     display: none;
+    fill:#fff;
 }
 
 .epsilon-toggle__input[type=checkbox]:checked + .epsilon-toggle__items .epsilon-toggle__track {
@@ -589,8 +588,8 @@ a.modula-link:hover {
     background-color: #fff;
     border-width: 0;
     transform: translateX(18px);
-    width: 7px;
-    height: 7px;
+    width: 10px;
+    height: 10px;
 }
 
 .epsilon-toggle__input[type=checkbox]:checked + .epsilon-toggle__items .epsilon-toggle__off {
