@@ -33,6 +33,7 @@ If you enjoy using FancyBox lightbox for WordPress please leave a [positive feed
 
 = 3.2.1 =
 * Update toggles
+* Added new option to make a gallery for each gutenberg gallery block
 
 = 3.2.0 =
 * Admin UI minor update
