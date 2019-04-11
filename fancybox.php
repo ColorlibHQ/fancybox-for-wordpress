@@ -357,7 +357,18 @@ function mfbfw_init() {
         });
 
 		// Else, gallery type is custom, so just print the custom expression
-		<?php } else { ?>
+		<?php } else if( $mfbfw['galleryType'] == 'single_gutenberg_block'){
+		    ?>
+
+            var gallery_block = jQuery('ul.wp-block-gallery');
+            gallery_block.each(function() {
+                jQuery(this).find(thumbnails).addClass("fancyboxforwp").attr("data-fancybox","gallery"+gallery_block.index(this)).attr("rel","fancybox"+gallery_block.index(this)).getTitle();
+
+                jQuery(this).find(iframeLinks).attr({ "data-fancybox":"gallery"+gallery_block.index(this) }).attr("rel","fancybox"+gallery_block.index(this)).getTitle();
+
+            });
+            <?php
+		} else { ?>
 			/* Custom Expression */
 			<?php echo $mfbfw['customExpression']; ?>
 		<?php } ?>
