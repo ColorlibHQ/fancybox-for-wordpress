@@ -15,9 +15,9 @@ $settings['customExpression'] = str_replace('"rel"','"data-fancybox"',$settings[
 					<?php _e( 'Make a gallery for all images on the page (default)', 'mfbfw' ); ?>
 				</label><br /><br />
 
-				<input id="galleryTypeNone" class="galleryType" type="radio" value="none" name="mfbfw[galleryType]"<?php if ( $settings[ 'galleryType' ] == 'none' ) echo ' checked="yes"'; ?> />
+				<input id="galleryTypeGutenbergBlock" class="galleryType" type="radio" value="single_gutenberg_block" name="mfbfw[galleryType]"<?php if ( $settings[ 'galleryType' ] == 'single_gutenberg_block' ) echo ' checked="yes"'; ?> />
 				<label for="galleryTypeNone">
-					<?php _e( 'Do not group images in gallery automatically (use this if you want to make galleries manually with the <code>REL</code> attribute)', 'mfbfw' ); ?>
+					<?php _e( 'Make a gallery for each gutenberg gallery block', 'mfbfw' ); ?>
 				</label><br /><br />
 
 				<input id="galleryTypePost" class="galleryType" type="radio" value="post" name="mfbfw[galleryType]"<?php if ( $settings[ 'galleryType' ] == 'post' ) echo ' checked="yes"'; ?> />

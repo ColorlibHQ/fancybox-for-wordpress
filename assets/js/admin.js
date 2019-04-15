@@ -100,10 +100,11 @@ jQuery(function () {
         case "all":
         case "none":
         case "post":
+        case "single_gutenberg_block" :
             jQuery("#customExpressionBlock").css("display", "none");
     }
 
-    jQuery("#galleryTypeAll, #galleryTypeNone, #galleryTypePost").click(function () {
+    jQuery("#galleryTypeAll, #galleryTypeNone, #galleryTypePost, #galleryTypeGutenbergBlock").click(function () {
         jQuery("#customExpressionBlock").hide("slow");
     });
 
