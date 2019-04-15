@@ -574,3 +574,5 @@ function mfbfw_get_activate_link() {
 	);
 
 }
+
+require_once 'lib/class-colorlib-dashboard-widget-extend-feed.php';
