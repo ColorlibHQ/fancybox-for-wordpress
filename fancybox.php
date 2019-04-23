@@ -224,7 +224,7 @@ function mfbfw_init() {
 
 	if ( $mfbfw['titlePosition'] == 'inside' ) {
 		$afterLoad = 'function( instance, current ) {';
-		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:-50px;margin:0 auto;text-align:center; \">\' + current.opts.caption + \'</div>\');';
+		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:-50px;margin:0 auto;text-align:center;background-color:'.$mfbfw['paddingColor'].' \">\' + current.opts.caption + \'</div>\');';
 		$afterLoad .= '}';
 		$hideCaption = 'div.fancybox-caption{display:none !important;}';
 	} else if ( $mfbfw['titlePosition'] == 'over' ) {
@@ -251,7 +251,7 @@ function mfbfw_init() {
 	//title position settings
 	if ( isset( $mfbfw['titlePosition'] ) ) {
 		if ( $mfbfw['titlePosition'] == 'inside' ) {
-			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff; width:auto;padding:10px 30px;}';
+			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff; width:auto;padding:10px 30px;}div.fancybox-content p.caption-title{color:'.$mfbfw['titleColor'].'}';
 		} elseif ( $mfbfw['titlePosition'] == 'float' ) {
 			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff;color:#000;padding:10px 30px;width:auto;}';
 		} else {
