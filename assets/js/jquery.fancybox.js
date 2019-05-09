@@ -3178,8 +3178,14 @@
         css.width = props.width;
       }
 
+      var custom_caption_outerHeight = 0;
+
+      if($('.fancybox-custom-caption.inside-caption').length ){
+          custom_caption_outerHeight = $el.find('.fancybox-custom-caption').outerHeight();
+      }
+
       if (props.height !== undefined) {
-        css.height = props.height;
+        css.height = props.height + custom_caption_outerHeight;
       }
 
       return $el.css(css);

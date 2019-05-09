@@ -221,10 +221,10 @@ function mfbfw_init() {
                                         if(caption && title){jQuery(this).attr("title",title+" " + caption)}else if(title){ jQuery(this).attr("title",title);}else if(caption){jQuery(this).attr("title",caption);}
 									});	';
 
-
+	$afterLoad = '';
 	if ( $mfbfw['titlePosition'] == 'inside' ) {
 		$afterLoad = 'function( instance, current ) {';
-		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:-50px;margin:0 auto;text-align:center;background-color:'.$mfbfw['paddingColor'].' \">\' + current.opts.caption + \'</div>\');';
+		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption inside-caption\" style=\" position: absolute;left:0;right:0;color:#000;margin:0 auto;bottom:0;text-align:center;background-color:'.$mfbfw['paddingColor'].' \">\' + current.opts.caption + \'</div>\');';
 		$afterLoad .= '}';
 		$hideCaption = 'div.fancybox-caption{display:none !important;}';
 	} else if ( $mfbfw['titlePosition'] == 'over' ) {
