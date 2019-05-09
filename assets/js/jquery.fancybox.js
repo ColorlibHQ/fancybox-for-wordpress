@@ -3182,6 +3182,9 @@
 
       if($('.fancybox-custom-caption.inside-caption').length ){
           custom_caption_outerHeight = $el.find('.fancybox-custom-caption').outerHeight();
+          if(custom_caption_outerHeight == 0){
+            custom_caption_outerHeight = 10;
+          }
       } else {
           custom_caption_outerHeight = ($el.find('.fancybox-image').outerHeight() - $el.find('.fancybox-image').height())/2;
           // Seems like different border width for image requires a little trimming
