@@ -251,7 +251,7 @@ function mfbfw_init() {
 	//title position settings
 	if ( isset( $mfbfw['titlePosition'] ) ) {
 		if ( $mfbfw['titlePosition'] == 'inside' ) {
-			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff; width:auto;padding:10px 30px;}div.fancybox-content p.caption-title{color:'.$mfbfw['titleColor'].'}';
+			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff; width:auto;padding:10px 30px;}div.fancybox-content p.caption-title{color:'.$mfbfw['titleColor'].';margin: 0;padding: 5px 0;}';
 		} elseif ( $mfbfw['titlePosition'] == 'float' ) {
 			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff;color:#000;padding:10px 30px;width:auto;}';
 		} else {
@@ -267,7 +267,7 @@ function mfbfw_init() {
 		echo '
 <!-- Fancybox for WordPress v' . $mfbfw_version . ' -->
 <style type="text/css">
-	'.$hideCaption.'
+	.fancybox-slide--image .fancybox-content{background-color: ' . $mfbfw['paddingColor'] . '}'.$hideCaption.'
 	' . ( isset( $mfbfw['overlayShow'] ) ? '' : 'div.fancybox-bg{background:transparent !important;}' ) . '
 	' . 'img.fancybox-image{border-width:' . $mfbfw['padding'] . 'px;border-color:' . $mfbfw['paddingColor'] . ';border-style:solid;height:auto;}' . '
 	' . ( isset( $mfbfw['overlayColor'] ) && $mfbfw['overlayColor'] ? 'div.fancybox-bg{background-color:' . hexTorgba( $mfbfw['overlayColor'], $mfbfw['overlayOpacity'] ) . ';opacity:1 !important;}' : '' ) . ( isset( $mfbfw['paddingColor'] ) && $mfbfw['paddingColor'] ? 'div.fancybox-content{border-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '

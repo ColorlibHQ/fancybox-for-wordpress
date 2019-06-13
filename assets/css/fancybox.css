@@ -239,15 +239,15 @@ body.compensate-for-scrollbar {
     background: transparent;
     border: 0;
     height: 100%;
-    left: 0;
+    /*left: 0;*/
     /* Fix images beeing distorted */
     object-fit: contain;
     margin: 0;
     max-height: none;
     max-width: none;
     padding: 0;
-    position: absolute;
-    top: 0;
+    /*position: absolute;
+    top: 0;*/
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
