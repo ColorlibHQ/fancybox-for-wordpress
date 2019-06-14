@@ -3178,8 +3178,31 @@
         css.width = props.width;
       }
 
+      var custom_caption_outerHeight = 0;
+
+      if($('.fancybox-custom-caption.inside-caption').length ){
+          custom_caption_outerHeight = $el.find('.fancybox-custom-caption').outerHeight();
+          if(custom_caption_outerHeight == 0){
+            custom_caption_outerHeight = 10;
+          }
+      } else {
+          custom_caption_outerHeight = ($el.find('.fancybox-image').outerHeight() - $el.find('.fancybox-image').height())/2;
+          // Seems like different border width for image requires a little trimming
+          if(custom_caption_outerHeight > 20 && custom_caption_outerHeight < 25 ){
+            custom_caption_outerHeight -= 2;
+          }
+
+          if(custom_caption_outerHeight >= 25 && custom_caption_outerHeight <= 30){
+              custom_caption_outerHeight -= 4;
+          }
+
+          if(custom_caption_outerHeight > 30){
+              custom_caption_outerHeight -= 6;
+          }
+      }
+
       if (props.height !== undefined) {
-        css.height = props.height;
+        css.height = props.height + custom_caption_outerHeight;
       }
 
       return $el.css(css);

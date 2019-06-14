@@ -3,7 +3,7 @@
 * Plugin Name: FancyBox for WordPress
 * Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 * Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-* Version: 3.2.0
+* Version: 3.2.2
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
 * Tested up to: 5.1
@@ -36,7 +36,7 @@
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.2.0' );
+define( 'FBFW_VERSION', '3.2.2' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
@@ -221,10 +221,10 @@ function mfbfw_init() {
                                         if(caption && title){jQuery(this).attr("title",title+" " + caption)}else if(title){ jQuery(this).attr("title",title);}else if(caption){jQuery(this).attr("title",caption);}
 									});	';
 
-
+	$afterLoad = '';
 	if ( $mfbfw['titlePosition'] == 'inside' ) {
 		$afterLoad = 'function( instance, current ) {';
-		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:-50px;margin:0 auto;text-align:center; \">\' + current.opts.caption + \'</div>\');';
+		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption inside-caption\" style=\" position: absolute;left:0;right:0;color:#000;margin:0 auto;bottom:0;text-align:center;background-color:'.$mfbfw['paddingColor'].' \">\' + current.opts.caption + \'</div>\');';
 		$afterLoad .= '}';
 		$hideCaption = 'div.fancybox-caption{display:none !important;}';
 	} else if ( $mfbfw['titlePosition'] == 'over' ) {
@@ -251,7 +251,7 @@ function mfbfw_init() {
 	//title position settings
 	if ( isset( $mfbfw['titlePosition'] ) ) {
 		if ( $mfbfw['titlePosition'] == 'inside' ) {
-			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff; width:auto;padding:10px 30px;}';
+			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff; width:auto;padding:10px 30px;}div.fancybox-content p.caption-title{color:'.$mfbfw['titleColor'].';margin: 0;padding: 5px 0;}';
 		} elseif ( $mfbfw['titlePosition'] == 'float' ) {
 			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff;color:#000;padding:10px 30px;width:auto;}';
 		} else {
@@ -267,7 +267,7 @@ function mfbfw_init() {
 		echo '
 <!-- Fancybox for WordPress v' . $mfbfw_version . ' -->
 <style type="text/css">
-	'.$hideCaption.'
+	.fancybox-slide--image .fancybox-content{background-color: ' . $mfbfw['paddingColor'] . '}'.$hideCaption.'
 	' . ( isset( $mfbfw['overlayShow'] ) ? '' : 'div.fancybox-bg{background:transparent !important;}' ) . '
 	' . 'img.fancybox-image{border-width:' . $mfbfw['padding'] . 'px;border-color:' . $mfbfw['paddingColor'] . ';border-style:solid;height:auto;}' . '
 	' . ( isset( $mfbfw['overlayColor'] ) && $mfbfw['overlayColor'] ? 'div.fancybox-bg{background-color:' . hexTorgba( $mfbfw['overlayColor'], $mfbfw['overlayOpacity'] ) . ';opacity:1 !important;}' : '' ) . ( isset( $mfbfw['paddingColor'] ) && $mfbfw['paddingColor'] ? 'div.fancybox-content{border-color:' . $mfbfw['paddingColor'] . '}' : '' ) . '
@@ -357,7 +357,18 @@ function mfbfw_init() {
         });
 
 		// Else, gallery type is custom, so just print the custom expression
-		<?php } else { ?>
+		<?php } else if( $mfbfw['galleryType'] == 'single_gutenberg_block'){
+		    ?>
+
+            var gallery_block = jQuery('ul.wp-block-gallery');
+            gallery_block.each(function() {
+                jQuery(this).find(thumbnails).addClass("fancyboxforwp").attr("data-fancybox","gallery"+gallery_block.index(this)).attr("rel","fancybox"+gallery_block.index(this)).getTitle();
+
+                jQuery(this).find(iframeLinks).attr({ "data-fancybox":"gallery"+gallery_block.index(this) }).attr("rel","fancybox"+gallery_block.index(this)).getTitle();
+
+            });
+            <?php
+		} else { ?>
 			/* Custom Expression */
 			<?php echo $mfbfw['customExpression']; ?>
 		<?php } ?>
@@ -563,3 +574,5 @@ function mfbfw_get_activate_link() {
 	);
 
 }
+
+require_once 'lib/class-colorlib-dashboard-widget-extend-feed.php';

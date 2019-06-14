@@ -511,13 +511,16 @@ a.modula-link:hover {
 
 .epsilon-toggle {
     position: relative;
+    float: left;
     user-select: none;
-    display:inline-block;
-    vertical-align: middle;
 }
 
 .epsilon-toggle__items {
     box-sizing: border-box;
+}
+
+.epsilon-toggle__items > * {
+    box-sizing: inherit;
 }
 
 .epsilon-toggle__input[type=checkbox] {
@@ -549,47 +552,45 @@ a.modula-link:hover {
 
 .epsilon-toggle__thumb {
     background-color: #6c7781;
+    border: 5px solid #6c7781;
     border-radius: 50%;
     display: block;
     height: 10px;
     width: 10px;
     position: absolute;
-    left: 7px;
-    top: 5px;
+    left: 4px;
+    top: 4px;
     transition: transform .2s ease;
 }
 
 .epsilon-toggle__off {
     position: absolute;
-    right: 7px;
-    top: 7px;
-    width:7px;
-    height:7px;
+    right: 6px;
+    top: 6px;
     color: #6c7781;
     fill: currentColor;
 }
 
 .epsilon-toggle__on {
     position: absolute;
-    top: 7px;
+    top: 6px;
     left: 8px;
+    border: 1px solid #fff;
     outline: 1px solid transparent;
     outline-offset: -1px;
     display: none;
-    fill:#fff;
 }
+
 
 .epsilon-toggle__input[type=checkbox]:checked + .epsilon-toggle__items .epsilon-toggle__track {
     background-color: #11a0d2;
-    border: 2px solid transparent;
+    border: 9px solid transparent;
 }
 
 .epsilon-toggle__input[type=checkbox]:checked + .epsilon-toggle__items .epsilon-toggle__thumb {
     background-color: #fff;
     border-width: 0;
     transform: translateX(18px);
-    width: 10px;
-    height: 10px;
 }
 
 .epsilon-toggle__input[type=checkbox]:checked + .epsilon-toggle__items .epsilon-toggle__off {
