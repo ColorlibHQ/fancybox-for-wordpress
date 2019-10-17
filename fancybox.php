@@ -3,7 +3,7 @@
 * Plugin Name: FancyBox for WordPress
 * Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 * Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-* Version: 3.2.4
+* Version: 3.2.5
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
 * Tested up to: 5.2
@@ -36,7 +36,7 @@
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.2.4' );
+define( 'FBFW_VERSION', '3.2.5' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
@@ -277,7 +277,7 @@ function mfbfw_init() {
 	' . ( isset( $mfbfw['borderRadius'] ) ? 'div.fancybox-content{border-radius:' . $mfbfw['borderRadius'] . 'px}' : '' ) . '
 	' . ( isset( $mfbfw['borderRadiusInner'] ) ? 'img#fancybox-img{border-radius:' . $mfbfw['borderRadiusInner'] . 'px}' : '' ) . '
 	' . ( isset( $mfbfw['shadowSize'] ) && $mfbfw['shadowOffset'] && $mfbfw['shadowOpacity'] ? 'div.fancybox-content{box-shadow:0 ' . $mfbfw['shadowOffset'] . 'px ' . $mfbfw['shadowSize'] . 'px rgba(0,0,0,' . $mfbfw['shadowOpacity'] . ')}' : '' ) . '
-	' . ( isset( $mfbfw['titleShow'] ) ? 'div.fancybox-caption p.caption-title{display:inline-block}' : 'div.fancybox-caption p.caption-title{display:none}div.fancybox-caption{display:none;}' ) . '
+	' . ( isset( $mfbfw['titleShow'] ) ? 'div.fancybox-caption p.caption-title{display:inline-block}' : 'div.fancybox-custom-caption p.caption-title{display:none}div.fancybox-caption{display:none;}' ) . '
 	' . ( isset( $mfbfw['titleSize'] ) ? 'div.fancybox-caption p.caption-title{font-size:' . $mfbfw['titleSize'] . 'px}' : 'div.fancybox-caption p.caption-title{font-size:14px}' ) . '
 	' . ( isset( $mfbfw['titleColor'] ) && $mfbfw['titlePosition'] == 'inside' ? 'div.fancybox-caption p.caption-title{color:' . $mfbfw['titleColor'] . '}' : 'div.fancybox-caption p.caption-title{color:#fff}' ) . '
 	' . ( isset( $mfbfw['titlePosition'] ) ? 'div.fancybox-caption {color:' . $mfbfw['titleColor'] . '}' : 'div.fancybox-caption p.caption-title{color:#333333}' ) . $captionPosition . '
