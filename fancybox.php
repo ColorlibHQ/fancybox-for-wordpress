@@ -6,7 +6,7 @@
 * Version: 3.2.6
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
-* Tested up to: 5.2
+* Tested up to: 5.3
 * Requires: 4.6 or higher
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
