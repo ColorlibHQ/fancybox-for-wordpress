@@ -2,8 +2,8 @@
 Contributors: silkalns
 Tags: fancybox, lightbox, jquery, gallery, image, images, photo, photos, picture, pictures, zoom
 Requires at least: 4.6
-Tested up to: 5.2
-Stable tag: 3.2.5
+Tested up to: 5.3
+Stable tag: 3.2.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,6 +30,11 @@ If you are new to WordPress and want to lear more we have got you covered. Color
 If you enjoy using FancyBox lightbox for WordPress please leave a [positive feedback](https://wordpress.org/support/plugin/fancybox-for-wordpress/reviews/?filter=5). We are committed to make it the best lightbox plugin for WordPress.
 
 == Changelog ==
+
+= 3.2.6 =
+* Admin bar overfloat fix
+* Tooltip description bug fix
+* Add option for caption hide/show
 
 = 3.2.5 =
 * Fix title hide/show option

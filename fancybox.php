@@ -3,10 +3,10 @@
 * Plugin Name: FancyBox for WordPress
 * Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 * Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-* Version: 3.2.5
+* Version: 3.2.6
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
-* Tested up to: 5.2
+* Tested up to: 5.3
 * Requires: 4.6 or higher
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,7 +36,7 @@
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.2.5' );
+define( 'FBFW_VERSION', '3.2.6' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
@@ -75,60 +75,61 @@ function mfbfw_defaults() {
 
 	$default_settings = array(
 		// Appearance
-		'border'                     => '',
-		'borderColor'                => '#BBBBBB',
-		'paddingColor'               => '#FFFFFF',
-		'padding'                    => '10',
-		'overlayShow'                => 'on',
-		'overlayColor'               => '#666666',
-		'overlayOpacity'             => '0.3',
-		'titleShow'                  => 'on',
-		'titlePosition'              => 'inside',
-		'titleColor'                 => '#333333',
-		'showNavArrows'              => 'on',
-		'titleSize'                  => '14',
-		'showCloseButton'            => '',
-		'showToolbar'                => 'on',
-		// Animations
-		'zoomOpacity'                => 'on',
-		'zoomSpeedIn'                => '500',
-		'zoomSpeedChange'            => '300',
-		'transitionIn'               => 'fade',
-		'transitionEffect'           => 'fade',
-		// Behaviour
-		'hideOnOverlayClick'         => 'function(current, event) {
+        'border'                     => '',
+        'borderColor'                => '#BBBBBB',
+        'paddingColor'               => '#FFFFFF',
+        'padding'                    => '10',
+        'overlayShow'                => 'on',
+        'overlayColor'               => '#666666',
+        'overlayOpacity'             => '0.3',
+        'titleShow'                  => 'on',
+        'captionShow'                => '',
+        'titlePosition'              => 'inside',
+        'titleColor'                 => '#333333',
+        'showNavArrows'              => 'on',
+        'titleSize'                  => '14',
+        'showCloseButton'            => '',
+        'showToolbar'                => 'on',
+        // Animations
+        'zoomOpacity'                => 'on',
+        'zoomSpeedIn'                => '500',
+        'zoomSpeedChange'            => '300',
+        'transitionIn'               => 'fade',
+        'transitionEffect'           => 'fade',
+        // Behaviour
+        'hideOnOverlayClick'         => 'function(current, event) {
 									return current.type === "image" ? "close" : false;
 								  },',
-		'hideOnContentClick'         => '',
-		'enableEscapeButton'         => 'on',
-		'cyclic'                     => '',
-		'mouseWheel'                 => '',
-		'disableWoocommercePages'    => '',
-		'disableWoocommerceProducts' => '',
-		// Gallery Type
-		'galleryType'                => 'all',
-		'customExpression'           => 'jQuery(thumbnails).attr("data-fancybox","gallery").getTitle();',
-		// Misc
-		'autoDimensions'             => 'on',
-		'frameWidth'                 => '560',
-		'frameHeight'                => '340',
-		'loadAtFooter'               => '',
-		'callbackEnable'             => '',
-		'callbackOnStart'            => 'function() { alert("Start!"); }',
-		'callbackOnCancel'           => 'function() { alert("Cancel!"); }',
-		'callbackOnComplete'         => 'function() { alert("Complete!"); }',
-		'callbackOnCleanup'          => 'function() { alert("CleanUp!"); }',
-		'callbackOnClose'            => 'function() { alert("Close!"); }',
-		'copyTitleFunction'          => 'var arr = jQuery("a[data-fancybox]");
+        'hideOnContentClick'         => '',
+        'enableEscapeButton'         => 'on',
+        'cyclic'                     => '',
+        'mouseWheel'                 => '',
+        'disableWoocommercePages'    => '',
+        'disableWoocommerceProducts' => '',
+        // Gallery Type
+        'galleryType'                => 'all',
+        'customExpression'           => 'jQuery(thumbnails).attr("data-fancybox","gallery").getTitle();',
+        // Misc
+        'autoDimensions'             => 'on',
+        'frameWidth'                 => '560',
+        'frameHeight'                => '340',
+        'loadAtFooter'               => '',
+        'callbackEnable'             => '',
+        'callbackOnStart'            => 'function() { alert("Start!"); }',
+        'callbackOnCancel'           => 'function() { alert("Cancel!"); }',
+        'callbackOnComplete'         => 'function() { alert("Complete!"); }',
+        'callbackOnCleanup'          => 'function() { alert("CleanUp!"); }',
+        'callbackOnClose'            => 'function() { alert("Close!"); }',
+        'copyTitleFunction'          => 'var arr = jQuery("a[data-fancybox]");
                                 jQuery.each(arr, function() {
                                     var title = jQuery(this).children("img").attr("title");
                                     var caption = jQuery(this).next("figcaption").html();
                                     if(caption.length){jQuery(this).attr("title",title+" " + caption)}else{ jQuery(this).attr("title",title);};
                                 });	',
-		'nojQuery'                   => '',
-		'extraCallsEnable'           => '',
-		'extraCallsData'             => '',
-		'uninstall'                  => '',
+        'nojQuery'                   => '',
+        'extraCallsEnable'           => '',
+        'extraCallsData'             => '',
+        'uninstall'                  => '',
 	);
 
 	return $default_settings;
@@ -214,12 +215,22 @@ function mfbfw_init() {
 
 	// fix undefined index copyTitleFunction. $mfbfw array misses this index.
 
-	$mfbfw['copyTitleFunction'] = 'var arr = jQuery("a[data-fancybox]");
+    if (isset($mfbfw['captionShow']) && 'on' == $mfbfw['captionShow']) {
+        $mfbfw['copyTitleFunction'] = 'var arr = jQuery("a[data-fancybox]");
+									jQuery.each(arr, function() {
+										var title = jQuery(this).children("img").attr("title");
+                                        if(title){jQuery(this).attr("title",title)}
+									});	';
+    } else {
+        $mfbfw['copyTitleFunction'] = 'var arr = jQuery("a[data-fancybox]");
 									jQuery.each(arr, function() {
 										var title = jQuery(this).children("img").attr("title");
 										 var caption = jQuery(this).next("figcaption").html();
                                         if(caption && title){jQuery(this).attr("title",title+" " + caption)}else if(title){ jQuery(this).attr("title",title);}else if(caption){jQuery(this).attr("title",caption);}
 									});	';
+    }
+
+
 
 	$afterLoad = '';
 	if ( $mfbfw['titlePosition'] == 'inside' ) {

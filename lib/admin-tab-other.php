@@ -245,7 +245,7 @@
     <tr valign="top">
         <th scope="row"><?php _e( 'Remove settings', 'mfbfw' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php _e( 'Remove Settings when plugin is deactivated from the "Manage Plugins" page. (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php echo esc_attr__( 'Remove Settings when plugin is deactivated from the "Manage Plugins" page. (default: off)', 'mfbfw' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
