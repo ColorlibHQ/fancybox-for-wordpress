@@ -49,6 +49,10 @@ define( 'PLUGIN_NAME', 'fancybox-for-wordpress' );
 $mfbfw         = get_option( 'mfbfw' );
 $mfbfw_version = get_option( 'mfbfw_active_version' );
 
+// Include review class
+include 'class-fancybox-review.php';
+
+
 // If previous version detected
 if ( is_admin() && isset( $mfbfw_version ) && $mfbfw_version < FBFW_VERSION ) {
 
@@ -478,12 +482,16 @@ function mfbfw_admin_options() {
 
 add_action( 'admin_init', 'mfbfw_admin_options' );
 
+
+
+
 /**
  * Admin options page
  */
 function mfbfw_admin_menu() {
 
 	require FBFW_PATH . 'admin.php';
+
 
 	$mfbfwadmin = add_submenu_page( 'options-general.php', 'Fancybox for WordPress Options', 'Fancybox for WP', 'manage_options', 'fancybox-for-wordpress', 'mfbfw_options_page' );
 
