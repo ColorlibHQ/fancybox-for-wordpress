@@ -373,7 +373,12 @@ function mfbfw_init() {
 		<?php } else if( $mfbfw['galleryType'] == 'single_gutenberg_block'){
 		    ?>
 
-            var gallery_block = jQuery('ul.wp-block-gallery');
+            var gallery_block;
+            if(jQuery('ul.wp-block-gallery').length){
+	            var gallery_block = jQuery('ul.wp-block-gallery');
+            } else if(jQuery('ul.blocks-gallery-grid')) {
+	            var gallery_block = jQuery('ul.blocks-gallery-grid');
+            }
             gallery_block.each(function() {
                 jQuery(this).find(thumbnails).addClass("fancyboxforwp").attr("data-fancybox","gallery"+gallery_block.index(this)).attr("rel","fancybox"+gallery_block.index(this)).getTitle();
 
