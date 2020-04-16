@@ -49,9 +49,7 @@ define( 'PLUGIN_NAME', 'fancybox-for-wordpress' );
 $mfbfw         = get_option( 'mfbfw' );
 $mfbfw_version = get_option( 'mfbfw_active_version' );
 
-// Include review class
 include 'class-fancybox-review.php';
-
 
 // If previous version detected
 if ( is_admin() && isset( $mfbfw_version ) && $mfbfw_version < FBFW_VERSION ) {
@@ -176,10 +174,10 @@ function mfbfw_enqueue_scripts() {
 	}
 
 	// Register Scripts
-	wp_register_script( 'fancybox', FBFW_URL . 'assets/js/jquery.fancybox.js', $jquery, '1.3.4', $footer ); // Main Fancybox script
+	wp_register_script( 'fancybox-for-wp', FBFW_URL . 'assets/js/jquery.fancybox.js', $jquery, '1.3.4', $footer ); // Main Fancybox script
 
 	// Enqueue Scripts
-	wp_enqueue_script( 'fancybox' ); // Load fancybox
+	wp_enqueue_script( 'fancybox-for-wp' ); // Load fancybox
 
 	if ( isset( $mfbfw['easing'] ) && $mfbfw['easing'] ) {
 		wp_enqueue_script( 'jqueryeasing' ); // Load easing javascript file if required
@@ -190,9 +188,9 @@ function mfbfw_enqueue_scripts() {
 	}
 
 	// Register Styles
-	wp_register_style( 'fancybox', FBFW_URL . 'assets/css/fancybox.css', false, '1.3.4' ); // Main Fancybox style
+	wp_register_style( 'fancybox-for-wp', FBFW_URL . 'assets/css/fancybox.css', false, '1.3.4' ); // Main Fancybox style
 	// Enqueue Styles
-	wp_enqueue_style( 'fancybox' );
+	wp_enqueue_style( 'fancybox-for-wp' );
 
 	// Make IE specific styles load only on IE6-8
 	$wp_styles->add_data( 'fancybox-ie', 'conditional', 'lt IE 9' );
@@ -482,16 +480,12 @@ function mfbfw_admin_options() {
 
 add_action( 'admin_init', 'mfbfw_admin_options' );
 
-
-
-
 /**
  * Admin options page
  */
 function mfbfw_admin_menu() {
 
 	require FBFW_PATH . 'admin.php';
-
 
 	$mfbfwadmin = add_submenu_page( 'options-general.php', 'Fancybox for WordPress Options', 'Fancybox for WP', 'manage_options', 'fancybox-for-wordpress', 'mfbfw_options_page' );
 
