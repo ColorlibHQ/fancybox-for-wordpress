@@ -133,7 +133,7 @@ class Fancybox_Review {
 						check: id
 					};
 
-					if ( 'epsilon-rated' === id ) {
+					if ( 'epsilon-rated' === id || 'epsilon-rate' === id ) {
 						data['epsilon-review'] = 1;
 					}
 
