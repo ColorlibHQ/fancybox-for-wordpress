@@ -34,6 +34,7 @@ If you enjoy using FancyBox lightbox for WordPress please leave a [positive feed
 = 3.2.7 =
 * Fix for separate gutenberg blocks
 * Personalize script handles
+* Review dismiss fix
 
 = 3.2.6 =
 * Admin bar overfloat fix
