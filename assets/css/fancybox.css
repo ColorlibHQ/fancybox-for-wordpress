@@ -882,6 +882,11 @@ body.compensate-for-scrollbar {
     opacity: 1;
 }
 
+/* Admin bar overfloat fix */
+.fancybox-container.fancybox-is-open {
+    z-index:99999;
+}
+
 /* Styling for Small-Screen Devices */
 @media all and (max-width: 576px) {
     .fancybox-thumbs {

@@ -3201,9 +3201,10 @@
           }
       }
 
-      if (props.height !== undefined) {
+      if (props.height !== undefined && props.height != $el.outerHeight()) {
         css.height = props.height + custom_caption_outerHeight;
       }
+
 
       return $el.css(css);
     },
