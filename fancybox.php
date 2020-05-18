@@ -3,7 +3,7 @@
 * Plugin Name: FancyBox for WordPress
 * Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 * Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-* Version: 3.2.7
+* Version: 3.2.8
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
 * Tested up to: 5.4
@@ -36,7 +36,7 @@
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.2.7' );
+define( 'FBFW_VERSION', '3.2.8' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
@@ -207,10 +207,10 @@ function mfbfw_init() {
 
 	//caption function to display image title
 	$caption = 'function( instance, item ) {' .
-	           'var testing = jQuery(this).context.title;' .
+	           'if("undefined" != typeof jQuery(this).context ){var title = jQuery(this).context.title;} else { var title = jQuery(this).attr("title");}' .
 	           'var caption = jQuery(this).data(\'caption\') || \'\';' .
-	           'if ( item.type === \'image\' && testing.length ) {' .
-	           'caption = (caption.length ? caption + \'<br />\' : \'\') + \'<p class="caption-title">\'+testing+\'</p>\' ;' .
+	           'if ( item.type === \'image\' && title.length ) {' .
+	           'caption = (caption.length ? caption + \'<br />\' : \'\') + \'<p class="caption-title">\'+title+\'</p>\' ;' .
 	           '}' .
 	           'return caption;' .
 	           '}';
@@ -409,7 +409,7 @@ function mfbfw_init() {
 			keyboard: <?php echo ( isset( $mfbfw['enableEscapeButton'] ) && $mfbfw['enableEscapeButton'] ? 'true' : 'false' ) ?>,
 			showCloseButton: <?php echo ( isset( $mfbfw['showCloseButton'] ) && $mfbfw['showCloseButton'] ? 'true' : 'false' ) ?>,
 			arrows: <?php echo ( isset( $mfbfw['showNavArrows'] ) && $mfbfw['showNavArrows'] ? 'true' : 'false' ) ?>,
-			clickContent: <?php echo ( isset( $mfbfw['hideOnContentClick'] ) && $mfbfw['hideOnContentClick'] ? '"close"' : 'false' ) ?>,
+			clickContent:<?php echo(isset( $mfbfw['hideOnContentClick'] ) && $mfbfw['hideOnContentClick'] ? '"close"' : 'false') ?>,
             clickSlide: <?php echo ( isset( $mfbfw['hideOnOverlayClick'] ) && $mfbfw['hideOnOverlayClick'] ? '"close"' : 'false' ) ?>,
             mobile:{
                 clickContent: function(current, event) {
