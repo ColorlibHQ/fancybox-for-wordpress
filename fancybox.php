@@ -89,6 +89,7 @@ function mfbfw_defaults() {
         'titlePosition'              => 'inside',
         'titleColor'                 => '#333333',
         'showNavArrows'              => 'on',
+		'disableOnMobile'            => 'off',
         'titleSize'                  => '14',
         'showCloseButton'            => '',
         'showToolbar'                => 'on',
@@ -159,41 +160,47 @@ function mfbfw_enqueue_scripts() {
 
 	global $mfbfw, $wp_styles;
 
-	// Check if script should be loaded in footer
-	if ( isset( $mfbfw['loadAtFooter'] ) && $mfbfw['loadAtFooter'] ) {
-		$footer = true;
-	} else {
-		$footer = false;
+	if ( !(!isset( $mfbfw['disableOnMobile'] ) || 'on' != $mfbfw['disableOnMobile']) && !wp_is_mobile() ) {
+
+		// Check if script should be loaded in footer
+		if ( isset( $mfbfw['loadAtFooter'] ) && $mfbfw['loadAtFooter'] ) {
+			$footer = true;
+		}
+		else {
+			$footer = false;
+		}
+
+		// Check if plugin should not call jQuery script (for troubleshooting only)
+		if ( isset( $mfbfw['nojQuery'] ) && $mfbfw['nojQuery'] ) {
+			$jquery = false;
+		}
+		else {
+			$jquery = array( 'jquery' );
+		}
+
+
+		// Register Scripts
+		wp_register_script( 'fancybox-for-wp', FBFW_URL . 'assets/js/jquery.fancybox.js', $jquery, '1.3.4', $footer ); // Main Fancybox script
+
+		// Enqueue Scripts
+		wp_enqueue_script( 'fancybox-for-wp' ); // Load fancybox
+
+		if ( isset( $mfbfw['easing'] ) && $mfbfw['easing'] ) {
+			wp_enqueue_script( 'jqueryeasing' ); // Load easing javascript file if required
+		}
+
+		if ( isset( $mfbfw['wheel'] ) && $mfbfw['wheel'] ) {
+			wp_enqueue_script( 'jquerymousewheel' ); // Load mouse wheel javascript file if required
+		}
+
+		// Register Styles
+		wp_register_style( 'fancybox-for-wp', FBFW_URL . 'assets/css/fancybox.css', false, '1.3.4' ); // Main Fancybox style
+		// Enqueue Styles
+		wp_enqueue_style( 'fancybox-for-wp' );
+
+		// Make IE specific styles load only on IE6-8
+		$wp_styles->add_data( 'fancybox-ie', 'conditional', 'lt IE 9' );
 	}
-
-	// Check if plugin should not call jQuery script (for troubleshooting only)
-	if ( isset( $mfbfw['nojQuery'] ) && $mfbfw['nojQuery'] ) {
-		$jquery = false;
-	} else {
-		$jquery = array( 'jquery' );
-	}
-
-	// Register Scripts
-	wp_register_script( 'fancybox-for-wp', FBFW_URL . 'assets/js/jquery.fancybox.js', $jquery, '1.3.4', $footer ); // Main Fancybox script
-
-	// Enqueue Scripts
-	wp_enqueue_script( 'fancybox-for-wp' ); // Load fancybox
-
-	if ( isset( $mfbfw['easing'] ) && $mfbfw['easing'] ) {
-		wp_enqueue_script( 'jqueryeasing' ); // Load easing javascript file if required
-	}
-
-	if ( isset( $mfbfw['wheel'] ) && $mfbfw['wheel'] ) {
-		wp_enqueue_script( 'jquerymousewheel' ); // Load mouse wheel javascript file if required
-	}
-
-	// Register Styles
-	wp_register_style( 'fancybox-for-wp', FBFW_URL . 'assets/css/fancybox.css', false, '1.3.4' ); // Main Fancybox style
-	// Enqueue Styles
-	wp_enqueue_style( 'fancybox-for-wp' );
-
-	// Make IE specific styles load only on IE6-8
-	$wp_styles->add_data( 'fancybox-ie', 'conditional', 'lt IE 9' );
 }
 
 add_action( 'wp_enqueue_scripts', 'mfbfw_enqueue_scripts' );
@@ -391,7 +398,10 @@ function mfbfw_init() {
 			<?php echo $mfbfw['customExpression']; ?>
 		<?php } ?>
 
-
+		var mobileOnly = false;
+		<?php if(isset( $mfbfw['disableOnMobile'] ) && 'on' != $mfbfw['disableOnMobile']){ ?>
+			mobileOnly = true;
+		<?php } ?>
 
 		// Call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
 		jQuery("a.fancyboxforwp").fancyboxforwp({
@@ -431,6 +441,7 @@ function mfbfw_init() {
 			afterLoad : <?php echo $afterLoad ?>,
 			<?php echo $frameSize ?>
 		});
+
 		<?php if ( isset( $mfbfw['extraCallsEnable'] ) && $mfbfw['extraCallsEnable'] ) {
 			echo "/* Extra Calls */";
             echo $mfbfw['extraCallsData'];
@@ -572,31 +583,4 @@ function fancy_check_if_woocommerce() {
 	} else {
 		return 'true';
 	}
-}
-
-// Ajax request for activate link
-add_action( 'wp_ajax_mfbfw_activate_link', 'mfbfw_get_activate_link' );
-function mfbfw_get_activate_link() {
-
-	$plugin_path = 'modula-best-grid-gallery/Modula.php';
-	$link = add_query_arg(
-        array(
-            'action'        => 'activate',
-            'plugin'        => rawurlencode( $plugin_path ),
-            'plugin_status' => 'all',
-            'paged'         => '1',
-            '_wpnonce'      => wp_create_nonce( 'activate-plugin_' . $plugin_path ),
-        ),
-        admin_url( 'plugins.php' )
-    );
-
-	wp_die(
-		wp_json_encode(
-			array(
-				'status' => 'succes',
-				'link'   => $link,
-			)
-		)
-	);
-
 }

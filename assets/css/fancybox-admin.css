@@ -43,6 +43,10 @@
     border: none
 }
 
+#fbfwTabs th {
+    min-width:250px;
+}
+
 #fbfwTabs .ui-tabs-nav {
     background: 0 0;
     border: 0;
@@ -265,20 +269,6 @@ tr.spacer {
 .about-wrap.fbfw-wrap {
     max-width:70%;
     float:left;
-}
-
-.modula-wrap {
-    float: left;
-    max-width: 20%;
-    padding-top: 32px;
-}
-
-a.modula-link {
-    color:#000;
-    text-decoration: none;
-}
-a.modula-link:hover {
-    text-decoration: none;
 }
 
 .cf:after,
