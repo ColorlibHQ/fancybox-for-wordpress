@@ -33,6 +33,7 @@ If you enjoy using FancyBox lightbox for WordPress please leave a [positive feed
 
 = 3.2.8 =
 * Fix property ‘title’ of undefined when using newer versions of jQuery
+* Add option to disable FancyBox on mobile view
 
 = 3.2.7 =
 * Fix for separate gutenberg blocks
