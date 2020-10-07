@@ -103,7 +103,8 @@ function mfbfw_defaults() {
         'hideOnOverlayClick'         => 'function(current, event) {
 									return current.type === "image" ? "close" : false;
 								  },',
-        'hideOnContentClick'         => '',
+		'hideOnContentClick'         => '',
+		'zoomOnClick'                => 'off',
         'enableEscapeButton'         => 'on',
         'cyclic'                     => '',
         'mouseWheel'                 => '',
@@ -444,7 +445,7 @@ function mfbfw_init() {
 			onDeactivate
 	: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnCancel'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnCancel'] ? $mfbfw['callbackOnCancel'] . ',' : 'function() { },') ?>
 		beforeClose: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnCleanup'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnCleanup'] ? $mfbfw['callbackOnCleanup'] . ',' : 'function() { },') ?>
-			afterShow: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnComplete'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnComplete'] ? $mfbfw['callbackOnComplete'] . ',' : 'function() { },') ?>
+			afterShow: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnComplete'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnComplete'] ? $mfbfw['callbackOnComplete'] . ',' : ( isset( $mfbfw['zoomOnClick'] ) ? 'function(instance) { jQuery( ".fancybox-image" ).on("click", function( ){ ( instance.isScaledDown() ) ? instance.scaleToActual() : instance.scaleToFit() }) },' : 'function() {},' ) )?>
 				afterClose: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnClose'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnClose'] ? $mfbfw['callbackOnClose'] . ',' : 'function() { },') ?>
 					caption : <?php echo $caption ?>,
 		afterLoad : <?php echo $afterLoad ?>,
