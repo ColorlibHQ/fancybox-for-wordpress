@@ -138,7 +138,7 @@
     <tr valign="top">
         <th scope="row"><?php _e( 'Zoom On Click', 'mfbfw' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php _e( 'Lets visitors zoom in on the image when clicking it  (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php _e( 'Lets visitors zoom in on the image when clicking it. It will have no effect if Close on Content Click is toggled.   (default: off)', 'mfbfw' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
