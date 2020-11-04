@@ -104,7 +104,7 @@ function mfbfw_defaults() {
 									return current.type === "image" ? "close" : false;
 								  },',
 		'hideOnContentClick'         => '',
-		'zoomOnClick'                => 'off',
+		'zoomOnClick'                => '',
         'enableEscapeButton'         => 'on',
         'cyclic'                     => '',
         'mouseWheel'                 => '',
