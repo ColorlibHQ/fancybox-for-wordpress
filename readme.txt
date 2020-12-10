@@ -3,7 +3,7 @@ Contributors: silkalns
 Tags: fancybox, lightbox, jquery, gallery, image, images, photo, photos, picture, pictures, zoom
 Requires at least: 4.6
 Tested up to: 5.5
-Stable tag: 3.2.9
+Stable tag: 3.3.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,6 +30,9 @@ If you are new to WordPress and want to lear more we have got you covered. Color
 If you enjoy using FancyBox lightbox for WordPress please leave a [positive feedback](https://wordpress.org/support/plugin/fancybox-for-wordpress/reviews/?filter=5). We are committed to make it the best lightbox plugin for WordPress.
 
 == Changelog ==
+= 3.3.0 =
+Fixed compatibility issue with WordPress 5.6
+
 = 3.2.9 = 
 * Added Zoom on Click functionality
 
