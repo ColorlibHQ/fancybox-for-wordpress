@@ -485,7 +485,7 @@
     var rez = $.extend(true, {}, opts1, opts2);
 
     $.each(opts2, function(key, value) {
-      if ($.isArray(value)) {
+      if (Array.isArray(value)) {
         rez[key] = value;
       }
     });
@@ -714,7 +714,7 @@
         obj.opts = $.extend(true, {}, self.opts, opts);
 
         // Do not merge buttons array
-        if ($.isArray(opts.buttons)) {
+        if (Array.isArray(opts.buttons)) {
           obj.opts.buttons = opts.buttons;
         }
 
@@ -859,7 +859,7 @@
         if (thumbs && thumbs.isActive) {
           thumbs.create();
 
-          thumbs.focus();
+          thumbs.trigger('focus');
         }
       }
     },
@@ -5369,7 +5369,7 @@
           });
 
           // Opening links in a popup window
-          shareCurrent.$content.find(".fancybox-share__button").click(function() {
+          shareCurrent.$content.find(".fancybox-share__button").on('click', function() {
             window.open(this.href, "Share", "width=550, height=450");
             return false;
           });

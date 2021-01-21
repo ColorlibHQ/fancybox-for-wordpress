@@ -12,7 +12,7 @@ jQuery(function () {
             jQuery(block).css("display", "none");
         }
 
-        jQuery(button).click(function () {
+        jQuery(button).on('click', function () {
             jQuery(block).animate({
                 opacity: "toggle",
                 height: "toggle"
@@ -42,7 +42,7 @@ jQuery(function () {
 
         //Function enable codemirror on FancyBox Extra Calls
 
-        jQuery('.start-editing').click(function () {
+        jQuery('.start-editing').on('click', function () {
             wp.codeEditor.initialize(jQuery(this).next("textarea"));
             jQuery(this).hide();
         });
@@ -84,11 +84,11 @@ jQuery(function () {
             jQuery("#titleColorBlock").css("display", "none");
     }
 
-    jQuery("#titlePositionFloat, #titlePositionOutside, #titlePositionOver").click(function () {
+    jQuery("#titlePositionFloat, #titlePositionOutside, #titlePositionOver").on('click', function () {
         jQuery("#titleColorBlock").hide("slow");
     });
 
-    jQuery("#titlePositionInside").click(function () {
+    jQuery("#titlePositionInside").on('click', function () {
         jQuery("#titleColorBlock").show("slow");
     });
 
@@ -104,11 +104,11 @@ jQuery(function () {
             jQuery("#customExpressionBlock").css("display", "none");
     }
 
-    jQuery("#galleryTypeAll, #galleryTypeNone, #galleryTypePost, #galleryTypeGutenbergBlock").click(function () {
+    jQuery("#galleryTypeAll, #galleryTypeNone, #galleryTypePost, #galleryTypeGutenbergBlock").on('click', function () {
         jQuery("#customExpressionBlock").hide("slow");
     });
 
-    jQuery("#galleryTypeCustom").click(function () {
+    jQuery("#galleryTypeCustom").on('click', function () {
         jQuery("#customExpressionBlock").show("slow");
     });
 
