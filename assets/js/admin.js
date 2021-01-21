@@ -30,47 +30,39 @@ jQuery(function () {
     switchBlock("#extraCallsBlock", "#extraCallsEnable");
     switchBlock("#easingBlock", "#easing");
 
-    jQuery(document).ready(function () {
-        jQuery(".slider-horizontal").each(function () {
-            var mySl = jQuery(this);
-            var defaultState = mySl.prev('input').val();
-            mySl.attr('defSl', defaultState);
-        });
-
-
-
-
-        //Function enable codemirror on FancyBox Extra Calls
-
-        jQuery('.start-editing').on('click', function () {
-            wp.codeEditor.initialize(jQuery(this).next("textarea"));
-            jQuery(this).hide();
-        });
-
-
-        //add color picker to buttons
-        jQuery('.color-btn').wpColorPicker();
+    jQuery(".slider-horizontal").each(function () {
+        var mySl = jQuery(this);
+        var defaultState = mySl.prev('input').val();
+        mySl.attr('defSl', defaultState);
     });
 
-    jQuery(window).load(function () {
-        //function to initiate horizontal slider from jQuery UI
-        jQuery(".slider-horizontal").each(function () {
-            var mySl = jQuery(this);
-            var minSl = parseFloat(mySl.attr("minSl"));
-            var maxSl = parseFloat(mySl.attr("maxSl"));
-            var defSl = parseFloat(mySl.attr("defSl"));
-            var stepSl = parseFloat(mySl.attr("stepSl"));
-            jQuery(this).slider({
-                orientation: "horizontal",
-                range: "min",
-                min: minSl,
-                max: maxSl,
-                value: defSl,
-                step: stepSl,
-                slide: function (event, ui) {
-                    mySl.prev("input").val(ui.value);
-                }
-            });
+    //Function enable codemirror on FancyBox Extra Calls
+    jQuery('.start-editing').on('click', function () {
+        wp.codeEditor.initialize(jQuery(this).next("textarea"));
+        jQuery(this).hide();
+    });
+
+
+    //add color picker to buttons
+    jQuery('.color-btn').wpColorPicker();
+
+    //function to initiate horizontal slider from jQuery UI
+    jQuery(".slider-horizontal").each(function () {
+        var mySl = jQuery(this);
+        var minSl = parseFloat(mySl.attr("minSl"));
+        var maxSl = parseFloat(mySl.attr("maxSl"));
+        var defSl = parseFloat(mySl.attr("defSl"));
+        var stepSl = parseFloat(mySl.attr("stepSl"));
+        jQuery(this).slider({
+            orientation: "horizontal",
+            range: "min",
+            min: minSl,
+            max: maxSl,
+            value: defSl,
+            step: stepSl,
+            slide: function (event, ui) {
+                mySl.prev("input").val(ui.value);
+            }
         });
     });
 
