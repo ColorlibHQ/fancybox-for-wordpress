@@ -30,7 +30,7 @@ If you are new to WordPress and want to lear more we have got you covered. Color
 If you enjoy using FancyBox lightbox for WordPress please leave a [positive feedback](https://wordpress.org/support/plugin/fancybox-for-wordpress/reviews/?filter=5). We are committed to make it the best lightbox plugin for WordPress.
 
 == Changelog ==
-- 3.3.2 = 
+- 3.3.2 - 05.03.2021 =
 Changed: Upgrade Fancybox to latest version ( https://github.com/ColorlibHQ/fancybox-for-wordpress/issues/95 )
 Fixed: Close button not showing up although option is enabled
 
