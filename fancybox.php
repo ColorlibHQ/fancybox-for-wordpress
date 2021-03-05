@@ -269,6 +269,8 @@ function mfbfw_init() {
 
 	$mfbfw['customExpression'] = str_replace( '"rel"', '"data-fancybox"', $mfbfw['customExpression'] );
 
+	$close_button = (isset($mfbfw['showCloseButton']) && 'on' == $mfbfw['showCloseButton'] ) ? 'body.fancybox-active .fancybox-container .fancybox-stage .fancybox-content .fancybox-close-small{display:block;}' : '';
+
 	//title position settings
 	if ( isset( $mfbfw['titlePosition'] ) ) {
 		if ( $mfbfw['titlePosition'] == 'inside' ) {
@@ -301,7 +303,7 @@ function mfbfw_init() {
 	' . ( isset( $mfbfw['titleShow'] ) ? 'div.fancybox-caption p.caption-title{display:inline-block}' : 'div.fancybox-custom-caption p.caption-title{display:none}div.fancybox-caption{display:none;}' ) . '
 	' . ( isset( $mfbfw['titleSize'] ) ? 'div.fancybox-caption p.caption-title{font-size:' . $mfbfw['titleSize'] . 'px}' : 'div.fancybox-caption p.caption-title{font-size:14px}' ) . '
 	' . ( isset( $mfbfw['titleColor'] ) && $mfbfw['titlePosition'] == 'inside' ? 'div.fancybox-caption p.caption-title{color:' . $mfbfw['titleColor'] . '}' : 'div.fancybox-caption p.caption-title{color:#fff}' ) . '
-	' . ( isset( $mfbfw['titlePosition'] ) ? 'div.fancybox-caption {color:' . $mfbfw['titleColor'] . '}' : 'div.fancybox-caption p.caption-title{color:#333333}' ) . $captionPosition . '
+	' . ( isset( $mfbfw['titlePosition'] ) ? 'div.fancybox-caption {color:' . $mfbfw['titleColor'] . '}' : 'div.fancybox-caption p.caption-title{color:#333333}' ) . $captionPosition  .$close_button.' 
 </style>';
 ?>
 <script type="text/javascript">

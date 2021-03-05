@@ -32,6 +32,7 @@ If you enjoy using FancyBox lightbox for WordPress please leave a [positive feed
 == Changelog ==
 - 3.3.2 = 
 Changed: Upgrade Fancybox to latest version ( https://github.com/ColorlibHQ/fancybox-for-wordpress/issues/95 )
+Fixed: Close button not showing up although option is enabled
 
 = 3.3.0 =
 Compatibility with jQuery 3.0
