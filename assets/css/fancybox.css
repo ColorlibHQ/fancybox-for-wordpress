@@ -901,3 +901,7 @@ body.compensate-for-scrollbar {
         max-width: calc(100% - 10px);
     }
 }
+
+.fancybox-content {
+    height: auto!important;
+}
