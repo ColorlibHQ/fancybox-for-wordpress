@@ -30,7 +30,10 @@ If you are new to WordPress and want to lear more we have got you covered. Color
 If you enjoy using FancyBox lightbox for WordPress please leave a [positive feedback](https://wordpress.org/support/plugin/fancybox-for-wordpress/reviews/?filter=5). We are committed to make it the best lightbox plugin for WordPress.
 
 == Changelog ==
-- 3.3.2 - 05.03.2021 =
+= 3.3.3 - 11.05.2021 =
+Fixed : Issue with padding and border ( https://github.com/ColorlibHQ/fancybox-for-wordpress/issues/86 )
+
+= 3.3.2 - 05.03.2021 =
 Changed: Upgrade Fancybox to latest version ( https://github.com/ColorlibHQ/fancybox-for-wordpress/issues/95 )
 Fixed: Close button not showing up although option is enabled
 
@@ -40,7 +43,7 @@ Compatibility with jQuery 3.0
 = 3.3.0 =
 Fixed compatibility issue with WordPress 5.6
 
-= 3.2.9 = 
+= 3.2.9 =
 * Added Zoom on Click functionality
 
 = 3.2.8 =
@@ -61,7 +64,7 @@ Fixed compatibility issue with WordPress 5.6
 * Fix title hide/show option
 * Fix extra height on lightbox image wrapper
 
-= 3.2.4 = 
+= 3.2.4 =
 * Removed dashboard news widget
 
 = 3.2.3 =
