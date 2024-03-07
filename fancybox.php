@@ -596,3 +596,183 @@ function fancy_check_if_woocommerce() {
 		return 'true';
 	}
 }
+
+add_filter( 'pre_update_option_mfbfw', 'mfbfw_sanitize_fancy_options' );
+
+function mfbfw_sanitize_fancy_options( $value ){
+	$sanitized = $value;
+
+	if ( isset( $value['showToolbar'] ) ) {
+		$sanitized['showToolbar'] =  sanitize_text_field( $value['showToolbar'] );
+	}
+
+	if ( isset( $value['borderColor'] ) ) {
+		$sanitized['borderColor'] =  sanitize_text_field( $value['borderColor'] );
+	}
+
+	if ( isset( $value['paddingColor'] ) ) {
+		$sanitized['paddingColor'] =  sanitize_text_field( $value['paddingColor'] );
+	}
+
+	if ( isset( $value['padding'] ) ) {
+		$sanitized['padding'] =  absint( $value['padding'] );
+	}
+
+	if ( isset( $value['overlayShow'] ) ) {
+		$sanitized['overlayShow'] =  sanitize_text_field( $value['overlayShow'] );
+	}
+
+	if ( isset( $value['overlayColor'] ) ) {
+		$sanitized['overlayColor'] =  sanitize_text_field( $value['overlayColor'] );
+	}
+
+	if ( isset( $value['overlayOpacity'] ) ) {
+		$sanitized['overlayOpacity'] =  (float) sanitize_text_field( $value['overlayOpacity'] );
+	}
+
+	if ( isset( $value['titleShow'] ) ) {
+		$sanitized['titleShow'] =  sanitize_text_field( $value['titleShow'] );
+	}
+
+	if ( isset( $value['titleSize'] ) ) {
+		$sanitized['titleSize'] =  absint( $value['titleSize'] );
+	}
+	
+	if ( isset( $value['titlePosition'] ) ) {
+		$sanitized['titlePosition'] =  sanitize_text_field( $value['titlePosition'] );
+	}
+
+	if ( isset( $value['titleColor'] ) ) {
+		$sanitized['titleColor'] =  sanitize_text_field( $value['titleColor'] );
+	}
+
+	if ( isset( $value['showNavArrows'] ) ) {
+		$sanitized['showNavArrows'] =  sanitize_text_field( $value['showNavArrows'] );
+	}
+
+	if ( isset( $value['zoomOpacity'] ) ) {
+		$sanitized['zoomOpacity'] =  sanitize_text_field( $value['zoomOpacity'] );
+	}
+
+	if ( isset( $value['transitionIn'] ) ) {
+		$sanitized['transitionIn'] =  sanitize_text_field( $value['transitionIn'] );
+	}
+
+	if ( isset( $value['zoomSpeedIn'] ) ) {
+		$sanitized['zoomSpeedIn'] =  absint( $value['zoomSpeedIn'] );
+	}
+
+	if ( isset( $value['transitionEffect'] ) ) {
+		$sanitized['transitionEffect'] =  sanitize_text_field( $value['transitionEffect'] );
+	}
+
+	if ( isset( $value['zoomSpeedChange'] ) ) {
+		$sanitized['zoomSpeedChange'] =  absint( $value['zoomSpeedChange'] );
+	}
+
+	if ( isset( $value['hideOnOverlayClick'] ) ) {
+		$sanitized['hideOnOverlayClick'] =  sanitize_text_field( $value['hideOnOverlayClick'] );
+	}
+
+	if ( isset( $value['enableEscapeButton'] ) ) {
+		$sanitized['enableEscapeButton'] =  sanitize_text_field( $value['enableEscapeButton'] );
+	}
+
+	if ( isset( $value['galleryType'] ) ) {
+		$sanitized['galleryType'] =  sanitize_text_field( $value['galleryType'] );
+	}
+
+	if ( isset( $value['autoDimensions'] ) ) {
+		$sanitized['autoDimensions'] =  sanitize_text_field( $value['autoDimensions'] );
+	}
+
+	if ( isset( $value['frameWidth'] ) ) {
+		$sanitized['frameWidth'] =  absint( $value['frameWidth'] );
+	}
+	 
+	if ( isset( $value['frameHeight'] ) ) {
+		$sanitized['frameHeight'] =  absint( $value['frameHeight'] );
+	}
+
+	if ( isset( $value['callbackEnable'] ) ) {
+		$sanitized['callbackEnable'] =  sanitize_text_field( $value['callbackEnable'] );
+	}
+
+	if ( isset( $value['loadAtFooter'] ) ) {
+		$sanitized['loadAtFooter'] =  sanitize_text_field( $value['loadAtFooter'] );
+	}
+
+	if ( isset( $value['showCloseButton'] ) ) {
+		$sanitized['showCloseButton'] =  sanitize_text_field( $value['showCloseButton'] );
+	}
+	
+	if ( isset( $value['border'] ) ) {
+		$sanitized['border'] =  sanitize_text_field( $value['border'] );
+	}
+	
+	if ( isset( $value['captionShow'] ) ) {
+		$sanitized['captionShow'] =  sanitize_text_field( $value['captionShow'] );
+	}
+
+	if ( isset( $value['hideOnContentClick'] ) ) {
+		$sanitized['hideOnContentClick'] =  sanitize_text_field( $value['hideOnContentClick'] );
+	}
+
+	if ( isset( $value['cyclic'] ) ) {
+		$sanitized['cyclic'] =  sanitize_text_field( $value['cyclic'] );
+	}
+
+	if ( isset( $value['mouseWheel'] ) ) {
+		$sanitized['mouseWheel'] =  sanitize_text_field( $value['mouseWheel'] );
+	}
+
+	if ( isset( $value['zoomOnClick'] ) ) {
+		$sanitized['zoomOnClick'] =  sanitize_text_field( $value['zoomOnClick'] );
+	}
+
+	if ( isset( $value['disableWoocommercePages'] ) ) {
+		$sanitized['disableWoocommercePages'] =  sanitize_text_field( $value['disableWoocommercePages'] );
+	}
+
+	if ( isset( $value['disableWoocommerceProducts'] ) ) {
+		$sanitized['disableWoocommerceProducts'] =  sanitize_text_field( $value['disableWoocommerceProducts'] );
+	}
+
+	if ( isset( $value['exclude_pdf'] ) ) {
+		$sanitized['exclude_pdf'] =  sanitize_text_field( $value['exclude_pdf'] );
+	}
+
+	if ( isset( $value['disableOnMobile'] ) ) {
+		$sanitized['disableOnMobile'] =  sanitize_text_field( $value['disableOnMobile'] );
+	}
+
+	if ( isset( $value['extraCallsData'] ) ) {
+		$sanitized['extraCallsData'] =  strip_tags( $value['extraCallsData'] );
+	}
+
+	if ( isset( $value['callbackOnStart'] ) ) {
+		$sanitized['callbackOnStart'] =  strip_tags( $value['callbackOnStart'] );
+	}
+
+	if ( isset( $value['callbackOnCancel'] ) ) {
+		$sanitized['callbackOnCancel'] =  strip_tags( $value['callbackOnCancel'] );
+	}
+
+	if ( isset( $value['callbackOnComplete'] ) ) {
+		$sanitized['callbackOnComplete'] =  strip_tags( $value['callbackOnComplete'] );
+	}
+
+	if ( isset( $value['callbackOnCleanup'] ) ) {
+		$sanitized['callbackOnCleanup'] =  strip_tags( $value['callbackOnCleanup'] );
+	}
+
+	if ( isset( $value['callbackOnClose'] ) ) {
+		$sanitized['callbackOnClose'] =  strip_tags( $value['callbackOnClose'] );
+	}
+
+	if ( isset( $value['customExpression'] ) ) {
+		$sanitized['customExpression'] =  strip_tags( $value['customExpression'] );
+	}
+
+	return $sanitized;
+}

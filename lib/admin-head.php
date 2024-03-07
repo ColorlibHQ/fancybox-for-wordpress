@@ -5,7 +5,7 @@ if ( isset($_REQUEST['reset']) && $_REQUEST['reset'] )
 
 
 // Get array with all the options
-$settings = get_option( 'mfbfw' );
+$settings = mfbfw_sanitize_fancy_options( get_option( 'mfbfw' ) );
 
 // Get Version
 $version = get_option('mfbfw_active_version');
