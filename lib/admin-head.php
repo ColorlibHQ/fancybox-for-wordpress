@@ -1,6 +1,6 @@
 <?php
 
-if ( isset($_REQUEST['reset']) && $_REQUEST['reset'] )
+if ( isset($_REQUEST['reset']) && sanitize_text_field( wp_unslash( $_REQUEST['reset'] ) ) )
 	echo '<div id="message" class="updated fade"><p><strong>FancyBox for WordPress settings have been reset.</strong></p></div>';
 
 

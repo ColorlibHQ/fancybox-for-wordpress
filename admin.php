@@ -9,7 +9,7 @@ function mfbfw_options_page() {
         <div id="icon-plugins" class="icon32"></div>
         <div class="inlined">
             <div id="pluginDescription">
-                <h1><?php printf( __( 'Fancybox for WordPress (version %s)', 'mfbfw' ), FBFW_VERSION ); ?></h1>
+                <h1><?php printf( esc_html__( 'Fancybox for WordPress (version %s)', 'mfbfw' ), esc_html( FBFW_VERSION ) ); ?></h1>
                 <p class="about-text">Seamlessly integrates FancyBox into your blog: Upload, activate, and you’re done. Additional configuration optional.</p>
             </div>
         </div>
@@ -22,12 +22,12 @@ function mfbfw_options_page() {
 
             <div id="fbfwTabs">
                 <ul class="nav-tab-wrapper wp-clearfix">
-                    <li><a href="#fbfw-appearance"><?php _e( 'Appearance', 'mfbfw' ); ?></a></li>
-                    <li><a href="#fbfw-animations"><?php _e( 'Animations', 'mfbfw' ); ?></a></li>
-                    <li><a href="#fbfw-behaviour"><?php _e( 'Behaviour', 'mfbfw' ); ?></a></li>
-                    <li><a href="#fbfw-galleries"><?php _e( 'Galleries', 'mfbfw' ); ?></a></li>
-                    <li><a href="#fbfw-other"><?php _e( 'Misc.', 'mfbfw' ); ?></a></li>
-                    <li><a href="#fbfw-support" style="color:green;"><?php _e( 'Support', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-appearance"><?php esc_html_e( 'Appearance', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-animations"><?php esc_html_e( 'Animations', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-behaviour"><?php esc_html_e( 'Behaviour', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-galleries"><?php esc_html_e( 'Galleries', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-other"><?php esc_html_e( 'Misc.', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-support" style="color:green;"><?php esc_html_e( 'Support', 'mfbfw' ); ?></a></li>
                 </ul>
 
                 <div id="fbfw-appearance">
