@@ -235,7 +235,7 @@ function mfbfw_init() {
         $mfbfw['copyTitleFunction'] = 'var arr = jQuery("a[data-fancybox]");
 									jQuery.each(arr, function() {
 										var title = jQuery(this).children("img").attr("title");
-										 var caption = jQuery(this).next("figcaption").html();
+										var caption = jQuery(this).next("figcaption").html();
                                         if(caption && title){jQuery(this).attr("title",title+" " + caption)}else if(title){ jQuery(this).attr("title",title);}else if(caption){jQuery(this).attr("title",caption);}
 									});	';
     }
@@ -319,7 +319,7 @@ function mfbfw_init() {
 		}
 
 		jQuery.fn.getTitle = function () { // Copy the title of every IMG tag and add it to its parent A so that fancybox can show titles
-			<?php echo wp_kses_post( $mfbfw['copyTitleFunction'] ) ?>
+			<?php echo ( $mfbfw['copyTitleFunction'] ) ?>
 		}
 
 		// Supported file extensions
@@ -411,7 +411,7 @@ function mfbfw_init() {
 		<?php
 		} else { ?>
 		/* Custom Expression */
-		<?php echo wp_kses_post( $mfbfw['customExpression'] ); ?>
+		<?php echo html_entity_decode( $mfbfw['customExpression'] ); ?>
 		<?php } ?>
 
 		// Call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
@@ -443,21 +443,21 @@ function mfbfw_init() {
 			wheel: <?php echo(isset( $mfbfw['mouseWheel'] ) && $mfbfw['mouseWheel'] ? 'true' : 'false') ?>,
 			toolbar: <?php echo(isset( $mfbfw['showToolbar'] ) && $mfbfw['showToolbar'] ? 'true' : 'false') ?>,
 			preventCaptionOverlap: true,
-			onInit: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnStart'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnStart'] ? wp_kses_post( $mfbfw['callbackOnStart'] ) . ',' : 'function() { },') ?>
+			onInit: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnStart'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnStart'] ? html_entity_decode( $mfbfw['callbackOnStart'] ) . ',' : 'function() { },') ?>
 			onDeactivate
-	: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnCancel'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnCancel'] ? wp_kses_post( $mfbfw['callbackOnCancel'] ) . ',' : 'function() { },') ?>
-		beforeClose: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnCleanup'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnCleanup'] ? wp_kses_post( $mfbfw['callbackOnCleanup'] ) . ',' : 'function() { },') ?>
-			afterShow: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnComplete'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnComplete'] ? wp_kses_post( $mfbfw['callbackOnComplete'] ) . ',' : ( isset( $mfbfw['zoomOnClick'] ) ? 'function(instance) { jQuery( ".fancybox-image" ).on("click", function( ){ ( instance.isScaledDown() ) ? instance.scaleToActual() : instance.scaleToFit() }) },' : 'function() {},' ) )?>
-				afterClose: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnClose'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnClose'] ? wp_kses_post( $mfbfw['callbackOnClose'] ) . ',' : 'function() { },') ?>
-					caption : <?php echo wp_kses_post( $caption ) ?>,
-		afterLoad : <?php echo wp_kses_post( $afterLoad ) ?>,
+	: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnCancel'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnCancel'] ? html_entity_decode( $mfbfw['callbackOnCancel'] ) . ',' : 'function() { },') ?>
+		beforeClose: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnCleanup'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnCleanup'] ? html_entity_decode( $mfbfw['callbackOnCleanup'] ) . ',' : 'function() { },') ?>
+			afterShow: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnComplete'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnComplete'] ? html_entity_decode( $mfbfw['callbackOnComplete'] ) . ',' : ( isset( $mfbfw['zoomOnClick'] ) ? 'function(instance) { jQuery( ".fancybox-image" ).on("click", function( ){ ( instance.isScaledDown() ) ? instance.scaleToActual() : instance.scaleToFit() }) },' : 'function() {},' ) )?>
+				afterClose: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnClose'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnClose'] ? html_entity_decode( $mfbfw['callbackOnClose'] ) . ',' : 'function() { },') ?>
+					caption : <?php echo html_entity_decode( $caption ) ?>,
+		afterLoad : <?php echo html_entity_decode( $afterLoad ) ?>,
 		<?php echo wp_kses_post( $frameSize ) ?>
 	})
 		;
 
 		<?php if ( isset( $mfbfw['extraCallsEnable'] ) && $mfbfw['extraCallsEnable'] ) {
 		echo "/* Extra Calls */";
-		echo wp_kses_post( $mfbfw['extraCallsData'] );
+		echo html_entity_decode( $mfbfw['extraCallsData'] );
 	} ?>
 	})
 </script>
