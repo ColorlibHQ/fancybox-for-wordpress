@@ -2,8 +2,8 @@
 Contributors: silkalns
 Tags: fancybox, lightbox, jquery, gallery, image, images, photo, photos, picture, pictures, zoom
 Requires at least: 4.6
-Tested up to: 5.4
-Stable tag: 3.2.7
+Tested up to: 6.5
+Stable tag: 3.3.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,6 +30,28 @@ If you are new to WordPress and want to lear more we have got you covered. Color
 If you enjoy using FancyBox lightbox for WordPress please leave a [positive feedback](https://wordpress.org/support/plugin/fancybox-for-wordpress/reviews/?filter=5). We are committed to make it the best lightbox plugin for WordPress.
 
 == Changelog ==
+= 3.3.4 - 22.03.2024 =
+Fixed: Security issue
+
+= 3.3.3 - 11.05.2021 =
+Fixed : Issue with padding and border ( https://github.com/ColorlibHQ/fancybox-for-wordpress/issues/86 )
+
+= 3.3.2 - 05.03.2021 =
+Changed: Upgrade Fancybox to latest version ( https://github.com/ColorlibHQ/fancybox-for-wordpress/issues/95 )
+Fixed: Close button not showing up although option is enabled
+
+= 3.3.1 =
+Compatibility with jQuery 3.0
+
+= 3.3.0 =
+Fixed compatibility issue with WordPress 5.6
+
+= 3.2.9 =
+* Added Zoom on Click functionality
+
+= 3.2.8 =
+* Fix property ‘title’ of undefined when using newer versions of jQuery
+* Add option to disable FancyBox on mobile view
 
 = 3.2.7 =
 * Fix for separate gutenberg blocks
@@ -45,7 +67,7 @@ If you enjoy using FancyBox lightbox for WordPress please leave a [positive feed
 * Fix title hide/show option
 * Fix extra height on lightbox image wrapper
 
-= 3.2.4 = 
+= 3.2.4 =
 * Removed dashboard news widget
 
 = 3.2.3 =

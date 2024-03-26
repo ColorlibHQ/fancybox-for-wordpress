@@ -1,13 +1,13 @@
-<h3><?php _e( 'Appearance Settings <span style="color:green">(basic)</span>', 'mfbfw' ); ?></h3>
+<h3><?php echo wp_kses_post( __( 'Appearance Settings <span style="color:green">(basic)</span>', 'mfbfw' ) ); ?></h3>
 
-<p><?php _e( 'These setting control how Fancybox looks, they let you tweak color, borders and position of elements, like the image title and closing buttons.', 'mfbfw' ); ?></p>
+<p><?php esc_html_e( 'These setting control how Fancybox looks, they let you tweak color, borders and position of elements, like the image title and closing buttons.', 'mfbfw' ); ?></p>
 
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Close Button', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Close Button', 'mfbfw' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php _e( 'Show Close button (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Show Close button (default: off)', 'mfbfw' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -32,9 +32,9 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Toolbar', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Toolbar', 'mfbfw' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php _e( 'Show Toolbar  (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Show Toolbar  (default: on)', 'mfbfw' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -58,9 +58,9 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Border', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Border', 'mfbfw' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php _e( 'Show Border (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Show Border (default: off)', 'mfbfw' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -83,17 +83,17 @@
                 <div id="borderColorBlock" class="hidden-block">
                     <label for="borderColor">
                         <input type="text" class="color-btn" name="mfbfw[borderColor]" id="borderColor"
-                               value="<?php echo $settings['borderColor'] ?>" size="7" maxlength="7"/>
+                               value="<?php echo esc_attr( $settings['borderColor'] ) ?>" size="7" maxlength="7"/>
                     </label>
-                    <p class="description"><?php _e( 'HTML color of the border (default: #BBBBBB)', 'mfbfw' ); ?></p>
+                    <p class="description"><?php esc_html_e( 'HTML color of the border (default: #BBBBBB)', 'mfbfw' ); ?></p>
                 </div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Padding', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Padding', 'mfbfw' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php _e( 'HTML color of the padding (default: #FFFFFF)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'HTML color of the padding (default: #FFFFFF)', 'mfbfw' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -101,25 +101,25 @@
             <fieldset>
                 <label for="paddingColor">
                     <input type="text" class="color-btn" name="mfbfw[paddingColor]" id="paddingColor"
-                           value="<?php echo $settings['paddingColor'] ?>" size="7" maxlength="7"/>
+                           value="<?php echo esc_attr( $settings['paddingColor'] ) ?>" size="7" maxlength="7"/>
                 </label>
-                <p class="description"><?php _e( '(This should be left on #FFFFFF (white) if you want to display anything other than images, like inline or framed content)', 'mfbfw' ); ?></p>
+                <p class="description"><?php esc_html_e( '(This should be left on #FFFFFF (white) if you want to display anything other than images, like inline or framed content)', 'mfbfw' ); ?></p>
                 <div class="line-spacer"></div>
                 <label for="padding" class="inlined">
                     <input type="text" class="slider-text" name="mfbfw[padding]" id="padding"
-                           value="<?php echo $settings['padding']; ?>" size="7" maxlength="7"/>
+                           value="<?php echo esc_attr( $settings['padding'] ); ?>" size="7" maxlength="7"/>
                     <div class="slider-horizontal" minSl="0" maxSl="100" stepSl="1" rangeSl="min"
                          style="height:14px;"></div>
                     <div class="cf"></div>
-                    <p class="description"><span class="slider-spantext"><?php _e( 'Padding size in pixels (default: 10)', 'mfbfw' ); ?></span></p>
+                    <p class="description"><span class="slider-spantext"><?php esc_html_e( 'Padding size in pixels (default: 10)', 'mfbfw' ); ?></span></p>
                 </label>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Overlay Options', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Overlay Options', 'mfbfw' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php _e( 'Add overlay (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Add overlay (default: on)', 'mfbfw' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -143,26 +143,26 @@
                 <div id="overlayBlock" class="hidden-block">
                     <label for="overlayColor">
                         <input type="text" class="color-btn" name="mfbfw[overlayColor]" id="overlayColor"
-                               value="<?php echo $settings['overlayColor']; ?>" size="7" maxlength="7"/>
+                               value="<?php echo esc_attr( $settings['overlayColor'] ); ?>" size="7" maxlength="7"/>
                     </label>
-                    <p class="description"><?php _e( 'HTML color of the overlay (default: #666666)', 'mfbfw' ); ?></p>
+                    <p class="description"><?php esc_html_e( 'HTML color of the overlay (default: #666666)', 'mfbfw' ); ?></p>
                     <div class="line-spacer"></div>
                     <label for="overlayOpacity" class="inlined">
                         <input type="text" class="slider-text" name="mfbfw[overlayOpacity]" id="overlayOpacity"
-                               value="<?php echo $settings['overlayOpacity']; ?>" size="7" maxlength="7"/>
+                               value="<?php echo esc_attr( $settings['overlayOpacity'] ); ?>" size="7" maxlength="7"/>
                         <div class="slider-horizontal" minSl="0" maxSl="1" stepSl="0.1" rangeSl="min"
                              style="height:14px;"></div>
                         <div class="cf"></div>
-                        <p class="description"><span class="slider-spantext"><?php _e( 'Opacity of overlay. 0 is transparent, 1 is opaque (default: 0.3)', 'mfbfw' ); ?></span></p>
+                        <p class="description"><span class="slider-spantext"><?php esc_html_e( 'Opacity of overlay. 0 is transparent, 1 is opaque (default: 0.3)', 'mfbfw' ); ?></span></p>
                     </label>
                 </div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Title', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Title', 'mfbfw' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php _e( 'Show the title (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Show the title (default: on)', 'mfbfw' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -186,8 +186,8 @@
                 <div id="titleBlock" class="hidden-block">
                     <label for="titleSize">
                         <input type="text" name="mfbfw[titleSize]" id="titleSize" size="2" maxlength="4"
-                               value="<?php echo $settings['titleSize']; ?>"/>
-						<?php _e( 'Title size (default: 14px)', 'mfbfw' ); ?>
+                               value="<?php echo esc_attr( $settings['titleSize'] ); ?>"/>
+						<?php esc_html_e( 'Title size (default: 14px)', 'mfbfw' ); ?>
                     </label>
                     <div class="cf"></div>
                     <div class="line-spacer"></div>
@@ -196,40 +196,40 @@
 						echo ' checked="yes"';
 					} ?> />
                     <label for="titlePositionInside">
-						<?php _e( 'Inside (default)', 'mfbfw' ); ?>
+						<?php esc_html_e( 'Inside (default)', 'mfbfw' ); ?>
                     </label>
                     <input id="titlePositionOutside" class="titlePosition" type="radio" value="float"
                            name="mfbfw[titlePosition]"<?php if ( $settings['titlePosition'] == 'float' ) {
 						echo ' checked="yes"';
 					} ?> />
                     <label for="titlePositionOutside">
-						<?php _e( 'Outside', 'mfbfw' ); ?>
+						<?php esc_html_e( 'Outside', 'mfbfw' ); ?>
                     </label>
                     <input id="titlePositionOver" class="titlePosition" type="radio" value="over"
                            name="mfbfw[titlePosition]"<?php if ( $settings['titlePosition'] == 'over' ) {
 						echo ' checked="yes"';
 					} ?> />
                     <label for="titlePositionOver">
-						<?php _e( 'Over', 'mfbfw' ); ?>
+						<?php esc_html_e( 'Over', 'mfbfw' ); ?>
                     </label>
                     <div class="line-spacer"></div>
                     <div id="titleColorBlock">
                         <label for="titleColor">
                             <input type="text" class="color-btn" name="mfbfw[titleColor]" id="titleColor"
-                                   class="colorpick" value="<?php echo $settings['titleColor']; ?>" size="7"
+                                   class="colorpick" value="<?php echo esc_attr( $settings['titleColor'] ); ?>" size="7"
                                    maxlength="7"/>
                         </label>
-                        <p class="description"><?php _e( 'Title text color (default: #333333)', 'mfbfw' ); ?></p>
-                        <p class="description"><?php _e( '(Should contrast with the padding color set above)', 'mfbfw' ); ?></p>
+                        <p class="description"><?php esc_html_e( 'Title text color (default: #333333)', 'mfbfw' ); ?></p>
+                        <p class="description"><?php esc_html_e( '(Should contrast with the padding color set above)', 'mfbfw' ); ?></p>
                     </div>
                 </div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Hide caption*', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Hide caption*', 'mfbfw' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php _e( 'Hide the caption in lightbox. In some cases both figure caption and image title are displayed in the lightbox (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Hide the caption in lightbox. In some cases both figure caption and image title are displayed in the lightbox (default: off)', 'mfbfw' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -253,9 +253,9 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Navigation Arrows', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Navigation Arrows', 'mfbfw' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php _e( 'Show the navigation arrows (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Show the navigation arrows (default: on)', 'mfbfw' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>

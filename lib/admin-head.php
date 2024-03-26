@@ -1,11 +1,11 @@
 <?php
 
-if ( isset($_REQUEST['reset']) && $_REQUEST['reset'] )
+if ( isset($_REQUEST['reset']) && sanitize_text_field( wp_unslash( $_REQUEST['reset'] ) ) )
 	echo '<div id="message" class="updated fade"><p><strong>FancyBox for WordPress settings have been reset.</strong></p></div>';
 
 
 // Get array with all the options
-$settings = get_option( 'mfbfw' );
+$settings = mfbfw_sanitize_fancy_options( get_option( 'mfbfw' ) );
 
 // Get Version
 $version = get_option('mfbfw_active_version');

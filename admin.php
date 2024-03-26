@@ -9,7 +9,7 @@ function mfbfw_options_page() {
         <div id="icon-plugins" class="icon32"></div>
         <div class="inlined">
             <div id="pluginDescription">
-                <h1><?php printf( __( 'Fancybox for WordPress (version %s)', 'mfbfw' ), FBFW_VERSION ); ?></h1>
+                <h1><?php printf( esc_html__( 'Fancybox for WordPress (version %s)', 'mfbfw' ), esc_html( FBFW_VERSION ) ); ?></h1>
                 <p class="about-text">Seamlessly integrates FancyBox into your blog: Upload, activate, and you’re done. Additional configuration optional.</p>
             </div>
         </div>
@@ -22,12 +22,12 @@ function mfbfw_options_page() {
 
             <div id="fbfwTabs">
                 <ul class="nav-tab-wrapper wp-clearfix">
-                    <li><a href="#fbfw-appearance"><?php _e( 'Appearance', 'mfbfw' ); ?></a></li>
-                    <li><a href="#fbfw-animations"><?php _e( 'Animations', 'mfbfw' ); ?></a></li>
-                    <li><a href="#fbfw-behaviour"><?php _e( 'Behaviour', 'mfbfw' ); ?></a></li>
-                    <li><a href="#fbfw-galleries"><?php _e( 'Galleries', 'mfbfw' ); ?></a></li>
-                    <li><a href="#fbfw-other"><?php _e( 'Misc.', 'mfbfw' ); ?></a></li>
-                    <li><a href="#fbfw-support" style="color:green;"><?php _e( 'Support', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-appearance"><?php esc_html_e( 'Appearance', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-animations"><?php esc_html_e( 'Animations', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-behaviour"><?php esc_html_e( 'Behaviour', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-galleries"><?php esc_html_e( 'Galleries', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-other"><?php esc_html_e( 'Misc.', 'mfbfw' ); ?></a></li>
+                    <li><a href="#fbfw-support" style="color:green;"><?php esc_html_e( 'Support', 'mfbfw' ); ?></a></li>
                 </ul>
 
                 <div id="fbfw-appearance">
@@ -79,70 +79,6 @@ function mfbfw_options_page() {
             </div>
 
     </div>
-    
-    <div class="modula-wrap">
-        <a target="_blank" href="http://wp-modula.com/?utm_source=fancybox-for-wp&utm_medium=options-page&utm_campaign=Modula%20Lite" class="modula-link">
-        <img src="<?php echo FBFW_URL; ?>assets/images/modula-300x300.jpg"/>
-        <h2>Easy Image Gallery for WP</h2>
-        <p>Modula is creative! Modula is dynamic! Modula doesn’t always look the same. Just have fun with it! Modula uses a new concept to build its internal grid. The result is a dynamic, creative, interesting and attractive gallery.</p>
-
-        <?php
-
-        $plugin_slug = 'modula-best-grid-gallery';
-        $plugin_path = 'modula-best-grid-gallery/Modula.php';
-
-        $installed = false;
-        $activated = false;
-        if ( file_exists( ABSPATH . 'wp-content/plugins/' . $plugin_slug ) ) {
-            $installed = true;
-        }
-
-        if ( file_exists( ABSPATH . 'wp-content/plugins/' . $plugin_path ) ) {
-            include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-            if ( is_plugin_active( $plugin_path ) ) {
-                $activated = true;
-            }
-        }
-
-        if ( ! $activated ) {
-           
-            if ( ! $installed ) {
-                $label = esc_html__( 'Install & Activate Modula', 'mfbfw' );
-                $link = wp_nonce_url(
-                    add_query_arg(
-                        array(
-                            'action' => 'install-plugin',
-                            'plugin' => $plugin_slug,
-                        ),
-                        network_admin_url( 'update.php' )
-                    ),
-                    'install-plugin_' . $plugin_slug
-                );
-                $action = 'install';
-            }else{
-                $label = esc_html__( 'Activate Modula', 'mfbfw' );
-                $link = add_query_arg(
-                    array(
-                        'action'        => 'activate',
-                        'plugin'        => rawurlencode( $plugin_path ),
-                        'plugin_status' => 'all',
-                        'paged'         => '1',
-                        '_wpnonce'      => wp_create_nonce( 'activate-plugin_' . $plugin_path ),
-                    ),
-                    admin_url( 'plugins.php' )
-                );
-                $action = 'activate';
-            }
-
-            echo '<a href="' . esc_url( $link ) . '" class="mfbfw-modula-link button button-primary button-large" data-action="' . esc_attr( $action ) . '">' . esc_html( $label ) . '</a>';
-
-        }
-
-        ?>
-
-        </a>
-    </div>
-   
 
 	<?php
 }

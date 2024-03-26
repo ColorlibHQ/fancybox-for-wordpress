@@ -1,13 +1,13 @@
-<h3><?php _e( 'Animation Settings <span style="color:green">(basic)</span>', 'mfbfw' ); ?></h3>
+<h3><?php echo wp_kses_post( __( 'Animation Settings <span style="color:green">(basic)</span>', 'mfbfw' ) ); ?></h3>
 
-<p><?php _e( 'These settings control the animations when opening and closing Fancybox, and the optional easing effects.', 'mfbfw' ); ?></p>
+<p><?php esc_html_e( 'These settings control the animations when opening and closing Fancybox, and the optional easing effects.', 'mfbfw' ); ?></p>
 
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Zoom Options', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Zoom Options', 'mfbfw' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php _e( 'Change content transparency during zoom animations (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Change content transparency during zoom animations (default: on)', 'mfbfw' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -30,18 +30,18 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Animation Type', 'mfbfw' ); ?></th>
+        <th scope="row"><?php esc_html_e( 'Animation Type', 'mfbfw' ); ?></th>
         <td>
             <fieldset>
                 <label for="transitionIn">
                     <select name="mfbfw[transitionIn]" id="transitionIn">
 						<?php
 						foreach ( $transitionTypeArray as $key => $ms ) {
-							echo "<option value='$ms' " . selected( $settings['transitionIn'], $ms, false ) . ">$ms</option>\n";
+							echo "<option value='" . esc_attr( $ms ) . "' " . selected( $settings['transitionIn'], $ms, false ) . ">" . esc_html( $ms ) . "</option>\n";
 						}
 						?>
                     </select>
-					<?php _e( 'Animation type when opening FancyBox. (default: fade)', 'mfbfw' ); ?>
+					<?php esc_html_e( 'Animation type when opening FancyBox. (default: fade)', 'mfbfw' ); ?>
                 </label>
                 <div class="cf"></div>
                 <div class="line-spacer"></div>
@@ -49,39 +49,39 @@
                     <select name="mfbfw[zoomSpeedIn]" id="zoomSpeedIn">
 						<?php
 						foreach ( $msArray as $key => $ms ) {
-							echo "<option value='$ms' " . selected( $settings['zoomSpeedIn'], $ms, false ) . ">$ms</option>\n";
+							echo "<option value='" . esc_attr( $ms ) . "' " . selected( $settings['zoomSpeedIn'], $ms, false ) . ">" . esc_html( $ms ) . "</option>\n";
 						}
 						?>
                     </select>
-					<?php _e( 'Speed in miliseconds of the FancyBox opening  animation (default: 500)', 'mfbfw' ); ?>
+					<?php esc_html_e( 'Speed in miliseconds of the FancyBox opening  animation (default: 500)', 'mfbfw' ); ?>
                 </label>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php _e( 'Animation between slides Options', 'mfbfw' ); ?></th>
+        <th scope="row"><?php esc_html_e( 'Animation between slides Options', 'mfbfw' ); ?></th>
         <td>
             <fieldset>
                 <label for="transitionEffect">
                     <select name="mfbfw[transitionEffect]" id="animationDuration">
 						<?php
 						foreach ( $slideEffectArray as $key => $ms ) {
-							echo "<option value='$ms' " . selected( $settings['transitionEffect'], $ms, false ) . ">$ms</option>\n";
+							echo "<option value='" . esc_attr( $ms ) . "' " . selected( $settings['transitionEffect'], $ms, false ) . ">" . esc_html( $ms ) . "</option>\n";
 						}
 						?>
                     </select>
-					<?php _e( 'Select Animation type for the slides(default: fade)', 'mfbfw' ); ?>
+					<?php esc_html_e( 'Select Animation type for the slides(default: fade)', 'mfbfw' ); ?>
                 </label>
                 <div class="line-spacer"></div>
                 <label for="zoomSpeedChange">
                     <select name="mfbfw[zoomSpeedChange]" id="zoomSpeedChange">
 						<?php
 						foreach ( $msArray as $key => $ms ) {
-							echo "<option value='$ms' " . selected( $settings['zoomSpeedChange'], $ms, false ) . ">$ms</option>\n";
+							echo "<option value='" . esc_attr( $ms ) . "' " . selected( $settings['zoomSpeedChange'], $ms, false ) . ">" . esc_html( $ms ) . "</option>\n";
 						}
 						?>
                     </select>
-					<?php _e( 'Speed in miliseconds of the animation when navigating thorugh gallery items (default: 300)', 'mfbfw' ); ?>
+					<?php esc_html_e( 'Speed in miliseconds of the animation when navigating thorugh gallery items (default: 300)', 'mfbfw' ); ?>
                 </label>
             </fieldset>
         </td>
