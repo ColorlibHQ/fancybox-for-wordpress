@@ -6,7 +6,7 @@
 * Version: 3.3.5
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
-* Tested up to: 6.5
+* Tested up to: 6.7
 * Requires: 4.6 or higher
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,7 +36,7 @@
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.3.4' );
+define( 'FBFW_VERSION', '3.3.5' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );

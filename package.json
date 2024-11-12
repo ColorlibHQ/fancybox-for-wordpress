@@ -1,7 +1,7 @@
 {
   "name": "fancybox-for-wordpress",
   "main": "Gruntfile.js",
-  "version": "3.3.4",
+  "version": "3.3.5",
   "homepage": "https://www.colorlib.com",
   "author": "Colorlib",
   "license": "GPL v3",

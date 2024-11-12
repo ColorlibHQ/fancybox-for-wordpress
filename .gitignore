@@ -1,7 +1,7 @@
 Thumbs.db
 node_modules/*
 .idea/*
-fancybox-for-wordpress.zip
+*.zip
 .DS_Store
 package-lock.json
 .standard.json
