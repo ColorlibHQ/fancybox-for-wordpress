@@ -3,7 +3,7 @@
 * Plugin Name: FancyBox for WordPress
 * Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 * Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-* Version: 3.3.4
+* Version: 3.3.5
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
 * Tested up to: 6.5
@@ -175,13 +175,14 @@ function mfbfw_enqueue_scripts() {
 
 	// Check if plugin should not call jQuery script (for troubleshooting only)
 	if ( isset( $mfbfw['nojQuery'] ) && $mfbfw['nojQuery'] ) {
-		$jquery = false;
+		$jquery = array( 'purify' );
 	}
 	else {
-		$jquery = array( 'jquery' );
+		$jquery = array( 'jquery', 'purify' );
 	}
 
 	// Register Scripts
+	wp_register_script( 'purify', FBFW_URL . 'assets/js/purify.min.js', array(), '1.3.4', $footer ); // Main Fancybox script
 	wp_register_script( 'fancybox-for-wp', FBFW_URL . 'assets/js/jquery.fancybox.js', $jquery, '1.3.4', $footer ); // Main Fancybox script
 
 	// Enqueue Scripts

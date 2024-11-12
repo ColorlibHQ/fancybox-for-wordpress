@@ -2126,7 +2126,7 @@
         // If "filter" option is provided, then filter content
         if (slide.opts.filter) {
           content = $("<div>")
-            .html(content)
+            .html(DOMPurify.sanitize(content))
             .find(slide.opts.filter);
         }
       }
@@ -2320,7 +2320,7 @@
             .children()
             .eq(0)
             .empty()
-            .html(caption);
+            .html(DOMPurify.sanitize(caption));
 
           captionH = $clone.outerHeight(true);
 
@@ -2968,7 +2968,7 @@
         $caption
           .children()
           .eq(0)
-          .html(caption);
+          .html(DOMPurify.sanitize(caption));
       } else {
         self.$caption = null;
       }
@@ -2978,8 +2978,8 @@
       }
 
       // Update info and navigation elements
-      $container.find("[data-fancybox-count]").html(self.group.length);
-      $container.find("[data-fancybox-index]").html(index + 1);
+      $container.find("[data-fancybox-count]").html(DOMPurify.sanitize(self.group.length));
+      $container.find("[data-fancybox-index]").html(DOMPurify.sanitize(index + 1));
 
       $container.find("[data-fancybox-prev]").prop("disabled", !current.opts.loop && index <= 0);
       $container.find("[data-fancybox-next]").prop("disabled", !current.opts.loop && index >= self.group.length - 1);
