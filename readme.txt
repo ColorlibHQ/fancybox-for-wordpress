@@ -1,6 +1,6 @@
 === FancyBox for WordPress ===
 Contributors: silkalns
-Tags: fancybox, lightbox, jquery, gallery, image, images, photo, photos, picture, pictures, zoom
+Tags: fancybox, lightbox, images, photos, pictures
 Requires at least: 4.6
 Tested up to: 6.5
 Stable tag: 3.3.5
