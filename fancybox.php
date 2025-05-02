@@ -3,19 +3,19 @@
 * Plugin Name: FancyBox for WordPress
 * Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 * Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-* Version: 3.3.5
+* Version: 3.3.6
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
-* Tested up to: 6.7
-* Requires: 4.6 or higher
+* Tested up to: 6.8
+* Requires: 5.6 or higher
 * License: GPLv3 or later
-* License URI: http://www.gnu.org/licenses/gpl-3.0.html
-* Requires PHP: 5.6
+* License URI: https://www.gnu.org/licenses/gpl-3.0.html
+* Requires PHP: 7.4
 * Text Domain: mfbfw
 * Domain Path: /languages
 *
-* Copyright 2008-2016 	Janis Skarnelis 	http://twitter.com/moskis/
-* Copyright 2016-2019 	Colorlib 			support@colorlib.com
+* Copyright 2008-2016 	Janis Skarnelis 	https://twitter.com/moskis/
+* Copyright 2016-2025 	Colorlib 			support@colorlib.com
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License, version 3, as
@@ -36,7 +36,7 @@
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.3.5' );
+define( 'FBFW_VERSION', '3.3.6' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
@@ -219,9 +219,9 @@ function mfbfw_init() {
 	           'if("undefined" != typeof jQuery(this).context ){var title = jQuery(this).context.title;} else { var title = ("undefined" != typeof jQuery(this).attr("title")) ? jQuery(this).attr("title") : false;}' .
 	           'var caption = jQuery(this).data(\'caption\') || \'\';' .
 	           'if ( item.type === \'image\' && title.length ) {' .
-	           'caption = (caption.length ? caption + \'<br />\' : \'\') + \'<p class="caption-title">\'+title+\'</p>\' ;' .
+	           'caption = (caption.length ? caption + \'<br />\' : \'\') + \'<p class="caption-title">\'+jQuery("<div>").text(title).html()+\'</p>\' ;' .
 	           '}' .
-	           'return caption;' .
+	           'return jQuery("<div>").text(caption).html();' .
 	           '}';
 
 	// fix undefined index copyTitleFunction. $mfbfw array misses this index.
@@ -237,7 +237,7 @@ function mfbfw_init() {
 									jQuery.each(arr, function() {
 										var title = jQuery(this).children("img").attr("title");
 										var caption = jQuery(this).next("figcaption").html();
-                                        if(caption && title){jQuery(this).attr("title",title+" " + caption)}else if(title){ jQuery(this).attr("title",title);}else if(caption){jQuery(this).attr("title",caption);}
+                                        if(caption && title){jQuery(this).attr("title",jQuery("<div>").text(title+" " + caption).html())}else if(title){ jQuery(this).attr("title",jQuery("<div>").text(title).html());}else if(caption){jQuery(this).attr("title",jQuery("<div>").text(caption).html());}
 									});	';
     }
 
@@ -246,12 +246,12 @@ function mfbfw_init() {
 	$afterLoad = '';
 	if ( $mfbfw['titlePosition'] == 'inside' ) {
 		$afterLoad = 'function( instance, current ) {';
-		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption inside-caption\" style=\" position: absolute;left:0;right:0;color:#000;margin:0 auto;bottom:0;text-align:center;background-color:'.$mfbfw['paddingColor'].' \">\' + current.opts.caption + \'</div>\');';
+		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption inside-caption\" style=\" position: absolute;left:0;right:0;color:#000;margin:0 auto;bottom:0;text-align:center;background-color:'.$mfbfw['paddingColor'].' \">\' + jQuery("<div>").text(current.opts.caption).html() + \'</div>\');';
 		$afterLoad .= '}';
 		$hideCaption = 'div.fancybox-caption{display:none !important;}';
 	} else if ( $mfbfw['titlePosition'] == 'over' ) {
 		$afterLoad = 'function( instance, current ) {';
-		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:0;margin:0 auto;text-align:center; \">\' + current.opts.caption + \'</div>\');';
+		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:0;margin:0 auto;text-align:center; \">\' + jQuery("<div>").text(current.opts.caption).html() + \'</div>\');';
 		$afterLoad .= '}';
 		$hideCaption = 'div.fancybox-caption{display:none !important;}';
 	} else {

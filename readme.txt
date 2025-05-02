@@ -1,9 +1,9 @@
 === FancyBox for WordPress ===
 Contributors: silkalns
 Tags: fancybox, lightbox, images, photos, pictures
-Requires at least: 4.6
-Tested up to: 6.5
-Stable tag: 3.3.5
+Requires at least: 5.6
+Tested up to: 6.8
+Stable tag: 3.3.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,10 +17,6 @@ You can easily customize almost anything you can think about fancybox lightbox: 
 
 By default, the plugin will use jQuery to apply FancyBox to ANY thumbnails that link directly to an image. This includes posts, the sidebar, etc, so you can activate it and it will be applied automatically.
 
-= Demo =
-
-You can see the plugin working on a <a href="http://blog.moskis.net/2012/01/20/teclado-apple-en-windows-7/" target="_blank">this blog</a> although there's nothing amazing to see, just a FancyBox simple implementation, that's the point ;) You can take a look at the code if you're curious, though.
-
 = Further Reading =
 
 This plugin is developed and maintained by Colorlib. Which is well know for their free <a href="https://colorlib.com/wp/themes/" target="_blank"></a>WordPress themes. However, now they are looking to extend their presence in plugin development and believe that FancyBox lightbox is a great way to start.
@@ -30,6 +26,9 @@ If you are new to WordPress and want to lear more we have got you covered. Color
 If you enjoy using FancyBox lightbox for WordPress please leave a [positive feedback](https://wordpress.org/support/plugin/fancybox-for-wordpress/reviews/?filter=5). We are committed to make it the best lightbox plugin for WordPress.
 
 == Changelog ==
+= 3.3.6 - 25.11.2024 =
+Fixed: Security issue - Fixed XSS vulnerability in caption and title handling
+
 = 3.3.5 - 12.11.2024 =
 Fixed: Security issue
 
@@ -53,7 +52,7 @@ Fixed compatibility issue with WordPress 5.6
 * Added Zoom on Click functionality
 
 = 3.2.8 =
-* Fix property ‘title’ of undefined when using newer versions of jQuery
+* Fix property 'title' of undefined when using newer versions of jQuery
 * Add option to disable FancyBox on mobile view
 
 = 3.2.7 =
