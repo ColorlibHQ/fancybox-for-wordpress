@@ -3,7 +3,7 @@
 * Plugin Name: FancyBox for WordPress
 * Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 * Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-* Version: 3.3.6
+* Version: 3.3.7
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
 * Tested up to: 6.8
@@ -36,7 +36,7 @@
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.3.6' );
+define( 'FBFW_VERSION', '3.3.7' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
@@ -124,12 +124,11 @@ function mfbfw_defaults() {
         'callbackOnComplete'         => 'function() { alert("Complete!"); }',
         'callbackOnCleanup'          => 'function() { alert("CleanUp!"); }',
         'callbackOnClose'            => 'function() { alert("Close!"); }',
-        'copyTitleFunction'          => 'var arr = jQuery("a[data-fancybox]");
-                                jQuery.each(arr, function() {
-                                    var title = jQuery(this).children("img").attr("title");
-                                    var caption = jQuery(this).next("figcaption").html();
-                                    if(caption.length){jQuery(this).attr("title",title+" " + caption)}else{ jQuery(this).attr("title",title);};
-                                });	',
+        'copyTitleFunction'          => 'var arr = jQuery("a[data-fancybox]");' .
+									'jQuery.each(arr, function() {' .
+										'var title = jQuery(this).children("img").attr("title");' .
+										'if(title){jQuery(this).attr("title",title)}' .
+									'});',
         'nojQuery'                   => '',
         'extraCallsEnable'           => '',
         'extraCallsData'             => '',
@@ -215,44 +214,70 @@ function mfbfw_init() {
 	global $mfbfw, $mfbfw_version;
 
 	//caption function to display image title
-	$caption = 'function( instance, item ) {var title ="";' .
+	$caption = 'function( instance, item ) {var title = "";' .
 	           'if("undefined" != typeof jQuery(this).context ){var title = jQuery(this).context.title;} else { var title = ("undefined" != typeof jQuery(this).attr("title")) ? jQuery(this).attr("title") : false;}' .
 	           'var caption = jQuery(this).data(\'caption\') || \'\';' .
 	           'if ( item.type === \'image\' && title.length ) {' .
 	           'caption = (caption.length ? caption + \'<br />\' : \'\') + \'<p class="caption-title">\'+jQuery("<div>").text(title).html()+\'</p>\' ;' .
 	           '}' .
-	           'return jQuery("<div>").text(caption).html();' .
+	           'if (typeof DOMPurify === "function" && caption.length) { return DOMPurify.sanitize(caption, {USE_PROFILES: {html: true}}); } else { return jQuery("<div>").text(caption).html(); }' .
 	           '}';
 
 	// fix undefined index copyTitleFunction. $mfbfw array misses this index.
 
     if (isset($mfbfw['captionShow']) && 'on' == $mfbfw['captionShow']) {
-        $mfbfw['copyTitleFunction'] = 'var arr = jQuery("a[data-fancybox]");
-									jQuery.each(arr, function() {
-										var title = jQuery(this).children("img").attr("title");
-                                        if(title){jQuery(this).attr("title",title)}
-									});	';
+        $mfbfw['copyTitleFunction'] = 'var arr = jQuery("a[data-fancybox]");' .
+									'jQuery.each(arr, function() {' .
+										'var title = jQuery(this).children("img").attr("title");' .
+										'if(title){jQuery(this).attr("title",title)}' .
+									'});';
     } else {
-        $mfbfw['copyTitleFunction'] = 'var arr = jQuery("a[data-fancybox]");
-									jQuery.each(arr, function() {
-										var title = jQuery(this).children("img").attr("title");
-										var caption = jQuery(this).next("figcaption").html();
-                                        if(caption && title){jQuery(this).attr("title",jQuery("<div>").text(title+" " + caption).html())}else if(title){ jQuery(this).attr("title",jQuery("<div>").text(title).html());}else if(caption){jQuery(this).attr("title",jQuery("<div>").text(caption).html());}
-									});	';
+        $mfbfw['copyTitleFunction'] = 'var arr = jQuery("a[data-fancybox]");' .
+									'jQuery.each(arr, function() {' .
+										'var title = jQuery(this).children("img").attr("title") || \'\';' .
+										'var figCaptionHtml = jQuery(this).next("figcaption").html() || \'\';' .
+										'var processedCaption = figCaptionHtml;' .
+										'if (figCaptionHtml.length && typeof DOMPurify === \'function\') {' .
+											'processedCaption = DOMPurify.sanitize(figCaptionHtml, {USE_PROFILES: {html: true}});' .
+										'} else if (figCaptionHtml.length) {' .
+											'processedCaption = jQuery("<div>").text(figCaptionHtml).html();' .
+										'}' .
+										'var newTitle = title;' .
+										'if (processedCaption.length) {' .
+											'newTitle = title.length ? title + " " + processedCaption : processedCaption;' .
+										'}' .
+										'if (newTitle.length) {' .
+											'jQuery(this).attr("title", newTitle);' .
+										'}' .
+									'});';
     }
 
 
 
 	$afterLoad = '';
 	if ( $mfbfw['titlePosition'] == 'inside' ) {
-		$afterLoad = 'function( instance, current ) {';
-		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption inside-caption\" style=\" position: absolute;left:0;right:0;color:#000;margin:0 auto;bottom:0;text-align:center;background-color:'.$mfbfw['paddingColor'].' \">\' + jQuery("<div>").text(current.opts.caption).html() + \'</div>\');';
-		$afterLoad .= '}';
+		$afterLoad = 'function( instance, current ) {' .
+		             'var captionContent = current.opts.caption || \'\';' .
+		             'var sanitizedCaptionString = \'\';' .
+		             'if (typeof DOMPurify === \'function\' && captionContent.length) {' .
+		                 'sanitizedCaptionString = DOMPurify.sanitize(captionContent, {USE_PROFILES: {html: true}});' .
+		             '} else if (captionContent.length) { ' .
+		                 'sanitizedCaptionString = jQuery("<div>").text(captionContent).html();' .
+		             '}' .
+		             'if (sanitizedCaptionString.length) { current.$content.append(jQuery(\'<div class=\"fancybox-custom-caption inside-caption\" style=\" position: absolute;left:0;right:0;color:#000;margin:0 auto;bottom:0;text-align:center;background-color:'.$mfbfw['paddingColor'].' \"></div>\').html(sanitizedCaptionString)); }' .
+		             '}';
 		$hideCaption = 'div.fancybox-caption{display:none !important;}';
 	} else if ( $mfbfw['titlePosition'] == 'over' ) {
-		$afterLoad = 'function( instance, current ) {';
-		$afterLoad .= 'current.$content.append(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:0;margin:0 auto;text-align:center; \">\' + jQuery("<div>").text(current.opts.caption).html() + \'</div>\');';
-		$afterLoad .= '}';
+		$afterLoad = 'function( instance, current ) {' .
+		             'var captionContent = current.opts.caption || \'\';' .
+		             'var sanitizedCaptionString = \'\';' .
+		             'if (typeof DOMPurify === \'function\' && captionContent.length) {' .
+		                 'sanitizedCaptionString = DOMPurify.sanitize(captionContent, {USE_PROFILES: {html: true}});' .
+		             '} else if (captionContent.length) { ' .
+		                 'sanitizedCaptionString = jQuery("<div>").text(captionContent).html();' .
+		             '}' .
+		             'if (sanitizedCaptionString.length) { current.$content.append(jQuery(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:0;margin:0 auto;text-align:center; \"></div>\').html(sanitizedCaptionString)); }' .
+		             '}';
 		$hideCaption = 'div.fancybox-caption{display:none !important;}';
 	} else {
 		$afterLoad .= '""';

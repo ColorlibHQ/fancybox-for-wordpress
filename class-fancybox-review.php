@@ -9,13 +9,6 @@ class Fancybox_Review {
 	
 	function __construct() {
 
-		$this->messages = array(
-			'notice'  => __( "Hi there! Stoked to see you're using Fancybox for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'mfbfw' ),
-			'rate'    => __( 'Rate the plugin', 'mfbfw' ),
-			'rated'   => __( 'Remind me later', 'mfbfw' ),
-			'no_rate' => __( 'Don\'t show again', 'mfbfw' ),
-		);
-
 		if ( isset( $args['messages'] ) ) {
 			$this->messages = wp_parse_args( $args['messages'], $this->messages );
 		}
@@ -25,6 +18,13 @@ class Fancybox_Review {
 	}
 
 	public function init() {
+		$this->messages = array(
+			'notice'  => __( "Hi there! Stoked to see you're using Fancybox for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'mfbfw' ),
+			'rate'    => __( 'Rate the plugin', 'mfbfw' ),
+			'rated'   => __( 'Remind me later', 'mfbfw' ),
+			'no_rate' => __( 'Don\'t show again', 'mfbfw' ),
+		);
+
 		if ( ! is_admin() ) {
 			return;
 		}

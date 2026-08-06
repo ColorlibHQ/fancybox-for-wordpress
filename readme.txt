@@ -3,7 +3,7 @@ Contributors: silkalns
 Tags: fancybox, lightbox, images, photos, pictures
 Requires at least: 5.6
 Tested up to: 6.8
-Stable tag: 3.3.6
+Stable tag: 3.3.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,7 +26,11 @@ If you are new to WordPress and want to lear more we have got you covered. Color
 If you enjoy using FancyBox lightbox for WordPress please leave a [positive feedback](https://wordpress.org/support/plugin/fancybox-for-wordpress/reviews/?filter=5). We are committed to make it the best lightbox plugin for WordPress.
 
 == Changelog ==
-= 3.3.6 - 25.11.2024 =
+= 3.3.7 - 07.05.2025 =
+Fixed: Issue with text domain loading too early (translations now load properly on the init hook)
+Fixed: Improved HTML sanitization in captions with DOMPurify to prevent XSS while preserving valid HTML formatting
+
+= 3.3.6 - 02.05.2025 =
 Fixed: Security issue - Fixed XSS vulnerability in caption and title handling
 
 = 3.3.5 - 12.11.2024 =
