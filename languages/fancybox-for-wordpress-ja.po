@@ -1,0 +1,748 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: FancyBox for WordPress 3.4.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fancybox-for-wordpress/\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Oba-T\n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: fancybox-for-wordpress\n"
+
+#. Plugin Name of the plugin
+#: fancybox.php
+msgid "FancyBox for WordPress"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: fancybox.php
+msgid "https://wordpress.org/plugins/fancybox-for-wordpress/"
+msgstr ""
+
+#. Description of the plugin
+#: fancybox.php
+msgid ""
+"Integrates <a href=\"http://fancyapps.com/fancybox/3/\">FancyBox 3</a> into "
+"WordPress."
+msgstr ""
+
+#. Author of the plugin
+#: fancybox.php
+msgid "Colorlib"
+msgstr ""
+
+#. Author URI of the plugin
+#: fancybox.php
+msgid "https://colorlib.com/wp/"
+msgstr ""
+
+#: admin.php:13
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#. translators: %s: Plugin version number.
+#: admin.php:28
+#, php-format
+msgid "Fancybox for WordPress (version %s)"
+msgstr ""
+
+#: admin.php:33
+msgid ""
+"Seamlessly integrates FancyBox into your blog: Upload, activate, and you're "
+"done. Additional configuration optional."
+msgstr ""
+
+#: admin.php:45
+msgid "Appearance"
+msgstr ""
+
+#: admin.php:46
+msgid "Animations"
+msgstr ""
+
+#: admin.php:47
+msgid "Behaviour"
+msgstr ""
+
+#: admin.php:48
+msgid "Galleries"
+msgstr ""
+
+#: admin.php:49
+msgid "Misc."
+msgstr ""
+
+#: admin.php:50
+msgid "Support"
+msgstr ""
+
+#: admin.php:81
+msgid "Save Changes"
+msgstr "設定保存"
+
+#: admin.php:90
+msgid "Revert to defaults"
+msgstr ""
+
+#. translators: %s: Colorlib link.
+#: admin.php:100
+#, php-format
+msgid "Plugin developed and supported by %s"
+msgstr ""
+
+#: class-fancybox-review.php:29
+msgid ""
+"Hi there! Stoked to see you're using Fancybox for a few days now - hope you "
+"like it! And if you do, please consider rating it. It would mean the world "
+"to us.  Keep on rocking!"
+msgstr ""
+
+#: class-fancybox-review.php:30
+msgid "Rate the plugin"
+msgstr ""
+
+#: class-fancybox-review.php:31
+msgid "Remind me later"
+msgstr ""
+
+#: class-fancybox-review.php:32
+msgid "Don't show again"
+msgstr ""
+
+#: fancybox.php:994
+msgid "You do not have permission to change these settings."
+msgstr ""
+
+#: fancybox.php:1025
+msgid "Fancybox for WordPress Options"
+msgstr ""
+
+#: fancybox.php:1026
+msgid "Fancybox for WP"
+msgstr ""
+
+#: fancybox.php:1061
+msgid ""
+"Are you sure you want to restore FancyBox for WordPress to default settings?"
+msgstr ""
+
+#: fancybox.php:1075
+msgid "Settings"
+msgstr "設定"
+
+#: lib/admin-head.php:15
+msgid "FancyBox for WordPress settings have been reset."
+msgstr ""
+
+#: lib/admin-tab-animations.php:2
+msgid "Animation Settings <span style=\"color:green\">(basic)</span>"
+msgstr ""
+
+#: lib/admin-tab-animations.php:4
+msgid ""
+"These settings control the animations when opening and closing Fancybox, and "
+"the optional easing effects."
+msgstr ""
+
+#: lib/admin-tab-animations.php:9
+msgid "Zoom Options"
+msgstr "ズーム設定"
+
+#: lib/admin-tab-animations.php:11
+msgid "Change content transparency during zoom animations (default: on)"
+msgstr "切替時、アニメーション動作を使用 (初期値: on)"
+
+#: lib/admin-tab-animations.php:34
+msgid "Animation Type"
+msgstr ""
+
+#: lib/admin-tab-animations.php:45
+msgid "Animation type when opening FancyBox. (default: fade)"
+msgstr ""
+
+#: lib/admin-tab-animations.php:57
+msgid "Speed in miliseconds of the FancyBox opening  animation (default: 500)"
+msgstr ""
+
+#: lib/admin-tab-animations.php:63
+msgid "Animation between slides Options"
+msgstr ""
+
+#: lib/admin-tab-animations.php:74
+msgid "Select Animation type for the slides(default: fade)"
+msgstr ""
+
+#: lib/admin-tab-animations.php:85
+msgid ""
+"Speed in miliseconds of the animation when navigating thorugh gallery items "
+"(default: 300)"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:2
+msgid "Appearance Settings <span style=\"color:green\">(basic)</span>"
+msgstr "外観設定 <span style=\"color:green\">(基本設定)</span>"
+
+#: lib/admin-tab-appearance.php:4
+msgid ""
+"These setting control how Fancybox looks, they let you tweak color, borders "
+"and position of elements, like the image title and closing buttons."
+msgstr ""
+
+#: lib/admin-tab-appearance.php:9
+msgid "Close Button"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:11
+msgid "Show Close button (default: off)"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:36
+msgid "Toolbar"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:38
+msgid "Show Toolbar  (default: on)"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:62
+msgid "Border"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:64
+msgid "Show Border (default: off)"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:89
+msgid "HTML color of the border (default: #BBBBBB)"
+msgstr "境界線の表示色 (初期値: #BBBBBB)"
+
+#: lib/admin-tab-appearance.php:95
+msgid "Padding"
+msgstr "パディング設定"
+
+#: lib/admin-tab-appearance.php:97
+msgid "HTML color of the padding (default: #FFFFFF)"
+msgstr "パッディングの表示色 (初期値: #FFFFFF)"
+
+#: lib/admin-tab-appearance.php:107
+msgid ""
+"(This should be left on #FFFFFF (white) if you want to display anything "
+"other than images, like inline or framed content)"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:115
+msgid "Padding size in pixels (default: 10)"
+msgstr "パッディングサイズ：px (初期値: 10)"
+
+#: lib/admin-tab-appearance.php:121
+msgid "Overlay Options"
+msgstr "オーバレイ設定"
+
+#: lib/admin-tab-appearance.php:123
+msgid "Add overlay (default: on)"
+msgstr "オーバーレイ適用 (初期値: on)"
+
+#: lib/admin-tab-appearance.php:149
+msgid "HTML color of the overlay (default: #666666)"
+msgstr "オーバーレイの表示色 (初期値: #666666)"
+
+#: lib/admin-tab-appearance.php:157
+msgid "Opacity of overlay. 0 is transparent, 1 is opaque (default: 0.3)"
+msgstr "オーバーレイ透過度. 0 = 透明, 1 = 黒  0.1刻み(初期値: 0.3)"
+
+#: lib/admin-tab-appearance.php:164
+msgid "Title"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:166
+msgid "Show the title (default: on)"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:191
+msgid "Title size (default: 14px)"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:200
+msgid "Inside (default)"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:207
+msgid "Outside"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:214
+msgid "Over"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:223
+msgid "Title text color (default: #333333)"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:224
+msgid "(Should contrast with the padding color set above)"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:231
+msgid "Hide caption*"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:233
+msgid ""
+"Hide the caption in lightbox. In some cases both figure caption and image "
+"title are displayed in the lightbox (default: off)"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:257
+msgid "Navigation Arrows"
+msgstr ""
+
+#: lib/admin-tab-appearance.php:259
+msgid "Show the navigation arrows (default: on)"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:2
+msgid "Behavior Settings <span style=\"color:orange\">(medium)</span>"
+msgstr "動作設定 <span style=\"color:orange\">(中間値)</span>"
+
+#: lib/admin-tab-behaviour.php:3
+msgid ""
+"The following settings should be left alone unless you know what you are "
+"doing."
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:7
+msgid "Close on Content Click"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:9
+msgid "Close FancyBox by clicking on the image (default: off)"
+msgstr "FancyBoxをプレビュー画像クリックで閉じる。 (初期値: off)"
+
+#: lib/admin-tab-behaviour.php:30
+msgid ""
+"(You may want to leave this off if you display iframed or inline content "
+"that containts clickable elements - for example: play buttons for movies, "
+"links to other pages)"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:36
+msgid "Close on Overlay Click"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:38
+msgid "Close FancyBox by clicking on the overlay surrounding it (default: on)"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:62
+msgid "Keyboard navigation;"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:64
+msgid "Enable Keyboard Navigation (default: on)"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:88
+msgid "Loop Galleries"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:90
+msgid ""
+"This will make galleries loop, allowing you to keep pressing next/back "
+"(default: off)"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:114
+msgid "Mouse Wheel Navigation"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:116
+msgid "Lets visitors navigate galleries with the mouse wheel  (default: off)"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:140
+msgid "Zoom On Click"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:142
+msgid ""
+"Lets visitors zoom in on the image when clicking it. It will have no effect "
+"if Close on Content Click is toggled.   (default: off)"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:166
+msgid "Woocommerce:"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:182
+msgid "Disable on Woocommerce Shop page.( Default : off )"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:199
+msgid "Disable on Woocommerce products.( Default : off )"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:205
+msgid "Exclude PDF files"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:207
+msgid ""
+"Excludes links to files type .pdf from being displayed in the lightbox  "
+"(default: off)"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:231
+msgid "Disable FancyBox on mobile"
+msgstr ""
+
+#: lib/admin-tab-behaviour.php:233
+msgid "Disables FancyBox on mobile view (default: off)"
+msgstr ""
+
+#: lib/admin-tab-galleries.php:2
+msgid "Gallery Settings <span style=\"color:red\">(advanced)</span>"
+msgstr "ギャラリー設定 <span style=\"color:red\">(高度設定)</span>"
+
+#: lib/admin-tab-galleries.php:3
+msgid ""
+"Here you can choose if you want the plugin to group all images into a "
+"gallery, or make a gallery for each post. You can also define you own jQuery "
+"expression if you like."
+msgstr ""
+"この設定で、すべての画像をギャラリーに分類するか、各ポストのためにギャラリー"
+"を作るかを選択できます。 また、jQueryの動作表現を定義できます。"
+
+#: lib/admin-tab-galleries.php:12
+msgid "Gallery Type"
+msgstr "ギャラリータイプ"
+
+#: lib/admin-tab-galleries.php:16
+msgid "Make a gallery for all images on the page (default)"
+msgstr "ページ上の全画像のためにギャラリーを作る (初期値)"
+
+#: lib/admin-tab-galleries.php:21
+msgid "Make a gallery for each gutenberg gallery block"
+msgstr ""
+
+#: lib/admin-tab-galleries.php:26
+msgid ""
+"Make a gallery for each post (will only work if your theme uses "
+"<code>class=\"post\"</code> on each post, which is common in WordPress"
+msgstr ""
+"各ポストのためにギャラリーを作る (WordPress標準テーマにおいて"
+"<code>class=\"post\"</code>を各ポストで使う場合に動作します。)"
+
+#: lib/admin-tab-galleries.php:31
+msgid "Use a custom expression to apply FancyBox"
+msgstr "FancyBoxへのカスタム表示の適用"
+
+#: lib/admin-tab-galleries.php:36 lib/admin-tab-other.php:106
+#: lib/admin-tab-other.php:114 lib/admin-tab-other.php:122
+#: lib/admin-tab-other.php:130 lib/admin-tab-other.php:138
+#: lib/admin-tab-other.php:185
+msgid "Click to start editing"
+msgstr ""
+
+#: lib/admin-tab-galleries.php:39
+msgid "Custom expression guidelines:"
+msgstr "カスタム表示ガイドライン："
+
+#: lib/admin-tab-galleries.php:40
+msgid ""
+"&middot; The custom expression has to apply <code>class=\"fancybox\"</code> "
+"to the links where you want to use FancyBox. Do not call the "
+"<code>fancybox()</code> function here, the plugin does this for you."
+msgstr ""
+
+#: lib/admin-tab-galleries.php:41
+msgid ""
+"&middot; The jQuery <code>addClass()</code> function is a good way to add "
+"the class to the desired links conserving any existing class."
+msgstr ""
+
+#: lib/admin-tab-galleries.php:42
+msgid ""
+"&middot; You can use <code>getTitle()</code> in your expression to copy the "
+"title attribute from the <code>IMG</code> tag to the <code>A</code> tag, so "
+"that FancyBox can show captions."
+msgstr ""
+
+#: lib/admin-tab-galleries.php:43
+msgid ""
+"&middot; You can use <code>jQuery(thumbnails)</code> like in the example "
+"expression to apply FancyBox to thumbnails that link to these extensions: "
+"BMP, GIF, JPG, JPEG, PNG (both lowercase and uppercase)."
+msgstr ""
+
+#: lib/admin-tab-galleries.php:44
+msgid ""
+"&middot; If you want to do it manually you can use something like "
+"<code>jQuery(\"a:has(img)[href$='.jpg']\")</code> or whatever works for you."
+msgstr ""
+
+#: lib/admin-tab-galleries.php:45
+msgid ""
+"See the <a href=\"http://docs.jquery.com/\" target=\"_blank\">jQuery "
+"Documentation</a> for more help."
+msgstr ""
+
+#: lib/admin-tab-galleries.php:46
+msgid "Examples:"
+msgstr ""
+
+#: lib/admin-tab-other.php:2
+msgid "Other Settings <span style=\"color:red\">(advanced)</span>"
+msgstr ""
+
+#: lib/admin-tab-other.php:3
+msgid "These are additional settings for advanced users."
+msgstr ""
+
+#: lib/admin-tab-other.php:7
+msgid "Dimensions"
+msgstr ""
+
+#: lib/admin-tab-other.php:9
+msgid "Auto detect dimensions (default: on)"
+msgstr ""
+
+#: lib/admin-tab-other.php:31
+msgid ""
+"Only works with <strong>Ajax</strong> and <strong>Inline</strong> content! "
+"Flash dimensions won't be autodetected so specify them below if necessary. "
+"If you want to insert several pieces of flash content with different "
+"dimensions you will have to use the <strong>Additional FancyBox Calls</"
+"strong> option."
+msgstr ""
+
+#: lib/admin-tab-other.php:37
+msgid ""
+"Width for iframe and swf content. Also set for inline content if "
+"<em>autoDimensions</em> is disabled (default: 560)"
+msgstr ""
+
+#: lib/admin-tab-other.php:42
+msgid ""
+"Height for iframe and swf content. Also set for inline content if "
+"<em>autoDimensions</em> is disabled (default: 340)"
+msgstr ""
+
+#: lib/admin-tab-other.php:48
+msgid "Load JavaScript in Footer"
+msgstr ""
+
+#: lib/admin-tab-other.php:50
+msgid ""
+"Loads JavaScript at the end of the blog's HTML (experimental) (default: off)"
+msgstr ""
+
+#: lib/admin-tab-other.php:71
+msgid ""
+"This option won't be recognized if you use <strong>Parallel Load</strong> "
+"plugin. In that case, you can do this from Parallel Load's options."
+msgstr ""
+
+#: lib/admin-tab-other.php:77
+msgid "Callbacks"
+msgstr ""
+
+#: lib/admin-tab-other.php:79
+msgid "Enable callbacks (default: off)"
+msgstr ""
+
+#: lib/admin-tab-other.php:99
+msgid "Enabling this will show additional settings."
+msgstr ""
+
+#: lib/admin-tab-other.php:103
+msgid ""
+"Callback on <strong>Start</strong> event: Will be called right before "
+"attempting to load the content"
+msgstr ""
+
+#: lib/admin-tab-other.php:111
+msgid ""
+"Callback on <strong>Cancel</strong> event: Will be called after loading is "
+"canceled"
+msgstr ""
+
+#: lib/admin-tab-other.php:119
+msgid ""
+"Callback on <strong>Complete</strong> event: Will be called once the content "
+"is displayed"
+msgstr ""
+
+#: lib/admin-tab-other.php:127
+msgid ""
+"Callback on <strong>CleanUp</strong> event: Will be called just before "
+"closing"
+msgstr ""
+
+#: lib/admin-tab-other.php:135
+msgid ""
+"Callback on <strong>Closed</strong> event: Will be called once FancyBox is "
+"closed"
+msgstr ""
+
+#: lib/admin-tab-other.php:143 lib/admin-tab-other.php:190
+msgid "Example:"
+msgstr ""
+
+#: lib/admin-tab-other.php:146
+msgid "Leave empty any speciic callbacks you don't need to use."
+msgstr ""
+
+#: lib/admin-tab-other.php:154
+msgid "Extra FancyBox Calls <span style=\"color:red\">(advanced)</span>"
+msgstr ""
+
+#: lib/admin-tab-other.php:155
+msgid ""
+"Here you can add as many additional calls to fancybox as you want, with "
+"different settings. For example, if you want to use fancybox with iframes or "
+"ajax on any specific link, you can configure those calls here without "
+"affecting the settings for images."
+msgstr ""
+
+#: lib/admin-tab-other.php:156
+msgid ""
+"For information on the options available you can use here see <a "
+"href=\"http://fancyapps.com/fancybox/3/\">FancyBox's API & Options page</a>."
+msgstr ""
+
+#: lib/admin-tab-other.php:160
+msgid "Additional FancyBox Calls"
+msgstr ""
+
+#: lib/admin-tab-other.php:162
+msgid "Additional FancyBox Calls (default: off)"
+msgstr ""
+
+#: lib/admin-tab-other.php:205
+msgid "Troubleshooting Settings"
+msgstr "トラブルシューティング設定"
+
+#: lib/admin-tab-other.php:207
+msgid ""
+"Settings in this section should only be changed if you are having problems "
+"with the plugin!"
+msgstr "プラグインに関する問題がある場合、この設定を変えるだけです!"
+
+#: lib/admin-tab-other.php:209
+msgid ""
+"If the plugin doesn't seem to work, first you should check for other plugins "
+"that may be conflicting with this one, especially other Lightbox, Slimbox, "
+"etc. Make sure all your plugins and WordPress itself are up to date (this "
+"plugin has only been tested in WordPress 2.7 and above)."
+msgstr ""
+"プラグインが機能しない場合は、はじめに他の類似プラグイン（特に他のLightbox、"
+"Slimbox）や、その他のプラグインと干渉している可能性があります。また、"
+"WordPress自体が最新版であることをチェックしてください。（このプラグインは、"
+"WordPress 2.7以上のバージョンでテスト済みです。）"
+
+#: lib/admin-tab-other.php:210
+msgid ""
+"Change them one at a time and test to see if they help. Remember that having "
+"a cache plugin may prevent changes from taking effect immidiately, so clear "
+"cache after saving changes here or deactivate cache until you finish editing "
+"these options."
+msgstr ""
+"これらを一つずつを変更して、影響しているかどうかをテストしてください。これら"
+"のオプションを編集し終わってもキャッシュが保持されているため、オプション設定"
+"後、すぐに効果が表れないかもしれません。その場合、オプション設定終了後に、"
+"キャッシュのクリアをしてください。"
+
+#: lib/admin-tab-other.php:215
+msgid "Do not call jQuery"
+msgstr "jQueryを使用しない"
+
+#: lib/admin-tab-other.php:217
+msgid ""
+"Skip jQuery call. Use this only if jQuery is being loaded twice (default: "
+"off)"
+msgstr "jQueryの起動スキップ。jQueryが2度起動される場合だけ使用 (初期値: off)"
+
+#: lib/admin-tab-other.php:242
+msgid "Uninstall"
+msgstr "削除"
+
+#: lib/admin-tab-other.php:243
+msgid ""
+"Like many other plugins, FancyBox for WordPress stores its settings on your "
+"WordPress' options database table. Actually, these settings are not using "
+"more than a couple of kilobytes of space, but if you want to completely "
+"uninstall this plugin, check the option below, then save changes, and "
+"<strong>when you deactivate the plugin</strong>, all its settings will be "
+"removed from the database."
+msgstr ""
+"他のプラグインのように、\"FancyBox for WordPress\"は、データベースのオプショ"
+"ンテーブルに設定を格納します。これらの設定は2KB以上のスペースを使っていませ"
+"ん。しかし、<strong>このプラグインを無効化</strong>し、削除する場合、完全に元"
+"に戻したいならば、下記のオプションをチェックすると、すべての設定はデータベー"
+"スから削除されます。"
+
+#: lib/admin-tab-other.php:247
+msgid "Remove settings"
+msgstr "設定の無効化"
+
+#: lib/admin-tab-other.php:249
+msgid ""
+"Remove Settings when plugin is deactivated from the \"Manage Plugins\" page. "
+"(default: off)"
+msgstr ""
+"プラグイン設定を \"プラグイン管理\"ページから無効化してください。 (初期値: "
+"off)"
+
+#: lib/admin-tab-support.php:2
+msgid "Help with Fancybox"
+msgstr ""
+
+#: lib/admin-tab-support.php:4
+msgid ""
+"If you have problems or questions about FancyBox itself (and not this "
+"WordPress plugin), please start with these links: <a target=\"_blank\" "
+"href=\"http://fancyapps.com/fancybox/3/\">How-To</a> & <a target=\"_blank\" "
+"href=\"http://fancyapps.com/fancybox/3/docs/\">Documentation</a>.<br />If "
+"that does not help, go to <a target=\"_blank\" href=\"http://"
+"groups.google.com/group/fancybox\">the FancyBox Google Group</a>, use the "
+"<strong>Search</strong> option, and if necesary, post your question."
+msgstr ""
+
+#: lib/admin-tab-support.php:7
+msgid "Help with Fancybox for WordPress plugin"
+msgstr ""
+
+#: lib/admin-tab-support.php:9
+msgid ""
+"Try to localize the problem (switch your theme and deactivate plugins until "
+"you find the source of the problem). You can also try the Troubleshooting "
+"settings of this plugin if necesary."
+msgstr ""
+
+#: lib/admin-tab-support.php:10
+msgid ""
+"Try reverting the plugin's settings to their defaults with the button below."
+msgstr ""
+
+#: lib/admin-tab-support.php:11
+msgid ""
+"If you still can not get the plugin to work, <a target=\"_blank\" "
+"href=\"http://wordpress.org/support/plugin/fancybox-for-"
+"wordpress#postform\">write a post in the WordPress Support forums</a> "
+"explaining the problem or take a look and the <a target=\"_blank\" "
+"href=\"http://wordpress.org/support/plugin/fancybox-for-wordpress\">already "
+"posted messages</a>."
+msgstr ""
+
+#: lib/admin-tab-support.php:14
+msgid "IMPORTANT:"
+msgstr ""
+
+#: lib/admin-tab-support.php:14
+msgid ""
+"When posting your problem please provide a link to your blog and the page "
+"where the error is found, and all relevant information you can, especially "
+"your theme, plugins, etc."
+msgstr ""

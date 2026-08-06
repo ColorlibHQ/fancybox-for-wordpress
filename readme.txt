@@ -2,8 +2,9 @@
 Contributors: silkalns
 Tags: fancybox, lightbox, images, photos, pictures
 Requires at least: 5.6
-Tested up to: 6.8
-Stable tag: 3.3.6
+Tested up to: 7.0
+Requires PHP: 7.4
+Stable tag: 3.4.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,7 +27,39 @@ If you are new to WordPress and want to lear more we have got you covered. Color
 If you enjoy using FancyBox lightbox for WordPress please leave a [positive feedback](https://wordpress.org/support/plugin/fancybox-for-wordpress/reviews/?filter=5). We are committed to make it the best lightbox plugin for WordPress.
 
 == Changelog ==
-= 3.3.6 - 25.11.2024 =
+= 3.4.0 =
+Fixed: Translations never loaded. The plugin declared `Text Domain: mfbfw` while its WordPress.org slug is `fancybox-for-wordpress`, and WordPress looks for language packs under the slug - so none of the community translations on translate.wordpress.org ever reached anyone. The text domain now matches the slug, which switches on the six existing language packs (es_CL, es_ES, es_VE, nl_NL, ru_RU, tr_TR) and every future one. 63 locales have translation work waiting on translate.wordpress.org.
+Changed: The bundled translations were migrated onto the current strings and renamed to the new domain. German, Japanese and Polish ship in the plugin because no language pack exists for them yet; Spanish and Turkish were dropped because their WordPress.org packs are more complete and take precedence anyway.
+Added: Translations now also ship as `.l10n.php` files, the faster format WordPress 6.5 and newer prefer, with the `.mo` files kept as a fallback.
+Added: Regenerated `languages/fancybox-for-wordpress.pot` from the current source - the old template was written in 2015 and had drifted badly.
+Security: Updated the bundled DOMPurify from 3.1.6 to 3.4.13, picking up the fix for the nesting-based mXSS bypass (CVE-2025-26791) in the sanitizer the plugin relies on for captions and titles.
+Security: Fixed a CSS injection in the generated stylesheet. Colour and size settings were escaped with esc_html(), which only blocks "<", so a value such as `blue}body{display:none}` could close its own declaration block and inject arbitrary site-wide CSS. Colours are now validated as hex and sizes as integers.
+Security: Fixed a potential JavaScript injection via the animation speed setting, which was written into the option object unquoted.
+Security: The options sanitizer is now an allow-list. It previously started from the raw submitted array, so any key it did not explicitly name was stored untouched.
+Security: Added ABSPATH guards to every PHP file, a capability check on the settings screen and the reset action, and an uninstall.php so settings are removed on delete (not only on deactivate) when that option is enabled.
+Security: Removed the jQuery UI stylesheet loaded from code.jquery.com. It is now bundled, which also stops leaking admin IP addresses to a third party. The bundled copy's references to jQuery UI theme images were removed - they only ever resolved on the CDN - so the settings screen no longer fires five 404s per load.
+Fixed: Missing text domain on four strings on the Support tab, and a missing translators comment, so they can now be translated.
+Fixed: PHP 8 compatibility. On the first page view after activation, and on any front-end request following an update, the settings array was used before it was populated, producing a wall of "Undefined array key" warnings, an "Automatic conversion of false to array" deprecation (a fatal error under PHP 9), and a fatal TypeError if the option row was not an array. Settings are now resolved and type-normalized through a single schema before use. Verified clean on PHP 8.5.
+Fixed: The settings migration only ran inside wp-admin, so a site whose first request after an update was a front-end hit rendered against an incomplete settings array.
+Fixed: The Overlay, Title and Zoom On Click toggles had no effect - they were tested with isset() alone, which is always true once the key exists. They now behave as labelled.
+Fixed: "Make a gallery for each Gutenberg gallery block" matched nothing on WordPress 5.9 and newer, where the gallery block renders as `figure.wp-block-gallery` rather than `ul.wp-block-gallery`.
+Fixed: Zoom On Click attached a new click handler on every slide without removing the previous one.
+Fixed: load_plugin_textdomain() was called with the deprecated second argument.
+Fixed: Script and style versions were hardcoded to "1.3.4", so browsers kept serving stale assets after a plugin update.
+Fixed: Malformed markup on the settings screen - the reset form was never closed.
+Fixed: Callback and custom-expression textareas were escaped with esc_attr()/wp_kses_post() instead of esc_textarea().
+Fixed: Legacy border-radius and shadow settings from FancyBox 1.x era installs are no longer discarded the first time the settings are saved.
+Changed: Assets are now minified - the FancyBox script drops from 162 KB to 68 KB and the stylesheet from 18 KB to 14 KB. Define SCRIPT_DEBUG to load the readable sources.
+Changed: Removed 22 unused FancyBox 1.x image files from the plugin package.
+Changed: The unprefixed PLUGIN_NAME constant is no longer redefined if another plugin already declared it.
+Added: `mfbfw_settings` and `mfbfw_is_enabled` filters for customizing settings and disabling the lightbox per request.
+Deprecated: hexTorgba() - use mfbfw_hex_to_rgba() instead. The old function still works.
+
+= 3.3.7 - 07.05.2025 =
+Fixed: Issue with text domain loading too early (translations now load properly on the init hook)
+Fixed: Improved HTML sanitization in captions with DOMPurify to prevent XSS while preserving valid HTML formatting
+
+= 3.3.6 - 02.05.2025 =
 Fixed: Security issue - Fixed XSS vulnerability in caption and title handling
 
 = 3.3.5 - 12.11.2024 =
@@ -292,6 +325,9 @@ Fixed errors causes by WordPress SVN.
 
 
 == Upgrade Notice ==
+
+= 3.4.0 =
+Security and PHP 8 release. Updates the bundled DOMPurify, closes a CSS injection in the generated stylesheet, and fixes PHP 8 warnings that could take a site down entirely if its settings row was damaged. Please note three settings that previously had no effect now work as labelled - Overlay, Title and Zoom On Click - so if you had any of them switched off, your lightbox will now honour that. Translations also start working for the first time: the plugin was asking WordPress for the wrong text domain, so no community translation had ever loaded.
 
 = 3.0.5 =
 Fixes the Revert options button and wrong version number on settings page. Also updates links in settings page and readme file.

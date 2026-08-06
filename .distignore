@@ -1,0 +1,16 @@
+# Files that must not ship in the WordPress.org package.
+# Honoured by `wp dist-archive` and the 10up/action-wordpress-plugin-deploy action.
+
+.git
+.gitignore
+.distignore
+.DS_Store
+.sass-cache
+node_modules
+
+# Development notes, not product documentation.
+CLAUDE.md
+.claude
+
+# Source maps are never shipped.
+*.map

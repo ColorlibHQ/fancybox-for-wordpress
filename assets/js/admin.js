@@ -1,26 +1,29 @@
-jQuery(function () {
-    
-    // Tabs
-    jQuery("#fbfwTabs").tabs();
+/* global wp, fbfwAdmin */
+jQuery(function ($) {
 
-    // Hide form fields when not needed (switched by checkbox)
+    var strings = window.fbfwAdmin || {};
+
+    // Tabs
+    $("#fbfwTabs").tabs();
+
+    // Show a dependent block only while its controlling checkbox is on.
     function switchBlock(block, button) {
-        var buttonValue = jQuery(button + ":checked").val();
-        if (buttonValue == "on") {
-            jQuery(block).css("display", "inline-block");
-        } else {
-            jQuery(block).css("display", "none");
+        var $block = $(block),
+            $button = $(button);
+
+        if (!$block.length || !$button.length) {
+            return;
         }
 
-        jQuery(button).on('click', function () {
-            jQuery(block).animate({
+        $block.css("display", $button.is(":checked") ? "inline-block" : "none");
+
+        $button.on("change", function () {
+            $block.animate({
                 opacity: "toggle",
                 height: "toggle"
             }, 500);
         });
-
     }
-
 
     switchBlock("#borderColorBlock", "#border");
     switchBlock("#closeButtonBlock", "#showCloseButton");
@@ -30,99 +33,64 @@ jQuery(function () {
     switchBlock("#extraCallsBlock", "#extraCallsEnable");
     switchBlock("#easingBlock", "#easing");
 
-    jQuery(".slider-horizontal").each(function () {
-        var mySl = jQuery(this);
-        var defaultState = mySl.prev('input').val();
-        mySl.attr('defSl', defaultState);
+    // Seed each slider from the input it controls before initialising it.
+    $(".slider-horizontal").each(function () {
+        var $slider = $(this);
+        $slider.attr("defSl", $slider.prev("input").val());
     });
 
-    //Function enable codemirror on FancyBox Extra Calls
-    jQuery('.start-editing').on('click', function () {
-        wp.codeEditor.initialize(jQuery(this).next("textarea"));
-        jQuery(this).hide();
+    // Enable CodeMirror on the JavaScript textareas on demand.
+    $(".start-editing").on("click", function () {
+        if (window.wp && wp.codeEditor) {
+            wp.codeEditor.initialize($(this).next("textarea"));
+        }
+        $(this).hide();
     });
 
+    $(".color-btn").wpColorPicker();
 
-    //add color picker to buttons
-    jQuery('.color-btn').wpColorPicker();
+    $(".slider-horizontal").each(function () {
+        var $slider = $(this),
+            min = parseFloat($slider.attr("minSl")),
+            max = parseFloat($slider.attr("maxSl")),
+            def = parseFloat($slider.attr("defSl")),
+            step = parseFloat($slider.attr("stepSl"));
 
-    //function to initiate horizontal slider from jQuery UI
-    jQuery(".slider-horizontal").each(function () {
-        var mySl = jQuery(this);
-        var minSl = parseFloat(mySl.attr("minSl"));
-        var maxSl = parseFloat(mySl.attr("maxSl"));
-        var defSl = parseFloat(mySl.attr("defSl"));
-        var stepSl = parseFloat(mySl.attr("stepSl"));
-        jQuery(this).slider({
+        $slider.slider({
             orientation: "horizontal",
             range: "min",
-            min: minSl,
-            max: maxSl,
-            value: defSl,
-            step: stepSl,
+            min: min,
+            max: max,
+            value: isNaN(def) ? min : def,
+            step: step,
             slide: function (event, ui) {
-                mySl.prev("input").val(ui.value);
+                $slider.prev("input").val(ui.value);
             }
         });
     });
 
-    // Hide Title Color if not needed
-    var titlePosition = jQuery("input:radio[class=titlePosition]:checked").val();
-
-    switch (titlePosition) {
-        case "float":
-        case "outside":
-        case "over":
-            jQuery("#titleColorBlock").css("display", "none");
+    // Title colour only applies to the "inside" position.
+    function syncTitleColour() {
+        var position = $("input.titlePosition:checked").val();
+        $("#titleColorBlock").toggle("inside" === position);
     }
 
-    jQuery("#titlePositionFloat, #titlePositionOutside, #titlePositionOver").on('click', function () {
-        jQuery("#titleColorBlock").hide("slow");
-    });
+    syncTitleColour();
+    $("input.titlePosition").on("change", syncTitleColour);
 
-    jQuery("#titlePositionInside").on('click', function () {
-        jQuery("#titleColorBlock").show("slow");
-    });
-
-
-    // Gallery Type
-    var galleryType = jQuery("input:radio[class=galleryType]:checked").val();
-
-    switch (galleryType) {
-        case "all":
-        case "none":
-        case "post":
-        case "single_gutenberg_block" :
-            jQuery("#customExpressionBlock").css("display", "none");
+    // The custom expression editor only applies to the "custom" gallery type.
+    function syncGalleryType() {
+        var type = $("input.galleryType:checked").val();
+        $("#customExpressionBlock").toggle("custom" === type);
     }
 
-    jQuery("#galleryTypeAll, #galleryTypeNone, #galleryTypePost, #galleryTypeGutenbergBlock").on('click', function () {
-        jQuery("#customExpressionBlock").hide("slow");
-    });
+    syncGalleryType();
+    $("input.galleryType").on("change", syncGalleryType);
 
-    jQuery("#galleryTypeCustom").on('click', function () {
-        jQuery("#customExpressionBlock").show("slow");
+    // Confirm before resetting. Previously an inline onClick attribute calling a
+    // global function, which meant the markup depended on script load order.
+    $("#reset").on("click", function () {
+        return window.confirm(strings.confirmDefaults || "Are you sure you want to restore FancyBox for WordPress to default settings?");
     });
 
 });
-
-function confirmDefaults() {
-    if (confirm(defaults_prompt) == true)
-        return true;
-    else
-        return false;
-}
-
-var defaults_prompt = "Are you sure you want to restore FancyBox for WordPress to default settings?";
-
-function activatePlugin( url ) {
-    jQuery.ajax( {
-        async: true,
-        type: 'GET',
-        dataType: 'html',
-        url: url,
-        success: function() {
-            location.reload();
-        }
-    } );
-}
