@@ -1,11 +1,11 @@
 {
   "name": "fancybox-for-wordpress",
   "main": "Gruntfile.js",
-  "version": "3.3.5",
+  "version": "3.4.0",
   "homepage": "https://www.colorlib.com",
   "author": "Colorlib",
   "license": "GPL v3",
-  "repository": "https://github.com/puikinsh/fancybox-for-wordpress",
+  "repository": "https://github.com/ColorlibHQ/fancybox-for-wordpress",
   "devDependencies": {
     "grunt": "^1.0.4",
     "grunt-checktextdomain": "^1.0.1",

@@ -1,13 +1,14 @@
-<h3><?php echo wp_kses_post( __( 'Animation Settings <span style="color:green">(basic)</span>', 'mfbfw' ) ); ?></h3>
+<?php defined( 'ABSPATH' ) || exit; ?>
+<h3><?php echo wp_kses_post( __( 'Animation Settings <span style="color:green">(basic)</span>', 'fancybox-for-wordpress' ) ); ?></h3>
 
-<p><?php esc_html_e( 'These settings control the animations when opening and closing Fancybox, and the optional easing effects.', 'mfbfw' ); ?></p>
+<p><?php esc_html_e( 'These settings control the animations when opening and closing Fancybox, and the optional easing effects.', 'fancybox-for-wordpress' ); ?></p>
 
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Zoom Options', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Zoom Options', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Change content transparency during zoom animations (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Change content transparency during zoom animations (default: on)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -30,7 +31,7 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Animation Type', 'mfbfw' ); ?></th>
+        <th scope="row"><?php esc_html_e( 'Animation Type', 'fancybox-for-wordpress' ); ?></th>
         <td>
             <fieldset>
                 <label for="transitionIn">
@@ -41,7 +42,7 @@
 						}
 						?>
                     </select>
-					<?php esc_html_e( 'Animation type when opening FancyBox. (default: fade)', 'mfbfw' ); ?>
+					<?php esc_html_e( 'Animation type when opening FancyBox. (default: fade)', 'fancybox-for-wordpress' ); ?>
                 </label>
                 <div class="cf"></div>
                 <div class="line-spacer"></div>
@@ -53,13 +54,13 @@
 						}
 						?>
                     </select>
-					<?php esc_html_e( 'Speed in miliseconds of the FancyBox opening  animation (default: 500)', 'mfbfw' ); ?>
+					<?php esc_html_e( 'Speed in miliseconds of the FancyBox opening  animation (default: 500)', 'fancybox-for-wordpress' ); ?>
                 </label>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Animation between slides Options', 'mfbfw' ); ?></th>
+        <th scope="row"><?php esc_html_e( 'Animation between slides Options', 'fancybox-for-wordpress' ); ?></th>
         <td>
             <fieldset>
                 <label for="transitionEffect">
@@ -70,7 +71,7 @@
 						}
 						?>
                     </select>
-					<?php esc_html_e( 'Select Animation type for the slides(default: fade)', 'mfbfw' ); ?>
+					<?php esc_html_e( 'Select Animation type for the slides(default: fade)', 'fancybox-for-wordpress' ); ?>
                 </label>
                 <div class="line-spacer"></div>
                 <label for="zoomSpeedChange">
@@ -81,7 +82,7 @@
 						}
 						?>
                     </select>
-					<?php esc_html_e( 'Speed in miliseconds of the animation when navigating thorugh gallery items (default: 300)', 'mfbfw' ); ?>
+					<?php esc_html_e( 'Speed in miliseconds of the animation when navigating thorugh gallery items (default: 300)', 'fancybox-for-wordpress' ); ?>
                 </label>
             </fieldset>
         </td>

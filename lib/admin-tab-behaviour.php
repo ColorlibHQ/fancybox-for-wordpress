@@ -1,11 +1,12 @@
-<h3><?php echo wp_kses_post( __( 'Behavior Settings <span style="color:orange">(medium)</span>', 'mfbfw' ) ); ?></h3>
-<p><?php esc_html_e( 'The following settings should be left alone unless you know what you are doing.', 'mfbfw' ); ?></p>
+<?php defined( 'ABSPATH' ) || exit; ?>
+<h3><?php echo wp_kses_post( __( 'Behavior Settings <span style="color:orange">(medium)</span>', 'fancybox-for-wordpress' ) ); ?></h3>
+<p><?php esc_html_e( 'The following settings should be left alone unless you know what you are doing.', 'fancybox-for-wordpress' ); ?></p>
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Close on Content Click', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Close on Content Click', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Close FancyBox by clicking on the image (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Close FancyBox by clicking on the image (default: off)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -26,15 +27,15 @@
                 </div>
                 <div class="cf"></div>
                 <p class="description">
-                    <em><?php esc_html_e( '(You may want to leave this off if you display iframed or inline content that containts clickable elements - for example: play buttons for movies, links to other pages)', 'mfbfw' ); ?>
+                    <em><?php esc_html_e( '(You may want to leave this off if you display iframed or inline content that containts clickable elements - for example: play buttons for movies, links to other pages)', 'fancybox-for-wordpress' ); ?>
                 </p>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Close on Overlay Click', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Close on Overlay Click', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Close FancyBox by clicking on the overlay surrounding it (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Close FancyBox by clicking on the overlay surrounding it (default: on)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -58,9 +59,9 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Keyboard navigation;', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Keyboard navigation;', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Enable Keyboard Navigation (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Enable Keyboard Navigation (default: on)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -84,9 +85,9 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Loop Galleries', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Loop Galleries', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'This will make galleries loop, allowing you to keep pressing next/back (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'This will make galleries loop, allowing you to keep pressing next/back (default: off)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -110,9 +111,9 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Mouse Wheel Navigation', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Mouse Wheel Navigation', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Lets visitors navigate galleries with the mouse wheel  (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Lets visitors navigate galleries with the mouse wheel  (default: off)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -136,9 +137,9 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Zoom On Click', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Zoom On Click', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Lets visitors zoom in on the image when clicking it. It will have no effect if Close on Content Click is toggled.   (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Lets visitors zoom in on the image when clicking it. It will have no effect if Close on Content Click is toggled.   (default: off)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -162,7 +163,7 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Woocommerce:', 'mfbfw' ); ?></th>
+        <th scope="row"><?php esc_html_e( 'Woocommerce:', 'fancybox-for-wordpress' ); ?></th>
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
@@ -178,7 +179,7 @@
                         </svg>
                     </div>
                 </div>
-                <span class="switch-text"><?php esc_html_e( 'Disable on Woocommerce Shop page.( Default : off )', 'mfbfw' ); ?></span>
+                <span class="switch-text"><?php esc_html_e( 'Disable on Woocommerce Shop page.( Default : off )', 'fancybox-for-wordpress' ); ?></span>
                 <div class="cf"></div>
             </fieldset>
             <fieldset>
@@ -195,15 +196,15 @@
                         </svg>
                     </div>
                 </div>
-                <span class="switch-text"><?php esc_html_e( 'Disable on Woocommerce products.( Default : off )', 'mfbfw' ); ?></span>
+                <span class="switch-text"><?php esc_html_e( 'Disable on Woocommerce products.( Default : off )', 'fancybox-for-wordpress' ); ?></span>
                 <div class="cf"></div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Exclude PDF files', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Exclude PDF files', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Excludes links to files type .pdf from being displayed in the lightbox  (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Excludes links to files type .pdf from being displayed in the lightbox  (default: off)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -227,9 +228,9 @@
         </td>
     </tr>
     <tr valign="top">
-	    <th scope="row"><?php esc_html_e( 'Disable FancyBox on mobile', 'mfbfw' ); ?>
+	    <th scope="row"><?php esc_html_e( 'Disable FancyBox on mobile', 'fancybox-for-wordpress' ); ?>
 		    <span class="tooltip-right"
-		          data-tooltip="<?php esc_html_e( 'Disables FancyBox on mobile view (default: off)', 'mfbfw' ); ?>">
+		          data-tooltip="<?php esc_html_e( 'Disables FancyBox on mobile view (default: off)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
 	    </th>

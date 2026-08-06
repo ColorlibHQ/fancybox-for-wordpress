@@ -85,7 +85,10 @@ module.exports = function(grunt) {
               '!composer.lock',
               '!set_tags.sh',
               '!fancybox-for-wordpress.zip',
-              '!nbproject/**' ],
+              '!nbproject/**',
+              '!CLAUDE.md',
+              '!.distignore',
+              '!.claude/**' ],
           dest: 'build/'
       }
     },

@@ -1,13 +1,14 @@
-<h3><?php echo wp_kses_post( __( 'Appearance Settings <span style="color:green">(basic)</span>', 'mfbfw' ) ); ?></h3>
+<?php defined( 'ABSPATH' ) || exit; ?>
+<h3><?php echo wp_kses_post( __( 'Appearance Settings <span style="color:green">(basic)</span>', 'fancybox-for-wordpress' ) ); ?></h3>
 
-<p><?php esc_html_e( 'These setting control how Fancybox looks, they let you tweak color, borders and position of elements, like the image title and closing buttons.', 'mfbfw' ); ?></p>
+<p><?php esc_html_e( 'These setting control how Fancybox looks, they let you tweak color, borders and position of elements, like the image title and closing buttons.', 'fancybox-for-wordpress' ); ?></p>
 
 <table class="form-table fancy-table" style="clear:none;">
     <tbody>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Close Button', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Close Button', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Show Close button (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Show Close button (default: off)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -32,9 +33,9 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Toolbar', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Toolbar', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Show Toolbar  (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Show Toolbar  (default: on)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -58,9 +59,9 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Border', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Border', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Show Border (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Show Border (default: off)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -85,15 +86,15 @@
                         <input type="text" class="color-btn" name="mfbfw[borderColor]" id="borderColor"
                                value="<?php echo esc_attr( $settings['borderColor'] ) ?>" size="7" maxlength="7"/>
                     </label>
-                    <p class="description"><?php esc_html_e( 'HTML color of the border (default: #BBBBBB)', 'mfbfw' ); ?></p>
+                    <p class="description"><?php esc_html_e( 'HTML color of the border (default: #BBBBBB)', 'fancybox-for-wordpress' ); ?></p>
                 </div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Padding', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Padding', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'HTML color of the padding (default: #FFFFFF)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'HTML color of the padding (default: #FFFFFF)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -103,7 +104,7 @@
                     <input type="text" class="color-btn" name="mfbfw[paddingColor]" id="paddingColor"
                            value="<?php echo esc_attr( $settings['paddingColor'] ) ?>" size="7" maxlength="7"/>
                 </label>
-                <p class="description"><?php esc_html_e( '(This should be left on #FFFFFF (white) if you want to display anything other than images, like inline or framed content)', 'mfbfw' ); ?></p>
+                <p class="description"><?php esc_html_e( '(This should be left on #FFFFFF (white) if you want to display anything other than images, like inline or framed content)', 'fancybox-for-wordpress' ); ?></p>
                 <div class="line-spacer"></div>
                 <label for="padding" class="inlined">
                     <input type="text" class="slider-text" name="mfbfw[padding]" id="padding"
@@ -111,15 +112,15 @@
                     <div class="slider-horizontal" minSl="0" maxSl="100" stepSl="1" rangeSl="min"
                          style="height:14px;"></div>
                     <div class="cf"></div>
-                    <p class="description"><span class="slider-spantext"><?php esc_html_e( 'Padding size in pixels (default: 10)', 'mfbfw' ); ?></span></p>
+                    <p class="description"><span class="slider-spantext"><?php esc_html_e( 'Padding size in pixels (default: 10)', 'fancybox-for-wordpress' ); ?></span></p>
                 </label>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Overlay Options', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Overlay Options', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Add overlay (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Add overlay (default: on)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -145,7 +146,7 @@
                         <input type="text" class="color-btn" name="mfbfw[overlayColor]" id="overlayColor"
                                value="<?php echo esc_attr( $settings['overlayColor'] ); ?>" size="7" maxlength="7"/>
                     </label>
-                    <p class="description"><?php esc_html_e( 'HTML color of the overlay (default: #666666)', 'mfbfw' ); ?></p>
+                    <p class="description"><?php esc_html_e( 'HTML color of the overlay (default: #666666)', 'fancybox-for-wordpress' ); ?></p>
                     <div class="line-spacer"></div>
                     <label for="overlayOpacity" class="inlined">
                         <input type="text" class="slider-text" name="mfbfw[overlayOpacity]" id="overlayOpacity"
@@ -153,16 +154,16 @@
                         <div class="slider-horizontal" minSl="0" maxSl="1" stepSl="0.1" rangeSl="min"
                              style="height:14px;"></div>
                         <div class="cf"></div>
-                        <p class="description"><span class="slider-spantext"><?php esc_html_e( 'Opacity of overlay. 0 is transparent, 1 is opaque (default: 0.3)', 'mfbfw' ); ?></span></p>
+                        <p class="description"><span class="slider-spantext"><?php esc_html_e( 'Opacity of overlay. 0 is transparent, 1 is opaque (default: 0.3)', 'fancybox-for-wordpress' ); ?></span></p>
                     </label>
                 </div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Title', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Title', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Show the title (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Show the title (default: on)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -187,7 +188,7 @@
                     <label for="titleSize">
                         <input type="text" name="mfbfw[titleSize]" id="titleSize" size="2" maxlength="4"
                                value="<?php echo esc_attr( $settings['titleSize'] ); ?>"/>
-						<?php esc_html_e( 'Title size (default: 14px)', 'mfbfw' ); ?>
+						<?php esc_html_e( 'Title size (default: 14px)', 'fancybox-for-wordpress' ); ?>
                     </label>
                     <div class="cf"></div>
                     <div class="line-spacer"></div>
@@ -196,21 +197,21 @@
 						echo ' checked="yes"';
 					} ?> />
                     <label for="titlePositionInside">
-						<?php esc_html_e( 'Inside (default)', 'mfbfw' ); ?>
+						<?php esc_html_e( 'Inside (default)', 'fancybox-for-wordpress' ); ?>
                     </label>
                     <input id="titlePositionOutside" class="titlePosition" type="radio" value="float"
                            name="mfbfw[titlePosition]"<?php if ( $settings['titlePosition'] == 'float' ) {
 						echo ' checked="yes"';
 					} ?> />
                     <label for="titlePositionOutside">
-						<?php esc_html_e( 'Outside', 'mfbfw' ); ?>
+						<?php esc_html_e( 'Outside', 'fancybox-for-wordpress' ); ?>
                     </label>
                     <input id="titlePositionOver" class="titlePosition" type="radio" value="over"
                            name="mfbfw[titlePosition]"<?php if ( $settings['titlePosition'] == 'over' ) {
 						echo ' checked="yes"';
 					} ?> />
                     <label for="titlePositionOver">
-						<?php esc_html_e( 'Over', 'mfbfw' ); ?>
+						<?php esc_html_e( 'Over', 'fancybox-for-wordpress' ); ?>
                     </label>
                     <div class="line-spacer"></div>
                     <div id="titleColorBlock">
@@ -219,17 +220,17 @@
                                    class="colorpick" value="<?php echo esc_attr( $settings['titleColor'] ); ?>" size="7"
                                    maxlength="7"/>
                         </label>
-                        <p class="description"><?php esc_html_e( 'Title text color (default: #333333)', 'mfbfw' ); ?></p>
-                        <p class="description"><?php esc_html_e( '(Should contrast with the padding color set above)', 'mfbfw' ); ?></p>
+                        <p class="description"><?php esc_html_e( 'Title text color (default: #333333)', 'fancybox-for-wordpress' ); ?></p>
+                        <p class="description"><?php esc_html_e( '(Should contrast with the padding color set above)', 'fancybox-for-wordpress' ); ?></p>
                     </div>
                 </div>
             </fieldset>
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Hide caption*', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Hide caption*', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Hide the caption in lightbox. In some cases both figure caption and image title are displayed in the lightbox (default: off)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Hide the caption in lightbox. In some cases both figure caption and image title are displayed in the lightbox (default: off)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>
@@ -253,9 +254,9 @@
         </td>
     </tr>
     <tr valign="top">
-        <th scope="row"><?php esc_html_e( 'Navigation Arrows', 'mfbfw' ); ?>
+        <th scope="row"><?php esc_html_e( 'Navigation Arrows', 'fancybox-for-wordpress' ); ?>
             <span class="tooltip-right"
-                  data-tooltip="<?php esc_html_e( 'Show the navigation arrows (default: on)', 'mfbfw' ); ?>">
+                  data-tooltip="<?php esc_html_e( 'Show the navigation arrows (default: on)', 'fancybox-for-wordpress' ); ?>">
                   <i class="dashicons dashicons-editor-help"></i>
              </span>
         </th>

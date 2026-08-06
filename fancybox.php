@@ -3,19 +3,19 @@
 * Plugin Name: FancyBox for WordPress
 * Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 * Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-* Version: 3.3.7
+* Version: 3.4.0
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
-* Tested up to: 6.8
-* Requires: 5.6 or higher
+* Tested up to: 7.0
+* Requires at least: 5.6
 * License: GPLv3 or later
 * License URI: https://www.gnu.org/licenses/gpl-3.0.html
 * Requires PHP: 7.4
-* Text Domain: mfbfw
+* Text Domain: fancybox-for-wordpress
 * Domain Path: /languages
 *
 * Copyright 2008-2016 	Janis Skarnelis 	https://twitter.com/moskis/
-* Copyright 2016-2025 	Colorlib 			support@colorlib.com
+* Copyright 2016-2026 	Colorlib 			support@colorlib.com
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License, version 3, as
@@ -31,43 +31,133 @@
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.3.7' );
+define( 'FBFW_VERSION', '3.4.0' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
 define( 'FBFW_PREVIOUS_PLUGIN_VERSION', '3.0.14' );
 define( 'FBFW_FILE_', __FILE__ );
-define( 'PLUGIN_NAME', 'fancybox-for-wordpress' );
+define( 'FBFW_SLUG', 'fancybox-for-wordpress' );
 
-
-// Get Main Settings
-$mfbfw         = get_option( 'mfbfw' );
-$mfbfw_version = get_option( 'mfbfw_active_version' );
+// Historically declared unprefixed, which collides with any other plugin doing the
+// same. Kept for backwards compatibility, but never redefined if someone won the race.
+if ( ! defined( 'PLUGIN_NAME' ) ) {
+	define( 'PLUGIN_NAME', FBFW_SLUG );
+}
 
 include 'class-fancybox-review.php';
 
-// If previous version detected
-if ( is_admin() && isset( $mfbfw_version ) && $mfbfw_version < FBFW_VERSION ) {
+/**
+ * Describes every option: its default and how it must be normalized.
+ *
+ * This single table drives the defaults, the save-time sanitizer and the read-time
+ * normalizer, so a value can never reach the page in a shape the output code did
+ * not expect.
+ *
+ * Types:
+ *  - toggle : stored as 'on' or '' (any legacy truthy value normalizes to 'on')
+ *  - color  : #rgb / #rrggbb, falls back to the default when invalid
+ *  - int    : absint, clamped to 'max'
+ *  - float  : clamped between 'min' and 'max'
+ *  - choice : must be one of 'choices'
+ *  - js     : raw JavaScript supplied by an administrator
+ *
+ * @since 3.4.0
+ *
+ * @return array<string, array<string, mixed>>
+ */
+function mfbfw_option_schema() {
 
-	// get default settings and add any new ones to the database
-	$current_settings = get_option( 'mfbfw' );
-	$default_settings = mfbfw_defaults();
-	$new_settings     = (array) $current_settings + (array) $default_settings;
-	update_option( 'mfbfw', $new_settings );
+	static $schema = null;
 
-	// update version number
-	update_option( 'mfbfw_active_version', FBFW_VERSION );
-} else {
+	if ( null !== $schema ) {
+		return $schema;
+	}
 
-	// update is not needed, add settings if first time activation
-	$default_settings = mfbfw_defaults();
-	add_option( 'mfbfw', $default_settings );
-	add_option( 'mfbfw_active_version', FBFW_VERSION );
+	$schema = array(
+		// Appearance.
+		'border'                     => array( 'type' => 'toggle', 'default' => '' ),
+		'borderColor'                => array( 'type' => 'color', 'default' => '#BBBBBB' ),
+		'paddingColor'               => array( 'type' => 'color', 'default' => '#FFFFFF' ),
+		'padding'                    => array( 'type' => 'int', 'default' => 10, 'max' => 200 ),
+		'overlayShow'                => array( 'type' => 'toggle', 'default' => 'on' ),
+		'overlayColor'               => array( 'type' => 'color', 'default' => '#666666' ),
+		'overlayOpacity'             => array( 'type' => 'float', 'default' => 0.3, 'min' => 0, 'max' => 1 ),
+		'titleShow'                  => array( 'type' => 'toggle', 'default' => 'on' ),
+		'captionShow'                => array( 'type' => 'toggle', 'default' => '' ),
+		'titlePosition'              => array( 'type' => 'choice', 'default' => 'inside', 'choices' => array( 'inside', 'over', 'float', 'outside' ) ),
+		'titleColor'                 => array( 'type' => 'color', 'default' => '#333333' ),
+		'showNavArrows'              => array( 'type' => 'toggle', 'default' => 'on' ),
+		'disableOnMobile'            => array( 'type' => 'toggle', 'default' => '' ),
+		'titleSize'                  => array( 'type' => 'int', 'default' => 14, 'max' => 200 ),
+		'showCloseButton'            => array( 'type' => 'toggle', 'default' => '' ),
+		'showToolbar'                => array( 'type' => 'toggle', 'default' => 'on' ),
+
+		// Animations.
+		'zoomOpacity'                => array( 'type' => 'toggle', 'default' => 'on' ),
+		'zoomSpeedIn'                => array( 'type' => 'int', 'default' => 500, 'max' => 10000 ),
+		'zoomSpeedChange'            => array( 'type' => 'int', 'default' => 300, 'max' => 10000 ),
+		'transitionIn'               => array( 'type' => 'choice', 'default' => 'fade', 'choices' => array( 'fade', 'zoom', 'zoom-in-out', 'none' ) ),
+		'transitionEffect'           => array( 'type' => 'choice', 'default' => 'fade', 'choices' => array( 'false', 'fade', 'slide', 'circular', 'tube', 'zoom-in-out', 'rotate' ) ),
+
+		// Behaviour.
+		'hideOnOverlayClick'         => array( 'type' => 'toggle', 'default' => 'on' ),
+		'hideOnContentClick'         => array( 'type' => 'toggle', 'default' => '' ),
+		'zoomOnClick'                => array( 'type' => 'toggle', 'default' => '' ),
+		'enableEscapeButton'         => array( 'type' => 'toggle', 'default' => 'on' ),
+		'cyclic'                     => array( 'type' => 'toggle', 'default' => '' ),
+		'mouseWheel'                 => array( 'type' => 'toggle', 'default' => '' ),
+		'disableWoocommercePages'    => array( 'type' => 'toggle', 'default' => '' ),
+		'disableWoocommerceProducts' => array( 'type' => 'toggle', 'default' => '' ),
+		'exclude_pdf'                => array( 'type' => 'toggle', 'default' => '' ),
+
+		// Gallery type.
+		'galleryType'                => array( 'type' => 'choice', 'default' => 'all', 'choices' => array( 'all', 'post', 'none', 'single_gutenberg_block', 'custom' ) ),
+		'customExpression'           => array( 'type' => 'js', 'default' => 'jQuery(thumbnails).attr("data-fancybox","gallery").getTitle();' ),
+
+		// Misc.
+		'autoDimensions'             => array( 'type' => 'toggle', 'default' => 'on' ),
+		'frameWidth'                 => array( 'type' => 'int', 'default' => 560, 'max' => 10000 ),
+		'frameHeight'                => array( 'type' => 'int', 'default' => 340, 'max' => 10000 ),
+		'loadAtFooter'               => array( 'type' => 'toggle', 'default' => '' ),
+		'callbackEnable'             => array( 'type' => 'toggle', 'default' => '' ),
+		'callbackOnStart'            => array( 'type' => 'js', 'default' => 'function() { alert("Start!"); }' ),
+		'callbackOnCancel'           => array( 'type' => 'js', 'default' => 'function() { alert("Cancel!"); }' ),
+		'callbackOnComplete'         => array( 'type' => 'js', 'default' => 'function() { alert("Complete!"); }' ),
+		'callbackOnCleanup'          => array( 'type' => 'js', 'default' => 'function() { alert("CleanUp!"); }' ),
+		'callbackOnClose'            => array( 'type' => 'js', 'default' => 'function() { alert("Close!"); }' ),
+		'nojQuery'                   => array( 'type' => 'toggle', 'default' => '' ),
+		'extraCallsEnable'           => array( 'type' => 'toggle', 'default' => '' ),
+		'extraCallsData'             => array( 'type' => 'js', 'default' => '' ),
+		'uninstall'                  => array( 'type' => 'toggle', 'default' => '' ),
+
+		/*
+		 * Regenerated on every request by mfbfw_title_copy_js(); the stored value is
+		 * ignored. Kept in the schema so upgrades from <3.4.0 do not lose the row.
+		 */
+		'copyTitleFunction'          => array( 'type' => 'js', 'default' => '' ),
+
+		/*
+		 * Legacy keys from the FancyBox 1.x era. They have no UI any more, but sites
+		 * upgraded from those versions still carry them and their CSS is still
+		 * honoured, so they must survive sanitization.
+		 */
+		'borderRadius'               => array( 'type' => 'int', 'default' => null, 'max' => 200, 'optional' => true ),
+		'borderRadiusInner'          => array( 'type' => 'int', 'default' => null, 'max' => 200, 'optional' => true ),
+		'shadowSize'                 => array( 'type' => 'int', 'default' => null, 'max' => 200, 'optional' => true ),
+		'shadowOffset'               => array( 'type' => 'int', 'default' => null, 'max' => 200, 'optional' => true ),
+		'shadowOpacity'              => array( 'type' => 'float', 'default' => null, 'min' => 0, 'max' => 1, 'optional' => true ),
+		'easing'                     => array( 'type' => 'toggle', 'default' => null, 'optional' => true ),
+		'wheel'                      => array( 'type' => 'toggle', 'default' => null, 'optional' => true ),
+	);
+
+	return $schema;
 }
 
 /**
@@ -75,425 +165,805 @@ if ( is_admin() && isset( $mfbfw_version ) && $mfbfw_version < FBFW_VERSION ) {
  */
 function mfbfw_defaults() {
 
-	$default_settings = array(
-		// Appearance
-        'border'                     => '',
-        'borderColor'                => '#BBBBBB',
-        'paddingColor'               => '#FFFFFF',
-        'padding'                    => '10',
-        'overlayShow'                => 'on',
-        'overlayColor'               => '#666666',
-        'overlayOpacity'             => '0.3',
-        'titleShow'                  => 'on',
-        'captionShow'                => '',
-        'titlePosition'              => 'inside',
-        'titleColor'                 => '#333333',
-        'showNavArrows'              => 'on',
-		'disableOnMobile'            => '',
-        'titleSize'                  => '14',
-        'showCloseButton'            => '',
-        'showToolbar'                => 'on',
-        // Animations
-        'zoomOpacity'                => 'on',
-        'zoomSpeedIn'                => '500',
-        'zoomSpeedChange'            => '300',
-        'transitionIn'               => 'fade',
-        'transitionEffect'           => 'fade',
-        // Behaviour
-        'hideOnOverlayClick'         => 'function(current, event) {
-									return current.type === "image" ? "close" : false;
-								  },',
-		'hideOnContentClick'         => '',
-		'zoomOnClick'                => '',
-        'enableEscapeButton'         => 'on',
-        'cyclic'                     => '',
-        'mouseWheel'                 => '',
-        'disableWoocommercePages'    => '',
-        'disableWoocommerceProducts' => '',
-        // Gallery Type
-        'galleryType'                => 'all',
-        'customExpression'           => 'jQuery(thumbnails).attr("data-fancybox","gallery").getTitle();',
-        // Misc
-        'autoDimensions'             => 'on',
-        'frameWidth'                 => '560',
-        'frameHeight'                => '340',
-        'loadAtFooter'               => '',
-        'callbackEnable'             => '',
-        'callbackOnStart'            => 'function() { alert("Start!"); }',
-        'callbackOnCancel'           => 'function() { alert("Cancel!"); }',
-        'callbackOnComplete'         => 'function() { alert("Complete!"); }',
-        'callbackOnCleanup'          => 'function() { alert("CleanUp!"); }',
-        'callbackOnClose'            => 'function() { alert("Close!"); }',
-        'copyTitleFunction'          => 'var arr = jQuery("a[data-fancybox]");' .
-									'jQuery.each(arr, function() {' .
-										'var title = jQuery(this).children("img").attr("title");' .
-										'if(title){jQuery(this).attr("title",title)}' .
-									'});',
-        'nojQuery'                   => '',
-        'extraCallsEnable'           => '',
-        'extraCallsData'             => '',
-        'uninstall'                  => '',
-	);
+	$defaults = array();
 
-	return $default_settings;
+	foreach ( mfbfw_option_schema() as $key => $spec ) {
+		if ( ! empty( $spec['optional'] ) ) {
+			continue;
+		}
+		$defaults[ $key ] = $spec['default'];
+	}
+
+	// Historically stored as ints; keep them strings so a strict-comparing theme
+	// that predates 3.4.0 keeps working.
+	foreach ( array( 'padding', 'titleSize', 'zoomSpeedIn', 'zoomSpeedChange', 'frameWidth', 'frameHeight' ) as $key ) {
+		$defaults[ $key ] = (string) $defaults[ $key ];
+	}
+	$defaults['overlayOpacity'] = '0.3';
+
+	return $defaults;
 }
+
+/**
+ * Validate a hex colour without depending on load order of wp-admin includes.
+ *
+ * @since 3.4.0
+ *
+ * @param mixed  $color    Raw value.
+ * @param string $fallback Returned when $color is not a valid hex colour.
+ * @return string
+ */
+function mfbfw_sanitize_hex_color( $color, $fallback = '' ) {
+
+	if ( ! is_scalar( $color ) ) {
+		return $fallback;
+	}
+
+	$color = trim( (string) $color );
+
+	if ( '' === $color ) {
+		return $fallback;
+	}
+
+	if ( '#' !== $color[0] ) {
+		$color = '#' . $color;
+	}
+
+	return preg_match( '/^#([A-Fa-f0-9]{3}){1,2}$/', $color ) ? $color : $fallback;
+}
+
+/**
+ * Normalize a checkbox-style option to 'on' or ''.
+ *
+ * Older versions stored arbitrary truthy values here (hideOnOverlayClick held a
+ * whole JavaScript function), so anything non-empty counts as enabled.
+ *
+ * @since 3.4.0
+ *
+ * @param mixed $value Raw value.
+ * @return string
+ */
+function mfbfw_normalize_toggle( $value ) {
+
+	if ( is_string( $value ) ) {
+		$value = trim( $value );
+
+		if ( '' === $value || '0' === $value || 'off' === $value || 'false' === $value ) {
+			return '';
+		}
+
+		return 'on';
+	}
+
+	return $value ? 'on' : '';
+}
+
+/**
+ * Coerce one raw option value into the shape its schema entry promises.
+ *
+ * @since 3.4.0
+ *
+ * @param mixed $value Raw value.
+ * @param array $spec  Schema entry.
+ * @return mixed
+ */
+function mfbfw_normalize_value( $value, array $spec ) {
+
+	switch ( $spec['type'] ) {
+		case 'toggle':
+			return mfbfw_normalize_toggle( $value );
+
+		case 'color':
+			return mfbfw_sanitize_hex_color( $value, (string) $spec['default'] );
+
+		case 'int':
+			// Falling back to the default rather than to absint()'s 0 keeps a garbled
+			// value from silently disabling animations or collapsing the padding.
+			$value = is_numeric( $value ) ? absint( $value ) : (int) $spec['default'];
+			if ( isset( $spec['max'] ) ) {
+				$value = min( $value, (int) $spec['max'] );
+			}
+			return $value;
+
+		case 'float':
+			$value = is_numeric( $value ) ? (float) $value : (float) $spec['default'];
+			if ( isset( $spec['min'] ) ) {
+				$value = max( $value, (float) $spec['min'] );
+			}
+			if ( isset( $spec['max'] ) ) {
+				$value = min( $value, (float) $spec['max'] );
+			}
+			return $value;
+
+		case 'choice':
+			return in_array( $value, $spec['choices'], true ) ? $value : $spec['default'];
+
+		case 'js':
+			return is_scalar( $value ) ? wp_strip_all_tags( (string) $value ) : '';
+	}
+
+	return $value;
+}
+
+/**
+ * Return a complete, normalized settings array.
+ *
+ * Every consumer goes through here, so output code can rely on every key existing
+ * and holding a value of the expected type. Previously the raw option was used
+ * directly, which produced a wall of "undefined array key" warnings on PHP 8 (and a
+ * fatal when the row was not an array at all).
+ *
+ * @since 3.4.0
+ *
+ * @param mixed $raw Optional raw settings to normalize instead of reading the option.
+ * @return array
+ */
+function mfbfw_get_settings( $raw = null ) {
+
+	static $cache = null;
+
+	$use_cache = ( null === $raw );
+
+	if ( $use_cache && null !== $cache ) {
+		return $cache;
+	}
+
+	if ( null === $raw ) {
+		$raw = get_option( 'mfbfw' );
+	}
+
+	// A corrupted row (empty string, bool, serialized scalar) used to fatal here.
+	if ( ! is_array( $raw ) ) {
+		$raw = array();
+	}
+
+	$schema   = mfbfw_option_schema();
+	$settings = array();
+
+	foreach ( $schema as $key => $spec ) {
+		if ( array_key_exists( $key, $raw ) ) {
+			$settings[ $key ] = mfbfw_normalize_value( $raw[ $key ], $spec );
+		} elseif ( empty( $spec['optional'] ) ) {
+			$settings[ $key ] = $spec['default'];
+		}
+	}
+
+	// Preserve unknown keys so third-party code that stashes data here keeps working.
+	foreach ( $raw as $key => $value ) {
+		if ( ! isset( $schema[ $key ] ) ) {
+			$settings[ $key ] = $value;
+		}
+	}
+
+	/**
+	 * Filters the resolved FancyBox settings.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @param array $settings Normalized settings.
+	 */
+	$settings = apply_filters( 'mfbfw_settings', $settings );
+
+	if ( $use_cache ) {
+		$cache = $settings;
+	}
+
+	return $settings;
+}
+
+/**
+ * Whether a checkbox-style option is enabled.
+ *
+ * @since 3.4.0
+ *
+ * @param string     $key      Option key.
+ * @param array|null $settings Optional settings array.
+ * @return bool
+ */
+function mfbfw_is_on( $key, $settings = null ) {
+
+	if ( ! is_array( $settings ) ) {
+		$settings = mfbfw_get_settings();
+	}
+
+	return isset( $settings[ $key ] ) && '' !== $settings[ $key ] && $settings[ $key ];
+}
+
+// Populate the historical globals. Third-party code reads $mfbfw directly, so it
+// stays available - but it now always holds a complete array.
+$mfbfw         = mfbfw_get_settings();
+$mfbfw_version = get_option( 'mfbfw_active_version' );
+
+/**
+ * Create or migrate the stored settings.
+ *
+ * Runs on plugins_loaded rather than at include time so the write happens once WordPress
+ * is fully bootstrapped, and on the front end as well as in wp-admin. The old
+ * admin-only guard meant a site whose first request after an update was a front-end
+ * hit ran the whole page render against a settings array missing every new key.
+ *
+ * @since 3.4.0
+ */
+function mfbfw_maybe_upgrade_settings() {
+
+	$stored  = get_option( 'mfbfw' );
+	$version = get_option( 'mfbfw_active_version' );
+
+	if ( ! is_array( $stored ) ) {
+		update_option( 'mfbfw', mfbfw_defaults() );
+		update_option( 'mfbfw_active_version', FBFW_VERSION );
+
+		return;
+	}
+
+	if ( $version && version_compare( $version, FBFW_VERSION, '>=' ) ) {
+		return;
+	}
+
+	// Existing values win; only genuinely new keys pick up a default.
+	update_option( 'mfbfw', $stored + mfbfw_defaults() );
+	update_option( 'mfbfw_active_version', FBFW_VERSION );
+}
+
+add_action( 'plugins_loaded', 'mfbfw_maybe_upgrade_settings' );
 
 /**
  * If requested, when plugin is deactivated, remove settings
  */
 function mfbfw_deactivate() {
 
-	global $mfbfw;
-
-	if ( isset( $mfbfw['uninstall'] ) && $mfbfw['uninstall'] ) {
+	if ( mfbfw_is_on( 'uninstall' ) ) {
 		delete_option( 'mfbfw' );
 		delete_option( 'mfbfw_active_version' );
+		delete_option( 'mfbfw-rate-time' );
 	}
 }
 
 register_deactivation_hook( __FILE__, 'mfbfw_deactivate' );
 
 /**
+ * Whether the lightbox should run for the current request.
+ *
+ * @since 3.4.0
+ *
+ * @return bool
+ */
+function mfbfw_is_enabled() {
+
+	$enabled = true;
+
+	if ( mfbfw_is_on( 'disableOnMobile' ) && wp_is_mobile() ) {
+		$enabled = false;
+	}
+
+	$woocommerce = fancy_check_if_woocommerce();
+
+	if ( 'product' === $woocommerce && mfbfw_is_on( 'disableWoocommerceProducts' ) ) {
+		$enabled = false;
+	}
+
+	if ( 'shop_page' === $woocommerce && mfbfw_is_on( 'disableWoocommercePages' ) ) {
+		$enabled = false;
+	}
+
+	/**
+	 * Filters whether FancyBox loads on the current request.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @param bool $enabled Whether to load.
+	 */
+	return (bool) apply_filters( 'mfbfw_is_enabled', $enabled );
+}
+
+/**
+ * Path suffix for minified assets, unless SCRIPT_DEBUG asks for readable sources.
+ *
+ * @since 3.4.0
+ *
+ * @return string
+ */
+function mfbfw_asset_suffix() {
+
+	return ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+}
+
+/**
  * Load FancyBox JS with jQuery and
  */
 function mfbfw_enqueue_scripts() {
 
-	global $mfbfw, $wp_styles;
-
-	if ( (isset( $mfbfw['disableOnMobile'] ) && $mfbfw['disableOnMobile']) && wp_is_mobile() ) {
+	if ( ! mfbfw_is_enabled() ) {
 		return;
 	}
 
-	// Check if script should be loaded in footer
-	if ( isset( $mfbfw['loadAtFooter'] ) && $mfbfw['loadAtFooter'] ) {
-		$footer = true;
-	}
-	else {
-		$footer = false;
-	}
+	$settings = mfbfw_get_settings();
+	$footer   = mfbfw_is_on( 'loadAtFooter', $settings );
+	$suffix   = mfbfw_asset_suffix();
 
-	// Check if plugin should not call jQuery script (for troubleshooting only)
-	if ( isset( $mfbfw['nojQuery'] ) && $mfbfw['nojQuery'] ) {
-		$jquery = array( 'purify' );
-	}
-	else {
-		$jquery = array( 'jquery', 'purify' );
-	}
+	// Troubleshooting switch: skip the jQuery dependency when it is loaded elsewhere.
+	$deps = mfbfw_is_on( 'nojQuery', $settings ) ? array( 'fbfw-purify' ) : array( 'jquery', 'fbfw-purify' );
 
-	// Register Scripts
-	wp_register_script( 'purify', FBFW_URL . 'assets/js/purify.min.js', array(), '1.3.4', $footer ); // Main Fancybox script
-	wp_register_script( 'fancybox-for-wp', FBFW_URL . 'assets/js/jquery.fancybox.js', $jquery, '1.3.4', $footer ); // Main Fancybox script
+	wp_register_script( 'fbfw-purify', FBFW_URL . 'assets/js/purify' . $suffix . '.js', array(), FBFW_VERSION, $footer );
+	wp_register_script( 'fancybox-for-wp', FBFW_URL . 'assets/js/jquery.fancybox' . $suffix . '.js', $deps, FBFW_VERSION, $footer );
 
-	// Enqueue Scripts
-	wp_enqueue_script( 'fancybox-for-wp' ); // Load fancybox
+	wp_enqueue_script( 'fancybox-for-wp' );
 
-	if ( isset( $mfbfw['easing'] ) && $mfbfw['easing'] ) {
-		wp_enqueue_script( 'jqueryeasing' ); // Load easing javascript file if required
-	}
-
-	if ( isset( $mfbfw['wheel'] ) && $mfbfw['wheel'] ) {
-		wp_enqueue_script( 'jquerymousewheel' ); // Load mouse wheel javascript file if required
-	}
-
-	// Register Styles
-	wp_register_style( 'fancybox-for-wp', FBFW_URL . 'assets/css/fancybox.css', false, '1.3.4' ); // Main Fancybox style
-	// Enqueue Styles
+	wp_register_style( 'fancybox-for-wp', FBFW_URL . 'assets/css/fancybox' . $suffix . '.css', array(), FBFW_VERSION );
 	wp_enqueue_style( 'fancybox-for-wp' );
-
-	// Make IE specific styles load only on IE6-8
-	$wp_styles->add_data( 'fancybox-ie', 'conditional', 'lt IE 9' );
 }
 
 add_action( 'wp_enqueue_scripts', 'mfbfw_enqueue_scripts' );
+
+/**
+ * Build the inline stylesheet from the stored settings.
+ *
+ * Every interpolated value has already been through the schema normalizer, so
+ * colours are known-good hex and sizes are integers. That closes the CSS injection
+ * that `esc_html()` did not - it only blocks `<`, so a value like
+ * `blue}body{display:none}` used to escape its own declaration block.
+ *
+ * @since 3.4.0
+ *
+ * @param array $s Normalized settings.
+ * @return string
+ */
+function mfbfw_build_css( array $s ) {
+
+	$padding_color = $s['paddingColor'];
+	$title_color   = $s['titleColor'];
+	$position      = $s['titlePosition'];
+	$title_inside  = ( 'inside' === $position );
+
+	$rules = array();
+
+	$rules[] = '.fancybox-slide--image .fancybox-content{background-color:' . $padding_color . '}';
+
+	if ( 'inside' === $position || 'over' === $position ) {
+		$rules[] = 'div.fancybox-caption{display:none !important;}';
+	}
+
+	$rules[] = 'img.fancybox-image{border-width:' . $s['padding'] . 'px;border-color:' . $padding_color . ';border-style:solid;}';
+
+	if ( mfbfw_is_on( 'overlayShow', $s ) ) {
+		$rules[] = 'div.fancybox-bg{background-color:' . mfbfw_hex_to_rgba( $s['overlayColor'], $s['overlayOpacity'] ) . ';opacity:1 !important;}';
+	} else {
+		$rules[] = 'div.fancybox-bg{background:transparent !important;}';
+	}
+
+	$rules[] = 'div.fancybox-content{border-color:' . $padding_color . '}';
+
+	if ( $title_inside ) {
+		$rules[] = 'div#fancybox-title{background-color:' . $padding_color . '}';
+		$rules[] = 'div#fancybox-title-inside{color:' . $title_color . '}';
+	}
+
+	$rules[] = 'div.fancybox-content{background-color:' . $padding_color
+		. ( mfbfw_is_on( 'border', $s ) ? ';border:1px solid ' . $s['borderColor'] : '' ) . '}';
+
+	// Legacy FancyBox 1.x keys, still honoured for sites that carry them.
+	if ( isset( $s['borderRadius'] ) ) {
+		$rules[] = 'div.fancybox-content{border-radius:' . (int) $s['borderRadius'] . 'px}';
+	}
+
+	if ( isset( $s['borderRadiusInner'] ) ) {
+		$rules[] = 'img#fancybox-img{border-radius:' . (int) $s['borderRadiusInner'] . 'px}';
+	}
+
+	if ( isset( $s['shadowSize'], $s['shadowOffset'], $s['shadowOpacity'] ) ) {
+		$rules[] = 'div.fancybox-content{box-shadow:0 ' . (int) $s['shadowOffset'] . 'px ' . (int) $s['shadowSize']
+			. 'px rgba(0,0,0,' . (float) $s['shadowOpacity'] . ')}';
+	}
+
+	if ( mfbfw_is_on( 'titleShow', $s ) ) {
+		$rules[] = 'div.fancybox-caption p.caption-title{display:inline-block}';
+	} else {
+		$rules[] = 'div.fancybox-custom-caption p.caption-title{display:none}div.fancybox-caption{display:none;}';
+	}
+
+	$rules[] = 'div.fancybox-caption p.caption-title{font-size:' . $s['titleSize'] . 'px}';
+	$rules[] = 'div.fancybox-caption p.caption-title{color:' . ( $title_inside ? $title_color : '#fff' ) . '}';
+	$rules[] = 'div.fancybox-caption{color:' . $title_color . '}';
+
+	if ( $title_inside ) {
+		$rules[] = 'div.fancybox-caption p.caption-title{background:#fff;width:auto;padding:10px 30px;}'
+			. 'div.fancybox-content p.caption-title{color:' . $title_color . ';margin:0;padding:5px 0;}';
+	} elseif ( 'float' === $position ) {
+		$rules[] = 'div.fancybox-caption p.caption-title{background:#fff;color:#000;padding:10px 30px;width:auto;}';
+	} else {
+		$rules[] = 'div.fancybox-caption{position:relative;max-width:50%;margin:0 auto;min-width:480px;padding:15px;}'
+			. 'div.fancybox-caption p.caption-title{position:relative;left:0;right:0;margin:0 auto;top:0;color:#fff;}';
+	}
+
+	if ( mfbfw_is_on( 'showCloseButton', $s ) ) {
+		$rules[] = 'body.fancybox-active .fancybox-container .fancybox-stage .fancybox-content .fancybox-close-small{display:block;}';
+	}
+
+	return implode( "\n\t", $rules );
+}
+
+/**
+ * JavaScript that copies image titles (and block captions) onto their parent link.
+ *
+ * The stored `copyTitleFunction` option has been ignored since 3.2.6 - it was
+ * unconditionally overwritten before use - so it is generated here instead of
+ * pretending to be configurable.
+ *
+ * @since 3.4.0
+ *
+ * @param array $s Normalized settings.
+ * @return string
+ */
+function mfbfw_title_copy_js( array $s ) {
+
+	if ( mfbfw_is_on( 'captionShow', $s ) ) {
+		return <<<'JS'
+var arr = jQuery("a[data-fancybox]");
+jQuery.each(arr, function () {
+	var title = jQuery(this).children("img").attr("title");
+	if (title) { jQuery(this).attr("title", title); }
+});
+JS;
+	}
+
+	return <<<'JS'
+var arr = jQuery("a[data-fancybox]");
+jQuery.each(arr, function () {
+	var title = jQuery(this).children("img").attr("title") || '';
+	var figCaptionHtml = jQuery(this).next("figcaption").html() || '';
+	var processedCaption = figCaptionHtml;
+	if (figCaptionHtml.length && typeof DOMPurify === 'function') {
+		processedCaption = DOMPurify.sanitize(figCaptionHtml, {USE_PROFILES: {html: true}});
+	} else if (figCaptionHtml.length) {
+		processedCaption = jQuery("<div>").text(figCaptionHtml).html();
+	}
+	var newTitle = title;
+	if (processedCaption.length) {
+		newTitle = title.length ? title + " " + processedCaption : processedCaption;
+	}
+	if (newTitle.length) { jQuery(this).attr("title", newTitle); }
+});
+JS;
+}
+
+/**
+ * The `caption` callback handed to FancyBox.
+ *
+ * Keeps the DOMPurify path introduced in 3.3.7: markup is sanitized when DOMPurify
+ * is present and hard-escaped through jQuery's text() when it is not.
+ *
+ * @since 3.4.0
+ *
+ * @return string
+ */
+function mfbfw_caption_js() {
+
+	return <<<'JS'
+function (instance, item) {
+	var title = '';
+	if ("undefined" != typeof jQuery(this).context) {
+		title = jQuery(this).context.title;
+	} else {
+		title = ("undefined" != typeof jQuery(this).attr("title")) ? jQuery(this).attr("title") : '';
+	}
+	title = title || '';
+	var caption = jQuery(this).data('caption') || '';
+	if (item.type === 'image' && title.length) {
+		caption = (caption.length ? caption + '<br />' : '') + '<p class="caption-title">' + jQuery("<div>").text(title).html() + '</p>';
+	}
+	if (typeof DOMPurify === "function" && caption.length) {
+		return DOMPurify.sanitize(caption, {USE_PROFILES: {html: true}});
+	}
+	return jQuery("<div>").text(caption).html();
+}
+JS;
+}
+
+/**
+ * The `afterLoad` callback, which paints the caption inside or over the image.
+ *
+ * @since 3.4.0
+ *
+ * @param array $s Normalized settings.
+ * @return string
+ */
+function mfbfw_after_load_js( array $s ) {
+
+	$position = $s['titlePosition'];
+
+	if ( 'inside' !== $position && 'over' !== $position ) {
+		return 'function () {}';
+	}
+
+	$style = ( 'inside' === $position )
+		? 'position:absolute;left:0;right:0;color:#000;margin:0 auto;bottom:0;text-align:center;background-color:' . $s['paddingColor'] . ';'
+		: 'position:absolute;left:0;right:0;color:#000;padding-top:10px;bottom:0;margin:0 auto;text-align:center;';
+
+	$class = ( 'inside' === $position ) ? 'fancybox-custom-caption inside-caption' : 'fancybox-custom-caption';
+
+	return sprintf(
+		<<<'JS'
+function (instance, current) {
+	var captionContent = current.opts.caption || '';
+	var sanitized = '';
+	if (typeof DOMPurify === 'function' && captionContent.length) {
+		sanitized = DOMPurify.sanitize(captionContent, {USE_PROFILES: {html: true}});
+	} else if (captionContent.length) {
+		sanitized = jQuery("<div>").text(captionContent).html();
+	}
+	if (sanitized.length) {
+		current.$content.append(jQuery('<div class="%1$s" style="%2$s"></div>').html(sanitized));
+	}
+}
+JS,
+		esc_js( $class ),
+		esc_js( $style )
+	);
+}
+
+/**
+ * The selector that decides which links become lightbox links.
+ *
+ * @since 3.4.0
+ *
+ * @param array $s Normalized settings.
+ * @return string
+ */
+function mfbfw_thumbnail_selector_js( array $s ) {
+
+	$extensions = mfbfw_is_on( 'exclude_pdf', $s )
+		? 'jpe?g|png|gif|mp4|webp|bmp'
+		: 'jpe?g|png|gif|mp4|webp|bmp|pdf';
+
+	return sprintf(
+		'jQuery("a:has(img)").not(".nolightbox").not(".envira-gallery-link").not(".ngg-simplelightbox").filter(function () {'
+		. ' return /\.(%s)(\?[^/]*)*$/i.test(jQuery(this).attr("href")); })',
+		$extensions
+	);
+}
+
+/**
+ * The JavaScript that tags links with their gallery grouping.
+ *
+ * @since 3.4.0
+ *
+ * @param array $s Normalized settings.
+ * @return string
+ */
+function mfbfw_gallery_js( array $s ) {
+
+	switch ( $s['galleryType'] ) {
+
+		case 'post':
+			return <<<'JS'
+	if (fbfwIsSingular) {
+		thumbnails.addClass("fancyboxforwp").attr("data-fancybox", "gallery").getTitle();
+		iframeLinks.attr({"data-fancybox": "gallery"}).getTitle();
+	} else {
+		var posts = jQuery(".post");
+		posts.each(function () {
+			var idx = posts.index(this);
+			jQuery(this).find(thumbnails).addClass("fancyboxforwp").attr("data-fancybox", "gallery" + idx).attr("rel", "fancybox" + idx).getTitle();
+			jQuery(this).find(iframeLinks).attr({"data-fancybox": "gallery" + idx}).attr("rel", "fancybox" + idx).getTitle();
+		});
+	}
+JS;
+
+		case 'none':
+			return <<<'JS'
+	thumbnails.each(function () {
+		var rel = jQuery(this).attr("rel");
+		var imgTitle = jQuery(this).children("img").attr("title");
+		jQuery(this).addClass("fancyboxforwp").attr("data-fancybox", rel);
+		if (imgTitle) { jQuery(this).attr("title", imgTitle); }
+	});
+	iframeLinks.each(function () {
+		var rel = jQuery(this).attr("rel");
+		var imgTitle = jQuery(this).children("img").attr("title");
+		jQuery(this).attr({"data-fancybox": rel});
+		if (imgTitle) { jQuery(this).attr("title", imgTitle); }
+	});
+JS;
+
+		case 'single_gutenberg_block':
+			/*
+			 * WordPress 5.9 moved the gallery block from `ul.wp-block-gallery` to
+			 * `figure.wp-block-gallery.has-nested-images`, so the old element-qualified
+			 * selectors matched nothing on any modern install. The fallback branch also
+			 * tested a jQuery object for truthiness, which is always true.
+			 */
+			return <<<'JS'
+	var galleryBlocks = jQuery(".wp-block-gallery");
+	if (!galleryBlocks.length) {
+		galleryBlocks = jQuery(".blocks-gallery-grid");
+	}
+	galleryBlocks.each(function () {
+		var idx = galleryBlocks.index(this);
+		jQuery(this).find(thumbnails).addClass("fancyboxforwp").attr("data-fancybox", "gallery" + idx).attr("rel", "fancybox" + idx).getTitle();
+		jQuery(this).find(iframeLinks).attr({"data-fancybox": "gallery" + idx}).attr("rel", "fancybox" + idx).getTitle();
+	});
+JS;
+
+		case 'custom':
+			return "\t/* Custom Expression */\n\t" . html_entity_decode( $s['customExpression'] );
+
+		case 'all':
+		default:
+			return <<<'JS'
+	thumbnails.addClass("fancyboxforwp").attr("data-fancybox", "gallery").getTitle();
+	iframeLinks.attr({"data-fancybox": "gallery"}).getTitle();
+JS;
+	}
+}
+
+/**
+ * Assemble the option object passed to fancyboxforwp().
+ *
+ * Scalar options are JSON encoded rather than hand-interpolated. Previously
+ * `animationDuration` was written unquoted straight from the option value, so any
+ * value that skipped the sanitizer became executable JavaScript.
+ *
+ * @since 3.4.0
+ *
+ * @param array $s Normalized settings.
+ * @return array{json: string, functions: array<string, string>}
+ */
+function mfbfw_build_options( array $s ) {
+
+	$scalar = array(
+		'loop'                  => mfbfw_is_on( 'cyclic', $s ),
+		'smallBtn'              => mfbfw_is_on( 'showCloseButton', $s ),
+		'zoomOpacity'           => mfbfw_is_on( 'zoomOpacity', $s ) ? 'auto' : false,
+		'animationEffect'       => $s['transitionIn'],
+		'animationDuration'     => (int) $s['zoomSpeedIn'],
+		'transitionEffect'      => $s['transitionEffect'],
+		'transitionDuration'    => (int) $s['zoomSpeedChange'],
+		'overlayShow'           => mfbfw_is_on( 'overlayShow', $s ),
+		'overlayOpacity'        => (float) $s['overlayOpacity'],
+		'titleShow'             => mfbfw_is_on( 'titleShow', $s ),
+		'titlePosition'         => $s['titlePosition'],
+		'keyboard'              => mfbfw_is_on( 'enableEscapeButton', $s ),
+		'showCloseButton'       => mfbfw_is_on( 'showCloseButton', $s ),
+		'arrows'                => mfbfw_is_on( 'showNavArrows', $s ),
+		'clickContent'          => mfbfw_is_on( 'hideOnContentClick', $s ) ? 'close' : false,
+		'clickSlide'            => mfbfw_is_on( 'hideOnOverlayClick', $s ) ? 'close' : false,
+		'wheel'                 => mfbfw_is_on( 'mouseWheel', $s ),
+		'toolbar'               => mfbfw_is_on( 'showToolbar', $s ),
+		'preventCaptionOverlap' => true,
+	);
+
+	if ( ! mfbfw_is_on( 'autoDimensions', $s ) ) {
+		$scalar['width']  = (int) $s['frameWidth'];
+		$scalar['height'] = (int) $s['frameHeight'];
+	}
+
+	$mobile_content = mfbfw_is_on( 'hideOnContentClick', $s ) ? '"close"' : '"toggleControls"';
+	$mobile_slide   = mfbfw_is_on( 'hideOnOverlayClick', $s ) ? '"close"' : '"toggleControls"';
+
+	$callbacks_on = mfbfw_is_on( 'callbackEnable', $s );
+
+	$callback = static function ( $key ) use ( $s, $callbacks_on ) {
+		if ( $callbacks_on && ! empty( $s[ $key ] ) ) {
+			return html_entity_decode( $s[ $key ] );
+		}
+
+		return 'function () {}';
+	};
+
+	if ( $callbacks_on && ! empty( $s['callbackOnComplete'] ) ) {
+		$after_show = html_entity_decode( $s['callbackOnComplete'] );
+	} elseif ( mfbfw_is_on( 'zoomOnClick', $s ) ) {
+		// Namespaced and rebound each time, otherwise every slide stacked another
+		// click handler on the same image element.
+		$after_show = 'function (instance) { jQuery(".fancybox-image").off("click.fbfwZoom").on("click.fbfwZoom", function () {'
+			. ' instance.isScaledDown() ? instance.scaleToActual() : instance.scaleToFit(); }); }';
+	} else {
+		$after_show = 'function () {}';
+	}
+
+	$functions = array(
+		'mobile'       => sprintf(
+			'{ clickContent: function (current) { return current.type === "image" ? %s : false; },'
+			. ' clickSlide: function (current) { return current.type === "image" ? %s : "close"; } }',
+			$mobile_content,
+			$mobile_slide
+		),
+		'onInit'       => $callback( 'callbackOnStart' ),
+		'onDeactivate' => $callback( 'callbackOnCancel' ),
+		'beforeClose'  => $callback( 'callbackOnCleanup' ),
+		'afterShow'    => $after_show,
+		'afterClose'   => $callback( 'callbackOnClose' ),
+		'caption'      => mfbfw_caption_js(),
+		'afterLoad'    => mfbfw_after_load_js( $s ),
+	);
+
+	return array(
+		'json'      => wp_json_encode( $scalar ),
+		'functions' => $functions,
+	);
+}
 
 /**
  * Print inline styles and load FancyBox with the selected settings
  */
 function mfbfw_init() {
 
-	global $mfbfw, $mfbfw_version;
-
-	//caption function to display image title
-	$caption = 'function( instance, item ) {var title = "";' .
-	           'if("undefined" != typeof jQuery(this).context ){var title = jQuery(this).context.title;} else { var title = ("undefined" != typeof jQuery(this).attr("title")) ? jQuery(this).attr("title") : false;}' .
-	           'var caption = jQuery(this).data(\'caption\') || \'\';' .
-	           'if ( item.type === \'image\' && title.length ) {' .
-	           'caption = (caption.length ? caption + \'<br />\' : \'\') + \'<p class="caption-title">\'+jQuery("<div>").text(title).html()+\'</p>\' ;' .
-	           '}' .
-	           'if (typeof DOMPurify === "function" && caption.length) { return DOMPurify.sanitize(caption, {USE_PROFILES: {html: true}}); } else { return jQuery("<div>").text(caption).html(); }' .
-	           '}';
-
-	// fix undefined index copyTitleFunction. $mfbfw array misses this index.
-
-    if (isset($mfbfw['captionShow']) && 'on' == $mfbfw['captionShow']) {
-        $mfbfw['copyTitleFunction'] = 'var arr = jQuery("a[data-fancybox]");' .
-									'jQuery.each(arr, function() {' .
-										'var title = jQuery(this).children("img").attr("title");' .
-										'if(title){jQuery(this).attr("title",title)}' .
-									'});';
-    } else {
-        $mfbfw['copyTitleFunction'] = 'var arr = jQuery("a[data-fancybox]");' .
-									'jQuery.each(arr, function() {' .
-										'var title = jQuery(this).children("img").attr("title") || \'\';' .
-										'var figCaptionHtml = jQuery(this).next("figcaption").html() || \'\';' .
-										'var processedCaption = figCaptionHtml;' .
-										'if (figCaptionHtml.length && typeof DOMPurify === \'function\') {' .
-											'processedCaption = DOMPurify.sanitize(figCaptionHtml, {USE_PROFILES: {html: true}});' .
-										'} else if (figCaptionHtml.length) {' .
-											'processedCaption = jQuery("<div>").text(figCaptionHtml).html();' .
-										'}' .
-										'var newTitle = title;' .
-										'if (processedCaption.length) {' .
-											'newTitle = title.length ? title + " " + processedCaption : processedCaption;' .
-										'}' .
-										'if (newTitle.length) {' .
-											'jQuery(this).attr("title", newTitle);' .
-										'}' .
-									'});';
-    }
-
-
-
-	$afterLoad = '';
-	if ( $mfbfw['titlePosition'] == 'inside' ) {
-		$afterLoad = 'function( instance, current ) {' .
-		             'var captionContent = current.opts.caption || \'\';' .
-		             'var sanitizedCaptionString = \'\';' .
-		             'if (typeof DOMPurify === \'function\' && captionContent.length) {' .
-		                 'sanitizedCaptionString = DOMPurify.sanitize(captionContent, {USE_PROFILES: {html: true}});' .
-		             '} else if (captionContent.length) { ' .
-		                 'sanitizedCaptionString = jQuery("<div>").text(captionContent).html();' .
-		             '}' .
-		             'if (sanitizedCaptionString.length) { current.$content.append(jQuery(\'<div class=\"fancybox-custom-caption inside-caption\" style=\" position: absolute;left:0;right:0;color:#000;margin:0 auto;bottom:0;text-align:center;background-color:'.$mfbfw['paddingColor'].' \"></div>\').html(sanitizedCaptionString)); }' .
-		             '}';
-		$hideCaption = 'div.fancybox-caption{display:none !important;}';
-	} else if ( $mfbfw['titlePosition'] == 'over' ) {
-		$afterLoad = 'function( instance, current ) {' .
-		             'var captionContent = current.opts.caption || \'\';' .
-		             'var sanitizedCaptionString = \'\';' .
-		             'if (typeof DOMPurify === \'function\' && captionContent.length) {' .
-		                 'sanitizedCaptionString = DOMPurify.sanitize(captionContent, {USE_PROFILES: {html: true}});' .
-		             '} else if (captionContent.length) { ' .
-		                 'sanitizedCaptionString = jQuery("<div>").text(captionContent).html();' .
-		             '}' .
-		             'if (sanitizedCaptionString.length) { current.$content.append(jQuery(\'<div class=\"fancybox-custom-caption\" style=\" position: absolute;left:0;right:0;color:#000;padding-top:10px;bottom:0;margin:0 auto;text-align:center; \"></div>\').html(sanitizedCaptionString)); }' .
-		             '}';
-		$hideCaption = 'div.fancybox-caption{display:none !important;}';
-	} else {
-		$afterLoad .= '""';
-		$hideCaption = '';
+	if ( ! mfbfw_is_enabled() ) {
+		return;
 	}
 
+	global $mfbfw;
 
-	if ( isset( $mfbfw['autoDimensions'] ) && $mfbfw['autoDimensions'] == true ) {
-		$frameSize = '';
-	} else {
-		$frameSize = ' "width": ' . $mfbfw['frameWidth'] . ',
-			"height": ' . $mfbfw['frameHeight'] . ',';
+	$s = mfbfw_get_settings( is_array( $mfbfw ) ? $mfbfw : null );
+
+	$options = mfbfw_build_options( $s );
+
+	$assignments = '';
+	foreach ( $options['functions'] as $name => $body ) {
+		$assignments .= sprintf( "\t\tfbfwOptions.%s = %s;\n", $name, $body );
 	}
 
+	/*
+	 * When disableOnMobile is on, the server-side check in mfbfw_enqueue_scripts()
+	 * already skipped the assets - but a full-page cache can serve a desktop-rendered
+	 * page to a phone, so the guard is repeated in the browser.
+	 */
+	$mobile_guard = mfbfw_is_on( 'disableOnMobile', $s )
+		? "\t\tif (window.matchMedia && window.matchMedia('(max-width: 767px)').matches) { return; }\n"
+		: '';
 
-	$mfbfw['customExpression'] = str_replace( '"rel"', '"data-fancybox"', $mfbfw['customExpression'] );
+	$extra_calls = ( mfbfw_is_on( 'extraCallsEnable', $s ) && ! empty( $s['extraCallsData'] ) )
+		? "\t\t/* Extra Calls */\n\t\t" . html_entity_decode( $s['extraCallsData'] ) . "\n"
+		: '';
 
-	$close_button = (isset($mfbfw['showCloseButton']) && 'on' == $mfbfw['showCloseButton'] ) ? 'body.fancybox-active .fancybox-container .fancybox-stage .fancybox-content .fancybox-close-small{display:block;}' : '';
-
-	//title position settings
-	if ( isset( $mfbfw['titlePosition'] ) ) {
-		if ( $mfbfw['titlePosition'] == 'inside' ) {
-			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff; width:auto;padding:10px 30px;}div.fancybox-content p.caption-title{color:'.$mfbfw['titleColor'].';margin: 0;padding: 5px 0;}';
-		} elseif ( $mfbfw['titlePosition'] == 'float' ) {
-			$captionPosition = 'div.fancybox-caption p.caption-title {background:#fff;color:#000;padding:10px 30px;width:auto;}';
-		} else {
-			$captionPosition = 'div.fancybox-caption {position:relative;max-width:50%;margin:0 auto;min-width:480px;padding:15px;}div.fancybox-caption p.caption-title{position:relative;left:0;right:0;margin:0 auto;top:0px;color:#fff;}';
-		}
-	}
-
-	if ( ( isset( $mfbfw['disableWoocommerceProducts'] ) && $mfbfw['disableWoocommerceProducts'] == true && fancy_check_if_woocommerce() == 'product' ) || ( isset( $mfbfw['disableWoocommercePages'] ) && $mfbfw['disableWoocommercePages'] == true && fancy_check_if_woocommerce() == 'shop_page' ) ) {
-
-	} else {
-
-
-		echo '
-<!-- Fancybox for WordPress v' . esc_html( $mfbfw_version ) . ' -->
+	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS and JS are
+	// assembled from schema-normalized values above; see mfbfw_build_css()/mfbfw_build_options().
+	?>
+<!-- Fancybox for WordPress v<?php echo esc_html( FBFW_VERSION ); ?> -->
 <style type="text/css">
-	.fancybox-slide--image .fancybox-content{background-color: ' . esc_html( $mfbfw['paddingColor'] ) . '}'. esc_attr( $hideCaption ).'
-	' . ( isset( $mfbfw['overlayShow'] ) ? '' : 'div.fancybox-bg{background:transparent !important;}' ) . '
-	' . 'img.fancybox-image{border-width:' . esc_html( $mfbfw['padding'] ) . 'px;border-color:' . esc_html( $mfbfw['paddingColor'] ) . ';border-style:solid;}' . '
-	' . ( isset( $mfbfw['overlayColor'] ) && $mfbfw['overlayColor'] ? 'div.fancybox-bg{background-color:' . esc_attr( hexTorgba( $mfbfw['overlayColor'], $mfbfw['overlayOpacity'] ) ) . ';opacity:1 !important;}' : '' ) . ( isset( $mfbfw['paddingColor'] ) && $mfbfw['paddingColor'] ? 'div.fancybox-content{border-color:' . esc_html( $mfbfw['paddingColor'] ) . '}' : '' ) . '
-	' . ( isset( $mfbfw['paddingColor'] ) && $mfbfw['paddingColor'] && $mfbfw['titlePosition'] == 'inside' ? 'div#fancybox-title{background-color:' . esc_html( $mfbfw['paddingColor'] ) . '}' : '' ) . '
-	div.fancybox-content{background-color:' . esc_html( $mfbfw['paddingColor'] ) . ( isset( $mfbfw['border'] ) && $mfbfw['border'] ? ';border:1px solid ' . esc_html( $mfbfw['borderColor'] ) : '' ) . '}
-	' . ( isset( $mfbfw['titleColor'] ) && $mfbfw['titleColor'] && $mfbfw['titlePosition'] == 'inside' ? 'div#fancybox-title-inside{color:' . esc_html( $mfbfw['titleColor'] ) . '}' : '' ) . '
-	' . ( isset( $mfbfw['borderRadius'] ) ? 'div.fancybox-content{border-radius:' . esc_html( $mfbfw['borderRadius'] ) . 'px}' : '' ) . '
-	' . ( isset( $mfbfw['borderRadiusInner'] ) ? 'img#fancybox-img{border-radius:' . esc_html( $mfbfw['borderRadiusInner'] ) . 'px}' : '' ) . '
-	' . ( isset( $mfbfw['shadowSize'] ) && $mfbfw['shadowOffset'] && $mfbfw['shadowOpacity'] ? 'div.fancybox-content{box-shadow:0 ' . esc_html( $mfbfw['shadowOffset'] ) . 'px ' . esc_html( $mfbfw['shadowSize'] ) . 'px rgba(0,0,0,' . esc_html( $mfbfw['shadowOpacity'] ) . ')}' : '' ) . '
-	' . ( isset( $mfbfw['titleShow'] ) ? 'div.fancybox-caption p.caption-title{display:inline-block}' : 'div.fancybox-custom-caption p.caption-title{display:none}div.fancybox-caption{display:none;}' ) . '
-	' . ( isset( $mfbfw['titleSize'] ) ? 'div.fancybox-caption p.caption-title{font-size:' . esc_html( $mfbfw['titleSize'] ) . 'px}' : 'div.fancybox-caption p.caption-title{font-size:14px}' ) . '
-	' . ( isset( $mfbfw['titleColor'] ) && $mfbfw['titlePosition'] == 'inside' ? 'div.fancybox-caption p.caption-title{color:' . esc_html( $mfbfw['titleColor'] ) . '}' : 'div.fancybox-caption p.caption-title{color:#fff}' ) . '
-	' . ( isset( $mfbfw['titlePosition'] ) ? 'div.fancybox-caption {color:' . esc_html( $mfbfw['titleColor'] ) . '}' : 'div.fancybox-caption p.caption-title{color:#333333}' ) . esc_attr( $captionPosition )  . esc_attr( $close_button ).'
-</style>';
-?>
+	<?php echo mfbfw_build_css( $s ); ?>
+
+</style>
 <script type="text/javascript">
-	jQuery(function () {
+	(function () {
+		if (typeof window.jQuery === 'undefined') { return; }
+		jQuery(function () {
+<?php echo $mobile_guard; ?>
+			var fbfwIsSingular = <?php echo is_singular() ? 'true' : 'false'; ?>;
 
-		var mobileOnly = false;
-		<?php if(isset( $mfbfw['disableOnMobile'] ) && 'on' == $mfbfw['disableOnMobile'] && wp_is_mobile() ){ ?>
-			mobileOnly = true;
-		<?php } ?>
+			// Copy the title of every IMG tag onto its parent A so FancyBox can show it.
+			jQuery.fn.getTitle = function () {
+				<?php echo mfbfw_title_copy_js( $s ); ?>
 
-		if (mobileOnly) {
-			return;
-		}
+				return this;
+			};
 
-		jQuery.fn.getTitle = function () { // Copy the title of every IMG tag and add it to its parent A so that fancybox can show titles
-			<?php echo ( $mfbfw['copyTitleFunction'] ) ?>
-		}
+			var thumbnails = <?php echo mfbfw_thumbnail_selector_js( $s ); ?>;
 
-		// Supported file extensions
+			// Anything that is not an image, video or PDF opens in an iframe.
+			var iframeLinks = jQuery('.fancyboxforwp').filter(function () {
+				return !/\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href'));
+			}).filter(function () {
+				return !/vimeo|youtube/i.test(jQuery(this).attr('href'));
+			});
+			iframeLinks.attr({"data-type": "iframe"}).getTitle();
 
-		<?php
-		if(isset( $mfbfw['exclude_pdf'] ) && 'on' == $mfbfw['exclude_pdf']){
-		?>
-		var thumbnails = jQuery("a:has(img)").not(".nolightbox").not('.envira-gallery-link').not('.ngg-simplelightbox').filter(function () {
-			return /\.(jpe?g|png|gif|mp4|webp|bmp)(\?[^/]*)*$/i.test(jQuery(this).attr('href'))
+<?php echo mfbfw_gallery_js( $s ); ?>
+
+			var fbfwOptions = <?php echo $options['json']; ?>;
+<?php echo $assignments; ?>
+			jQuery("a.fancyboxforwp").fancyboxforwp(fbfwOptions);
+<?php echo $extra_calls; ?>
 		});
-		<?php
-		} else {
-		?>
-		var thumbnails = jQuery("a:has(img)").not(".nolightbox").not('.envira-gallery-link').not('.ngg-simplelightbox').filter(function () {
-			return /\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href'))
-		});
-		<?php
-		}
-		?>
-
-
-		// Add data-type iframe for links that are not images or videos.
-		var iframeLinks = jQuery('.fancyboxforwp').filter(function () {
-			return !/\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href'))
-		}).filter(function () {
-			return !/vimeo|youtube/i.test(jQuery(this).attr('href'))
-		});
-		iframeLinks.attr({"data-type": "iframe"}).getTitle();
-
-		<?php if ( $mfbfw['galleryType'] == 'post' ) { ?>
-
-		// Gallery type BY POST and on post or page (so only one post or page is visible)
-		<?php if ( is_singular() ) { ?>
-		// Gallery by post
-		thumbnails.addClass("fancyboxforwp").attr("data-fancybox", "gallery").getTitle();
-		iframeLinks.attr({"data-fancybox": "gallery"}).getTitle();
-
-		<?php } else { ?>
-		// Gallery by post
-		var posts = jQuery(".post");
-		posts.each(function () {
-			jQuery(this).find(thumbnails).addClass("fancyboxforwp").attr("data-fancybox", "gallery" + posts.index(this)).attr("rel", "fancybox" + posts.index(this)).getTitle();
-
-			jQuery(this).find(iframeLinks).attr({"data-fancybox": "gallery" + posts.index(this)}).attr("rel", "fancybox" + posts.index(this)).getTitle();
-
-		});
-
-		<?php } ?>
-
-		// Gallery type ALL
-		<?php } elseif ( $mfbfw['galleryType'] == 'all' ) { ?>
-		// Gallery All
-		thumbnails.addClass("fancyboxforwp").attr("data-fancybox", "gallery").getTitle();
-		iframeLinks.attr({"data-fancybox": "gallery"}).getTitle();
-
-		// Gallery type NONE
-		<?php } elseif ( $mfbfw['galleryType'] == 'none' ) { ?>
-		// No Galleries
-		thumbnails.each(function () {
-			var rel = jQuery(this).attr("rel");
-			var imgTitle = jQuery(this).children("img").attr("title");
-			jQuery(this).addClass("fancyboxforwp").attr("data-fancybox", rel);
-			jQuery(this).attr("title", imgTitle);
-		});
-
-		iframeLinks.each(function () {
-			var rel = jQuery(this).attr("rel");
-			var imgTitle = jQuery(this).children("img").attr("title");
-			jQuery(this).attr({"data-fancybox": rel});
-			jQuery(this).attr("title", imgTitle);
-		});
-
-		// Else, gallery type is custom, so just print the custom expression
-		<?php } else if( $mfbfw['galleryType'] == 'single_gutenberg_block'){
-		?>
-
-		var gallery_block;
-		if (jQuery('ul.wp-block-gallery').length) {
-			var gallery_block = jQuery('ul.wp-block-gallery');
-		} else if (jQuery('ul.blocks-gallery-grid')) {
-			var gallery_block = jQuery('ul.blocks-gallery-grid');
-		}
-		gallery_block.each(function () {
-			jQuery(this).find(thumbnails).addClass("fancyboxforwp").attr("data-fancybox", "gallery" + gallery_block.index(this)).attr("rel", "fancybox" + gallery_block.index(this)).getTitle();
-
-			jQuery(this).find(iframeLinks).attr({"data-fancybox": "gallery" + gallery_block.index(this)}).attr("rel", "fancybox" + gallery_block.index(this)).getTitle();
-
-		});
-		<?php
-		} else { ?>
-		/* Custom Expression */
-		<?php echo html_entity_decode( $mfbfw['customExpression'] ); ?>
-		<?php } ?>
-
-		// Call fancybox and apply it on any link with a rel atribute that starts with "fancybox", with the options set on the admin panel
-		jQuery("a.fancyboxforwp").fancyboxforwp({
-			loop: <?php echo(isset( $mfbfw['cyclic'] ) && $mfbfw['cyclic'] ? 'true' : 'false') ?>,
-			smallBtn: <?php echo(isset( $mfbfw['showCloseButton'] ) && $mfbfw['showCloseButton'] ? 'true' : 'false') ?>,
-			zoomOpacity: <?php echo(isset( $mfbfw['zoomOpacity'] ) && $mfbfw['zoomOpacity'] ? '"auto"' : 'false') ?>,
-			animationEffect: "<?php echo esc_attr( $mfbfw['transitionIn'] )?>",
-			animationDuration: <?php echo esc_attr( $mfbfw['zoomSpeedIn'] )?>,
-			transitionEffect: "<?php echo esc_attr( $mfbfw['transitionEffect'] )?>",
-			transitionDuration: "<?php echo esc_attr( $mfbfw['zoomSpeedChange'] )?>",
-			overlayShow: <?php echo(isset( $mfbfw['overlayShow'] ) && $mfbfw['overlayShow'] ? 'true' : 'false') ?>,
-			overlayOpacity: "<?php echo esc_attr( $mfbfw['overlayOpacity'] )?>",
-			titleShow: <?php echo(isset( $mfbfw['titleShow'] ) && $mfbfw['titleShow'] ? 'true' : 'false') ?>,
-			titlePosition: "<?php echo esc_attr( $mfbfw['titlePosition'] )?>",
-			keyboard: <?php echo(isset( $mfbfw['enableEscapeButton'] ) && $mfbfw['enableEscapeButton'] ? 'true' : 'false') ?>,
-			showCloseButton: <?php echo(isset( $mfbfw['showCloseButton'] ) && $mfbfw['showCloseButton'] ? 'true' : 'false') ?>,
-			arrows: <?php echo(isset( $mfbfw['showNavArrows'] ) && $mfbfw['showNavArrows'] ? 'true' : 'false') ?>,
-			clickContent:<?php echo(isset( $mfbfw['hideOnContentClick'] ) && $mfbfw['hideOnContentClick'] ? '"close"' : 'false') ?>,
-			clickSlide: <?php echo(isset( $mfbfw['hideOnOverlayClick'] ) && $mfbfw['hideOnOverlayClick'] ? '"close"' : 'false') ?>,
-			mobile: {
-				clickContent: function (current, event) {
-					return current.type === "image" ? <?php echo(isset( $mfbfw['hideOnContentClick'] ) && $mfbfw['hideOnContentClick'] ? '"close"' : '"toggleControls"') ?> : false;
-				},
-				clickSlide: function (current, event) {
-					return current.type === "image" ? <?php echo(isset( $mfbfw['hideOnOverlayClick'] ) && $mfbfw['hideOnOverlayClick'] ? '"close"' : '"toggleControls"') ?> : "close";
-				},
-			},
-			wheel: <?php echo(isset( $mfbfw['mouseWheel'] ) && $mfbfw['mouseWheel'] ? 'true' : 'false') ?>,
-			toolbar: <?php echo(isset( $mfbfw['showToolbar'] ) && $mfbfw['showToolbar'] ? 'true' : 'false') ?>,
-			preventCaptionOverlap: true,
-			onInit: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnStart'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnStart'] ? html_entity_decode( $mfbfw['callbackOnStart'] ) . ',' : 'function() { },') ?>
-			onDeactivate
-	: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnCancel'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnCancel'] ? html_entity_decode( $mfbfw['callbackOnCancel'] ) . ',' : 'function() { },') ?>
-		beforeClose: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnCleanup'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnCleanup'] ? html_entity_decode( $mfbfw['callbackOnCleanup'] ) . ',' : 'function() { },') ?>
-			afterShow: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnComplete'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnComplete'] ? html_entity_decode( $mfbfw['callbackOnComplete'] ) . ',' : ( isset( $mfbfw['zoomOnClick'] ) ? 'function(instance) { jQuery( ".fancybox-image" ).on("click", function( ){ ( instance.isScaledDown() ) ? instance.scaleToActual() : instance.scaleToFit() }) },' : 'function() {},' ) )?>
-				afterClose: <?php echo(isset( $mfbfw['callbackEnable'], $mfbfw['callbackOnClose'] ) && $mfbfw['callbackEnable'] && $mfbfw['callbackOnClose'] ? html_entity_decode( $mfbfw['callbackOnClose'] ) . ',' : 'function() { },') ?>
-					caption : <?php echo html_entity_decode( $caption ) ?>,
-		afterLoad : <?php echo html_entity_decode( $afterLoad ) ?>,
-		<?php echo wp_kses_post( $frameSize ) ?>
-	})
-		;
-
-		<?php if ( isset( $mfbfw['extraCallsEnable'] ) && $mfbfw['extraCallsEnable'] ) {
-		echo "/* Extra Calls */";
-		echo html_entity_decode( $mfbfw['extraCallsData'] );
-	} ?>
-	})
+	})();
 </script>
 <!-- END Fancybox for WordPress -->
-<?php
-	}
+	<?php
+	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 // Check if inline script should be loaded in footer
-if ( isset( $mfbfw['loadAtFooter'] ) && $mfbfw['loadAtFooter'] ) {
+if ( mfbfw_is_on( 'loadAtFooter' ) ) {
 	add_action( 'wp_footer', 'mfbfw_init' );
 } else {
 	add_action( 'wp_head', 'mfbfw_init' );
@@ -504,9 +974,9 @@ if ( isset( $mfbfw['loadAtFooter'] ) && $mfbfw['loadAtFooter'] ) {
  */
 function mfbfw_textdomain() {
 
-	if ( function_exists( 'load_plugin_textdomain' ) ) {
-		load_plugin_textdomain( 'mfbfw', FBFW_URL . 'languages', 'fancybox-for-wordpress/languages' );
-	}
+	// The second parameter has been deprecated since WordPress 2.7 and passing
+	// anything but false triggers a _doing_it_wrong() notice.
+	load_plugin_textdomain( 'fancybox-for-wordpress', false, dirname( FBFW_PLUGIN_BASE ) . '/languages' );
 }
 
 add_action( 'init', 'mfbfw_textdomain' );
@@ -516,20 +986,29 @@ add_action( 'init', 'mfbfw_textdomain' );
  */
 function mfbfw_admin_options() {
 
-	$settings = get_option( 'mfbfw' );
+	if ( isset( $_GET['page'] ) && FBFW_SLUG === sanitize_key( wp_unslash( $_GET['page'] ) ) ) {
 
-	if ( isset( $_GET['page'] ) && $_GET['page'] == 'fancybox-for-wordpress' ) {
+		if ( isset( $_REQUEST['action'] ) && 'reset' === sanitize_key( wp_unslash( $_REQUEST['action'] ) ) && check_admin_referer( 'mfbfw-options-reset' ) ) {
 
-		if ( isset( $_REQUEST['action'] ) && 'reset' == $_REQUEST['action'] && check_admin_referer( 'mfbfw-options-reset' ) ) {
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_die( esc_html__( 'You do not have permission to change these settings.', 'fancybox-for-wordpress' ) );
+			}
 
-			$defaults_array = mfbfw_defaults(); // Store defaults in an array
-			update_option( 'mfbfw', $defaults_array ); // Write defaults to database
+			update_option( 'mfbfw', mfbfw_defaults() );
 			wp_safe_redirect( add_query_arg( 'reset', 'true' ) );
-			die;
+			exit;
 		}
 	}
 
-	register_setting( 'mfbfw-options', 'mfbfw' );
+	register_setting(
+		'mfbfw-options',
+		'mfbfw',
+		array(
+			'type'              => 'array',
+			'sanitize_callback' => 'mfbfw_sanitize_fancy_options',
+			'default'           => mfbfw_defaults(),
+		)
+	);
 }
 
 add_action( 'admin_init', 'mfbfw_admin_options' );
@@ -539,9 +1018,16 @@ add_action( 'admin_init', 'mfbfw_admin_options' );
  */
 function mfbfw_admin_menu() {
 
-	require FBFW_PATH . 'admin.php';
+	require_once FBFW_PATH . 'admin.php';
 
-	$mfbfwadmin = add_submenu_page( 'options-general.php', 'Fancybox for WordPress Options', 'Fancybox for WP', 'manage_options', 'fancybox-for-wordpress', 'mfbfw_options_page' );
+	$mfbfwadmin = add_submenu_page(
+		'options-general.php',
+		__( 'Fancybox for WordPress Options', 'fancybox-for-wordpress' ),
+		__( 'Fancybox for WP', 'fancybox-for-wordpress' ),
+		'manage_options',
+		FBFW_SLUG,
+		'mfbfw_options_page'
+	);
 
 	add_action( 'admin_print_styles-' . $mfbfwadmin, 'mfbfw_admin_styles' );
 	add_action( 'admin_print_scripts-' . $mfbfwadmin, 'mfbfw_admin_scripts' );
@@ -553,34 +1039,40 @@ add_action( 'admin_menu', 'mfbfw_admin_menu' );
  * Load Admin CSS & JS (called in mfbfw_admin_menu())
  */
 function mfbfw_admin_styles() {
-	wp_enqueue_style( 'fancybox-admin', FBFW_URL . 'assets/css/fancybox-admin.css', false, FBFW_VERSION ); // Load custom CSS for Admin Page
+
+	wp_enqueue_style( 'fancybox-admin', FBFW_URL . 'assets/css/fancybox-admin.css', array(), FBFW_VERSION );
 	wp_enqueue_style( 'wp-color-picker' );
-	wp_enqueue_style( 'jquery-ui', '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' ); // Load jQuery UI Tabs CSS for Admin Page
+
+	// Bundled rather than pulled from code.jquery.com: plugins on WordPress.org may not
+	// load assets from third-party CDNs, and doing so leaked visitor IPs to jQuery.
+	wp_enqueue_style( 'fbfw-jquery-ui', FBFW_URL . 'assets/css/jquery-ui.css', array(), FBFW_VERSION );
 }
 
 function mfbfw_admin_scripts() {
-	wp_enqueue_script( 'jquery-ui-tabs', array( 'jquery-ui-core' ), true ); // Load jQuery UI Tabs JS for Admin Page
-	wp_enqueue_script( 'fancybox-admin', FBFW_URL . 'assets/js/admin.js', array( 'jquery', 'wp-color-picker', 'updates' ), FBFW_VERSION, true ); // Load specific JS for Admin Page
+
+	wp_enqueue_script( 'jquery-ui-tabs' );
+	wp_enqueue_script( 'jquery-ui-slider' );
+	wp_enqueue_script( 'fancybox-admin', FBFW_URL . 'assets/js/admin.js', array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-slider', 'wp-color-picker', 'updates' ), FBFW_VERSION, true );
+
+	wp_localize_script(
+		'fancybox-admin',
+		'fbfwAdmin',
+		array(
+			'confirmDefaults' => __( 'Are you sure you want to restore FancyBox for WordPress to default settings?', 'fancybox-for-wordpress' ),
+		)
+	);
 
 	/* Load codemirror editor */
-	$settings = wp_enqueue_code_editor( array( 'type' => 'text/javascript' ) );
+	wp_enqueue_code_editor( array( 'type' => 'text/javascript' ) );
 }
 
 /**
  * Settings Button on Plugins Panel
  */
-function mfbfw_plugin_action_links(
-	$links,
-	$file
-) {
+function mfbfw_plugin_action_links( $links, $file ) {
 
-	static $this_plugin;
-	if ( ! $this_plugin ) {
-		$this_plugin = plugin_basename( __FILE__ );
-	}
-
-	if ( $file == $this_plugin ) {
-		$settings_link = '<a href="options-general.php?page=fancybox-for-wordpress">' . __( 'Settings', 'mfbfw' ) . '</a>';
+	if ( FBFW_PLUGIN_BASE === $file ) {
+		$settings_link = '<a href="' . esc_url( admin_url( 'options-general.php?page=' . FBFW_SLUG ) ) . '">' . esc_html__( 'Settings', 'fancybox-for-wordpress' ) . '</a>';
 		array_unshift( $links, $settings_link );
 	}
 
@@ -589,19 +1081,45 @@ function mfbfw_plugin_action_links(
 
 add_filter( 'plugin_action_links', 'mfbfw_plugin_action_links', 10, 2 );
 
-/*
- * Transform from Hex to rgb or rgba
+/**
+ * Transform a hex colour into an rgba() string.
+ *
+ * @since 3.4.0
+ *
+ * @param string $hex_color Hex colour.
+ * @param mixed  $opacity   Opacity between 0 and 1.
+ * @return string
  */
+function mfbfw_hex_to_rgba( $hex_color, $opacity ) {
 
-function hexTorgba( $hexColor, $opacity ) {
-	list( $r, $g, $b ) = sscanf( $hexColor, "#%02x%02x%02x" );
-	if ( $opacity ) {
-		$rgb = 'rgba(' . $r . ',' . $g . ',' . $b . ',' . $opacity . ')';
-	} else {
-		$rgb = 'rgba(' . $r . ',' . $g . ',' . $b . ')';
+	$hex_color = mfbfw_sanitize_hex_color( $hex_color, '#666666' );
+
+	// Expand the shorthand form so sscanf() always sees six digits.
+	if ( 4 === strlen( $hex_color ) ) {
+		$hex_color = '#' . $hex_color[1] . $hex_color[1] . $hex_color[2] . $hex_color[2] . $hex_color[3] . $hex_color[3];
 	}
 
-	return $rgb;
+	$parts = sscanf( $hex_color, '#%02x%02x%02x' );
+
+	list( $r, $g, $b ) = is_array( $parts ) ? array_map( 'intval', $parts ) : array( 102, 102, 102 );
+
+	$opacity = is_numeric( $opacity ) ? min( 1, max( 0, (float) $opacity ) ) : 1;
+
+	return 'rgba(' . $r . ',' . $g . ',' . $b . ',' . $opacity . ')';
+}
+
+/**
+ * Transform from Hex to rgb or rgba
+ *
+ * @deprecated 3.4.0 Use mfbfw_hex_to_rgba() instead.
+ *
+ * @param string $hexColor Hex colour.
+ * @param mixed  $opacity  Opacity.
+ * @return string
+ */
+function hexTorgba( $hexColor, $opacity ) { // phpcs:ignore WordPress.NamingConventions
+
+	return mfbfw_hex_to_rgba( $hexColor, $opacity );
 }
 
 /*
@@ -610,199 +1128,66 @@ function hexTorgba( $hexColor, $opacity ) {
  *
  */
 function fancy_check_if_woocommerce() {
-	if ( class_exists( 'WooCommerce' ) ) {
-		if ( is_shop() ) {
-			return 'shop_page';
-		} else if ( get_post_type( get_the_id() ) == 'product' ) {
-			return 'product';
-		} else {
-			return 'true';
-		}
-	} else {
+
+	if ( ! class_exists( 'WooCommerce' ) ) {
 		return 'true';
 	}
-}
 
-add_filter( 'pre_update_option_mfbfw', 'mfbfw_sanitize_fancy_options' );
+	if ( function_exists( 'is_shop' ) && is_shop() ) {
+		return 'shop_page';
+	}
+
+	if ( 'product' === get_post_type( get_the_ID() ) ) {
+		return 'product';
+	}
+
+	return 'true';
+}
 
 /**
  * Sanitize options
  *
+ * Rewritten in 3.4.0 as an allow-list driven by mfbfw_option_schema(). The previous
+ * implementation started from `$sanitized = $value`, so any key it did not
+ * explicitly name was written to the database untouched.
+ *
  * @since 3.3.4
+ *
+ * @param mixed $value Raw submitted value.
+ * @return array
  */
-function mfbfw_sanitize_fancy_options( $value ){
-	$sanitized = $value;
+function mfbfw_sanitize_fancy_options( $value ) {
 
-	if ( isset( $value['showToolbar'] ) ) {
-		$sanitized['showToolbar'] =  sanitize_text_field( $value['showToolbar'] );
-	}
-
-	if ( isset( $value['borderColor'] ) ) {
-		$sanitized['borderColor'] =  sanitize_text_field( $value['borderColor'] );
+	if ( ! is_array( $value ) ) {
+		return mfbfw_defaults();
 	}
 
-	if ( isset( $value['paddingColor'] ) ) {
-		$sanitized['paddingColor'] =  sanitize_text_field( $value['paddingColor'] );
-	}
+	$schema    = mfbfw_option_schema();
+	$stored    = get_option( 'mfbfw' );
+	$stored    = is_array( $stored ) ? $stored : array();
+	$sanitized = array();
 
-	if ( isset( $value['padding'] ) ) {
-		$sanitized['padding'] =  absint( $value['padding'] );
-	}
+	foreach ( $schema as $key => $spec ) {
 
-	if ( isset( $value['overlayShow'] ) ) {
-		$sanitized['overlayShow'] =  sanitize_text_field( $value['overlayShow'] );
-	}
+		if ( array_key_exists( $key, $value ) ) {
+			$sanitized[ $key ] = mfbfw_normalize_value( $value[ $key ], $spec );
+			continue;
+		}
 
-	if ( isset( $value['overlayColor'] ) ) {
-		$sanitized['overlayColor'] =  sanitize_text_field( $value['overlayColor'] );
-	}
+		/*
+		 * Legacy keys have no form field, so they are always absent from the POST
+		 * body. Carrying the stored value over stops the first save on an upgraded
+		 * site from silently dropping its border radius and shadow styling.
+		 */
+		if ( ! empty( $spec['optional'] ) ) {
+			if ( array_key_exists( $key, $stored ) ) {
+				$sanitized[ $key ] = mfbfw_normalize_value( $stored[ $key ], $spec );
+			}
+			continue;
+		}
 
-	if ( isset( $value['overlayOpacity'] ) ) {
-		$sanitized['overlayOpacity'] =  (float) sanitize_text_field( $value['overlayOpacity'] );
-	}
-
-	if ( isset( $value['titleShow'] ) ) {
-		$sanitized['titleShow'] =  sanitize_text_field( $value['titleShow'] );
-	}
-
-	if ( isset( $value['titleSize'] ) ) {
-		$sanitized['titleSize'] =  absint( $value['titleSize'] );
-	}
-	
-	if ( isset( $value['titlePosition'] ) ) {
-		$sanitized['titlePosition'] =  sanitize_text_field( $value['titlePosition'] );
-	}
-
-	if ( isset( $value['titleColor'] ) ) {
-		$sanitized['titleColor'] =  sanitize_text_field( $value['titleColor'] );
-	}
-
-	if ( isset( $value['showNavArrows'] ) ) {
-		$sanitized['showNavArrows'] =  sanitize_text_field( $value['showNavArrows'] );
-	}
-
-	if ( isset( $value['zoomOpacity'] ) ) {
-		$sanitized['zoomOpacity'] =  sanitize_text_field( $value['zoomOpacity'] );
-	}
-
-	if ( isset( $value['transitionIn'] ) ) {
-		$sanitized['transitionIn'] =  sanitize_text_field( $value['transitionIn'] );
-	}
-
-	if ( isset( $value['zoomSpeedIn'] ) ) {
-		$sanitized['zoomSpeedIn'] =  absint( $value['zoomSpeedIn'] );
-	}
-
-	if ( isset( $value['transitionEffect'] ) ) {
-		$sanitized['transitionEffect'] =  sanitize_text_field( $value['transitionEffect'] );
-	}
-
-	if ( isset( $value['zoomSpeedChange'] ) ) {
-		$sanitized['zoomSpeedChange'] =  absint( $value['zoomSpeedChange'] );
-	}
-
-	if ( isset( $value['hideOnOverlayClick'] ) ) {
-		$sanitized['hideOnOverlayClick'] =  sanitize_text_field( $value['hideOnOverlayClick'] );
-	}
-
-	if ( isset( $value['enableEscapeButton'] ) ) {
-		$sanitized['enableEscapeButton'] =  sanitize_text_field( $value['enableEscapeButton'] );
-	}
-
-	if ( isset( $value['galleryType'] ) ) {
-		$sanitized['galleryType'] =  sanitize_text_field( $value['galleryType'] );
-	}
-
-	if ( isset( $value['autoDimensions'] ) ) {
-		$sanitized['autoDimensions'] =  sanitize_text_field( $value['autoDimensions'] );
-	}
-
-	if ( isset( $value['frameWidth'] ) ) {
-		$sanitized['frameWidth'] =  absint( $value['frameWidth'] );
-	}
-	 
-	if ( isset( $value['frameHeight'] ) ) {
-		$sanitized['frameHeight'] =  absint( $value['frameHeight'] );
-	}
-
-	if ( isset( $value['callbackEnable'] ) ) {
-		$sanitized['callbackEnable'] =  sanitize_text_field( $value['callbackEnable'] );
-	}
-
-	if ( isset( $value['loadAtFooter'] ) ) {
-		$sanitized['loadAtFooter'] =  sanitize_text_field( $value['loadAtFooter'] );
-	}
-
-	if ( isset( $value['showCloseButton'] ) ) {
-		$sanitized['showCloseButton'] =  sanitize_text_field( $value['showCloseButton'] );
-	}
-	
-	if ( isset( $value['border'] ) ) {
-		$sanitized['border'] =  sanitize_text_field( $value['border'] );
-	}
-	
-	if ( isset( $value['captionShow'] ) ) {
-		$sanitized['captionShow'] =  sanitize_text_field( $value['captionShow'] );
-	}
-
-	if ( isset( $value['hideOnContentClick'] ) ) {
-		$sanitized['hideOnContentClick'] =  sanitize_text_field( $value['hideOnContentClick'] );
-	}
-
-	if ( isset( $value['cyclic'] ) ) {
-		$sanitized['cyclic'] =  sanitize_text_field( $value['cyclic'] );
-	}
-
-	if ( isset( $value['mouseWheel'] ) ) {
-		$sanitized['mouseWheel'] =  sanitize_text_field( $value['mouseWheel'] );
-	}
-
-	if ( isset( $value['zoomOnClick'] ) ) {
-		$sanitized['zoomOnClick'] =  sanitize_text_field( $value['zoomOnClick'] );
-	}
-
-	if ( isset( $value['disableWoocommercePages'] ) ) {
-		$sanitized['disableWoocommercePages'] =  sanitize_text_field( $value['disableWoocommercePages'] );
-	}
-
-	if ( isset( $value['disableWoocommerceProducts'] ) ) {
-		$sanitized['disableWoocommerceProducts'] =  sanitize_text_field( $value['disableWoocommerceProducts'] );
-	}
-
-	if ( isset( $value['exclude_pdf'] ) ) {
-		$sanitized['exclude_pdf'] =  sanitize_text_field( $value['exclude_pdf'] );
-	}
-
-	if ( isset( $value['disableOnMobile'] ) ) {
-		$sanitized['disableOnMobile'] =  sanitize_text_field( $value['disableOnMobile'] );
-	}
-
-	if ( isset( $value['extraCallsData'] ) ) {
-		$sanitized['extraCallsData'] =  strip_tags( $value['extraCallsData'] );
-	}
-
-	if ( isset( $value['callbackOnStart'] ) ) {
-		$sanitized['callbackOnStart'] =  strip_tags( $value['callbackOnStart'] );
-	}
-
-	if ( isset( $value['callbackOnCancel'] ) ) {
-		$sanitized['callbackOnCancel'] =  strip_tags( $value['callbackOnCancel'] );
-	}
-
-	if ( isset( $value['callbackOnComplete'] ) ) {
-		$sanitized['callbackOnComplete'] =  strip_tags( $value['callbackOnComplete'] );
-	}
-
-	if ( isset( $value['callbackOnCleanup'] ) ) {
-		$sanitized['callbackOnCleanup'] =  strip_tags( $value['callbackOnCleanup'] );
-	}
-
-	if ( isset( $value['callbackOnClose'] ) ) {
-		$sanitized['callbackOnClose'] =  strip_tags( $value['callbackOnClose'] );
-	}
-
-	if ( isset( $value['customExpression'] ) ) {
-		$sanitized['customExpression'] =  strip_tags( $value['customExpression'] );
+		// An unchecked checkbox is simply absent from the POST body.
+		$sanitized[ $key ] = ( 'toggle' === $spec['type'] ) ? '' : $spec['default'];
 	}
 
 	return $sanitized;
