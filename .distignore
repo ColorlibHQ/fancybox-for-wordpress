@@ -1,16 +1,30 @@
-# Files that must not ship in the WordPress.org package.
-# Honoured by `wp dist-archive` and the 10up/action-wordpress-plugin-deploy action.
+# The single source of truth for what ships to WordPress.org.
+#
+# Honoured by `npm run package` (bin/package.mjs) and by the deploy workflow's
+# 10up/action-wordpress-plugin-deploy step, so a local build and a published
+# release contain exactly the same files. Do not add a second exclude list.
 
 .git
+.github
 .gitignore
 .distignore
 .DS_Store
 .sass-cache
 node_modules
+vendor
+build
 
-# Development notes, not product documentation.
+# Development notes and tooling, not product documentation.
 CLAUDE.md
 .claude
+bin
+package.json
+package-lock.json
+composer.json
+composer.lock
+phpcs.xml.dist
+phpcs.xml
+.editorconfig
 
 # Source maps are never shipped.
 *.map
