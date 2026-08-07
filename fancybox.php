@@ -3,7 +3,7 @@
 * Plugin Name: FancyBox for WordPress
 * Plugin URI: https://wordpress.org/plugins/fancybox-for-wordpress/
 * Description: Integrates <a href="http://fancyapps.com/fancybox/3/">FancyBox 3</a> into WordPress.
-* Version: 3.4.0
+* Version: 3.4.1
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
 * Tested up to: 7.0
@@ -37,7 +37,7 @@ defined( 'ABSPATH' ) || exit;
  * Plugin Init
  */
 // Constants
-define( 'FBFW_VERSION', '3.4.0' );
+define( 'FBFW_VERSION', '3.4.1' );
 define( 'FBFW_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FBFW_URL', plugin_dir_url( __FILE__ ) );
 define( 'FBFW_PLUGIN_BASE', plugin_basename( __FILE__ ) );
@@ -561,7 +561,13 @@ function mfbfw_build_css( array $s ) {
 		$rules[] = 'div.fancybox-custom-caption p.caption-title{display:none}div.fancybox-caption{display:none;}';
 	}
 
-	$rules[] = 'div.fancybox-caption p.caption-title{font-size:' . $s['titleSize'] . 'px}';
+	/*
+	 * With titlePosition inside/over the visible caption is the .fancybox-custom-caption
+	 * that afterLoad appends into .fancybox-content, while div.fancybox-caption is
+	 * hidden. Styling only the latter meant the Title size setting had no effect at
+	 * all in the two positions that are actually used. See issue #87.
+	 */
+	$rules[] = 'div.fancybox-caption p.caption-title,div.fancybox-content p.caption-title{font-size:' . $s['titleSize'] . 'px}';
 	$rules[] = 'div.fancybox-caption p.caption-title{color:' . ( $title_inside ? $title_color : '#fff' ) . '}';
 	$rules[] = 'div.fancybox-caption{color:' . $title_color . '}';
 
@@ -596,21 +602,29 @@ function mfbfw_build_css( array $s ) {
  */
 function mfbfw_title_copy_js( array $s ) {
 
+	/*
+	 * The collected text goes to data-fbfw-title, not to the link's title attribute.
+	 * Writing it to title made the browser show a native tooltip on every thumbnail
+	 * hover - text the visitor never asked for and could not dismiss. See issue #84.
+	 * A title the author set themselves is left alone and still used as a fallback.
+	 */
 	if ( mfbfw_is_on( 'captionShow', $s ) ) {
 		return <<<'JS'
-var arr = jQuery("a[data-fancybox]");
-jQuery.each(arr, function () {
-	var title = jQuery(this).children("img").attr("title");
-	if (title) { jQuery(this).attr("title", title); }
+jQuery("a[data-fancybox]").each(function () {
+	var $link = jQuery(this);
+	if ($link.attr("data-fbfw-title") !== undefined) { return; }
+	var title = $link.children("img").attr("title");
+	if (title) { $link.attr("data-fbfw-title", title); }
 });
 JS;
 	}
 
 	return <<<'JS'
-var arr = jQuery("a[data-fancybox]");
-jQuery.each(arr, function () {
-	var title = jQuery(this).children("img").attr("title") || '';
-	var figCaptionHtml = jQuery(this).next("figcaption").html() || '';
+jQuery("a[data-fancybox]").each(function () {
+	var $link = jQuery(this);
+	if ($link.attr("data-fbfw-title") !== undefined) { return; }
+	var title = $link.children("img").attr("title") || '';
+	var figCaptionHtml = $link.next("figcaption").html() || '';
 	var processedCaption = figCaptionHtml;
 	if (figCaptionHtml.length && typeof DOMPurify === 'function') {
 		processedCaption = DOMPurify.sanitize(figCaptionHtml, {USE_PROFILES: {html: true}});
@@ -621,7 +635,7 @@ jQuery.each(arr, function () {
 	if (processedCaption.length) {
 		newTitle = title.length ? title + " " + processedCaption : processedCaption;
 	}
-	if (newTitle.length) { jQuery(this).attr("title", newTitle); }
+	if (newTitle.length) { $link.attr("data-fbfw-title", newTitle); }
 });
 JS;
 }
@@ -640,14 +654,14 @@ function mfbfw_caption_js() {
 
 	return <<<'JS'
 function (instance, item) {
-	var title = '';
-	if ("undefined" != typeof jQuery(this).context) {
-		title = jQuery(this).context.title;
-	} else {
-		title = ("undefined" != typeof jQuery(this).attr("title")) ? jQuery(this).attr("title") : '';
-	}
+	var $link = jQuery(this);
+	// data-fbfw-title is what getTitle() collects; a hand-written title attribute
+	// still works as a fallback for anyone relying on the old behaviour.
+	var title = $link.attr("data-fbfw-title");
+	if (title === undefined) { title = $link.attr("title"); }
+	if (title === undefined && $link.context) { title = $link.context.title; }
 	title = title || '';
-	var caption = jQuery(this).data('caption') || '';
+	var caption = $link.data('caption') || '';
 	if (item.type === 'image' && title.length) {
 		caption = (caption.length ? caption + '<br />' : '') + '<p class="caption-title">' + jQuery("<div>").text(title).html() + '</p>';
 	}
@@ -755,13 +769,13 @@ JS;
 		var rel = jQuery(this).attr("rel");
 		var imgTitle = jQuery(this).children("img").attr("title");
 		jQuery(this).addClass("fancyboxforwp").attr("data-fancybox", rel);
-		if (imgTitle) { jQuery(this).attr("title", imgTitle); }
+		if (imgTitle) { jQuery(this).attr("data-fbfw-title", imgTitle); }
 	});
 	iframeLinks.each(function () {
 		var rel = jQuery(this).attr("rel");
 		var imgTitle = jQuery(this).children("img").attr("title");
 		jQuery(this).attr({"data-fancybox": rel});
-		if (imgTitle) { jQuery(this).attr("title", imgTitle); }
+		if (imgTitle) { jQuery(this).attr("data-fbfw-title", imgTitle); }
 	});
 JS;
 
@@ -853,10 +867,28 @@ function mfbfw_build_options( array $s ) {
 	if ( $callbacks_on && ! empty( $s['callbackOnComplete'] ) ) {
 		$after_show = html_entity_decode( $s['callbackOnComplete'] );
 	} elseif ( mfbfw_is_on( 'zoomOnClick', $s ) ) {
-		// Namespaced and rebound each time, otherwise every slide stacked another
-		// click handler on the same image element.
-		$after_show = 'function (instance) { jQuery(".fancybox-image").off("click.fbfwZoom").on("click.fbfwZoom", function () {'
-			. ' instance.isScaledDown() ? instance.scaleToActual() : instance.scaleToFit(); }); }';
+		/*
+		 * Namespaced and rebound each time, otherwise every slide stacked another
+		 * click handler on the same image element.
+		 *
+		 * Releasing a pan also fires a click, which zoomed the image straight back
+		 * out mid-drag. Compare the press and release coordinates and treat anything
+		 * that moved more than a few pixels as a drag, not a click. See issue #105.
+		 */
+		$after_show = <<<'JS'
+function (instance) {
+	var startX = 0, startY = 0;
+	jQuery(".fancybox-image")
+		.off(".fbfwZoom")
+		.on("pointerdown.fbfwZoom mousedown.fbfwZoom", function (e) {
+			startX = e.clientX; startY = e.clientY;
+		})
+		.on("click.fbfwZoom", function (e) {
+			if (Math.abs(e.clientX - startX) > 5 || Math.abs(e.clientY - startY) > 5) { return; }
+			instance.isScaledDown() ? instance.scaleToActual() : instance.scaleToFit();
+		});
+}
+JS;
 	} else {
 		$after_show = 'function () {}';
 	}
@@ -938,21 +970,66 @@ function mfbfw_init() {
 				return this;
 			};
 
-			var thumbnails = <?php echo mfbfw_thumbnail_selector_js( $s ); ?>;
-
-			// Anything that is not an image, video or PDF opens in an iframe.
-			var iframeLinks = jQuery('.fancyboxforwp').filter(function () {
-				return !/\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href'));
-			}).filter(function () {
-				return !/vimeo|youtube/i.test(jQuery(this).attr('href'));
+			var fbfwOptions = <?php echo $options['json']; ?>;
+<?php echo $assignments; ?>
+			// A dialog needs an accessible name; FancyBox 3 ships role="dialog" with
+			// none, which fails WCAG 4.1.2 for screen reader users. See issue #104.
+			jQuery(document).on('onInit.fb', function (e, instance) {
+				if (instance && instance.$refs && instance.$refs.container) {
+					instance.$refs.container.attr({
+						'aria-modal': 'true',
+						'aria-label': <?php echo wp_json_encode( __( 'Image lightbox', 'fancybox-for-wordpress' ) ); ?>
+					});
+				}
 			});
-			iframeLinks.attr({"data-type": "iframe"}).getTitle();
+
+			function fbfwBind() {
+				var thumbnails = <?php echo mfbfw_thumbnail_selector_js( $s ); ?>;
+
+				// Anything that is not an image, video or PDF opens in an iframe.
+				var iframeLinks = jQuery('.fancyboxforwp').filter(function () {
+					return !/\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href'));
+				}).filter(function () {
+					return !/vimeo|youtube/i.test(jQuery(this).attr('href'));
+				});
+				iframeLinks.attr({"data-type": "iframe"}).getTitle();
 
 <?php echo mfbfw_gallery_js( $s ); ?>
 
-			var fbfwOptions = <?php echo $options['json']; ?>;
-<?php echo $assignments; ?>
-			jQuery("a.fancyboxforwp").fancyboxforwp(fbfwOptions);
+				// Re-applied rather than delegated: FancyBox's global [data-fancybox]
+				// handler would open new links with default options, ignoring every
+				// setting on this page.
+				jQuery("a.fancyboxforwp").fancyboxforwp(fbfwOptions);
+			}
+
+			fbfwBind();
+
+			/*
+			 * Infinite scroll, lazy loading and AJAX filters insert thumbnails after
+			 * this script has run, and those links were never bound. Re-scan when the
+			 * document gains nodes, skipping FancyBox's own DOM so opening the lightbox
+			 * cannot retrigger us. See issues #25 and #69.
+			 */
+			if (window.MutationObserver && document.body) {
+				var fbfwPending = null;
+				new MutationObserver(function (mutations) {
+					for (var i = 0; i < mutations.length; i++) {
+						var added = mutations[i].addedNodes;
+						for (var j = 0; j < added.length; j++) {
+							var n = added[j];
+							if (n.nodeType !== 1) { continue; }
+							if (n.closest && n.closest('.fancybox-container')) { continue; }
+							var isLink = n.tagName === 'A' && n.querySelector && n.querySelector('img');
+							var hasLink = n.querySelector && n.querySelector('a img');
+							if (isLink || hasLink) {
+								clearTimeout(fbfwPending);
+								fbfwPending = setTimeout(fbfwBind, 200);
+								return;
+							}
+						}
+					}
+				}).observe(document.body, {childList: true, subtree: true});
+			}
 <?php echo $extra_calls; ?>
 		});
 	})();

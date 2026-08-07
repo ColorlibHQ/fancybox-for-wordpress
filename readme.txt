@@ -4,7 +4,7 @@ Tags: fancybox, lightbox, images, photos, pictures
 Requires at least: 5.6
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.4.0
+Stable tag: 3.4.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,6 +27,14 @@ If you are new to WordPress and want to lear more we have got you covered. Color
 If you enjoy using FancyBox lightbox for WordPress please leave a [positive feedback](https://wordpress.org/support/plugin/fancybox-for-wordpress/reviews/?filter=5). We are committed to make it the best lightbox plugin for WordPress.
 
 == Changelog ==
+= 3.4.1 =
+Fixed: The Title size setting had no effect. With the title positioned Inside or Over - the two positions most sites use - the caption you actually see is drawn inside the image frame, while the font-size rule was applied to a different, hidden element. (#87)
+Fixed: Hovering a thumbnail showed a browser tooltip repeating the caption. The plugin copied each image's title onto its link so the lightbox could read it, and browsers render that as a tooltip. The text is now carried in a data attribute instead. A title you set yourself is left alone. (#84)
+Fixed: Images loaded after the page finished rendering - infinite scroll, lazy loading, AJAX filters - were never picked up by the lightbox. New thumbnails are now detected and bound automatically. (#25, #69)
+Fixed: With Zoom On Click enabled, releasing the mouse after panning a zoomed image counted as a click and zoomed it straight back out. (#105)
+Fixed: The lightbox announced itself to screen readers as an unnamed dialog. It now carries an accessible name and is marked as a modal. (#104)
+Fixed: Removed a dead demo link from the plugin description.  (#85)
+
 = 3.4.0 =
 Fixed: Translations never loaded. The plugin declared `Text Domain: mfbfw` while its WordPress.org slug is `fancybox-for-wordpress`, and WordPress looks for language packs under the slug - so none of the community translations on translate.wordpress.org ever reached anyone. The text domain now matches the slug, which switches on the six existing language packs (es_CL, es_ES, es_VE, nl_NL, ru_RU, tr_TR) and every future one. 63 locales have translation work waiting on translate.wordpress.org.
 Changed: The bundled translations were migrated onto the current strings and renamed to the new domain. German, Japanese and Polish ship in the plugin because no language pack exists for them yet; Spanish and Turkish were dropped because their WordPress.org packs are more complete and take precedence anyway.
@@ -326,8 +334,11 @@ Fixed errors causes by WordPress SVN.
 
 == Upgrade Notice ==
 
+= 3.4.1 =
+Fixes the Title size setting, removes the browser tooltip that appeared when hovering a thumbnail, and makes the lightbox pick up images added by infinite scroll or lazy loading.
+
 = 3.4.0 =
-Security and PHP 8 release. Updates the bundled DOMPurify, closes a CSS injection in the generated stylesheet, and fixes PHP 8 warnings that could take a site down entirely if its settings row was damaged. Please note three settings that previously had no effect now work as labelled - Overlay, Title and Zoom On Click - so if you had any of them switched off, your lightbox will now honour that. Translations also start working for the first time: the plugin was asking WordPress for the wrong text domain, so no community translation had ever loaded.
+Security and PHP 8 release. Note that three settings which previously had no effect now work as labelled - Overlay, Title and Zoom On Click - so if you had any of them switched off, your lightbox will change. Translations also start working for the first time.
 
 = 3.0.5 =
 Fixes the Revert options button and wrong version number on settings page. Also updates links in settings page and readme file.
@@ -343,7 +354,7 @@ Fixes the Revert options button and wrong version number on settings page. Also 
 
 == Screenshots ==
 
-1. Simple example of fancybox on a post. [Live demo here](http://blog.moskis.net/2012/01/20/teclado-apple-en-windows-7/)
+1. Simple example of fancybox on a post.
 2. Basic settings on Options Page in the Admin Panel. This makes it very easy to customize the plugin to your needs
 
 
