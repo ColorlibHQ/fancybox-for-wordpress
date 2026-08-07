@@ -1,0 +1,31 @@
+{
+	"name": "colorlibhq/fancybox-for-wordpress",
+	"description": "Integrates FancyBox 3 into WordPress.",
+	"type": "wordpress-plugin",
+	"license": "GPL-3.0-or-later",
+	"homepage": "https://wordpress.org/plugins/fancybox-for-wordpress/",
+	"require": {
+		"php": ">=7.4"
+	},
+	"require-dev": {
+		"squizlabs/php_codesniffer": "^3.10",
+		"wp-coding-standards/wpcs": "^3.1",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"scripts": {
+		"lint": "find . -path ./vendor -prune -o -path ./node_modules -prune -o -path ./build -prune -o -name '*.php' -print0 | xargs -0 -n1 -P4 php -l",
+		"phpcs": "phpcs",
+		"phpcbf": "phpcbf"
+	},
+	"scripts-descriptions": {
+		"lint": "Check every PHP file for syntax errors.",
+		"phpcs": "Check coding standards, escaping, sanitisation and PHP cross-version compatibility.",
+		"phpcbf": "Auto-fix what phpcs can fix."
+	}
+}

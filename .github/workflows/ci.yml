@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php-lint:
+    name: PHP ${{ matrix.php }} syntax
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Floor is the plugin's "Requires PHP"; ceiling is the newest release, which
+        # is where the PHP 8 breakage fixed in 3.4.0 would have shown up first.
+        php: [ '7.4', '8.0', '8.2', '8.4', '8.5' ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - name: Lint every PHP file
+        run: |
+          find . -path ./vendor -prune -o -path ./node_modules -prune -o -name '*.php' -print \
+            | xargs -n1 -P4 php -l
+
+  phpcs:
+    name: WordPress coding standards
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          tools: composer
+      - run: composer install --prefer-dist --no-progress
+      - run: composer phpcs
+
+  assets:
+    name: Minified assets are current
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      # Catches the case where fancybox.css is edited but the .min is not rebuilt -
+      # the minified file is what actually ships to visitors.
+      - run: npm run verify:assets
+
+  package:
+    name: Package builds cleanly
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      # Also asserts the plugin header, FBFW_VERSION, readme Stable tag and
+      # package.json all agree, and that no dev file leaked into the zip.
+      - run: npm run package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plugin-zip
+          path: build/*.zip
+
+  plugin-check:
+    name: WordPress.org Plugin Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Lets the action post its findings as a PR comment.
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+
+      # Check the built package, not the repository. Running it against the repo
+      # root judges files that never ship - phpcs.xml.dist alone fails it with
+      # "Application files are not permitted" - and tells you nothing about what
+      # users actually install. The directory name must be the plugin slug,
+      # because that is what the text-domain check compares against.
+      - name: Build the distributable
+        run: npm run package
+
+      - uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: ./build/fancybox-for-wordpress
+          # Warnings are informational; errors fail the run.
+          ignore-warnings: true

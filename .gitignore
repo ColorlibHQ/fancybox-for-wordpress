@@ -1,7 +1,16 @@
 Thumbs.db
-node_modules/*
-.idea/*
-*.zip
 .DS_Store
-package-lock.json
+.idea/*
 .standard.json
+
+# Dependencies. The lockfiles are committed on purpose: CI installs with
+# `npm ci` and `composer install`, both of which need them to be reproducible.
+node_modules/
+vendor/
+
+# Build output.
+build/
+*.zip
+
+# Local development notes.
+.claude/

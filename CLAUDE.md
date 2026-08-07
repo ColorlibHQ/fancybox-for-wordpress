@@ -6,12 +6,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `FancyBox for WordPress` — a WordPress.org plugin (slug `fancybox-for-wordpress`, text domain `mfbfw`) by Colorlib that wires fancyBox 3 into any WordPress site. Requires PHP 7.4+ / WP 5.6+.
 
-There is **no test suite and no linter**, and PHP/CSS/JS are edited directly rather than compiled. There *is* a Grunt build — `Gruntfile.js` + `package.json` — but it lives only in the [GitHub repo](https://github.com/ColorlibHQ/fancybox-for-wordpress) and is excluded from the distributed package, so it is absent from a working copy unzipped from WordPress.org. It provides:
+PHP/CSS/JS are edited directly rather than compiled, and there is no test suite. The tooling lives only in the [GitHub repo](https://github.com/ColorlibHQ/fancybox-for-wordpress) and is excluded from the distributed package, so it is absent from a working copy unzipped from WordPress.org.
 
-- `grunt i18n` — `checktextdomain` (already configured to expect `fancybox-for-wordpress`) plus `makepot`
-- `grunt build-archive` — copies to `build/`, minus dev files, and zips it
+```bash
+npm install && composer install
 
-Its `copy.build` exclude list is the authority on what ships when releasing from GitHub; `.distignore` covers the same ground for `wp dist-archive` and the wp.org deploy action. **Keep the two in sync** — a file excluded from one but not the other will leak into some builds and not others.
+npm run build:assets     # regenerate the .min files (REQUIRED after editing a source asset)
+npm run verify:assets    # fail if a .min file is stale — this is what CI enforces
+npm run i18n             # regenerate .pot, .mo and .l10n.php (needs wp-cli on PATH)
+npm run package          # build build/fancybox-for-wordpress-<version>.zip
+npm run release:check    # verify:assets + composer lint + package
+composer phpcs           # escaping, sanitisation, nonces, i18n, PHP 7.4–8.5 compatibility
+composer lint            # php -l across every file
+```
+
+`.distignore` is the **single source of truth** for what ships. `bin/package.mjs` and the deploy workflow both feed it to `rsync --exclude-from`, so a local build and a published release contain the same files. Do not introduce a second exclude list — the old `Gruntfile.js` had one and it had to be hand-synced.
+
+Two guards worth knowing about, because both encode mistakes that actually happened:
+
+- **`verify:assets`** rebuilds each `.min` file into a temp location and byte-compares. The minified assets are what visitors get (`mfbfw_asset_suffix()` only serves sources under `SCRIPT_DEBUG`), so editing `fancybox.css` without rebuilding silently ships the old stylesheet.
+- **`package`** refuses to build unless the plugin header, `FBFW_VERSION`, the readme `Stable tag` and `package.json` all agree, and fails if a dev file lands in the zip.
+
+### Releasing
+
+Push a version tag and `.github/workflows/deploy.yml` publishes that commit to WordPress.org SVN. It needs the `SVN_USERNAME` / `SVN_PASSWORD` repository secrets. **Do not release by hand** — 3.3.7 shipped to WordPress.org and was never committed to git, and 3.4.1 shipped while `master` still said 3.4.0. Releasing from a tag makes git the source of truth and removes the step where that drift occurred.
+
+`phpcs.xml.dist` deliberately runs a **subset** of the WordPress standard. The full `WordPress` ruleset reports 293 violations here, all of them whitespace, array alignment or missing docblocks, and zero security/i18n/compatibility problems. The rules kept are the ones that catch real defects; see the file's own `<description>` for how to adopt full formatting later.
 
 ## Development workflow
 

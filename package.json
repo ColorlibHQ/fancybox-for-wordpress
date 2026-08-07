@@ -1,19 +1,34 @@
 {
   "name": "fancybox-for-wordpress",
-  "main": "Gruntfile.js",
   "version": "3.4.1",
-  "homepage": "https://www.colorlib.com",
+  "description": "Integrates FancyBox 3 into WordPress.",
+  "homepage": "https://wordpress.org/plugins/fancybox-for-wordpress/",
   "author": "Colorlib",
-  "license": "GPL v3",
-  "repository": "https://github.com/ColorlibHQ/fancybox-for-wordpress",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ColorlibHQ/fancybox-for-wordpress.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build:js": "terser assets/js/jquery.fancybox.js --compress --mangle --comments \"/^!|licen[cs]e|fancyBox v/i\" -o assets/js/jquery.fancybox.min.js",
+    "build:css": "cleancss -O2 -o assets/css/fancybox.min.css assets/css/fancybox.css",
+    "build:assets": "npm run build:js && npm run build:css",
+    "verify:assets": "node bin/verify-assets.mjs",
+    "i18n:pot": "wp i18n make-pot . languages/fancybox-for-wordpress.pot --slug=fancybox-for-wordpress --domain=fancybox-for-wordpress --exclude=assets/js/jquery.fancybox.js,assets/js/jquery.fancybox.min.js,assets/js/purify.js,assets/js/purify.min.js,bin --headers='{\"Report-Msgid-Bugs-To\":\"https://wordpress.org/support/plugin/fancybox-for-wordpress/\",\"Last-Translator\":\"\",\"Language-Team\":\"\"}'",
+    "i18n:php": "wp i18n make-php languages",
+    "i18n:mo": "wp i18n make-mo languages",
+    "i18n": "npm run i18n:pot && npm run i18n:mo && npm run i18n:php",
+    "lint:php": "composer lint",
+    "lint:phpcs": "composer phpcs",
+    "package": "node bin/package.mjs",
+    "release:check": "npm run verify:assets && npm run lint:php && npm run package"
+  },
   "devDependencies": {
-    "grunt": "^1.0.4",
-    "grunt-checktextdomain": "^1.0.1",
-    "grunt-cli": "~1.3.2",
-    "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-compress": "^1.4.3",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-wp-i18n": "^1.0.3",
-    "load-grunt-tasks": "^4.0.0"
+    "clean-css-cli": "^5.6.3",
+    "terser": "^5.44.0"
   }
 }

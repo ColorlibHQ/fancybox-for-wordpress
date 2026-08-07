@@ -1,0 +1,91 @@
+name: Deploy to WordPress.org
+
+# Pushing a version tag publishes that exact commit to the plugin directory.
+#
+# This exists because the two repositories have drifted before: 3.3.7 shipped to
+# WordPress.org and was never committed here, and 3.4.1 shipped while master still
+# said 3.4.0. Releasing from a tag makes git the source of truth and removes the
+# manual SVN step where that drift crept in.
+#
+# Requires two repository secrets: SVN_USERNAME and SVN_PASSWORD (a WordPress.org
+# account with commit access to the plugin).
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Build and validate without publishing'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Pre-flight
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+
+      - name: Minified assets are current
+        run: npm run verify:assets
+
+      - name: Versions agree and no dev files ship
+        run: npm run package
+
+      - name: Tag matches the plugin version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          VERSION=$(grep -m1 -oE '^\s*\*\s*Version:\s*[0-9.]+' fancybox.php | grep -oE '[0-9.]+$')
+          STABLE=$(grep -m1 -oE '^Stable tag:\s*[0-9.]+' readme.txt | grep -oE '[0-9.]+$')
+          echo "tag=$TAG header=$VERSION stable=$STABLE"
+          if [ "$TAG" != "$VERSION" ] || [ "$TAG" != "$STABLE" ]; then
+            echo "::error::Tag $TAG does not match the plugin header ($VERSION) / Stable tag ($STABLE)"
+            exit 1
+          fi
+
+  deploy:
+    name: Publish
+    needs: verify
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/') && github.event_name == 'push'
+    environment: wordpress-org
+    steps:
+      - uses: actions/checkout@v4
+
+      # Without this the run dies deep inside the SVN step with an authentication
+      # error that does not say what is actually wrong.
+      - name: Check WordPress.org credentials are configured
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          missing=""
+          [ -z "$SVN_USERNAME" ] && missing="$missing SVN_USERNAME"
+          [ -z "$SVN_PASSWORD" ] && missing="$missing SVN_PASSWORD"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing repository secret(s):$missing"
+            echo "Add them under Settings → Secrets and variables → Actions."
+            echo "Use a WordPress.org account with commit access to the plugin."
+            echo "The tag is already pushed, so re-run this workflow once they exist."
+            exit 1
+          fi
+          echo "Credentials present for '$SVN_USERNAME'."
+
+      - name: Deploy to the plugin directory
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: fancybox-for-wordpress
+          # Honours .distignore, the same list `npm run package` uses.
