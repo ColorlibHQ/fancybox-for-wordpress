@@ -76,12 +76,28 @@ jobs:
   plugin-check:
     name: WordPress.org Plugin Check
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Lets the action post its findings as a PR comment.
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          path: fancybox-for-wordpress
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+
+      # Check the built package, not the repository. Running it against the repo
+      # root judges files that never ship - phpcs.xml.dist alone fails it with
+      # "Application files are not permitted" - and tells you nothing about what
+      # users actually install. The directory name must be the plugin slug,
+      # because that is what the text-domain check compares against.
+      - name: Build the distributable
+        run: npm run package
+
       - uses: wordpress/plugin-check-action@v1
         with:
-          build-dir: ./fancybox-for-wordpress
-          # Warnings are informational here; errors fail the run.
+          build-dir: ./build/fancybox-for-wordpress
+          # Warnings are informational; errors fail the run.
           ignore-warnings: true
