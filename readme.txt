@@ -4,7 +4,7 @@ Tags: fancybox, lightbox, images, photos, pictures
 Requires at least: 5.6
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,21 +12,54 @@ Seamlessly integrates FancyBox lightbox into your WordPress blog: Upload, activa
 
 == Description ==
 
-Seamlessly integrates FancyBox into your blog: Upload, activate, and you're done. Additional configuration optional.
+FancyBox for WordPress turns the images you already have into a lightbox gallery. Activate it and every image that links to a full-size file opens in an overlay instead of loading a new page — in posts, pages, widgets and the block editor's gallery blocks, with no shortcodes and nothing to add to your content.
 
-You can easily customize almost anything you can think about fancybox lightbox: the border, margin width and color, zoom speed, animation type, close button position, overlay color and opacity and even more advanced option like several options to group images into galleries, and more...
+If the defaults suit you, there is nothing to configure.
 
-By default, the plugin will use jQuery to apply FancyBox to ANY thumbnails that link directly to an image. This includes posts, the sidebar, etc, so you can activate it and it will be applied automatically.
+= What you get out of the box =
 
-= Further Reading =
+* Click any linked image to open it in an overlay, with the rest of the page dimmed behind it
+* Arrow keys, on-screen arrows, swipe on touch devices, and Escape to close
+* Zoom, slideshow, thumbnail strip and full-screen controls in the toolbar
+* Captions taken from the image title, the block editor's caption, or a `data-caption` attribute
+* Galleries grouped automatically — everything on the page, per post, or per gallery block
+* PDFs, videos and other pages open in the lightbox too
 
-This plugin is developed and maintained by Colorlib. Which is well know for their free <a href="https://colorlib.com/wp/themes/" target="_blank"></a>WordPress themes. However, now they are looking to extend their presence in plugin development and believe that FancyBox lightbox is a great way to start.
+= What you can change =
 
-If you are new to WordPress and want to lear more we have got you covered. Colorlib will teach you have to <a href="https://colorlib.com/">start a blog</a> or <a href="https://colorlib.com/wp/how-to-make-a-website/">create a website</a> and much more. If you are already familiar with WordPress you likely want to learn how to make it faster and more reliable. That's when you want to look into hosting and more specifically <a href="http://colorlib.com/wp/wordpress-hosting">WordPress hosting</a>.
+Settings live under **Settings → Fancybox for WP**, split into Appearance, Animations, Behaviour, Galleries and Misc:
 
-If you enjoy using FancyBox lightbox for WordPress please leave a [positive feedback](https://wordpress.org/support/plugin/fancybox-for-wordpress/reviews/?filter=5). We are committed to make it the best lightbox plugin for WordPress.
+* Overlay colour and opacity, padding, border, background colour
+* Caption position (inside the frame, over the image, or below it), size and colour
+* Opening and transition animations, and their speed
+* Close on overlay click, close on image click, zoom on click, mouse-wheel navigation, looping
+* Turn the lightbox off on mobile, on WooCommerce shop pages, or on product pages
+* Exclude PDF links, or exclude individual images with `class="nolightbox"`
+* A custom jQuery expression if you want to decide exactly which links are affected
+
+= Built on FancyBox 3 =
+
+The plugin bundles FancyBox 3.5.7. Nothing is loaded from an external CDN, so no visitor data leaves your site. The bundled copy is namespaced (`fancyboxforwp`) so it will not collide with a FancyBox that your theme or another plugin already loads.
+
+= Translations =
+
+Available in your language through WordPress.org language packs. Translations are contributed by the community at [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/fancybox-for-wordpress/) — help for your locale is very welcome.
+
+= Contributing =
+
+Development happens on [GitHub](https://github.com/ColorlibHQ/fancybox-for-wordpress). Bug reports and pull requests are welcome.
+
+This plugin is developed and maintained by [Colorlib](https://colorlib.com/), who also make free [WordPress themes](https://colorlib.com/wp/themes/).
+
+If it is useful to you, a [review](https://wordpress.org/support/plugin/fancybox-for-wordpress/reviews/?filter=5) genuinely helps.
 
 == Changelog ==
+= 3.4.2 =
+Fixed: The lightbox could collapse to a thin sliver instead of showing the image, and videos played sound with no picture. The plugin's stylesheet carried a `height: auto !important` rule that overrode the height FancyBox calculates for each slide. On its own it happened to work, but as soon as a second copy of FancyBox's CSS was on the page - any theme or plugin bundling its own - the content box collapsed to nothing. The rule was added in 3.2.5 for a problem that no longer exists, and has been removed.
+Changed: Rewrote the plugin description and replaced the FAQ, which had answered only a question about a 2015 security release. It now covers captions, excluding images, gallery grouping, loading the lightbox on selected pages, PDFs, page builders and diagnosing conflicts with other lightboxes.
+Changed: New screenshots, taken on WordPress 7.0. The previous ones were from 2016 and showed an interface that no longer exists.
+Changed: Screenshots are served from the plugin directory rather than bundled in the download, which cuts the download size by about two thirds.
+
 = 3.4.1 =
 Fixed: The Title size setting had no effect. With the title positioned Inside or Over - the two positions most sites use - the caption you actually see is drawn inside the image frame, while the font-size rule was applied to a different, hidden element. (#87)
 Fixed: Hovering a thumbnail showed a browser tooltip repeating the caption. The plugin copied each image's title onto its link so the lightbox could read it, and browsers render that as a tooltip. The text is now carried in a data attribute instead. A title you set yourself is left alone. (#84)
@@ -334,6 +367,9 @@ Fixed errors causes by WordPress SVN.
 
 == Upgrade Notice ==
 
+= 3.4.2 =
+Fixes a conflict that could make the lightbox show a thin sliver instead of your image, or play a video with no picture, when another plugin or theme also loads FancyBox. Also a rewritten description, a real FAQ and new screenshots.
+
 = 3.4.1 =
 Fixes the Title size setting, removes the browser tooltip that appeared when hovering a thumbnail, and makes the lightbox pick up images added by infinite scroll or lazy loading.
 
@@ -354,26 +390,83 @@ Fixes the Revert options button and wrong version number on settings page. Also 
 
 == Screenshots ==
 
-1. Simple example of fancybox on a post.
-2. Basic settings on Options Page in the Admin Panel. This makes it very easy to customize the plugin to your needs
-
+1. An image open in the lightbox, with its caption, navigation arrows and toolbar.
+2. Appearance settings — overlay, padding, border, caption position and colours.
+3. Gallery settings — group every image on the page, each gallery block, each post, or write your own expression.
+4. Behaviour settings — closing, zoom, mouse wheel, WooCommerce, PDFs and mobile.
 
 == Frequently Asked Questions ==
 
-**- There was a vulnerability detected in versions 3.0.2 and lower, is my site in danger?**
+= How do I add a caption? =
 
-This vulnerability was patched in version 3.0.3.
+Three ways, and they stack:
 
-An additional change was introduced in version 3.0.4 to make sure that the malicious code can't be printed to visitors even if it still remains in the database.
+* Set the image's **Title** in the media library or block settings — it appears under the image.
+* Add a caption in the block editor — it is picked up automatically.
+* Add `data-caption` to the link for longer or formatted text:
 
-If you think your site might still be using a vulnerable version of the plugin please log in to your WordPress admin panel, disable the plugin and clear any cache if your site uses a cache system.
+`<a href="big.jpg" data-caption="Marble, 2019&lt;br&gt;120 × 60 cm"><img src="thumb.jpg"></a>`
 
-If you wish to continue using the plugin, check that the plugin is updated to the latest version from your admin panel and enable it. Then check the plugin's settings page and make sure there's no abnormal code in any of the fields, especially on the Extra Calls tab. If you are not sure about the code you see in the settings please use the Revert to Defaults button at the bottom of the settings page.
+Basic HTML such as `<br>`, `<em>` and `<a>` is allowed. Captions are sanitised before display, so scripts and event handlers are stripped.
 
-If you think your site might be compromised in any other way check this guide: [WordPress Codex - FAQ My site was hacked](http://codex.wordpress.org/FAQ_My_site_was_hacked).
+= How do I stop one image opening in the lightbox? =
 
-**- Is the FancyBox script vulnerable or unsafe?**
+Add `class="nolightbox"` to the link. Links from Envira Gallery and NextGen Gallery are skipped automatically so the two lightboxes do not fight.
 
-No, there's nothing wrong with the actual FancyBox script that i know of.
+= The lightbox looks wrong — the image is cut off, stretched, or barely visible =
 
-The vulnerability detected in versions 3.0.2 and lower of the "FancyBox for WordPress" plugin was limited to the plugin itself. Other FancyBox plugins or manual implementations of FancyBox are unrelated to this issue.
+Almost always another plugin or theme loading its own copy of FancyBox. Two stylesheets defining the same class names will fight, because FancyBox's CSS class names are shared.
+
+To check, open your browser's developer tools, look at the Network tab, and search for `fancybox`. If you see a `.css` file from anywhere other than `/plugins/fancybox-for-wordpress/`, that is the conflict. Disabling the other lightbox, or the option in your theme that loads it, resolves it.
+
+3.4.2 fixed the worst version of this, where the image collapsed to a thin sliver and videos played sound with no picture.
+
+= Images loaded by infinite scroll or lazy loading do not open =
+
+Fixed in 3.4.1. Thumbnails added after the page has finished loading — infinite scroll, lazy loading, AJAX filters — are now detected and bound automatically. Update if you are on an older version.
+
+= Can I load the lightbox only on certain pages? =
+
+Yes, with a filter. Put this in your theme's `functions.php` or a site-specific plugin:
+
+`add_filter( 'mfbfw_is_enabled', function ( $enabled ) {
+    return is_page( array( 'portfolio', 'gallery' ) );
+} );`
+
+Returning `false` means nothing loads at all — no CSS, no JavaScript. There are also built-in switches for mobile, WooCommerce shop pages and product pages under **Behaviour**.
+
+= PDFs open in the lightbox. How do I stop that? =
+
+Turn on **Exclude PDF files** under Behaviour and PDF links will open normally.
+
+Note that iOS Safari cannot display a PDF inside an overlay at all. If your visitors are mostly on iPhones or iPads, excluding PDFs is the more reliable choice.
+
+= How do I group images into galleries? =
+
+Under **Galleries**, choose how links are grouped:
+
+* **All images on the page** — one gallery for everything (default)
+* **Each gallery block** — one gallery per block editor gallery
+* **Each post** — one gallery per post on archive pages
+* **No galleries** — every image opens on its own
+* **Custom expression** — write your own jQuery selector
+
+= Does it work with WooCommerce, Elementor or other page builders? =
+
+WooCommerce has its own product image zoom, so there are switches under Behaviour to turn the lightbox off on shop and product pages.
+
+Page builders vary. The plugin looks for links pointing at an image file, so builders that output normal image links work. Builders that render their own lightbox usually need theirs disabled first.
+
+= Is it available in my language? =
+
+Translations come from WordPress.org language packs and install automatically. If your language is missing or incomplete, you can help at [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/fancybox-for-wordpress/).
+
+= Will it slow my site down? =
+
+It adds roughly 82 KB of minified JavaScript and 14 KB of CSS. Nothing is loaded from an external server. Define `SCRIPT_DEBUG` in `wp-config.php` if you need the unminified sources for debugging.
+
+If you only need the lightbox on a few pages, the `mfbfw_is_enabled` filter above avoids loading anything elsewhere.
+
+= Where do I report a bug? =
+
+The [support forum](https://wordpress.org/support/plugin/fancybox-for-wordpress/) or [GitHub](https://github.com/ColorlibHQ/fancybox-for-wordpress/issues). A link to a page showing the problem makes it far quicker to diagnose.

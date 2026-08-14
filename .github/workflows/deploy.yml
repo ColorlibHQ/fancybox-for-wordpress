@@ -88,4 +88,7 @@ jobs:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SLUG: fancybox-for-wordpress
+          # Banner, icon and screenshots live here and are synced to the
+          # SVN assets/ directory, so they never bloat the download.
+          ASSETS_DIR: .wordpress-org
           # Honours .distignore, the same list `npm run package` uses.

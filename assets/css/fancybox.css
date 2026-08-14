@@ -902,6 +902,20 @@ body.compensate-for-scrollbar {
     }
 }
 
-.fancybox-content {
-    height: auto!important;
-}
+/*
+ * Removed in 3.4.2: `.fancybox-content { height: auto !important; }`
+ *
+ * It was added in 3.2.5 for "extra height on lightbox image wrapper" and is not
+ * part of upstream fancyBox. Because it is !important it overrode the inline
+ * height fancyBox computes for each slide. On its own that happened to work, but
+ * as soon as a second fancyBox stylesheet was on the page - any theme or plugin
+ * bundling its own copy - the content box collapsed to zero and the image
+ * rendered as a thin sliver. Videos showed as audio-only for the same reason.
+ *
+ * Verified on WordPress 7.0.2: with the rule gone, image and iframe slides both
+ * size correctly with and without a competing fancyBox stylesheet, and the
+ * "extra height" it was written for does not return (content box matches the
+ * image exactly in both caption positions).
+ *
+ * Do not reintroduce a blanket height override here.
+ */
