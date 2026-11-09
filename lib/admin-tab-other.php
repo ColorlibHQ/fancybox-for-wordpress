@@ -13,7 +13,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="autoDimensions" name="mfbfw[autoDimensions]" <?php checked( 1, isset( $settings['autoDimensions'] ) && $settings['autoDimensions'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="autoDimensions" name="mfbfw[autoDimensions]" <?php checked( 1, isset( $mfbfw_settings['autoDimensions'] ) && $mfbfw_settings['autoDimensions'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -33,12 +33,12 @@
                 <div class="line-spacer"></div>
                 <label for="frameWidth">
                     <input type="text" name="mfbfw[frameWidth]" id="frameWidth"
-                           value="<?php echo esc_attr( $settings['frameWidth'] ); ?>" size="4" maxlength="4"/>
+                           value="<?php echo esc_attr( $mfbfw_settings['frameWidth'] ); ?>" size="4" maxlength="4"/>
 					<?php esc_html_e( 'Width for iframe and swf content. Also set for inline content if <em>autoDimensions</em> is disabled (default: 560)', 'fancybox-for-wordpress' ); ?>
                 </label>
                 <label for="frameHeight">
                     <input type="text" name="mfbfw[frameHeight]" id="frameHeight"
-                           value="<?php echo esc_attr( $settings['frameHeight'] ); ?>" size="4" maxlength="4"/>
+                           value="<?php echo esc_attr( $mfbfw_settings['frameHeight'] ); ?>" size="4" maxlength="4"/>
 					<?php esc_html_e( 'Height for iframe and swf content. Also set for inline content if <em>autoDimensions</em> is disabled (default: 340)', 'fancybox-for-wordpress' ); ?>
                 </label>
             </fieldset>
@@ -54,7 +54,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="loadAtFooter" name="mfbfw[loadAtFooter]" <?php checked( 1, isset( $settings['loadAtFooter'] ) && $settings['loadAtFooter'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="loadAtFooter" name="mfbfw[loadAtFooter]" <?php checked( 1, isset( $mfbfw_settings['loadAtFooter'] ) && $mfbfw_settings['loadAtFooter'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -83,7 +83,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="callbackEnable" name="mfbfw[callbackEnable]" <?php checked( 1, isset( $settings['callbackEnable'] ) && $settings['callbackEnable'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="callbackEnable" name="mfbfw[callbackEnable]" <?php checked( 1, isset( $mfbfw_settings['callbackEnable'] ) && $mfbfw_settings['callbackEnable'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -106,7 +106,7 @@
                         <div class="start-editing"><p><?php esc_html_e( 'Click to start editing', 'fancybox-for-wordpress' ); ?></p></div>
                         <textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnStart]"
                                   wrap="physical"
-                                  id="callbackOnStart"><?php echo esc_textarea( $settings['callbackOnStart'] ); ?></textarea>
+                                  id="callbackOnStart"><?php echo esc_textarea( $mfbfw_settings['callbackOnStart'] ); ?></textarea>
                     </label>
 					<?php echo wp_kses_post( __( 'Callback on <strong>Cancel</strong> event: Will be called after loading is canceled', 'fancybox-for-wordpress' ) ); ?>
                     <div class="line-spacer"></div>
@@ -114,7 +114,7 @@
                         <div class="start-editing"><p><?php esc_html_e( 'Click to start editing', 'fancybox-for-wordpress' ); ?></p></div>
                         <textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnCancel]"
                                   wrap="physical"
-                                  id="callbackOnCancel"><?php echo esc_textarea( $settings['callbackOnCancel'] ); ?></textarea>
+                                  id="callbackOnCancel"><?php echo esc_textarea( $mfbfw_settings['callbackOnCancel'] ); ?></textarea>
                     </label>
 					<?php echo wp_kses_post( __( 'Callback on <strong>Complete</strong> event: Will be called once the content is displayed', 'fancybox-for-wordpress' ) ); ?>
                     <div class="line-spacer"></div>
@@ -122,7 +122,7 @@
                         <div class="start-editing"><p><?php esc_html_e( 'Click to start editing', 'fancybox-for-wordpress' ); ?></p></div>
                         <textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnComplete]"
                                   wrap="physical"
-                                  id="callbackOnComplete"><?php echo esc_textarea( $settings['callbackOnComplete'] ); ?></textarea>
+                                  id="callbackOnComplete"><?php echo esc_textarea( $mfbfw_settings['callbackOnComplete'] ); ?></textarea>
                     </label>
 					<?php echo wp_kses_post( __( 'Callback on <strong>CleanUp</strong> event: Will be called just before closing', 'fancybox-for-wordpress' ) ); ?>
                     <div class="line-spacer"></div>
@@ -130,7 +130,7 @@
                         <div class="start-editing"><p><?php esc_html_e( 'Click to start editing', 'fancybox-for-wordpress' ); ?></p></div>
                         <textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnCleanup]"
                                   wrap="physical"
-                                  id="callbackOnCleanup"><?php echo esc_textarea( $settings['callbackOnCleanup'] ); ?></textarea>
+                                  id="callbackOnCleanup"><?php echo esc_textarea( $mfbfw_settings['callbackOnCleanup'] ); ?></textarea>
                     </label>
 					<?php echo wp_kses_post( __( 'Callback on <strong>Closed</strong> event: Will be called once FancyBox is closed', 'fancybox-for-wordpress' ) ); ?>
                     <div class="line-spacer"></div>
@@ -138,7 +138,7 @@
                         <div class="start-editing"><p><?php esc_html_e( 'Click to start editing', 'fancybox-for-wordpress' ); ?></p></div>
                         <textarea rows="10" cols="50" class="large-text code" name="mfbfw[callbackOnClose]"
                                   wrap="physical"
-                                  id="callbackOnClosed"><?php echo esc_textarea( $settings['callbackOnClose'] ); ?></textarea>
+                                  id="callbackOnClosed"><?php echo esc_textarea( $mfbfw_settings['callbackOnClose'] ); ?></textarea>
                     </label>
                     <p class="description"><strong><em><?php esc_html_e( 'Example:', 'fancybox-for-wordpress' ); ?></em></strong></p>
                     <p class="description"><em><code>function() { alert('Hello world!'); }</code></em></p>
@@ -166,7 +166,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="extraCallsEnable" name="mfbfw[extraCallsEnable]" <?php checked( 1, isset( $settings['extraCallsEnable'] ) && $settings['extraCallsEnable'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="extraCallsEnable" name="mfbfw[extraCallsEnable]" <?php checked( 1, isset( $mfbfw_settings['extraCallsEnable'] ) && $mfbfw_settings['extraCallsEnable'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -185,7 +185,7 @@
                         <div class="start-editing"><p><?php esc_html_e( 'Click to start editing', 'fancybox-for-wordpress' ); ?></p></div>
                         <textarea rows="20" cols="50" class="large-text code" name="mfbfw[extraCallsData]"
                                   wrap="physical"
-                                  id="extraCalls"><?php echo esc_textarea( $settings['extraCallsData'] ); ?></textarea>
+                                  id="extraCalls"><?php echo esc_textarea( $mfbfw_settings['extraCallsData'] ); ?></textarea>
                     </label>
                     <p class="description"><strong><em><?php esc_html_e( 'Example:', 'fancybox-for-wordpress' ); ?></em></strong></p><br/>
                     <p class="description"><em><code>
@@ -221,7 +221,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="nojQuery" name="mfbfw[nojQuery]" <?php checked( 1, isset( $settings['nojQuery'] ) && $settings['nojQuery'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="nojQuery" name="mfbfw[nojQuery]" <?php checked( 1, isset( $mfbfw_settings['nojQuery'] ) && $mfbfw_settings['nojQuery'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -253,7 +253,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="uninstall" name="mfbfw[uninstall]" <?php checked( 1, isset( $settings['uninstall'] ) && $settings['uninstall'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="uninstall" name="mfbfw[uninstall]" <?php checked( 1, isset( $mfbfw_settings['uninstall'] ) && $mfbfw_settings['uninstall'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>

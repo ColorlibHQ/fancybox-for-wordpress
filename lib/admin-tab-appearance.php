@@ -15,7 +15,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="showCloseButton" name="mfbfw[showCloseButton]" <?php checked( 1, isset( $settings['showCloseButton'] ) && $settings['showCloseButton'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="showCloseButton" name="mfbfw[showCloseButton]" <?php checked( 1, isset( $mfbfw_settings['showCloseButton'] ) && $mfbfw_settings['showCloseButton'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -42,7 +42,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="showToolbar" name="mfbfw[showToolbar]" <?php checked( 1, isset( $settings['showToolbar'] ) && $settings['showToolbar'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="showToolbar" name="mfbfw[showToolbar]" <?php checked( 1, isset( $mfbfw_settings['showToolbar'] ) && $mfbfw_settings['showToolbar'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -68,7 +68,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="border" name="mfbfw[border]" <?php checked( 1, isset( $settings['border'] ) && $settings['border'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="border" name="mfbfw[border]" <?php checked( 1, isset( $mfbfw_settings['border'] ) && $mfbfw_settings['border'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -84,7 +84,7 @@
                 <div id="borderColorBlock" class="hidden-block">
                     <label for="borderColor">
                         <input type="text" class="color-btn" name="mfbfw[borderColor]" id="borderColor"
-                               value="<?php echo esc_attr( $settings['borderColor'] ) ?>" size="7" maxlength="7"/>
+                               value="<?php echo esc_attr( $mfbfw_settings['borderColor'] ) ?>" size="7" maxlength="7"/>
                     </label>
                     <p class="description"><?php esc_html_e( 'HTML color of the border (default: #BBBBBB)', 'fancybox-for-wordpress' ); ?></p>
                 </div>
@@ -102,13 +102,13 @@
             <fieldset>
                 <label for="paddingColor">
                     <input type="text" class="color-btn" name="mfbfw[paddingColor]" id="paddingColor"
-                           value="<?php echo esc_attr( $settings['paddingColor'] ) ?>" size="7" maxlength="7"/>
+                           value="<?php echo esc_attr( $mfbfw_settings['paddingColor'] ) ?>" size="7" maxlength="7"/>
                 </label>
                 <p class="description"><?php esc_html_e( '(This should be left on #FFFFFF (white) if you want to display anything other than images, like inline or framed content)', 'fancybox-for-wordpress' ); ?></p>
                 <div class="line-spacer"></div>
                 <label for="padding" class="inlined">
                     <input type="text" class="slider-text" name="mfbfw[padding]" id="padding"
-                           value="<?php echo esc_attr( $settings['padding'] ); ?>" size="7" maxlength="7"/>
+                           value="<?php echo esc_attr( $mfbfw_settings['padding'] ); ?>" size="7" maxlength="7"/>
                     <div class="slider-horizontal" minSl="0" maxSl="100" stepSl="1" rangeSl="min"
                          style="height:14px;"></div>
                     <div class="cf"></div>
@@ -127,7 +127,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="overlayShow" name="mfbfw[overlayShow]" <?php checked( 1, isset( $settings['overlayShow'] ) && $settings['overlayShow'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="overlayShow" name="mfbfw[overlayShow]" <?php checked( 1, isset( $mfbfw_settings['overlayShow'] ) && $mfbfw_settings['overlayShow'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -144,13 +144,13 @@
                 <div id="overlayBlock" class="hidden-block">
                     <label for="overlayColor">
                         <input type="text" class="color-btn" name="mfbfw[overlayColor]" id="overlayColor"
-                               value="<?php echo esc_attr( $settings['overlayColor'] ); ?>" size="7" maxlength="7"/>
+                               value="<?php echo esc_attr( $mfbfw_settings['overlayColor'] ); ?>" size="7" maxlength="7"/>
                     </label>
                     <p class="description"><?php esc_html_e( 'HTML color of the overlay (default: #666666)', 'fancybox-for-wordpress' ); ?></p>
                     <div class="line-spacer"></div>
                     <label for="overlayOpacity" class="inlined">
                         <input type="text" class="slider-text" name="mfbfw[overlayOpacity]" id="overlayOpacity"
-                               value="<?php echo esc_attr( $settings['overlayOpacity'] ); ?>" size="7" maxlength="7"/>
+                               value="<?php echo esc_attr( $mfbfw_settings['overlayOpacity'] ); ?>" size="7" maxlength="7"/>
                         <div class="slider-horizontal" minSl="0" maxSl="1" stepSl="0.1" rangeSl="min"
                              style="height:14px;"></div>
                         <div class="cf"></div>
@@ -170,7 +170,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="titleShow" name="mfbfw[titleShow]" <?php checked( 1, isset( $settings['titleShow'] ) && $settings['titleShow'] );?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="titleShow" name="mfbfw[titleShow]" <?php checked( 1, isset( $mfbfw_settings['titleShow'] ) && $mfbfw_settings['titleShow'] );?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -187,27 +187,27 @@
                 <div id="titleBlock" class="hidden-block">
                     <label for="titleSize">
                         <input type="text" name="mfbfw[titleSize]" id="titleSize" size="2" maxlength="4"
-                               value="<?php echo esc_attr( $settings['titleSize'] ); ?>"/>
+                               value="<?php echo esc_attr( $mfbfw_settings['titleSize'] ); ?>"/>
 						<?php esc_html_e( 'Title size (default: 14px)', 'fancybox-for-wordpress' ); ?>
                     </label>
                     <div class="cf"></div>
                     <div class="line-spacer"></div>
                     <input id="titlePositionInside" class="titlePosition" type="radio" value="inside"
-                           name="mfbfw[titlePosition]"<?php if ( $settings['titlePosition'] == 'inside' ) {
+                           name="mfbfw[titlePosition]"<?php if ( $mfbfw_settings['titlePosition'] == 'inside' ) {
 						echo ' checked="yes"';
 					} ?> />
                     <label for="titlePositionInside">
 						<?php esc_html_e( 'Inside (default)', 'fancybox-for-wordpress' ); ?>
                     </label>
                     <input id="titlePositionOutside" class="titlePosition" type="radio" value="float"
-                           name="mfbfw[titlePosition]"<?php if ( $settings['titlePosition'] == 'float' ) {
+                           name="mfbfw[titlePosition]"<?php if ( $mfbfw_settings['titlePosition'] == 'float' ) {
 						echo ' checked="yes"';
 					} ?> />
                     <label for="titlePositionOutside">
 						<?php esc_html_e( 'Outside', 'fancybox-for-wordpress' ); ?>
                     </label>
                     <input id="titlePositionOver" class="titlePosition" type="radio" value="over"
-                           name="mfbfw[titlePosition]"<?php if ( $settings['titlePosition'] == 'over' ) {
+                           name="mfbfw[titlePosition]"<?php if ( $mfbfw_settings['titlePosition'] == 'over' ) {
 						echo ' checked="yes"';
 					} ?> />
                     <label for="titlePositionOver">
@@ -217,7 +217,7 @@
                     <div id="titleColorBlock">
                         <label for="titleColor">
                             <input type="text" class="color-btn" name="mfbfw[titleColor]" id="titleColor"
-                                   class="colorpick" value="<?php echo esc_attr( $settings['titleColor'] ); ?>" size="7"
+                                   class="colorpick" value="<?php echo esc_attr( $mfbfw_settings['titleColor'] ); ?>" size="7"
                                    maxlength="7"/>
                         </label>
                         <p class="description"><?php esc_html_e( 'Title text color (default: #333333)', 'fancybox-for-wordpress' ); ?></p>
@@ -237,7 +237,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="captionShow" name="mfbfw[captionShow]" <?php checked( 1, isset( $settings['captionShow'] ) && $settings['captionShow'] );?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="captionShow" name="mfbfw[captionShow]" <?php checked( 1, isset( $mfbfw_settings['captionShow'] ) && $mfbfw_settings['captionShow'] );?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -263,7 +263,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="showNavArrows" name="mfbfw[showNavArrows]" <?php checked( 1, isset( $settings['showNavArrows'] ) && $settings['showNavArrows'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="showNavArrows" name="mfbfw[showNavArrows]" <?php checked( 1, isset( $mfbfw_settings['showNavArrows'] ) && $mfbfw_settings['showNavArrows'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>

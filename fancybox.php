@@ -6,7 +6,6 @@
 * Version: 3.4.2
 * Author: Colorlib
 * Author URI: https://colorlib.com/wp/
-* Tested up to: 7.0
 * Requires at least: 5.6
 * License: GPLv3 or later
 * License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -51,7 +50,7 @@ if ( ! defined( 'PLUGIN_NAME' ) ) {
 	define( 'PLUGIN_NAME', FBFW_SLUG );
 }
 
-include 'class-fancybox-review.php';
+require_once FBFW_PATH . 'class-fancybox-review.php';
 
 /**
  * Describes every option: its default and how it must be normalized.
@@ -436,7 +435,7 @@ function mfbfw_is_enabled() {
 		$enabled = false;
 	}
 
-	$woocommerce = fancy_check_if_woocommerce();
+	$woocommerce = mfbfw_woocommerce_context();
 
 	if ( 'product' === $woocommerce && mfbfw_is_on( 'disableWoocommerceProducts' ) ) {
 		$enabled = false;
@@ -1052,6 +1051,9 @@ function mfbfw_textdomain() {
 
 	// The second parameter has been deprecated since WordPress 2.7 and passing
 	// anything but false triggers a _doing_it_wrong() notice.
+	// Language packs load on their own, but WordPress only finds the translations bundled
+	// in languages/ (for locales with no pack) through the path this call registers.
+	// phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
 	load_plugin_textdomain( 'fancybox-for-wordpress', false, dirname( FBFW_PLUGIN_BASE ) . '/languages' );
 }
 
@@ -1204,7 +1206,7 @@ function hexTorgba( $hexColor, $opacity ) { // phpcs:ignore WordPress.NamingConv
  * Check if WooCommerce Product post
  *
  */
-function fancy_check_if_woocommerce() {
+function mfbfw_woocommerce_context() {
 
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		return 'true';

@@ -3,7 +3,7 @@
 <p><?php esc_html_e( 'Here you can choose if you want the plugin to group all images into a gallery, or make a gallery for each post. You can also define you own jQuery expression if you like.', 'fancybox-for-wordpress' ); ?></p>
 <?php
 //customExpression fix for update ( fancybox uses data-fancybox attribute for grouping galleries )
-$settings['customExpression'] = str_replace('"rel"','"data-fancybox"',$settings['customExpression']);
+$mfbfw_settings['customExpression'] = str_replace('"rel"','"data-fancybox"',$mfbfw_settings['customExpression']);
 
 ?>
 <table class="form-table" style="clear:none;">
@@ -11,22 +11,22 @@ $settings['customExpression'] = str_replace('"rel"','"data-fancybox"',$settings[
 		<tr valign="top">
 			<th scope="row"><?php esc_html_e( 'Gallery Type', 'fancybox-for-wordpress' ); ?></th>
 			<td>
-				<input id="galleryTypeAll" class="galleryType" type="radio" value="all" name="mfbfw[galleryType]"<?php if ( $settings[ 'galleryType' ] == 'all' ) echo ' checked="yes"'; ?> />
+				<input id="galleryTypeAll" class="galleryType" type="radio" value="all" name="mfbfw[galleryType]"<?php if ( $mfbfw_settings[ 'galleryType' ] == 'all' ) echo ' checked="yes"'; ?> />
 				<label for="galleryTypeAll">
 					<?php esc_html_e( 'Make a gallery for all images on the page (default)', 'fancybox-for-wordpress' ); ?>
 				</label><br /><br />
 
-				<input id="galleryTypeGutenbergBlock" class="galleryType" type="radio" value="single_gutenberg_block" name="mfbfw[galleryType]"<?php if ( $settings[ 'galleryType' ] == 'single_gutenberg_block' ) echo ' checked="yes"'; ?> />
+				<input id="galleryTypeGutenbergBlock" class="galleryType" type="radio" value="single_gutenberg_block" name="mfbfw[galleryType]"<?php if ( $mfbfw_settings[ 'galleryType' ] == 'single_gutenberg_block' ) echo ' checked="yes"'; ?> />
 				<label for="galleryTypeNone">
 					<?php esc_html_e( 'Make a gallery for each gutenberg gallery block', 'fancybox-for-wordpress' ); ?>
 				</label><br /><br />
 
-				<input id="galleryTypePost" class="galleryType" type="radio" value="post" name="mfbfw[galleryType]"<?php if ( $settings[ 'galleryType' ] == 'post' ) echo ' checked="yes"'; ?> />
+				<input id="galleryTypePost" class="galleryType" type="radio" value="post" name="mfbfw[galleryType]"<?php if ( $mfbfw_settings[ 'galleryType' ] == 'post' ) echo ' checked="yes"'; ?> />
 				<label for="galleryTypePost">
 					<?php esc_html_e( 'Make a gallery for each post (will only work if your theme uses <code>class="post"</code> on each post, which is common in WordPress', 'fancybox-for-wordpress' ); ?>
 				</label><br /><br />
 
-				<input id="galleryTypeCustom" class="galleryType" type="radio" value="custom" name="mfbfw[galleryType]"<?php if ( $settings[ 'galleryType' ] == 'custom' ) echo ' checked="yes"'; ?> />
+				<input id="galleryTypeCustom" class="galleryType" type="radio" value="custom" name="mfbfw[galleryType]"<?php if ( $mfbfw_settings[ 'galleryType' ] == 'custom' ) echo ' checked="yes"'; ?> />
 				<label for="galleryTypeCustom">
 					<?php esc_html_e( 'Use a custom expression to apply FancyBox', 'fancybox-for-wordpress' ); ?>
 				</label><br /><br />
@@ -34,7 +34,7 @@ $settings['customExpression'] = str_replace('"rel"','"data-fancybox"',$settings[
 					<div id="customExpressionBlock">
 						<label for="mfbfw[customExpression]">
 	                        <div class="start-editing"><p><?php esc_html_e( 'Click to start editing', 'fancybox-for-wordpress' ); ?></p></div>
-							<textarea rows="10" cols="50" class="large-text code" name="mfbfw[customExpression]" wrap="physical" id="customExpression"><?php echo esc_textarea( $settings['customExpression'] ); ?></textarea>
+							<textarea rows="10" cols="50" class="large-text code" name="mfbfw[customExpression]" wrap="physical" id="customExpression"><?php echo esc_textarea( $mfbfw_settings['customExpression'] ); ?></textarea>
 						</label><br />
 						<p class="description"><strong><em><?php esc_html_e( 'Custom expression guidelines:', 'fancybox-for-wordpress' ); ?></em></strong></p><br />
 	                    <p class="description"><em><?php esc_html_e('&middot; The custom expression has to apply <code>class="fancybox"</code> to the links where you want to use FancyBox. Do not call the <code>fancybox()</code> function here, the plugin does this for you.', 'fancybox-for-wordpress'); ?></em></p><br />

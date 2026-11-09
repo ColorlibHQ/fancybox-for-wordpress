@@ -15,7 +15,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="zoomOpacity" name="mfbfw[zoomOpacity]" <?php checked( 1, isset( $settings['zoomOpacity'] ) && $settings['zoomOpacity'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="zoomOpacity" name="mfbfw[zoomOpacity]" <?php checked( 1, isset( $mfbfw_settings['zoomOpacity'] ) && $mfbfw_settings['zoomOpacity'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -37,8 +37,8 @@
                 <label for="transitionIn">
                     <select name="mfbfw[transitionIn]" id="transitionIn">
 						<?php
-						foreach ( $transitionTypeArray as $key => $ms ) {
-							echo "<option value='" . esc_attr( $ms ) . "' " . selected( $settings['transitionIn'], $ms, false ) . ">" . esc_html( $ms ) . "</option>\n";
+						foreach ( $mfbfw_transition_types as $mfbfw_option ) {
+							echo "<option value='" . esc_attr( $mfbfw_option ) . "' " . selected( $mfbfw_settings['transitionIn'], $mfbfw_option, false ) . ">" . esc_html( $mfbfw_option ) . "</option>\n";
 						}
 						?>
                     </select>
@@ -49,8 +49,8 @@
                 <label for="zoomSpeedIn">
                     <select name="mfbfw[zoomSpeedIn]" id="zoomSpeedIn">
 						<?php
-						foreach ( $msArray as $key => $ms ) {
-							echo "<option value='" . esc_attr( $ms ) . "' " . selected( $settings['zoomSpeedIn'], $ms, false ) . ">" . esc_html( $ms ) . "</option>\n";
+						foreach ( $mfbfw_durations as $mfbfw_option ) {
+							echo "<option value='" . esc_attr( $mfbfw_option ) . "' " . selected( $mfbfw_settings['zoomSpeedIn'], $mfbfw_option, false ) . ">" . esc_html( $mfbfw_option ) . "</option>\n";
 						}
 						?>
                     </select>
@@ -66,8 +66,8 @@
                 <label for="transitionEffect">
                     <select name="mfbfw[transitionEffect]" id="animationDuration">
 						<?php
-						foreach ( $slideEffectArray as $key => $ms ) {
-							echo "<option value='" . esc_attr( $ms ) . "' " . selected( $settings['transitionEffect'], $ms, false ) . ">" . esc_html( $ms ) . "</option>\n";
+						foreach ( $mfbfw_slide_effects as $mfbfw_option ) {
+							echo "<option value='" . esc_attr( $mfbfw_option ) . "' " . selected( $mfbfw_settings['transitionEffect'], $mfbfw_option, false ) . ">" . esc_html( $mfbfw_option ) . "</option>\n";
 						}
 						?>
                     </select>
@@ -77,8 +77,8 @@
                 <label for="zoomSpeedChange">
                     <select name="mfbfw[zoomSpeedChange]" id="zoomSpeedChange">
 						<?php
-						foreach ( $msArray as $key => $ms ) {
-							echo "<option value='" . esc_attr( $ms ) . "' " . selected( $settings['zoomSpeedChange'], $ms, false ) . ">" . esc_html( $ms ) . "</option>\n";
+						foreach ( $mfbfw_durations as $mfbfw_option ) {
+							echo "<option value='" . esc_attr( $mfbfw_option ) . "' " . selected( $mfbfw_settings['zoomSpeedChange'], $mfbfw_option, false ) . ">" . esc_html( $mfbfw_option ) . "</option>\n";
 						}
 						?>
                     </select>
