@@ -47,6 +47,14 @@ jQuery(function ($) {
         $(this).hide();
     });
 
+    // These fields are ignored on save for users without unfiltered_html, so do not
+    // offer an editor that would silently discard what they type, or a switch that
+    // would turn stored code on. Switching it off is still allowed.
+    if (strings.scriptsReadOnly) {
+        $(".start-editing").hide().next("textarea").prop("readOnly", true);
+        $("#callbackEnable:not(:checked), #extraCallsEnable:not(:checked), #galleryTypeCustom:not(:checked)").prop("disabled", true);
+    }
+
     $(".color-btn").wpColorPicker();
 
     $(".slider-horizontal").each(function () {

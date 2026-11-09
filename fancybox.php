@@ -1129,6 +1129,7 @@ function mfbfw_admin_scripts() {
 		'fbfwAdmin',
 		array(
 			'confirmDefaults' => __( 'Are you sure you want to restore FancyBox for WordPress to default settings?', 'fancybox-for-wordpress' ),
+			'scriptsReadOnly' => ! mfbfw_can_edit_scripts(),
 		)
 	);
 
@@ -1215,6 +1216,23 @@ function fancy_check_if_woocommerce() {
 }
 
 /**
+ * Whether the current user may change the settings that print raw JavaScript.
+ *
+ * Those fields run on every page of the site, so writing to them is the same as
+ * publishing unfiltered HTML. `manage_options` alone is not enough: a site
+ * administrator on multisite holds it but must not be able to run script in front
+ * of a network administrator, and DISALLOW_UNFILTERED_HTML has to mean what it says.
+ *
+ * @since 3.4.3
+ *
+ * @return bool
+ */
+function mfbfw_can_edit_scripts() {
+
+	return current_user_can( 'unfiltered_html' );
+}
+
+/**
  * Sanitize options
  *
  * Rewritten in 3.4.0 as an allow-list driven by mfbfw_option_schema(). The previous
@@ -1237,7 +1255,14 @@ function mfbfw_sanitize_fancy_options( $value ) {
 	$stored    = is_array( $stored ) ? $stored : array();
 	$sanitized = array();
 
+	$can_edit_scripts = mfbfw_can_edit_scripts();
+
 	foreach ( $schema as $key => $spec ) {
+
+		if ( 'js' === $spec['type'] && ! $can_edit_scripts ) {
+			$sanitized[ $key ] = array_key_exists( $key, $stored ) ? mfbfw_normalize_value( $stored[ $key ], $spec ) : $spec['default'];
+			continue;
+		}
 
 		if ( array_key_exists( $key, $value ) ) {
 			$sanitized[ $key ] = mfbfw_normalize_value( $value[ $key ], $spec );
@@ -1258,6 +1283,24 @@ function mfbfw_sanitize_fancy_options( $value ) {
 
 		// An unchecked checkbox is simply absent from the POST body.
 		$sanitized[ $key ] = ( 'toggle' === $spec['type'] ) ? '' : $spec['default'];
+	}
+
+	/*
+	 * Switching stored code on is the same decision as writing it, so a user who may
+	 * not do one may not do the other. Switching it off stays allowed.
+	 */
+	if ( ! $can_edit_scripts ) {
+		$current = mfbfw_get_settings( $stored );
+
+		foreach ( array( 'callbackEnable', 'extraCallsEnable' ) as $switch ) {
+			if ( ! mfbfw_is_on( $switch, $current ) ) {
+				$sanitized[ $switch ] = '';
+			}
+		}
+
+		if ( 'custom' === $sanitized['galleryType'] && 'custom' !== $current['galleryType'] ) {
+			$sanitized['galleryType'] = $current['galleryType'];
+		}
 	}
 
 	return $sanitized;
