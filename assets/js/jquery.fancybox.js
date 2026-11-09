@@ -2452,7 +2452,7 @@
             .children()
             .eq(0)
             .empty()
-            .html(DOMPurify.sanitize(caption));
+            .html(current.untrusted ? sanitizeHtml(caption) : DOMPurify.sanitize(caption));
 
           captionH = $clone.outerHeight(true);
 
@@ -3100,7 +3100,7 @@
         $caption
           .children()
           .eq(0)
-          .html(DOMPurify.sanitize(caption));
+          .html(current.untrusted ? sanitizeHtml(caption) : DOMPurify.sanitize(caption));
       } else {
         self.$caption = null;
       }
@@ -3188,6 +3188,10 @@
   $.fancyboxforwp = {
     version: "3.5.7",
     defaults: defaults,
+
+    // Clean markup that came from a link (WordPress plugin addition). The plugin's
+    // generated caption callbacks go through this as well.
+    sanitize: sanitizeHtml,
 
     // Get current instance and execute a command.
     //

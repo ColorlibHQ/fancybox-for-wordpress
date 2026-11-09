@@ -625,12 +625,7 @@ jQuery("a[data-fancybox]").each(function () {
 	if ($link.attr("data-fbfw-title") !== undefined) { return; }
 	var title = $link.children("img").attr("title") || '';
 	var figCaptionHtml = $link.next("figcaption").html() || '';
-	var processedCaption = figCaptionHtml;
-	if (figCaptionHtml.length && typeof DOMPurify === 'function') {
-		processedCaption = DOMPurify.sanitize(figCaptionHtml, {USE_PROFILES: {html: true}});
-	} else if (figCaptionHtml.length) {
-		processedCaption = jQuery("<div>").text(figCaptionHtml).html();
-	}
+	var processedCaption = figCaptionHtml.length ? jQuery.fancyboxforwp.sanitize(figCaptionHtml) : '';
 	var newTitle = title;
 	if (processedCaption.length) {
 		newTitle = title.length ? title + " " + processedCaption : processedCaption;
@@ -643,8 +638,8 @@ JS;
 /**
  * The `caption` callback handed to FancyBox.
  *
- * Keeps the DOMPurify path introduced in 3.3.7: markup is sanitized when DOMPurify
- * is present and hard-escaped through jQuery's text() when it is not.
+ * Markup goes through jQuery.fancyboxforwp.sanitize(), which uses DOMPurify with a
+ * restricted allow-list and hard-escapes through jQuery's text() if it is absent.
  *
  * @since 3.4.0
  *
@@ -665,10 +660,7 @@ function (instance, item) {
 	if (item.type === 'image' && title.length) {
 		caption = (caption.length ? caption + '<br />' : '') + '<p class="caption-title">' + jQuery("<div>").text(title).html() + '</p>';
 	}
-	if (typeof DOMPurify === "function" && caption.length) {
-		return DOMPurify.sanitize(caption, {USE_PROFILES: {html: true}});
-	}
-	return jQuery("<div>").text(caption).html();
+	return caption.length ? jQuery.fancyboxforwp.sanitize(caption) : jQuery("<div>").text(caption).html();
 }
 JS;
 }
@@ -699,12 +691,7 @@ function mfbfw_after_load_js( array $s ) {
 		<<<'JS'
 function (instance, current) {
 	var captionContent = current.opts.caption || '';
-	var sanitized = '';
-	if (typeof DOMPurify === 'function' && captionContent.length) {
-		sanitized = DOMPurify.sanitize(captionContent, {USE_PROFILES: {html: true}});
-	} else if (captionContent.length) {
-		sanitized = jQuery("<div>").text(captionContent).html();
-	}
+	var sanitized = captionContent.length ? jQuery.fancyboxforwp.sanitize(captionContent) : '';
 	if (sanitized.length) {
 		current.$content.append(jQuery('<div class="%1$s" style="%2$s"></div>').html(sanitized));
 	}
