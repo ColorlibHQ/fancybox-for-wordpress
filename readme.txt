@@ -2,9 +2,9 @@
 Contributors: silkalns
 Tags: fancybox, lightbox, images, photos, pictures
 Requires at least: 5.6
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.4.2
+Stable tag: 3.4.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -54,6 +54,20 @@ This plugin is developed and maintained by [Colorlib](https://colorlib.com/), wh
 If it is useful to you, a [review](https://wordpress.org/support/plugin/fancybox-for-wordpress/reviews/?filter=5) genuinely helps.
 
 == Changelog ==
+= 3.4.3 =
+Security: Fixed a stored cross-site scripting issue (CVE-2026-96571) where a crafted link in a comment could run script when opened in the lightbox. Video source, format and poster values are now escaped. Thanks to Yuto Hyakumoto and Wordfence for the responsible report.
+Security: Fixed a crafted link that could freeze the browser of everyone who loaded the page.
+Security: Hardened every other place the lightbox reads from a link. Thumbnail strips are built without HTML strings, unsafe URL schemes such as `javascript:` are refused, and HTML or Ajax content opened from a link is sanitized.
+Security: Captions and HTML opened from a link can no longer contain styles or form fields.
+Security: The custom JavaScript settings now require the `unfiltered_html` capability, so a site administrator on multisite can no longer change them or switch them on.
+Security: A URL can no longer open another site's page in the lightbox without a click.
+Security: Updated DOMPurify to 3.4.17.
+Changed: Links can now set only a fixed list of per-link options through `data-*` attributes: type, source, caption, thumbnail, size and on/off switches. Options that accept templates or markup must be passed through the JavaScript API.
+Changed: Smilies, emoji and comment avatars no longer open the lightbox.
+Changed: The plugin's inline CSS and JavaScript are now added through WordPress's script and style queues. Code that removed the `mfbfw_init` action should use the `mfbfw_is_enabled` filter instead.
+Fixed: With "load at footer" on and jQuery also in the footer, the lightbox did not start.
+Tested with WordPress 7.1.
+
 = 3.4.2 =
 Fixed: The lightbox could collapse to a thin sliver instead of showing the image, and videos played sound with no picture. The plugin's stylesheet carried a `height: auto !important` rule that overrode the height FancyBox calculates for each slide. On its own it happened to work, but as soon as a second copy of FancyBox's CSS was on the page - any theme or plugin bundling its own - the content box collapsed to nothing. The rule was added in 3.2.5 for a problem that no longer exists, and has been removed.
 Changed: Rewrote the plugin description and replaced the FAQ, which had answered only a question about a 2015 security release. It now covers captions, excluding images, gallery grouping, loading the lightbox on selected pages, PDFs, page builders and diagnosing conflicts with other lightboxes.
@@ -366,6 +380,9 @@ Fixed errors causes by WordPress SVN.
 
 
 == Upgrade Notice ==
+
+= 3.4.3 =
+Security release. Fixes a stored cross-site scripting issue and a page-freezing bug that could both be triggered through a link in a comment. Update as soon as possible.
 
 = 3.4.2 =
 Fixes a conflict that could make the lightbox show a thin sliver instead of your image, or play a video with no picture, when another plugin or theme also loads FancyBox. Also a rewritten description, a real FAQ and new screenshots.

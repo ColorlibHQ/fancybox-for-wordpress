@@ -40,6 +40,10 @@ function mfbfw_options_page() {
 
 			<?php settings_fields( 'mfbfw-options' ); ?>
 
+			<?php if ( ! mfbfw_can_edit_scripts() ) : ?>
+				<div class="notice notice-info inline"><p><?php esc_html_e( 'The custom JavaScript fields are read-only because your account is not allowed to publish unfiltered HTML.', 'fancybox-for-wordpress' ); ?></p></div>
+			<?php endif; ?>
+
             <div id="fbfwTabs">
                 <ul class="nav-tab-wrapper wp-clearfix">
                     <li><a href="#fbfw-appearance"><?php esc_html_e( 'Appearance', 'fancybox-for-wordpress' ); ?></a></li>

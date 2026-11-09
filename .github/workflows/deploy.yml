@@ -83,7 +83,9 @@ jobs:
           echo "Credentials present for '$SVN_USERNAME'."
 
       - name: Deploy to the plugin directory
-        uses: 10up/action-wordpress-plugin-deploy@stable
+        # Pinned to a commit because this step receives the SVN password; `stable` is a
+        # moving reference. This is release 2.3.0.
+        uses: 10up/action-wordpress-plugin-deploy@54bd289b8525fd23a5c365ec369185f2966529c2
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}

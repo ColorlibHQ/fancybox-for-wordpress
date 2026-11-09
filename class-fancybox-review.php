@@ -39,7 +39,6 @@ class Fancybox_Review {
 		if ( $this->check() ) {
 			add_action( 'admin_notices', array( $this, 'five_star_wp_rate_notice' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
-			add_action( 'admin_print_footer_scripts', array( $this, 'ajax_script' ) );
 		}
 	}
 
@@ -112,51 +111,51 @@ class Fancybox_Review {
 	public function enqueue() {
 
 		wp_enqueue_script( 'jquery' );
+		wp_add_inline_script( 'jquery', $this->ajax_script() );
 	}
 
-	public function ajax_script() {
+	private function ajax_script() {
 
-		$ajax_nonce = wp_create_nonce( 'epsilon-mfbfw-review' );
+		$config = wp_json_encode(
+			array(
+				'noticeId' => '#' . $this->slug . '-epsilon-review-notice',
+				'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'epsilon-mfbfw-review' ),
+			)
+		);
 
-		?>
-		<script type="text/javascript">
-			jQuery( document ).ready( function( $ ){
+		return 'var fbfwReview = ' . $config . ';' . <<<'JS'
 
-				var noticeId = '#<?php echo esc_js( $this->slug ); ?>-epsilon-review-notice',
-					ajaxUrl  = '<?php echo esc_url_raw( admin_url( 'admin-ajax.php' ) ); ?>',
-					nonce    = '<?php echo esc_js( $ajax_nonce ); ?>';
+jQuery( function( $ ) {
 
-				function dismiss( check, callback ) {
-					$.post( ajaxUrl, {
-						action: 'epsilon_mfbfw_review',
-						security: nonce,
-						check: check
-					}, function() {
-						$( noticeId ).slideUp( 'fast', function() {
-							$( this ).remove();
-						} );
-						if ( callback ) { callback(); }
-					} );
-				}
+	function dismiss( check ) {
+		$.post( fbfwReview.ajaxUrl, {
+			action: 'epsilon_mfbfw_review',
+			security: fbfwReview.nonce,
+			check: check
+		}, function() {
+			$( fbfwReview.noticeId ).slideUp( 'fast', function() {
+				$( this ).remove();
+			} );
+		} );
+	}
 
-				$( '.epsilon-review-button' ).on( 'click', function( evt ){
-					var id = $( this ).attr( 'id' );
+	$( '.epsilon-review-button' ).on( 'click', function( evt ) {
+		var id = $( this ).attr( 'id' );
 
-					if ( 'epsilon-rate' !== id ) {
-						evt.preventDefault();
-					}
+		if ( 'epsilon-rate' !== id ) {
+			evt.preventDefault();
+		}
 
-					dismiss( id );
-				} );
+		dismiss( id );
+	} );
 
-				$( noticeId ).on( 'click', '.notice-dismiss', function(){
-					dismiss( 'epsilon-later' );
-				} );
+	$( fbfwReview.noticeId ).on( 'click', '.notice-dismiss', function() {
+		dismiss( 'epsilon-later' );
+	} );
 
-			});
-		</script>
-
-		<?php
+} );
+JS;
 	}
 }
 

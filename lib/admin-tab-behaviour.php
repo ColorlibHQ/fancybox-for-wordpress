@@ -13,7 +13,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="hideOnContentClick" name="mfbfw[hideOnContentClick]" <?php checked( 1, isset( $settings['hideOnContentClick'] ) && $settings['hideOnContentClick'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="hideOnContentClick" name="mfbfw[hideOnContentClick]" <?php checked( 1, isset( $mfbfw_settings['hideOnContentClick'] ) && $mfbfw_settings['hideOnContentClick'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -42,7 +42,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="hideOnOverlayClick" name="mfbfw[hideOnOverlayClick]" <?php checked( 1, isset( $settings['hideOnOverlayClick'] ) && $settings['hideOnOverlayClick'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="hideOnOverlayClick" name="mfbfw[hideOnOverlayClick]" <?php checked( 1, isset( $mfbfw_settings['hideOnOverlayClick'] ) && $mfbfw_settings['hideOnOverlayClick'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -68,7 +68,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="enableEscapeButton" name="mfbfw[enableEscapeButton]" <?php checked( 1, isset( $settings['enableEscapeButton'] ) && $settings['enableEscapeButton'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="enableEscapeButton" name="mfbfw[enableEscapeButton]" <?php checked( 1, isset( $mfbfw_settings['enableEscapeButton'] ) && $mfbfw_settings['enableEscapeButton'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -94,7 +94,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="cyclic" name="mfbfw[cyclic]" <?php checked( 1, isset( $settings['cyclic'] ) && $settings['cyclic'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="cyclic" name="mfbfw[cyclic]" <?php checked( 1, isset( $mfbfw_settings['cyclic'] ) && $mfbfw_settings['cyclic'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -120,7 +120,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="mouseWheel" name="mfbfw[mouseWheel]" <?php checked( 1, isset( $settings['mouseWheel'] ) && $settings['mouseWheel'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="mouseWheel" name="mfbfw[mouseWheel]" <?php checked( 1, isset( $mfbfw_settings['mouseWheel'] ) && $mfbfw_settings['mouseWheel'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -146,7 +146,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="zoomOnClick" name="mfbfw[zoomOnClick]" <?php checked( 1, isset( $settings['zoomOnClick'] ) && $settings['zoomOnClick'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="zoomOnClick" name="mfbfw[zoomOnClick]" <?php checked( 1, isset( $mfbfw_settings['zoomOnClick'] ) && $mfbfw_settings['zoomOnClick'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -167,7 +167,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="disableWoocommercePages" name="mfbfw[disableWoocommercePages]" <?php checked( 1, isset( $settings['disableWoocommercePages'] ) && $settings['disableWoocommercePages'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="disableWoocommercePages" name="mfbfw[disableWoocommercePages]" <?php checked( 1, isset( $mfbfw_settings['disableWoocommercePages'] ) && $mfbfw_settings['disableWoocommercePages'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -184,7 +184,7 @@
             </fieldset>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="disableWoocommerceProducts" name="mfbfw[disableWoocommerceProducts]" <?php checked( 1, isset( $settings['disableWoocommerceProducts'] ) && $settings['disableWoocommerceProducts'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="disableWoocommerceProducts" name="mfbfw[disableWoocommerceProducts]" <?php checked( 1, isset( $mfbfw_settings['disableWoocommerceProducts'] ) && $mfbfw_settings['disableWoocommerceProducts'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -211,7 +211,7 @@
         <td>
             <fieldset>
                 <div class="epsilon-toggle">
-                    <input class="epsilon-toggle__input" type="checkbox" id="exclude_pdf" name="mfbfw[exclude_pdf]" <?php checked( 1, isset( $settings['exclude_pdf'] ) && $settings['exclude_pdf'] ); ?> >
+                    <input class="epsilon-toggle__input" type="checkbox" id="exclude_pdf" name="mfbfw[exclude_pdf]" <?php checked( 1, isset( $mfbfw_settings['exclude_pdf'] ) && $mfbfw_settings['exclude_pdf'] ); ?> >
                     <div class="epsilon-toggle__items">
                         <span class="epsilon-toggle__track"></span>
                         <span class="epsilon-toggle__thumb"></span>
@@ -237,7 +237,7 @@
 	    <td>
 		    <fieldset>
 			    <div class="epsilon-toggle">
-				    <input class="epsilon-toggle__input" type="checkbox" id="disableOnMobile" name="mfbfw[disableOnMobile]" <?php checked( 1, isset( $settings['disableOnMobile'] ) && 'on' == $settings['disableOnMobile'] ); ?> >
+				    <input class="epsilon-toggle__input" type="checkbox" id="disableOnMobile" name="mfbfw[disableOnMobile]" <?php checked( 1, isset( $mfbfw_settings['disableOnMobile'] ) && 'on' == $mfbfw_settings['disableOnMobile'] ); ?> >
 				    <div class="epsilon-toggle__items">
 					    <span class="epsilon-toggle__track"></span>
 					    <span class="epsilon-toggle__thumb"></span>
