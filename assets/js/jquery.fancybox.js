@@ -73,6 +73,9 @@
     wheel: "boolean"
   };
 
+  // How a URL is recognised as a PDF, which opens in an iframe.
+  var pdfUrl = /\.(pdf)((\?|#).*)?$/i;
+
   function pickElementOptions(data) {
     var picked = {};
 
@@ -826,7 +829,7 @@
             }
           } else if (src.match(/(^data:image\/[a-z0-9+\/=]*,)|(\.(jp(e|g|eg)|gif|png|bmp|webp|svg|ico)((\?|#).*)?$)/i)) {
             type = "image";
-          } else if (src.match(/\.(pdf)((\?|#).*)?$/i)) {
+          } else if (src.match(pdfUrl)) {
             type = "iframe";
             obj = $.extend(true, obj, {
               contentType: "pdf",
@@ -3192,6 +3195,18 @@
     // Clean markup that came from a link (WordPress plugin addition). The plugin's
     // generated caption callbacks go through this as well.
     sanitize: sanitizeHtml,
+
+    // Would this link show a page from another site in a frame? (WordPress plugin addition)
+    isForeignFrame: function ($el) {
+      var data = $el.data() || {},
+        opts = $.extend(pickElementOptions(data), pickElementOptions(data.options || {})),
+        src = opts.src || $el.attr("href") || "",
+        link = document.createElement("a");
+
+      link.href = src;
+
+      return (opts.type === "iframe" || (!opts.type && pdfUrl.test(src))) && link.host !== window.location.host;
+    },
 
     // Get current instance and execute a command.
     //
@@ -5600,12 +5615,17 @@
   // Trigger click evnt on links to open new fancyBox instance
   function triggerFromUrl(url) {
     if (url.gallery !== "") {
+      var $target = $("[data-fancybox='" + $.escapeSelector(url.gallery) + "']").eq(url.index - 1);
+
+      // A crafted URL must not be able to put another site's page in front of the
+      // visitor without a click. The link still opens normally when it is clicked.
+      if ($target.length && $.fancyboxforwp.isForeignFrame($target)) {
+        return;
+      }
+
       // If we can find element matching 'data-fancybox' atribute,
       // then triggering click event should start fancyBox
-      $("[data-fancybox='" + $.escapeSelector(url.gallery) + "']")
-        .eq(url.index - 1)
-        .focus()
-        .trigger("click.fb-start");
+      $target.focus().trigger("click.fb-start");
     }
   }
 
