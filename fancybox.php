@@ -491,6 +491,13 @@ function mfbfw_enqueue_scripts() {
 
 	wp_register_style( 'fancybox-for-wp', FBFW_URL . 'assets/css/fancybox' . $suffix . '.css', array(), FBFW_VERSION );
 	wp_enqueue_style( 'fancybox-for-wp' );
+
+	global $mfbfw;
+
+	$inline_settings = mfbfw_get_settings( is_array( $mfbfw ) ? $mfbfw : null );
+
+	wp_add_inline_style( 'fancybox-for-wp', mfbfw_build_css( $inline_settings ) );
+	wp_add_inline_script( 'fancybox-for-wp', mfbfw_build_inline_js( $inline_settings ) );
 }
 
 add_action( 'wp_enqueue_scripts', 'mfbfw_enqueue_scripts' );
@@ -909,17 +916,19 @@ JS;
 }
 
 /**
- * Print inline styles and load FancyBox with the selected settings
+ * The inline script that configures FancyBox and binds it to the links on the page.
+ *
+ * Attached with wp_add_inline_script(), so it always runs straight after the library
+ * wherever that is printed. When it was echoed from wp_footer directly it ran before
+ * the footer scripts, so "load at footer" with jQuery also in the footer left the
+ * lightbox silently dead.
+ *
+ * @since 3.4.3
+ *
+ * @param array $s Normalized settings.
+ * @return string
  */
-function mfbfw_init() {
-
-	if ( ! mfbfw_is_enabled() ) {
-		return;
-	}
-
-	global $mfbfw;
-
-	$s = mfbfw_get_settings( is_array( $mfbfw ) ? $mfbfw : null );
+function mfbfw_build_inline_js( array $s ) {
 
 	$options = mfbfw_build_options( $s );
 
@@ -941,102 +950,99 @@ function mfbfw_init() {
 		? "\t\t/* Extra Calls */\n\t\t" . html_entity_decode( $s['extraCallsData'] ) . "\n"
 		: '';
 
-	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS and JS are
-	// assembled from schema-normalized values above; see mfbfw_build_css()/mfbfw_build_options().
-	?>
-<!-- Fancybox for WordPress v<?php echo esc_html( FBFW_VERSION ); ?> -->
-<style type="text/css">
-	<?php echo mfbfw_build_css( $s ); ?>
+	// strtr() makes a single pass, so administrator-supplied code that happens to
+	// contain something resembling a placeholder is left alone.
+	return strtr(
+		<<<'JS'
+(function () {
+	if (typeof window.jQuery === 'undefined') { return; }
+	jQuery(function () {
+__FBFW_MOBILE_GUARD__
+		var fbfwIsSingular = __FBFW_IS_SINGULAR__;
 
-</style>
-<script type="text/javascript">
-	(function () {
-		if (typeof window.jQuery === 'undefined') { return; }
-		jQuery(function () {
-<?php echo $mobile_guard; ?>
-			var fbfwIsSingular = <?php echo is_singular() ? 'true' : 'false'; ?>;
+		// Copy the title of every IMG tag onto its parent A so FancyBox can show it.
+		jQuery.fn.getTitle = function () {
+			__FBFW_TITLE_COPY__
 
-			// Copy the title of every IMG tag onto its parent A so FancyBox can show it.
-			jQuery.fn.getTitle = function () {
-				<?php echo mfbfw_title_copy_js( $s ); ?>
+			return this;
+		};
 
-				return this;
-			};
-
-			var fbfwOptions = <?php echo $options['json']; ?>;
-<?php echo $assignments; ?>
-			// A dialog needs an accessible name; FancyBox 3 ships role="dialog" with
-			// none, which fails WCAG 4.1.2 for screen reader users. See issue #104.
-			jQuery(document).on('onInit.fb', function (e, instance) {
-				if (instance && instance.$refs && instance.$refs.container) {
-					instance.$refs.container.attr({
-						'aria-modal': 'true',
-						'aria-label': <?php echo wp_json_encode( __( 'Image lightbox', 'fancybox-for-wordpress' ) ); ?>
-					});
-				}
-			});
-
-			function fbfwBind() {
-				var thumbnails = <?php echo mfbfw_thumbnail_selector_js( $s ); ?>;
-
-				// Anything that is not an image, video or PDF opens in an iframe.
-				var iframeLinks = jQuery('.fancyboxforwp').filter(function () {
-					return !/\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)?$/i.test(jQuery(this).attr('href'));
-				}).filter(function () {
-					return !/vimeo|youtube/i.test(jQuery(this).attr('href'));
+		var fbfwOptions = __FBFW_OPTIONS__;
+__FBFW_ASSIGNMENTS__
+		// A dialog needs an accessible name; FancyBox 3 ships role="dialog" with
+		// none, which fails WCAG 4.1.2 for screen reader users. See issue #104.
+		jQuery(document).on('onInit.fb', function (e, instance) {
+			if (instance && instance.$refs && instance.$refs.container) {
+				instance.$refs.container.attr({
+					'aria-modal': 'true',
+					'aria-label': __FBFW_ARIA_LABEL__
 				});
-				iframeLinks.attr({"data-type": "iframe"}).getTitle();
-
-<?php echo mfbfw_gallery_js( $s ); ?>
-
-				// Re-applied rather than delegated: FancyBox's global [data-fancybox]
-				// handler would open new links with default options, ignoring every
-				// setting on this page.
-				jQuery("a.fancyboxforwp").fancyboxforwp(fbfwOptions);
 			}
+		});
 
-			fbfwBind();
+		function fbfwBind() {
+			var thumbnails = __FBFW_THUMBNAILS__;
 
-			/*
-			 * Infinite scroll, lazy loading and AJAX filters insert thumbnails after
-			 * this script has run, and those links were never bound. Re-scan when the
-			 * document gains nodes, skipping FancyBox's own DOM so opening the lightbox
-			 * cannot retrigger us. See issues #25 and #69.
-			 */
-			if (window.MutationObserver && document.body) {
-				var fbfwPending = null;
-				new MutationObserver(function (mutations) {
-					for (var i = 0; i < mutations.length; i++) {
-						var added = mutations[i].addedNodes;
-						for (var j = 0; j < added.length; j++) {
-							var n = added[j];
-							if (n.nodeType !== 1) { continue; }
-							if (n.closest && n.closest('.fancybox-container')) { continue; }
-							var isLink = n.tagName === 'A' && n.querySelector && n.querySelector('img');
-							var hasLink = n.querySelector && n.querySelector('a img');
-							if (isLink || hasLink) {
-								clearTimeout(fbfwPending);
-								fbfwPending = setTimeout(fbfwBind, 200);
-								return;
-							}
+			// Anything that is not an image, video or PDF opens in an iframe.
+			var iframeLinks = jQuery('.fancyboxforwp').filter(function () {
+				return !/\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)?$/i.test(jQuery(this).attr('href'));
+			}).filter(function () {
+				return !/vimeo|youtube/i.test(jQuery(this).attr('href'));
+			});
+			iframeLinks.attr({"data-type": "iframe"}).getTitle();
+
+__FBFW_GALLERY__
+
+			// Re-applied rather than delegated: FancyBox's global [data-fancybox]
+			// handler would open new links with default options, ignoring every
+			// setting on this page.
+			jQuery("a.fancyboxforwp").fancyboxforwp(fbfwOptions);
+		}
+
+		fbfwBind();
+
+		/*
+		 * Infinite scroll, lazy loading and AJAX filters insert thumbnails after
+		 * this script has run, and those links were never bound. Re-scan when the
+		 * document gains nodes, skipping FancyBox's own DOM so opening the lightbox
+		 * cannot retrigger us. See issues #25 and #69.
+		 */
+		if (window.MutationObserver && document.body) {
+			var fbfwPending = null;
+			new MutationObserver(function (mutations) {
+				for (var i = 0; i < mutations.length; i++) {
+					var added = mutations[i].addedNodes;
+					for (var j = 0; j < added.length; j++) {
+						var n = added[j];
+						if (n.nodeType !== 1) { continue; }
+						if (n.closest && n.closest('.fancybox-container')) { continue; }
+						var isLink = n.tagName === 'A' && n.querySelector && n.querySelector('img');
+						var hasLink = n.querySelector && n.querySelector('a img');
+						if (isLink || hasLink) {
+							clearTimeout(fbfwPending);
+							fbfwPending = setTimeout(fbfwBind, 200);
+							return;
 						}
 					}
-				}).observe(document.body, {childList: true, subtree: true});
-			}
-<?php echo $extra_calls; ?>
-		});
-	})();
-</script>
-<!-- END Fancybox for WordPress -->
-	<?php
-	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
-}
-
-// Check if inline script should be loaded in footer
-if ( mfbfw_is_on( 'loadAtFooter' ) ) {
-	add_action( 'wp_footer', 'mfbfw_init' );
-} else {
-	add_action( 'wp_head', 'mfbfw_init' );
+				}
+			}).observe(document.body, {childList: true, subtree: true});
+		}
+__FBFW_EXTRA_CALLS__
+	});
+})();
+JS,
+		array(
+			'__FBFW_MOBILE_GUARD__' => $mobile_guard,
+			'__FBFW_IS_SINGULAR__'  => is_singular() ? 'true' : 'false',
+			'__FBFW_TITLE_COPY__'   => mfbfw_title_copy_js( $s ),
+			'__FBFW_OPTIONS__'      => $options['json'],
+			'__FBFW_ASSIGNMENTS__'  => $assignments,
+			'__FBFW_ARIA_LABEL__'   => wp_json_encode( __( 'Image lightbox', 'fancybox-for-wordpress' ) ),
+			'__FBFW_THUMBNAILS__'   => mfbfw_thumbnail_selector_js( $s ),
+			'__FBFW_GALLERY__'      => mfbfw_gallery_js( $s ),
+			'__FBFW_EXTRA_CALLS__'  => $extra_calls,
+		)
+	);
 }
 
 /**
