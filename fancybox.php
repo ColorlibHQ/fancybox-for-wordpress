@@ -705,6 +705,12 @@ JS,
 /**
  * The selector that decides which links become lightbox links.
  *
+ * Smilies and emoji are the only images an anonymous commenter can place inside a
+ * link, and an avatar's link can be the commenter's own URL, so none of them may
+ * enrol a link. The query group is `?` rather than `*`: `[^/]*` already consumes any
+ * further question marks, and the starred form backtracked exponentially, letting a
+ * single crafted link freeze the browser of everyone who loaded the page.
+ *
  * @since 3.4.0
  *
  * @param array $s Normalized settings.
@@ -718,7 +724,7 @@ function mfbfw_thumbnail_selector_js( array $s ) {
 
 	return sprintf(
 		'jQuery("a:has(img)").not(".nolightbox").not(".envira-gallery-link").not(".ngg-simplelightbox").filter(function () {'
-		. ' return /\.(%s)(\?[^/]*)*$/i.test(jQuery(this).attr("href")); })',
+		. ' return jQuery(this).find("img").not(".wp-smiley,.emoji,.avatar").length > 0 && /\.(%s)(\?[^/]*)?$/i.test(jQuery(this).attr("href")); })',
 		$extensions
 	);
 }
@@ -975,7 +981,7 @@ function mfbfw_init() {
 
 				// Anything that is not an image, video or PDF opens in an iframe.
 				var iframeLinks = jQuery('.fancyboxforwp').filter(function () {
-					return !/\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)*$/i.test(jQuery(this).attr('href'));
+					return !/\.(jpe?g|png|gif|mp4|webp|bmp|pdf)(\?[^/]*)?$/i.test(jQuery(this).attr('href'));
 				}).filter(function () {
 					return !/vimeo|youtube/i.test(jQuery(this).attr('href'));
 				});
