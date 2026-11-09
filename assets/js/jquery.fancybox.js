@@ -31,6 +31,103 @@
     return;
   }
 
+  // Security helpers (WordPress plugin addition, not part of upstream fancyBox)
+  // ==========================================================================
+  //
+  // Links can be written by people who are not trusted to run scripts: comment
+  // authors control `href`, and post authors also control `data-*` attributes.
+  // Anything read from an element is treated as untrusted. Options passed to the
+  // JavaScript API come from the site's own code and are left alone.
+
+  // The only options an element may set, and the value types each one accepts.
+  // Everything else is dropped, notably templates (`baseTpl`, `errorTpl`, `btnTpl`,
+  // `video.tpl`, `iframe.attr`, ...), `parentEl` and `media`, all of which can
+  // carry markup straight into the page.
+  var elementOptionTypes = {
+    type: "string",
+    src: "string",
+    caption: "string number",
+    thumb: "string",
+    srcset: "string",
+    sizes: "string",
+    videoFormat: "string",
+    width: "string number",
+    height: "string number",
+    arrows: "boolean",
+    autoFocus: "boolean",
+    backFocus: "boolean",
+    fullScreen: "boolean",
+    hash: "boolean",
+    infobar: "boolean",
+    keyboard: "boolean",
+    loop: "boolean",
+    modal: "boolean",
+    preventCaptionOverlap: "boolean",
+    protect: "boolean",
+    slideShow: "boolean",
+    smallBtn: "boolean",
+    thumbs: "boolean",
+    toolbar: "boolean",
+    touch: "boolean",
+    trapFocus: "boolean",
+    wheel: "boolean"
+  };
+
+  function pickElementOptions(data) {
+    var picked = {};
+
+    $.each(elementOptionTypes, function (key, types) {
+      if (data[key] !== undefined && $.inArray($.type(data[key]), types.split(" ")) > -1) {
+        picked[key] = data[key];
+      }
+    });
+
+    return picked;
+  }
+
+  // Let the browser parse the URL, so it sees the scheme exactly as navigation
+  // would, including tricks such as embedded tabs or leading whitespace.
+  function isSafeUrl(url) {
+    var link = document.createElement("a");
+
+    link.href = url;
+
+    return /^https?:$/i.test(link.protocol) || /^data:image\/(png|jpe?g|gif|webp|bmp|avif)[;,]/i.test(link.href);
+  }
+
+  function escapeAttr(value) {
+    return String(value).replace(/[&<>"']/g, function (chr) {
+      return "&#" + chr.charCodeAt(0) + ";";
+    });
+  }
+
+  // Markup taken from a link may do no more than the post it sits in. DOMPurify's
+  // "html" profile also keeps <style>, form controls and style attributes, which
+  // would let that markup restyle the whole page or collect a saved password.
+  var elementHtmlRules = {
+    ALLOWED_TAGS: [
+      "a", "abbr", "b", "blockquote", "br", "caption", "cite", "code", "col", "colgroup", "dd", "del", "details",
+      "dfn", "div", "dl", "dt", "em", "figcaption", "figure", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "i", "img",
+      "ins", "kbd", "li", "mark", "ol", "p", "pre", "q", "s", "samp", "section", "small", "span", "strong", "sub",
+      "summary", "sup", "table", "tbody", "td", "tfoot", "th", "thead", "time", "tr", "u", "ul", "var"
+    ],
+    ALLOWED_ATTR: [
+      "alt", "cite", "class", "colspan", "datetime", "dir", "height", "href", "lang", "loading", "rel", "rowspan",
+      "sizes", "src", "srcset", "title", "width"
+    ],
+    ALLOW_DATA_ATTR: false
+  };
+
+  function sanitizeHtml(html) {
+    if (typeof DOMPurify === "function") {
+      return DOMPurify.sanitize(html, elementHtmlRules);
+    }
+
+    return $("<div>")
+      .text(html)
+      .html();
+  }
+
   // Private default settings
   // ========================
 
@@ -675,11 +772,12 @@
 
           // Support attributes like `data-options='{"touch" : false}'` and `data-touch='false'`
           opts = $item.data() || {};
-          opts = $.extend(true, {}, opts, opts.options);
+          opts = $.extend(pickElementOptions(opts), pickElementOptions(opts.options || {}));
 
           // Here we store clicked element
           opts.$orig = $item;
 
+          obj.untrusted = true;
           obj.src = self.opts.src || opts.src || $item.attr("href");
 
           // Assume that simple syntax is used, for example:
@@ -687,6 +785,10 @@
           if (!obj.type && !obj.src) {
             obj.type = "inline";
             obj.src = item;
+          } else if ($.type(obj.src) === "string" && opts.type !== "html" && opts.type !== "inline" && obj.src.charAt(0) !== "#" && !isSafeUrl(obj.src)) {
+            // `javascript:` and friends. An unknown type renders the error slide.
+            obj.type = "blocked";
+            obj.src = "";
           }
         } else {
           // Assume we have a simple html code, for example:
@@ -1679,7 +1781,8 @@
       var self = this,
         type,
         $slide,
-        ajaxLoad;
+        ajaxLoad,
+        inlineContent;
 
       if (slide.isLoading || slide.isLoaded) {
         return;
@@ -1714,24 +1817,35 @@
           break;
 
         case "html":
-          self.setContent(slide, slide.src || slide.content);
+          self.setContent(slide, slide.untrusted ? sanitizeHtml(slide.src) : slide.src || slide.content);
 
           break;
 
         case "video":
           self.setContent(
             slide,
+            // The values are entity-decoded by the time they get here, and the template
+            // puts them inside quoted attributes. Replacer functions matter as well: in
+            // a replacement string, sequences such as $` would splice in template text.
             slide.opts.video.tpl
-            .replace(/\{\{src\}\}/gi, slide.src)
-            .replace("{{format}}", slide.opts.videoFormat || slide.opts.video.format || "")
-            .replace("{{poster}}", slide.thumb || "")
+            .replace(/\{\{src\}\}/gi, function () {
+              return escapeAttr(slide.src);
+            })
+            .replace("{{format}}", function () {
+              return escapeAttr(slide.opts.videoFormat || slide.opts.video.format || "");
+            })
+            .replace("{{poster}}", function () {
+              return escapeAttr(slide.thumb || "");
+            })
           );
 
           break;
 
         case "inline":
-          if ($(slide.src).length) {
-            self.setContent(slide, $(slide.src));
+          inlineContent = self.getInlineContent(slide);
+
+          if (inlineContent.length) {
+            self.setContent(slide, inlineContent);
           } else {
             self.setError(slide);
           }
@@ -1742,11 +1856,14 @@
           self.showLoading(slide);
 
           ajaxLoad = $.ajax(
-            $.extend({}, slide.opts.ajax.settings, {
+            $.extend({}, slide.opts.ajax.settings, slide.untrusted ? {
+              // Otherwise jQuery runs the response if it is served as JavaScript
+              dataType: "html"
+            } : {}, {
               url: slide.src,
               success: function (data, textStatus) {
                 if (textStatus === "success") {
-                  self.setContent(slide, data);
+                  self.setContent(slide, slide.untrusted ? sanitizeHtml(data) : data);
                 }
               },
               error: function (jqXHR, textStatus) {
@@ -1770,6 +1887,21 @@
       }
 
       return true;
+    },
+
+    // Resolve the target of an inline slide. `$(string)` would build and run any
+    // markup it is handed, so a target taken from an element may only be a selector.
+
+    getInlineContent: function (slide) {
+      if (!slide.untrusted || $.type(slide.src) !== "string") {
+        return $(slide.src);
+      }
+
+      try {
+        return $(document).find(slide.src);
+      } catch (e) {
+        return $();
+      }
     },
 
     // Use thumbnail image, if possible
@@ -2991,7 +3123,7 @@
           .show()
           .end()
           .find("[data-fancybox-download]")
-          .attr("href", current.opts.image.src || current.src)
+          .attr("href", !current.untrusted || isSafeUrl(current.opts.image.src || current.src) ? current.opts.image.src || current.src : "javascript:;")
           .show();
       } else if (current.opts.toolbar) {
         $container.find("[data-fancybox-download],[data-fancybox-zoom]").hide();
@@ -5126,7 +5258,8 @@
       var self = this,
         instance = self.instance,
         parentEl = self.opts.parentEl,
-        list = [],
+        list = document.createDocumentFragment(),
+        link,
         src;
 
       if (!self.$grid) {
@@ -5156,16 +5289,27 @@
           src = item.src;
         }
 
-        list.push(
-          '<a href="javascript:;" tabindex="0" data-index="' +
-          i +
-          '"' +
-          (src && src.length ? ' style="background-image:url(' + src + ')"' : 'class="fancybox-thumbs-missing"') +
-          "></a>"
-        );
+        // Built through the DOM: the source can come from a link's attributes
+        link = document.createElement("a");
+        link.setAttribute("href", "javascript:;");
+        link.setAttribute("tabindex", "0");
+        link.setAttribute("data-index", i);
+
+        if (src && src.length) {
+          link.style.backgroundImage =
+            'url("' +
+            String(src).replace(/["\\\n\r\f]/g, function (chr) {
+              return "\\" + chr.charCodeAt(0).toString(16) + " ";
+            }) +
+            '")';
+        } else {
+          link.className = "fancybox-thumbs-missing";
+        }
+
+        list.appendChild(link);
       });
 
-      self.$list[0].innerHTML = list.join("");
+      self.$list.empty().append(list);
 
       if (self.opts.axis === "x") {
         // Set fixed width for list element to enable horizontal scrolling
