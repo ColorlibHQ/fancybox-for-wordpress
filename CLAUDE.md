@@ -42,7 +42,7 @@ ln -s "/Users/silkalns/Fresh Projects/fancybox-for-wordpress" \
       "/Users/silkalns/Local Sites/local-wp/app/public/wp-content/plugins/fancybox-for-wordpress"
 ```
 
-That site has the official `plugin-check` plugin installed — run it before shipping.
+Run the official `plugin-check` plugin against `build/fancybox-for-wordpress` before shipping.
 
 Settings live at **Settings → Fancybox for WP** (`options-general.php?page=fancybox-for-wordpress`).
 
@@ -83,11 +83,12 @@ Legacy FancyBox 1.x keys (`borderRadius`, `shadowSize`, `easing`, …) are marke
 
 ### The front end: PHP settings → inline CSS + JS
 
-`mfbfw_init()` prints an inline `<style>` and `<script>` into `wp_head` (or `wp_footer` when `loadAtFooter` is set). It delegates generation to focused helpers, and this is where nearly every front-end bug lives:
+`mfbfw_enqueue_scripts()` attaches an inline stylesheet and script to the `fancybox-for-wp` handles with `wp_add_inline_style()` / `wp_add_inline_script()`, so they always follow the library. Never echo `<script>` or `<style>` directly: WordPress.org review rejects it. Generation is delegated to focused helpers, and this is where nearly every front-end bug lives:
 
 | Helper | Produces |
 | --- | --- |
 | `mfbfw_build_css()` | the inline stylesheet |
+| `mfbfw_build_inline_js()` | the inline script, assembled from the helpers below |
 | `mfbfw_build_options()` | the fancyBox option object — scalars as JSON, functions as raw JS |
 | `mfbfw_thumbnail_selector_js()` | which `<a>` elements become lightbox links |
 | `mfbfw_gallery_js()` | the 5-way `galleryType` branch that assigns `data-fancybox` groups |
@@ -101,7 +102,9 @@ Scalar options are `wp_json_encode()`d rather than interpolated by hand; functio
 
 [assets/js/jquery.fancybox.js](assets/js/jquery.fancybox.js) is fancyBox **v3.5.7** with the jQuery plugin name rewritten from `fancybox` to **`fancyboxforwp`** throughout (~94 sites) so it cannot collide with a theme's or another plugin's bundled copy. CSS class names are *not* renamed — they keep the upstream `fancybox-` prefix.
 
-**Upgrading the library means re-applying that rename**, then regenerating `jquery.fancybox.min.js`.
+**Upgrading the library means re-applying that rename and the security patches below**, then regenerating `jquery.fancybox.min.js`.
+
+The file also carries security changes that upstream does not have (CVE-2026-96571, 3.4.3). Anything read from a link is untrusted, because comment authors control `href` and post authors control `data-*`. `pickElementOptions()` allow-lists per-link options, `isSafeUrl()` refuses unsafe schemes, `sanitizeHtml()` applies the `elementHtmlRules` allow-list to captions and HTML or Ajax slides, `getInlineContent()` never parses HTML, `isForeignFrame()` stops a URL hash auto-opening another site's page, video template values are escaped, and thumbnails are built through the DOM. Do not add a template, `parentEl` or `media`-style option to `elementOptionTypes`.
 
 ### Assets
 
@@ -126,7 +129,7 @@ grep -o "fancybox-content" assets/css/fancybox.css | wc -l   # must equal the .m
 
 `mfbfw_admin_menu()` requires [admin.php](admin.php), which renders a jQuery UI Tabs container and requires six partials from [lib/](lib/).
 
-[lib/admin-head.php](lib/admin-head.php) runs first and defines **ambient variables the partials depend on** — `$settings` (from `mfbfw_get_settings()`), plus `$transitionTypeArray`, `$overlayArray`, `$msArray`, `$slideEffectArray`. Partials are not self-contained.
+[lib/admin-head.php](lib/admin-head.php) runs first and defines **ambient variables the partials depend on** — `$mfbfw_settings` (from `mfbfw_get_settings()`), plus `$mfbfw_transition_types`, `$mfbfw_overlay_opacities`, `$mfbfw_durations`, `$mfbfw_slide_effects`. Partials are not self-contained.
 
 Field markup follows a consistent pattern — an `.epsilon-toggle` block for booleans, `<select>` driven by one of the head arrays for enumerations, `.color-btn` for `wpColorPicker`, `.slider-horizontal` for jQuery UI sliders, `.start-editing` + `<textarea>` for CodeMirror fields. Copy an existing row rather than inventing new markup. Textareas use `esc_textarea()`.
 
@@ -136,15 +139,15 @@ Field markup follows a consistent pattern — an `.epsilon-toggle` block for boo
 
 Releases 3.3.4 – 3.4.0 were dominated by security fixes. The risky code is structural:
 
-- **Caption/title XSS.** DOMPurify (currently **3.4.13**, bundled) is a hard dependency of the `fancybox-for-wp` script handle. The generated `caption`, `afterLoad` and `copyTitleFunction` JS all route user HTML through `DOMPurify.sanitize(..., {USE_PROFILES: {html: true}})`, falling back to `jQuery("<div>").text(x).html()`. **Never remove either path.** Keep DOMPurify current — 3.1.6 shipped for a year while vulnerable to CVE-2025-26791.
+- **Caption/title XSS.** DOMPurify (currently **3.4.17**, bundled) is a hard dependency of the `fancybox-for-wp` script handle. The generated `caption`, `afterLoad` and title-copy JS all route user HTML through `jQuery.fancyboxforwp.sanitize()`, which applies the `elementHtmlRules` allow-list and falls back to `jQuery("<div>").text(x).html()`. Do not go back to DOMPurify's plain `html` profile: it keeps `<style>`, form controls and `style=`, which a Contributor can reach through `data-caption`. **Never remove either path.** Keep DOMPurify current — 3.1.6 shipped for a year while vulnerable to CVE-2025-26791.
 - **Generated CSS is not escapable by `esc_html()`.** It only blocks `<`; a colour value can still close its declaration block. This is why colours go through `mfbfw_sanitize_hex_color()` and sizes through the `int` schema type. Never interpolate an unvalidated value into `mfbfw_build_css()`.
-- **Intentional raw-JS injection.** `customExpression`, `extraCallsData` and the five `callbackOn*` settings are echoed through `html_entity_decode()` unescaped. Deliberate feature, gated on `manage_options` and `wp_strip_all_tags()` at save. Don't "fix" it by escaping — that breaks the feature — but don't widen it either.
+- **Intentional raw-JS injection.** `customExpression`, `extraCallsData` and the five `callbackOn*` settings are echoed through `html_entity_decode()` unescaped. Deliberate feature, gated at save on `unfiltered_html` (`mfbfw_can_edit_scripts()`, because a multisite site administrator holds `manage_options`) and `wp_strip_all_tags()`. Don't "fix" it by escaping — that breaks the feature — but don't widen it either.
 - Every PHP file starts with `defined( 'ABSPATH' ) || exit;`. Keep that on new files.
 - No external asset hosts. WordPress.org forbids CDN-loaded resources; the jQuery UI stylesheet is bundled at `assets/css/jquery-ui.css`. Its `url(img/…)` theme-image references were stripped — those files were never in the repo and only resolved on the CDN. If you re-import that stylesheet from upstream, strip them again or the settings screen 404s.
 
 ### Known, deliberately unfixed
 
-`plugin-check` still reports ~22 warnings, all benign: `NonPrefixedVariableFound` (the ambient `$settings`/`$msArray` the admin partials rely on), `trademarked_term` ("WordPress" in the grandfathered plugin name), `NonPrefixedFunctionFound` (the deliberate `hexTorgba()` BC shim), `load_plugin_textdomain` (required — see below), and two dev-file warnings that `.distignore` keeps out of the package. **Zero ERROR-level findings.**
+`plugin-check` 2.2.0 reports three warnings, all `trademarked_term` ("WordPress" in the grandfathered plugin name and slug), and **zero errors**. `hexTorgba()` is a deliberate BC shim, and `load_plugin_textdomain()` carries a `phpcs:ignore` because it is required (see Localization).
 
 ## Compatibility branches to preserve
 

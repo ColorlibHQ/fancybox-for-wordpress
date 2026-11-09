@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: FancyBox for WordPress 3.4.0\n"
+"Project-Id-Version: FancyBox for WordPress 3.4.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fancybox-for-wordpress/\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-06T12:01:41+00:00\n"
+"POT-Creation-Date: 2026-11-09T10:48:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: fancybox-for-wordpress\n"
@@ -53,40 +53,44 @@ msgstr ""
 msgid "Seamlessly integrates FancyBox into your blog: Upload, activate, and you're done. Additional configuration optional."
 msgstr ""
 
-#: admin.php:45
-msgid "Appearance"
-msgstr ""
-
-#: admin.php:46
-msgid "Animations"
-msgstr ""
-
-#: admin.php:47
-msgid "Behaviour"
-msgstr ""
-
-#: admin.php:48
-msgid "Galleries"
+#: admin.php:44
+msgid "The custom JavaScript fields are read-only because your account is not allowed to publish unfiltered HTML."
 msgstr ""
 
 #: admin.php:49
-msgid "Misc."
+msgid "Appearance"
 msgstr ""
 
 #: admin.php:50
+msgid "Animations"
+msgstr ""
+
+#: admin.php:51
+msgid "Behaviour"
+msgstr ""
+
+#: admin.php:52
+msgid "Galleries"
+msgstr ""
+
+#: admin.php:53
+msgid "Misc."
+msgstr ""
+
+#: admin.php:54
 msgid "Support"
 msgstr ""
 
-#: admin.php:81
+#: admin.php:85
 msgid "Save Changes"
 msgstr ""
 
-#: admin.php:90
+#: admin.php:94
 msgid "Revert to defaults"
 msgstr ""
 
 #. translators: %s: Colorlib link.
-#: admin.php:100
+#: admin.php:104
 #, php-format
 msgid "Plugin developed and supported by %s"
 msgstr ""
@@ -107,23 +111,27 @@ msgstr ""
 msgid "Don't show again"
 msgstr ""
 
-#: fancybox.php:994
+#: fancybox.php:1039
+msgid "Image lightbox"
+msgstr ""
+
+#: fancybox.php:1072
 msgid "You do not have permission to change these settings."
 msgstr ""
 
-#: fancybox.php:1025
+#: fancybox.php:1103
 msgid "Fancybox for WordPress Options"
 msgstr ""
 
-#: fancybox.php:1026
+#: fancybox.php:1104
 msgid "Fancybox for WP"
 msgstr ""
 
-#: fancybox.php:1061
+#: fancybox.php:1139
 msgid "Are you sure you want to restore FancyBox for WordPress to default settings?"
 msgstr ""
 
-#: fancybox.php:1075
+#: fancybox.php:1154
 msgid "Settings"
 msgstr ""
 
