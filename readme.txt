@@ -2,7 +2,7 @@
 Contributors: silkalns
 Tags: fancybox, lightbox, images, photos, pictures
 Requires at least: 5.6
-Tested up to: 7.1
+Tested up to: 7.2
 Requires PHP: 7.4
 Stable tag: 3.4.3
 License: GPLv3 or later
